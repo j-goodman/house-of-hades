@@ -34,7 +34,7 @@ var allMonsterTypes = [
         attack: [0,3,1,0,3,0],
         defense: [6,5,2,0,12,3],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'It\'s a walking corpse animated by unknown means. Worms and maggots wriggle through its partly-eaten skin. Weakest to crushing and burning attacks.',
     }),
     new MonsterType ({
@@ -167,11 +167,11 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'cruel phantom',
-        attack: [0,0,0,0,0,4,],
+        attack: [0,0,0,0,0,3,],
         defense: [12,12,12,12,12,0,],
         hitpoints: 20,
         level: 3,
-        info: 'The mansion\'s cruel phantoms are the spirits of people who died painful deaths within the walls. They\'re immune to all physical attacks, and determined to give their agony forward to the still living.',
+        info: 'The mansion\'s cruel phantoms are the spirits of people who died painful deaths within the walls. They\'re immune to all physical attacks, and determined to return their agony to the still living.',
     }),
     new MonsterType ({
         name: 'wendigo',
@@ -179,7 +179,7 @@ var allMonsterTypes = [
         defense: [10,10,10,0,0,0,],
         hitpoints: 20,
         level: 3,
-        info: 'A savagely deadly creature of the boreal forests, the tortured body of a one who was forced to eat their own kind to survive, and now must continue or die. Its body is numb to pain and can weather most physical attacks.',
+        info: 'A savagely deadly creature of the boreal forests, the tortured body of one who was forced to eat their own kind to survive, and now must continue or die. Its body is numb to pain and can weather most physical attacks.',
     }),
     new MonsterType ({
         name: 'rabid wizard',

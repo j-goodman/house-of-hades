@@ -134,7 +134,7 @@ var allItemTypes = [
         [0,0,0,0,0,12],
         1,
         'The mask\'s mouth bites into its own upper lip and then it eats itself while still laughing like a drunk.',
-        'A powerful cursed object that won\'t stop chuckling about something.'
+        'A powerful cursed object that\'s struggling to keep back a high-pitched squealing laugh.'
     ),
     new ItemType (
         'thompson gun', 'weapon',

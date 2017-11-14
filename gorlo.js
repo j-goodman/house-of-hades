@@ -15,7 +15,7 @@ var Gorlo = function () {
 };
 
 Gorlo.prototype.welcome = function () {
-    console.log('You find yourself in a ' + this.room.type + ' within a sprawling manse. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
+    console.log('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
@@ -241,15 +241,19 @@ Gorlo.prototype.showStats = function () {
 };
 
 Gorlo.prototype.info = function () {
-    var mon = this.room.monsters[0];
-    var item = this.room.items[0];
-    if (mon) {
+  var bonusString;
+    var item;
+    var mon;
+    var i; var j;
+    for (i=0 ; i<this.room.monsters.length ; i++) {
+      mon = this.room.monsters[i];
       console.log(mon.info);
       console.log('The ' + mon.name + ' has ' + mon.hitpoints + ' hitpoints left.');
       console.log(mon.name + '\'s attack: ' + this.statObjString(mon.attack));
       console.log(mon.name + '\'s defense: ' + this.statObjString(mon.defense));
     }
-    if (item) {
+    for (i=0 ; i<this.room.items.length ; i++) {
+      item = this.room.items[i];
       console.log(item.info);
     }
     if (!item && !mon) {

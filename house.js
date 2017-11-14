@@ -54,15 +54,15 @@ var hour = 0;
 var House = function (player) {
     var spawnRoom;
 
+
     this.rooms = [];
 
-    spawnRoom = new Room ();
-    spawnRoom.monsters = [];
+    spawnRoom = houseBuilder.buildSpawn();
     this.rooms.push(spawnRoom);
     player.room = spawnRoom;
 };
 
-var Room = function (doors) {
+var Room = function (doors, doorCount) {
     this.type = pick(roomTypes);
     this.doors = doors ? doors : [];
     this.id = nextRoomId;
@@ -72,29 +72,31 @@ var Room = function (doors) {
     nextRoomId += 1;
     var i;
     var door;
-    var doorCount;
     var usedColors = [];
     if (doors) {
         doors.map(function (door) {
             usedColors.push(door.color);
         });
     }
-    var mainMonsterPool = hour > 11 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
+    var mainMonsterPool = hour > 7 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 2;
     });
-    if (oneIn(2)) {
+    var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
+      return monsterType.level <= 1;
+    });
+    if (oneIn(1.5)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
     }
     if (oneIn(7)) {
-        this.monsters.push(new Monster (this, pick(allMonsterTypes)));
+        this.monsters.push(new Monster (this, pick(secondMonsterPool)));
     }
     if (oneIn(8)) {
-        this.monsters.push(new Monster (this, pick(allMonsterTypes)));
+        this.monsters.push(new Monster (this, pick(secondMonsterPool)));
     }
-    if (oneIn(3)) {
+    if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes)));
     }
-    doorCount = Math.ceil(Math.random() * (1.5));
+    doorCount = doorCount ? doorCount : Math.ceil(Math.random() * (1.3));
     for (i=0 ; i<doorCount ; i++) {
         door = new Door (pickUnique(doorColors, usedColors), this, null);
         door.locked = true;
@@ -132,20 +134,24 @@ Door.prototype.go = function (player) {
         console.log('DOOR ERROR');
         console.log(this, player);
     }
-    if (hour > 12 && laterDoorColors[0] && laterRoomTypes[0]) {
-        doorColors = doorColors.concat(laterDoorColors[0]);
-        roomTypes = roomTypes.concat(laterRoomTypes[0]);
-        laterDoorColors[0] = false; laterRoomTypes[0] = false;
-    }
-    if (hour > 24 && laterDoorColors[1] && laterRoomTypes[1]) {
-        doorColors = doorColors.concat(laterDoorColors[1]);
-        roomTypes = roomTypes.concat(laterRoomTypes[1]);
-        laterDoorColors[1] = false; laterRoomTypes[1] = false;
-    }
-    if (hour > 36 && laterDoorColors[2] && laterRoomTypes[2]) {
-        doorColors = doorColors.concat(laterDoorColors[2]);
-        roomTypes = roomTypes.concat(laterRoomTypes[2]);
-        laterDoorColors[2] = false; laterRoomTypes[2] = false;
-    }
+    this.advanceRoomAndDoorTypes();
     player.lookAround();
+};
+
+Door.prototype.advanceRoomAndDoorTypes = function () {
+  if (hour > 18 && laterDoorColors[0] && laterRoomTypes[0]) {
+      doorColors = doorColors.concat(laterDoorColors[0]);
+      roomTypes = roomTypes.concat(laterRoomTypes[0]);
+      laterDoorColors[0] = false; laterRoomTypes[0] = false;
+  }
+  if (hour > 36 && laterDoorColors[1] && laterRoomTypes[1]) {
+      doorColors = doorColors.concat(laterDoorColors[1]);
+      roomTypes = roomTypes.concat(laterRoomTypes[1]);
+      laterDoorColors[1] = false; laterRoomTypes[1] = false;
+  }
+  if (hour > 50 && laterDoorColors[2] && laterRoomTypes[2]) {
+      doorColors = doorColors.concat(laterDoorColors[2]);
+      roomTypes = roomTypes.concat(laterRoomTypes[2]);
+      laterDoorColors[2] = false; laterRoomTypes[2] = false;
+  }
 };
