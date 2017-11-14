@@ -1,6 +1,5 @@
 var Gorlo = function () {
     this.room = null;
-    this.inventory = [];
     this.stats = {
         // pierce, slash, crush, burn, poison, curse
         attack: [5,6,3,0,0,0],
@@ -11,15 +10,15 @@ var Gorlo = function () {
         maxHitpoints: 20,
     };
     this.weapon = null;
+    this.shield = null;
     this.alive = true;
 };
 
 Gorlo.prototype.welcome = function () {
-    console.log('You find yourself in a ' + this.room.type + ' within a sprawling manse. There\'s nobody else in the room but you.');// Seek the throne room and kill the Wendigo King.');
+    console.log('You find yourself in a ' + this.room.type + ' within a sprawling manse. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
-    this.inventory.concat(['wrench']);
 };
 
 Gorlo.prototype.lookAround = function () {
@@ -66,6 +65,18 @@ Gorlo.prototype.get = function (targetName) {
         console.log('You drop your ' + oldItem.name + '.');
         this.room.items.push(oldItem);
     }
+};
+
+Gorlo.prototype.drop = function (itemName) {
+  if (this.weapon && this.weapon.name == itemName) {
+    this.room.items.push(this.weapon);
+    console.log('You drop your ' + this.weapon.name + '.');
+    this.weapon = null;
+  } else if (this.weapon && this.shield.name == itemName) {
+    this.room.items.push(this.shield);
+    console.log('You drop your ' + this.shield.name + '.');
+    this.shield = null;
+  }
 };
 
 Gorlo.prototype.updateStats = function () {

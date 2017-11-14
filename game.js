@@ -6,6 +6,7 @@ game.player.welcome();
 var goTo = game.player.goTo.bind(game.player);
 var goto = game.player.goTo.bind(game.player);
 var get = game.player.get.bind(game.player);
+var drop = game.player.drop.bind(game.player);
 var fight = game.player.fight.bind(game.player);
 var heal = game.player.heal.bind(game.player);
 var check = game.player.lookAround.bind(game.player);

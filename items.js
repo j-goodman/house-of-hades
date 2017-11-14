@@ -198,19 +198,5 @@ var allItemTypes = [
         'Your life-giving herb rots away to nothing.',
         'A wizard used his magic to steal the life force from a child and store it in this herb. Wear it to increase your resistance to poison and physical damage.'
     ),
-    new ItemType (
-        'limeskin sandals', 'shield',
-        [0,0,4,4,0,0],
-        11,
-        'The soles of your limeskin sandles wear through and the straps break.',
-        'Those sandals turn the wearer\'s skin to hard limestone to protect from crushing and burning.'
-    ),
-    new ItemType (
-        'witch chalk', 'shield',
-        [6,1,4,0,2,6],
-        5,
-        'Your witch chalk dissolves into muddy silt.',
-        'A stick of cursed chalk that can be used to draw warding signs that protect from remote attack.'
-    ),
     // pierce, slash, crush, burn, poison, curse
 ];

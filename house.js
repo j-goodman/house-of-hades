@@ -22,10 +22,10 @@ var pickUnique = function (array, nonArray) {
         }
     }
 };
-var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'larder', 'courtyard'];
+var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard'];
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'dark brown', 'grey', 'brown', 'pale blue', 'gold', 'maroon'];
 var laterRoomTypes = [
-    ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor'],
+    ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'treasure chamber', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
     ['observatory', 'chapel', 'throne room'],
 ];
@@ -79,19 +79,22 @@ var Room = function (doors) {
             usedColors.push(door.color);
         });
     }
-    if (oneIn(1.5)) {
+    var mainMonsterPool = hour > 11 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
+      return monsterType.level <= 2;
+    });
+    if (oneIn(2)) {
+        this.monsters.push(new Monster (this, pick(mainMonsterPool)));
+    }
+    if (oneIn(7)) {
+        this.monsters.push(new Monster (this, pick(allMonsterTypes)));
+    }
+    if (oneIn(8)) {
         this.monsters.push(new Monster (this, pick(allMonsterTypes)));
     }
     if (oneIn(3)) {
-        this.monsters.push(new Monster (this, pick(allMonsterTypes)));
-    }
-    if (oneIn(4)) {
-        this.monsters.push(new Monster (this, pick(allMonsterTypes)));
-    }
-    if (oneIn(/*6*/2)) {
         this.items.push(new Item (pick(allItemTypes)));
     }
-    doorCount = Math.ceil(Math.random() * (2.1));
+    doorCount = Math.ceil(Math.random() * (1.5));
     for (i=0 ; i<doorCount ; i++) {
         door = new Door (pickUnique(doorColors, usedColors), this, null);
         door.locked = true;
