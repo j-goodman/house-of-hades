@@ -2,10 +2,10 @@ var Player = function () {
     this.room = null;
     this.stats = {
         // pierce, slash, crush, burn, poison, curse
-        attack: [5,6,3,0,0,0],
-        defense: [6,7,6,1,2,1],
-        baseAttack: [5,6,3,0,0,0],
-        baseDefense: [6,7,6,1,2,1],
+        attack: [1,2,6,0,0,0],
+        defense: [4,5,5,1,2,1],
+        baseAttack: [1,2,6,0,0,0],
+        baseDefense: [4,5,5,1,2,1],
         hitpoints: 20,
         maxHitpoints: 20,
     };
@@ -92,6 +92,7 @@ Player.prototype.updateStats = function () {
 Player.prototype.fight = function (enemyName) {
     var enemy;
     var i;
+    var shieldUse = 0;
     this.room.monsters.map(function (monster) {
         if (monster.name === enemyName) {
             enemy = monster;
@@ -101,6 +102,9 @@ Player.prototype.fight = function (enemyName) {
         enemy.hitpoints -= Math.ceil(this.stats.attack[i] * (12/12 - (enemy.defense[i] / 12)));
     }
     for (i=0 ; i<6 ; i++) {
+        if (enemy.attack[i] && this.shield && this.shield.bonus[i]) {
+            shieldUse += this.shield.bonus[i] / enemy.attack[i];
+        }
         this.stats.hitpoints -= Math.ceil(enemy.attack[i] * (12/12 - (this.stats.defense[i] / 12)));
     }
     console.log('Player:', this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints);
@@ -115,6 +119,14 @@ Player.prototype.fight = function (enemyName) {
         if (this.weapon.ammo <= 0) {
             console.log(this.weapon.spentMessage);
             this.weapon = null;
+            this.updateStats();
+        }
+    }
+    if (this.shield && this.shield.ammo) {
+        this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
+        if (this.shield.ammo <= 0) {
+            console.log(this.shield.spentMessage);
+            this.shield = null;
             this.updateStats();
         }
     }
