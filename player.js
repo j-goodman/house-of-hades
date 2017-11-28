@@ -1,4 +1,4 @@
-var Gorlo = function () {
+var Player = function () {
     this.room = null;
     this.stats = {
         // pierce, slash, crush, burn, poison, curse
@@ -14,21 +14,21 @@ var Gorlo = function () {
     this.alive = true;
 };
 
-Gorlo.prototype.welcome = function () {
+Player.prototype.welcome = function () {
     console.log('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
 };
 
-Gorlo.prototype.lookAround = function () {
+Player.prototype.lookAround = function () {
     console.log('You\'re in a ' + this.room.type + '.');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
 };
 
-Gorlo.prototype.goTo = function (doorString) {
+Player.prototype.goTo = function (doorString) {
     if (!this.alive) {
         console.log('You\'re dead.');
         return true;
@@ -42,7 +42,7 @@ Gorlo.prototype.goTo = function (doorString) {
     }.bind(this));
 };
 
-Gorlo.prototype.get = function (targetName) {
+Player.prototype.get = function (targetName) {
     var i; var j;
     var target;
     var oldItem;
@@ -67,7 +67,7 @@ Gorlo.prototype.get = function (targetName) {
     }
 };
 
-Gorlo.prototype.drop = function (itemName) {
+Player.prototype.drop = function (itemName) {
   if (this.weapon && this.weapon.name == itemName) {
     this.room.items.push(this.weapon);
     console.log('You drop your ' + this.weapon.name + '.');
@@ -79,7 +79,7 @@ Gorlo.prototype.drop = function (itemName) {
   }
 };
 
-Gorlo.prototype.updateStats = function () {
+Player.prototype.updateStats = function () {
     {
         for (i=0 ; i<6 ; i++) {
             this.stats.attack[i] = this.stats.baseAttack[i] + (this.weapon ? this.weapon.bonus[i] : 0);
@@ -89,7 +89,7 @@ Gorlo.prototype.updateStats = function () {
     }
 };
 
-Gorlo.prototype.fight = function (enemyName) {
+Player.prototype.fight = function (enemyName) {
     var enemy;
     var i;
     this.room.monsters.map(function (monster) {
@@ -120,12 +120,12 @@ Gorlo.prototype.fight = function (enemyName) {
     }
 };
 
-Gorlo.prototype.die = function () {
+Player.prototype.die = function () {
     console.log('You\'re dead.');
     this.alive = false;
 };
 
-Gorlo.prototype.heal = function () {
+Player.prototype.heal = function () {
     if (!this.room.monsters.length) {
         var diff;
         var gain;
@@ -150,7 +150,7 @@ Gorlo.prototype.heal = function () {
     }
 };
 
-Gorlo.prototype.describeDoors = function () {
+Player.prototype.describeDoors = function () {
     var i;
     var string;
     string = 'This room has ';
@@ -166,7 +166,7 @@ Gorlo.prototype.describeDoors = function () {
     console.log(string);
 };
 
-Gorlo.prototype.describeMonsters = function () {
+Player.prototype.describeMonsters = function () {
     if (!this.room.monsters.length) {
         return false;
     } else {
@@ -186,7 +186,7 @@ Gorlo.prototype.describeMonsters = function () {
     }
 };
 
-Gorlo.prototype.describeItems = function () {
+Player.prototype.describeItems = function () {
     if (!this.room.items.length) {
         return false;
     } else {
@@ -213,7 +213,7 @@ Gorlo.prototype.describeItems = function () {
     }
 };
 
-Gorlo.prototype.statObjString = function (stats, item) {
+Player.prototype.statObjString = function (stats, item) {
   if (item) {
     return (
     'pierce|' + (stats[0] - item.bonus[0]) + (item.bonus[0] ? ('+' + item.bonus[0]) : '') +
@@ -232,7 +232,7 @@ Gorlo.prototype.statObjString = function (stats, item) {
   }
 };
 
-Gorlo.prototype.showStats = function () {
+Player.prototype.showStats = function () {
     console.log('You have ' + this.stats.hitpoints + '/' + this.stats.maxHitpoints + ' hitpoints.');
 
     console.log('Your attack' + (this.weapon ? (' (with ' + this.weapon.name + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
@@ -240,7 +240,7 @@ Gorlo.prototype.showStats = function () {
     console.log('Your defense' + (this.shield ? (' (with ' + this.shield.name + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
 };
 
-Gorlo.prototype.info = function () {
+Player.prototype.info = function () {
   var bonusString;
     var item;
     var mon;
