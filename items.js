@@ -131,17 +131,24 @@ var allItemTypes = [
     ),
     new ItemType (
         'laughing mask', 'weapon',
-        [0,0,0,0,0,12],
+        [0,0,0,0,0,16],
         1,
         'The mask\'s mouth bites into its own upper lip and then it eats itself while still laughing like a drunk.',
         'A powerful cursed object that\'s struggling to keep back a high-pitched squealing laugh.'
     ),
     new ItemType (
         'thompson gun', 'weapon',
-        [7,0,0,2,0,0],
+        [8,0,0,2,0,0],
         3,
         'Your thompson gun is out of ammo.',
         'A mass-market submachine gun, favorite of rumrunners and colonial enforcers. It spends a lot of ammo at once, so you\'ll only get three bursts out of it.'
+    ),
+    new ItemType (
+        'chemical bombs', 'weapon',
+        [0,1,0,4,5,0],
+        3,
+        'You\'re out of chemical bombs.',
+        'Three bombs fueled with caustic chemicals as toxic as they are volatile.'
     ),
     // pierce, slash, crush, burn, poison, curse
 
@@ -158,7 +165,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'wand of oceans', 'shield',
-        [0,0,0,7,0,0],
+        [0,0,0,9,0,0],
         7,
         'The wand of oceans bursts into flames and turns to ash.',
         'The wand reacts to heat by spitting oceanwater. It\'ll be useful to defend against fire attacks.'
@@ -197,6 +204,20 @@ var allItemTypes = [
         7,
         'Your life-giving herb rots away to nothing.',
         'A wizard used his magic to steal the life force from a child and store it in this herb. Wear it to increase your resistance to poison and physical damage.'
+    ),
+    new ItemType (
+        'devil\'s gold', 'shield',
+        [5,4,0,7,0,0],
+        5,
+        'You\'re out of devil\'s gold.',
+        'Somebody won this gold from the devil. Use it to bribe fire and sharp objects out of harming you.'
+    ),
+    new ItemType (
+        'oak stick', 'shield',
+        [0,2,3,0,0,0],
+        20,
+        'Your oak stick splinters into three pieces.',
+        'A sturdy oak branch. Use it to block slashing and crushing attacks.'
     ),
     // pierce, slash, crush, burn, poison, curse
 ];

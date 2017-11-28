@@ -30,14 +30,6 @@ Monster.prototype.die = function () {
 // levels go from 1-3, most should be 3.
 var allMonsterTypes = [
     new MonsterType ({
-        name: 'zombie',
-        attack: [0,3,1,0,3,0],
-        defense: [6,5,2,0,12,3],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s a walking corpse animated by unknown means. Worms and maggots wriggle through its partly-eaten skin. Weakest to crushing and burning attacks.',
-    }),
-    new MonsterType ({
         name: 'dragon',
         attack: [0,6,6,12,0,1],
         defense: [12,10,9,12,3,12],
@@ -91,7 +83,7 @@ var allMonsterTypes = [
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
         level: 1,
-        info: 'Once a man, now consumed by a craving for dead flesh. No harder to kill than any other human.',
+        info: 'An emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
         name: 'bee person',
@@ -135,7 +127,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'rattlesnake',
-        attack: [1,0,0,0,3,0,],
+        attack: [1,0,0,0,2,0,],
         defense: [0,0,0,0,0,0,],
         hitpoints: 20,
         level: 1,
@@ -237,12 +229,37 @@ var allMonsterTypes = [
         level: 2,
         info: 'An unseeable stunted hairy creature that will attack and gnaw on random targets in public places, sometimes dismembering them with its razor claws. Burning and crushing attacks will be most likely to hit it.',
     }),
+    new MonsterType ({
+        name: 'headless knight',
+        attack: [3,9,1,0,0,1,],
+        defense: [11,3,3,0,0,0,],
+        hitpoints: 20,
+        level: 2,
+        info: 'The body of a crusading knight beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.',
+    }),
+    new MonsterType ({
+        name: 'mad gasser',
+        attack: [0,0,0,0,8,0,],
+        defense: [4,0,5,0,10,1,],
+        hitpoints: 20,
+        level: 3,
+        info: 'It\'s too cowardly to attack up close so it protects its face with a gas max and sprays toxic fumes at anything it sees breathing. It\'s vulnerable to slashing and fire.',
+    }),
+    new MonsterType ({
+        name: 'fanged ghost',
+        attack: [5,0,2,0,0,0,],
+        defense: [9,8,0,7,10,2,],
+        hitpoints: 20,
+        level: 1,
+        info: 'Only its teeth can still interact with the material plane.',
+    }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({
     //     name: 'template',
     //     attack: [0,0,0,0,0,0,],
     //     defense: [0,0,0,0,0,0,],
     //     hitpoints: 20,
+    //     level: 3,
     //     info: '',
     // }),
 ];

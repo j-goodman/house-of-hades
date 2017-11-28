@@ -1,5 +1,5 @@
 var game = {};
-game.player = new Gorlo ();
+game.player = new Player ();
 game.house = new House (game.player);
 game.player.welcome();
 
