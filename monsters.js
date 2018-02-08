@@ -21,6 +21,7 @@ var Monster = function (room, type) {
 Monster.prototype.die = function () {
     var i;
     console.log('It\'s dead.');
+    this.room.mana += 3;
     for (i=0 ; i<this.room.monsters.length ; i++) {
         if (this === this.room.monsters[i]) {
             this.room.monsters = this.room.monsters.slice(0,i).concat(this.room.monsters.slice(i+1,this.room.monsters.length));
@@ -110,14 +111,6 @@ var allMonsterTypes = [
         info: 'A massive grey dog with smoldering hellfire foaming out from between its jaws. Don\'t bother with crushing or burning attacks, and just be careful of its bite.',
     }),
     new MonsterType ({
-        name: 'demon bat',
-        attack: [2,0,0,0,2,0,],
-        defense: [2,0,0,5,2,0,],
-        hitpoints: 20,
-        level: 1,
-        info: 'It doesn\'t seem all that different from a regular bat.',
-    }),
-    new MonsterType ({
         name: 'witch',
         attack: [0,0,0,0,2,8,],
         defense: [3,3,3,0,12,12,],
@@ -131,7 +124,7 @@ var allMonsterTypes = [
         defense: [0,0,0,0,0,0,],
         hitpoints: 20,
         level: 1,
-        info: 'Careful! Those things are poisonous!',
+        info: 'It\'s poisonous!',
     }),
     new MonsterType ({
         name: 'angry triceratops',
@@ -179,7 +172,7 @@ var allMonsterTypes = [
         defense: [6,1,2,0,0,4,],
         hitpoints: 20,
         level: 3,
-        info: 'He looks like he\'s not used to being around other people. His eyes are constantly moving around the room and his beard is wild and matted. But his curses might still be deadly.',
+        info: 'He looks like he\'s not used to being around other people. His eyes are constantly moving around the room and his beard is wild and matted. His fingers and ears are crackling with hairswidth bolts of black lightning.',
     }),
     new MonsterType ({
         name: 'shrieking dog',
@@ -247,11 +240,51 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'fanged ghost',
-        attack: [5,0,2,0,0,0,],
+        attack: [3,0,2,0,0,0,],
         defense: [9,8,0,7,10,2,],
         hitpoints: 20,
         level: 1,
         info: 'Only its teeth can still interact with the material plane.',
+    }),
+    new MonsterType ({
+        name: 'weird oak',
+        attack: [2,0,5,0,0,0,],
+        defense: [10,1,4,0,12,8,],
+        hitpoints: 20,
+        level: 1,
+        info: 'A large oak tree whose roots are winding into and tearing up the room\'s floor. The knots on its trunk are twisted into a tortured grimace. Vulnerable to slashing and fire.',
+    }),
+    new MonsterType ({
+        name: 'rain ghost',
+        attack: [0,0,0,1,0,1,],
+        defense: [12,12,12,0,0,0,],
+        hitpoints: 20,
+        level: 1,
+        info: 'A once-powerful thunder god whose name hasn\'t been spoken in worship for centuries, now only an embittered cloud of static electricity. Can\'t be harmed with normal physical weapons.',
+    }),
+    new MonsterType ({
+        name: 'skullhead',
+        attack: [2,2,0,0,0,0,],
+        defense: [12,0,0,6,12,0,],
+        hitpoints: 20,
+        level: 1,
+        info: 'An energetically animated human skeleton, moving to attack with its bare hands.',
+    }),
+    new MonsterType ({
+        name: 'drowned whaler',
+        attack: [12,0,0,0,0,0,],
+        defense: [0,0,0,2,1,4,],
+        hitpoints: 20,
+        level: 2,
+        info: 'The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.',
+    }),
+    new MonsterType ({
+        name: 'mechanical bear',
+        attack: [0,4,5,0,0,0,],
+        defense: [4,2,2,0,7,0,],
+        hitpoints: 20,
+        level: 2,
+        info: 'A monstrous automaton the size and shape of a North American Grizzly Bear. It spits acrid black smoke from its mouth, nose, and eyes as it bears down on you.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

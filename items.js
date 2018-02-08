@@ -75,14 +75,14 @@ var allItemTypes = [
     ),
     new ItemType (
         'sacred tomohawk', 'weapon',
-        [0,4,0,1,0,6],
+        [0,5,0,1,0,7],
         5,
         'Your tomohawk explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
         'A obsidian tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
     ),
     new ItemType (
         'woodaxe', 'weapon',
-        [0,3,1,0,0,0],
+        [0,3,2,0,0,0],
         12,
         'Your woodaxe breaks in your hand.',
         'A old axe for splitting wood. Deals moderate slash damage.'
@@ -144,11 +144,25 @@ var allItemTypes = [
         'A mass-market submachine gun, favorite of rumrunners and colonial enforcers. It spends a lot of ammo at once, so you\'ll only get three bursts out of it.'
     ),
     new ItemType (
-        'chemical bombs', 'weapon',
+        'case of chemical bombs', 'weapon',
         [0,1,0,4,5,0],
         3,
         'You\'re out of chemical bombs.',
-        'Three bombs fueled with caustic chemicals as toxic as they are volatile.'
+        'Three bombs fueled with volatile caustic chemicals.'
+    ),
+    new ItemType (
+        'silver rifle', 'weapon',
+        [8,0,0,0,0,8],
+        3,
+        'Your rifle\'s out of silver bullets.',
+        'A chrome-painted rifle loaded with three silver bullets. Deals powerful pierce and curse damage.'
+    ),
+    new ItemType (
+        'executioner\'s sword', 'weapon',
+        [0,9,0,0,0,0],
+        9,
+        'Your sword breaks at the handle.',
+        'A massive stainless steel blade that deals powerful slashing damage.'
     ),
     // pierce, slash, crush, burn, poison, curse
 
@@ -172,8 +186,8 @@ var allItemTypes = [
     ),
     new ItemType (
         'antidote crown', 'shield',
-        [0,2,0,0,5,0],
-        11,
+        [0,2,0,0,8,0],
+        10,
         'The antidote crown breaks and falls from your head in pieces.',
         'Said to be the crown of the legendary Antidote Queen. Protects the wearer from poisons.'
     ),
@@ -206,7 +220,7 @@ var allItemTypes = [
         'A wizard used his magic to steal the life force from a child and store it in this herb. Wear it to increase your resistance to poison and physical damage.'
     ),
     new ItemType (
-        'devil\'s gold', 'shield',
+        'bag of devil\'s gold', 'shield',
         [5,4,0,7,0,0],
         5,
         'You\'re out of devil\'s gold.',
@@ -214,7 +228,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'oak stick', 'shield',
-        [0,2,3,0,0,0],
+        [0,7,3,0,0,0],
         20,
         'Your oak stick splinters into three pieces.',
         'A sturdy oak branch. Use it to block slashing and crushing attacks.'
