@@ -43,7 +43,7 @@ var allMonsterTypes = [
         attack: [3,1,0,0,4,0],
         defense: [2,1,3,2,7,0],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'It\'s a scorpion the size of a dog. Careful of that poison sting.',
     }),
     new MonsterType ({
@@ -83,7 +83,7 @@ var allMonsterTypes = [
         attack: [2,3,0,0,1,0,],
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'An emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
@@ -195,7 +195,7 @@ var allMonsterTypes = [
         attack: [0,0,1,0,1,2,],
         defense: [0,10,0,5,2,1,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'A pulsating blot of veiny scab-covered flesh with seven blinking eyes and a shapeless bleating mouth. It doesn\'t seem dangerous.',
     }),
     new MonsterType ({
@@ -203,7 +203,7 @@ var allMonsterTypes = [
         attack: [0,5,2,0,0,0,],
         defense: [2,9,4,2,2,7,],
         hitpoints: 20,
-        level: 2,
+        level: 1,
         info: 'A tall, thin snatcher of innocents in the night. Weakest to piercing and fire.',
     }),
     new MonsterType ({
@@ -243,7 +243,7 @@ var allMonsterTypes = [
         attack: [3,0,2,0,0,0,],
         defense: [9,8,0,7,10,2,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'Only its teeth can still interact with the material plane.',
     }),
     new MonsterType ({
@@ -259,7 +259,7 @@ var allMonsterTypes = [
         attack: [0,0,0,1,0,1,],
         defense: [12,12,12,0,0,0,],
         hitpoints: 20,
-        level: 1,
+        level: 3,
         info: 'A once-powerful thunder god whose name hasn\'t been spoken in worship for centuries, now only an embittered cloud of static electricity. Can\'t be harmed with normal physical weapons.',
     }),
     new MonsterType ({
