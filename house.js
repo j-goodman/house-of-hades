@@ -29,14 +29,14 @@ var allUnresolvedDoors = () => {
   });
 }
 var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard'];
-var doorColors = ['green', 'red', 'blue', 'black', 'white', 'dark brown', 'grey', 'brown', 'pale blue', 'gold', 'maroon'];
+var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon'];
 var laterRoomTypes = [
     ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'treasure chamber', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
     ['observatory', 'chapel', 'throne room'],
 ];
 var laterDoorColors = [
-    ['beechwood', 'filthy', 'mirrored', 'tar-smeared', 'charred', 'pink', 'pearl-colored', 'wet', 'purple', 'plywood', 'emerald', 'olive',],
+    ['beechwood', 'filthy', 'mirrored', 'tar-smeared', 'charred', 'pink', 'pearl-colored', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'dark brown', 'pale blue'],
     ['foul-smelling', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];
@@ -60,10 +60,12 @@ var hour = 0;
 var House = function (player) {
     var spawnRoom;
 
-
     this.rooms = [];
 
     spawnRoom = houseBuilder.buildSpawn();
+    
+    buildSegments(3, this.rooms);
+    
     this.rooms.push(spawnRoom);
     player.room = spawnRoom;
 };
