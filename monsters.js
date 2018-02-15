@@ -6,6 +6,8 @@ var MonsterType = function (ob) {
     this.hitpoints = ob.hitpoints;
     this.info = ob.info;
     this.level = ob.level;
+    this.onDeath = ob.onDeath;
+    this.deathEvent = ob.deathEvent;
 };
 
 var Monster = function (room, type) {
@@ -16,12 +18,17 @@ var Monster = function (room, type) {
     this.hitpoints = type.hitpoints;
     this.level = type.level;
     this.info = type.info;
+    this.onDeath = type.onDeath;
+    this.deathEvent = type.deathEvent;
 };
 
 Monster.prototype.die = function () {
     var i;
-    console.log('It\'s dead.');
-    this.room.mana += 3;
+    console.log(this.onDeath || 'It\'s dead.');
+    if (this.deathEvent) {
+      this.deathEvent();
+    }
+    this.room.mana += 4;
     for (i=0 ; i<this.room.monsters.length ; i++) {
         if (this === this.room.monsters[i]) {
             this.room.monsters = this.room.monsters.slice(0,i).concat(this.room.monsters.slice(i+1,this.room.monsters.length));
@@ -43,7 +50,7 @@ var allMonsterTypes = [
         attack: [3,1,0,0,4,0],
         defense: [2,1,3,2,7,0],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'It\'s a scorpion the size of a dog. Careful of that poison sting.',
     }),
     new MonsterType ({
@@ -56,11 +63,11 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'werewolf',
-        attack: [1,5,4,0,0,0,],
+        attack: [1,7,4,0,0,0,],
         defense: [3,4,4,2,1,3,],
         hitpoints: 20,
         level: 2,
-        info: 'It\'s a feral brute but it\'s as vulnerable to conventional attack as any other animal.',
+        info: 'A creature like a mangy flea-ridden wild dog reared to her hind legs with a look of ferocious hunger in her eyes.',
     }),
     new MonsterType ({
         name: 'violent blob',
@@ -83,15 +90,15 @@ var allMonsterTypes = [
         attack: [2,3,0,0,1,0,],
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
-        level: 1,
-        info: 'An emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
+        level: 2,
+        info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
         name: 'bee person',
         attack: [3,0,0,0,3,0,],
         defense: [6,3,0,0,1,0,],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'It\'s part bee but also part person.',
     }),
     new MonsterType ({
@@ -185,7 +192,7 @@ var allMonsterTypes = [
     new MonsterType ({
         name: 'arsonist ghost',
         attack: [0,0,0,6,0,1,],
-        defense: [8,7,3,0,5,5,],
+        defense: [8,7,5,0,5,5,],
         hitpoints: 20,
         level: 3,
         info: 'The ghost of a man convicted of setting fire to property public and private, recidivating after a lethal injection. He\'s most vulnerable to fire.',
@@ -195,7 +202,7 @@ var allMonsterTypes = [
         attack: [0,0,1,0,1,2,],
         defense: [0,10,0,5,2,1,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'A pulsating blot of veiny scab-covered flesh with seven blinking eyes and a shapeless bleating mouth. It doesn\'t seem dangerous.',
     }),
     new MonsterType ({
@@ -203,7 +210,7 @@ var allMonsterTypes = [
         attack: [0,5,2,0,0,0,],
         defense: [2,9,4,2,2,7,],
         hitpoints: 20,
-        level: 2,
+        level: 1,
         info: 'A tall, thin snatcher of innocents in the night. Weakest to piercing and fire.',
     }),
     new MonsterType ({
@@ -243,7 +250,7 @@ var allMonsterTypes = [
         attack: [3,0,2,0,0,0,],
         defense: [9,8,0,7,10,2,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'Only its teeth can still interact with the material plane.',
     }),
     new MonsterType ({
@@ -259,7 +266,7 @@ var allMonsterTypes = [
         attack: [0,0,0,1,0,1,],
         defense: [12,12,12,0,0,0,],
         hitpoints: 20,
-        level: 1,
+        level: 3,
         info: 'A once-powerful thunder god whose name hasn\'t been spoken in worship for centuries, now only an embittered cloud of static electricity. Can\'t be harmed with normal physical weapons.',
     }),
     new MonsterType ({
@@ -280,7 +287,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'mechanical bear',
-        attack: [0,4,5,0,0,0,],
+        attack: [0,4,7,0,0,0,],
         defense: [4,2,2,0,7,0,],
         hitpoints: 20,
         level: 2,

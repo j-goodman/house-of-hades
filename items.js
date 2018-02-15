@@ -193,45 +193,52 @@ var allItemTypes = [
     ),
     new ItemType (
         'canned ghost', 'shield',
-        [1,1,1,1,1,7],
+        [1,1,1,1,1,8],
         5,
         'Your canned ghost bursts free during the fight. He flies west to murder all his still-living descendants.',
         'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.'
     ),
     new ItemType (
-        'suit of bronze armor', 'shield',
-        [1,2,3,0,0,1],
-        9,
-        'Your armor cracks and breaks, falling apart.',
-        'A hoplite\'s armor, forged out of bronze. It\'s become decayed as if over millenia, but it could provide some defense against slashing and crushing.'
-    ),
-    new ItemType (
         'posessed bible', 'shield',
         [8,3,1,0,0,0],
-        3,
+        4,
         'The bible falls to the ground inert and stays still for ten full minutes then turns into a goldfish which dies.',
         'This posessed bible will dive in front of you to defend against piercing attacks.'
     ),
     new ItemType (
         'life-giving herb', 'shield',
         [1,3,3,0,4,0],
-        7,
+        9,
         'Your life-giving herb rots away to nothing.',
         'A wizard used his magic to steal the life force from a child and store it in this herb. Wear it to increase your resistance to poison and physical damage.'
     ),
     new ItemType (
         'bag of devil\'s gold', 'shield',
         [5,4,0,7,0,0],
-        5,
+        7,
         'You\'re out of devil\'s gold.',
         'Somebody won this gold from the devil. Use it to bribe fire and sharp objects out of harming you.'
     ),
     new ItemType (
         'oak stick', 'shield',
-        [0,7,3,0,0,0],
+        [0,4,3,0,0,0],
         20,
         'Your oak stick splinters into three pieces.',
         'A sturdy oak branch. Use it to block slashing and crushing attacks.'
+    ),
+    new ItemType (
+        'golem\'s blood', 'shield',
+        [2,5,7,1,0,0],
+        8,
+        'You\'re out of golem\'s blood.',
+        'A vial of silty mud from the veins of a golem. Drink it to increase your resiliance against physical attacks.'
+    ),
+    new ItemType (
+        'bleeding mushroom', 'shield',
+        [3,3,0,0,0,0],
+        12,
+        'Your bleeding mushroom runs out of blood and wilts.',
+        'A mushroom from which you can absorb a seemingly unlimited amount of blood, making bloodloss less of an issue.'
     ),
     // pierce, slash, crush, burn, poison, curse
 ];
