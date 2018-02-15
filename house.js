@@ -29,15 +29,15 @@ var allUnresolvedDoors = () => {
   });
 }
 var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard'];
-var doorColors = ['green', 'red', 'blue', 'black', 'white', 'dark brown', 'grey', 'brown', 'pale blue', 'gold', 'maroon'];
+var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'applewood', 'oak', 'elmwood', 'lead', 'orange', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'treasure chamber', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
     ['observatory', 'chapel', 'throne room'],
 ];
 var laterDoorColors = [
-    ['beechwood', 'filthy', 'mirrored', 'tar-smeared', 'charred', 'pink', 'pearl-colored', 'wet', 'purple', 'plywood', 'emerald', 'olive',],
-    ['foul-smelling', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall'],
+    ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'pearl-colored', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew'],
+    ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];
 var surfaceTypes = [
@@ -74,7 +74,7 @@ var Room = function (doors, doorCount) {
     this.id = nextRoomId;
     this.monsters = [];
     this.items = [];
-    this.mana = 6;
+    this.mana = 7;
     nextRoomId += 1;
     var i;
     var door;
@@ -90,7 +90,7 @@ var Room = function (doors, doorCount) {
     var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 1;
     });
-    if (oneIn(1.5)) {
+    if (oneIn(1.2)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
     }
     if (oneIn(7)) {
@@ -104,7 +104,7 @@ var Room = function (doors, doorCount) {
     }
     doorCount = doorCount ? doorCount : Math.ceil(Math.random() * (2.1));
     for (i=0 ; i<doorCount ; i++) {
-        if (i > 0 && hour > 0 && allDoors.length > 10 && allUnresolvedDoors().filter((door)=>{ return !usedColors.includes(door.color) }).length > 0 && (allUnresolvedDoors().length > 2)) {
+        if (i > 0 && hour > 0 && allDoors.length > 10 && allUnresolvedDoors().filter((door)=>{ return !usedColors.includes(door.color) }).length > 0 && (allUnresolvedDoors().length > 3)) {
           door = pick(allUnresolvedDoors().filter((selectDoor)=>{ return !usedColors.includes(selectDoor.color) }));
           door.to = this;
         } else {
@@ -138,7 +138,7 @@ var Door = function (color, from, to, locked) {
 
 Door.prototype.go = function (player) {
     if (!this.to) {
-      if (hour > 30 && this.from.doors.length === 2 && !Math.floor(Math.random() * 2) && (!finalTreasureRoom.doors[0].to || !finalTreasureRoom.doors[0].from)) {
+      if (hour > 26 && oneIn(1.6) && (!finalTreasureRoom.doors[0].to || !finalTreasureRoom.doors[0].from)) {
         this.to = finalTreasureRoom;
         finalTreasureRoom.doors = [this];
         this.locked = false;

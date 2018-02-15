@@ -21,7 +21,7 @@ var Monster = function (room, type) {
 Monster.prototype.die = function () {
     var i;
     console.log('It\'s dead.');
-    this.room.mana += 3;
+    this.room.mana += 4;
     for (i=0 ; i<this.room.monsters.length ; i++) {
         if (this === this.room.monsters[i]) {
             this.room.monsters = this.room.monsters.slice(0,i).concat(this.room.monsters.slice(i+1,this.room.monsters.length));
@@ -84,7 +84,7 @@ var allMonsterTypes = [
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
         level: 2,
-        info: 'An emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
+        info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
         name: 'bee person',
@@ -185,7 +185,7 @@ var allMonsterTypes = [
     new MonsterType ({
         name: 'arsonist ghost',
         attack: [0,0,0,6,0,1,],
-        defense: [8,7,3,0,5,5,],
+        defense: [8,7,5,0,5,5,],
         hitpoints: 20,
         level: 3,
         info: 'The ghost of a man convicted of setting fire to property public and private, recidivating after a lethal injection. He\'s most vulnerable to fire.',
@@ -280,7 +280,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'mechanical bear',
-        attack: [0,4,5,0,0,0,],
+        attack: [0,4,7,0,0,0,],
         defense: [4,2,2,0,7,0,],
         hitpoints: 20,
         level: 2,

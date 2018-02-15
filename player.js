@@ -3,9 +3,9 @@ var Player = function () {
     this.stats = {
         // pierce, slash, crush, burn, poison, curse
         attack: [1,2,6,0,0,0],
-        defense: [4,5,5,1,2,1],
+        defense: [3,3,3,1,2,1],
         baseAttack: [1,2,6,0,0,0],
-        baseDefense: [4,5,5,1,2,1],
+        baseDefense: [3,3,3,1,2,1],
         hitpoints: 20,
         maxHitpoints: 20,
     };
