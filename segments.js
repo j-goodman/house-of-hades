@@ -2,23 +2,27 @@ var buildSegments = (count, rooms) => {
   segments[Math.floor(Math.random() * segments.length)](count, rooms);
 };
 
+var monByName = (name) => {
+    return allMonsterTypes.filter((type) => {
+        return type.name === name;
+    })[0];
+}
+
+var itemByName = (name) => {
+    return allItemTypes.filter((type) => {
+        return type.name === name;
+    })[0];
+}
+
 var segments = [
+  /*
+
+  *      SEWAGE MAIN      *
+
+  */
   (count, rooms) => {
-    // THE SEWAGE MAIN
     var segmentRooms = [];
     var otherRoom;
-
-    var monByName = (name) => {
-        return allMonsterTypes.filter((type) => {
-            return type.name === name;
-        })[0];
-    }
-
-    var itemByName = (name) => {
-        return allItemTypes.filter((type) => {
-            return type.name === name;
-        })[0];
-    }
 
     var segmentMonsters = [
       monByName('ghoul'), monByName('riverwolf'),
@@ -92,7 +96,14 @@ var segments = [
         }
         segmentRooms[segmentRooms.length - 1].doors[0] = segmentRooms[segmentRooms.length - 2].doors[segmentRooms[segmentRooms.length - 2].doors.length - 1];
         rooms.push(room);
-
+        room.doors.forEach((door)=>{
+          var nearbyColors = [];
+          nearbyColors = nearbyColors.concat(door.from.doors.map((oneDoor) => {return oneDoor.color}));
+          nearbyColors = nearbyColors.concat(door.to.doors.map((oneDoor) => {return oneDoor.color}));
+          if (nearbyColors.includes(door.color)) {
+            door.color = 'decaying oak';
+          }
+        });
     })
 
     segmentRooms[0].doors[2].color = 'rusty iron hatch';
@@ -109,25 +120,17 @@ var segments = [
     // room.doors[0].to = otherRoom;
   },
 
+  /*
+
+  *      TARTARUS      *
+
+  */
   (count, rooms) => {
-    // TARTARUS
     var segmentRooms = [];
     var otherRoom;
 
-    var monByName = (name) => {
-        return allMonsterTypes.filter((type) => {
-            return type.name === name;
-        })[0];
-    }
-
-    var itemByName = (name) => {
-        return allItemTypes.filter((type) => {
-            return type.name === name;
-        })[0];
-    }
-
     var segmentMonsters = [
-      monByName('horned woman'), monByName('shoggoth'),
+      monByName('shoggoth'),
       // pierce, slash, crush, burn, poison, curse
       new MonsterType ({
           name: 'starving cannibal',
@@ -232,6 +235,225 @@ var segments = [
           )
         ]
     })
+  },
+
+  /*
+
+  *      LICH'S GROTTO      *
+
+  */
+  (count, rooms) => {
+    var segmentRooms = [];
+    var otherRoom;
+
+    var slitheringLeg = new MonsterType ({
+        name: 'slithering leg',
+        attack: [0,1,2,0,0,0,],
+        defense: [12,0,0,12,12,0,],
+        hitpoints: 20,
+        info: 'A single fleshy leg that wriggles around the grotto like a snake.',
+        deathEvent: function () {
+          this.room.items.push(
+            new Item (
+              Math.floor(Math.random() * 2) ?
+              new ItemType (
+                  'lich\'s toe', 'shield',
+                  [0,12,0,0,0,0],
+                  '20',
+                  'The lich\'s toe crumbles and becomes rotten-smelling ash.',
+                  'A fleshy toe that\'s been cursed with dark magic. Protects from all slash damage.'
+              ) : new ItemType (
+                  'lich\'s ankle', 'shield',
+                  [12,0,0,0,0,0],
+                  '20',
+                  'The lich\'s ankle crumbles and becomes rotten-smelling ash.',
+                  'A fleshy ankle that\'s been cursed with dark magic. Protects from all pierce damage.'
+              )
+            ),
+          );
+        }
+    });
+
+    var writhingArm = new MonsterType ({
+        name: 'writhing arm',
+        attack: [0,1,2,0,0,0,],
+        defense: [12,0,0,12,12,0,],
+        hitpoints: 20,
+        info: 'A wrinkly withered arm that flaps around by the elbow trying to claw at things.',
+        deathEvent: function () {
+          this.room.items.push(
+            new Item (
+              Math.floor(Math.random() * 2) ?
+              new ItemType (
+                  'lich\'s finger', 'shield',
+                  [0,0,12,0,0,0],
+                  '20',
+                  'The lich\'s finger crumbles and becomes rotten-smelling ash.',
+                  'A fleshy forefinger that\'s been cursed with dark magic. Protects from all crush damage.'
+              ) : new ItemType (
+                  'lich\'s thumb', 'shield',
+                  [0,0,0,12,0,0],
+                  '20',
+                  'The lich\'s thumb crumbles and becomes rotten-smelling ash.',
+                  'A fleshy thumb that\'s been cursed with dark magic. Protects from all burn damage.'
+              )
+            ),
+          );
+        }
+    });
+
+    var bitingHead = new MonsterType ({
+        name: 'biting head',
+        attack: [2,0,2,0,0,0,],
+        defense: [12,0,0,12,12,0,],
+        hitpoints: 20,
+        info: 'A wrinkly withered arm that flaps around by the elbow trying to claw at things.',
+        deathEvent: function () {
+          this.room.items.push(
+            new Item (
+              Math.floor(Math.random() * 2) ?
+              new ItemType (
+                  'lich\'s thumb', 'shield',
+                  [0,0,12,0,0,0],
+                  '20',
+                  'The lich\'s thumb crumbles and becomes rotten-smelling ash.',
+                  'A fleshy thumb that\'s been cursed with dark magic. Protects from all crush damage.'
+              ) : new ItemType (
+                  'lich\'s finger', 'shield',
+                  [0,0,0,12,0,0],
+                  '20',
+                  'The lich\'s finger crumbles and becomes rotten-smelling ash.',
+                  'A fleshy finger that\'s been cursed with dark magic. Protects from all burn damage.'
+              )
+            ),
+          );
+        }
+    });
+
+    segmentRooms.push(new Room ([], 1));
+    segmentRooms.push(new Room ([], 3));
+    segmentRooms[0].type = 'lich\'s grotto';
+    segmentRooms[1].type = 'room with a huge mosaic in Byzantine style, depicting a victorious queen enthroned before her family and subjects, a rack of skulls behind her';
+    segmentRooms[1].doors[1].to = segmentRooms[0];
+    segmentRooms[0].doors[0] = segmentRooms[1].doors[1];
+
+    segmentRooms[1].monsters = [];
+    segmentRooms[0].items = [];
+    segmentRooms[0].monsters = [
+    new Monster (
+        segmentRooms[0],
+        new MonsterType ({
+            name: 'lich',
+            attack: [0,3,0,0,0,8],
+            defense: [12,1,3,12,12,6],
+            hitpoints: 20,
+            level: 3,
+            info: 'A bleach-white skeleton crowned in platinum and dressed in rich violet robes. It sways on its feet as if it\'s disoriented.',
+            onDeath: 'It breaks into pieces.',
+            deathEvent: () => {
+              segmentRooms[0].monsters.push(
+                new Monster (
+                  segmentRooms[0],
+                  new MonsterType ({
+                      name: 'grasping top-half',
+                      attack: [0,2,4,0,0,0,],
+                      defense: [12,0,0,12,12,0,],
+                      hitpoints: 20,
+                      info: 'The skeletal top half of a clambering skeleton, mouthing voicelessly as clammy skin emerges from its eye sockets and starts clinging to its face.',
+                      onDeath: 'It breaks into pieces.',
+                      deathEvent: () => {
+                        segmentRooms[0].monsters.push(
+                          new Monster (
+                            segmentRooms[0],
+                            new MonsterType ({
+                                name: 'biting head',
+                                attack: [0,2,4,0,0,0,],
+                                defense: [12,0,0,12,12,0,],
+                                hitpoints: 20,
+                                info: 'A severed head with dry white hair springing from its scalp irregularly. Its bright green eyes sit in sunken sockets and it moves its mouth in a silent scream while rolling and biting.',
+                                deathEvent: () => {
+                                  segmentRooms[0].items.push(
+                                    new Item (
+                                      Math.floor(Math.random() * 2) ?
+                                      new ItemType (
+                                          'lich\'s ear', 'shield',
+                                          [0,0,0,0,12,0],
+                                          '20',
+                                          'The lich\'s ear crumbles and becomes rotten-smelling ash.',
+                                          'A pale white ear that\'s been cursed with dark magic. Protects from all poison damage.'
+                                      ) : new ItemType (
+                                          'lich\'s nose', 'shield',
+                                          [0,0,0,12,0,12],
+                                          '20',
+                                          'The lich\'s nose crumbles and becomes rotten-smelling ash.',
+                                          'A rotting nose that\'s been cursed with dark magic. Protects from all curse damage.'
+                                      )
+                                    ),
+                                    new Item (
+                                      new ItemType (
+                                          'lich\'s eye', 'weapon',
+                                          [0,0,0,0,10,0],
+                                          '9',
+                                          'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
+                                          'A green eye with the power to kill those it looks upon.'
+                                      )
+                                    )
+                                  );
+                                }
+                            }),
+                          ),
+                          new Monster (
+                            segmentRooms[0],
+                            writhingArm
+                          ),
+                          new Monster (
+                            segmentRooms[0],
+                            writhingArm
+                          ),
+                        );
+                        segmentRooms[0].items.push(
+                          new Item (
+                            new ItemType (
+                                'inert torso', 'shield',
+                                [0,0,0,0,0,0],
+                                '50',
+                                'The lich\'s torso rots away to sludge.',
+                                'The torso of an aged woman with all appendages severed. It lies inert and bloodless but you can still see its heart beating.'
+                            ),
+                          )
+                        )
+                      }
+                  }),
+                ),
+                new Monster (
+                  segmentRooms[0],
+                  new MonsterType ({
+                      name: 'kicking pelvis and legs',
+                      attack: [0,3,2,0,0,0,],
+                      defense: [12,0,0,12,12,0,],
+                      hitpoints: 20,
+                      info: 'A pelvic bone shrouded in purple tatters, kicking wildly with its bony legs and propelling itself around the room. Sinews of muscle are starting to form around its thighs',
+                      onDeath: 'It breaks into pieces.',
+                      deathEvent: () => {
+                        segmentRooms[0].monsters.push(
+                          new Monster (
+                            segmentRooms[0],
+                            slitheringLeg
+                          ),
+                          new Monster (
+                            segmentRooms[0],
+                            slitheringLeg
+                          ),
+                        )
+                      }
+                  }),
+                ),
+              )
+            }
+        }),
+      )
+    ];
+
   },
 ]
 
