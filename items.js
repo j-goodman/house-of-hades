@@ -240,5 +240,12 @@ var allItemTypes = [
         'Your bleeding mushroom runs out of blood and wilts.',
         'A mushroom from which you can absorb a seemingly unlimited amount of blood, making bloodloss less of an issue.'
     ),
+    new ItemType (
+        'jar of salt', 'shield',
+        [0,0,0,0,0,7],
+        8,
+        'You\'re out of salt.',
+        'A glass jar filled with rock salt, said to ward off curses.'
+    ),
     // pierce, slash, crush, burn, poison, curse
 ];

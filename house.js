@@ -29,14 +29,14 @@ var allUnresolvedDoors = () => {
   });
 }
 var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard'];
-var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'applewood', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
+var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'treasure chamber', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
     ['observatory', 'chapel', 'throne room'],
 ];
 var laterDoorColors = [
-    ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew'],
+    ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew'],
     ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];

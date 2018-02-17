@@ -254,4 +254,13 @@ var segments = [
 //     level: 3,
 //     info: 'A happy woman walking an seven foot legs like a colossal spider\'s, whose heart is beating with such force and size that you can see it straining against her ribs.',
 
+//
+// new MonsterType ({
+//     name: 'murderer\'s courage',
+//     attack: [8,0,0,0,0,0,],
+//     defense: [6,12,12,1,1,1,],
+//     hitpoints: 20,
+//     level: 3,
+//     info: 'A ghost who wanders the earth to seize the hearts of those considering murder and provoke them.',
+
 // pierce, slash, crush, burn, poison, curse
