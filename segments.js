@@ -96,14 +96,6 @@ var segments = [
         }
         segmentRooms[segmentRooms.length - 1].doors[0] = segmentRooms[segmentRooms.length - 2].doors[segmentRooms[segmentRooms.length - 2].doors.length - 1];
         rooms.push(room);
-        room.doors.forEach((door)=>{
-          var nearbyColors = [];
-          nearbyColors = nearbyColors.concat(door.from.doors.map((oneDoor) => {return oneDoor.color}));
-          nearbyColors = nearbyColors.concat(door.to.doors.map((oneDoor) => {return oneDoor.color}));
-          if (nearbyColors.includes(door.color)) {
-            door.color = 'decaying oak';
-          }
-        });
     })
 
     segmentRooms[0].doors[2].color = 'rusty iron hatch';
@@ -174,7 +166,10 @@ var segments = [
 
     var usedItems = [];
     var segmentItems = [
-      itemByName('bleeding mushroom'), itemByName('golem\'s blood'),
+      itemByName('bleeding mushroom'),
+      itemByName('jar of salt'),
+      itemByName('bag of devil\'s gold'),
+      itemByName('canned ghost'),
       // pierce, slash, crush, burn, poison, curse
       new ItemType (
           'laughing key', 'shield',

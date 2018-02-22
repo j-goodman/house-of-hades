@@ -32,11 +32,11 @@ var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storer
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
-    ['dungeon', 'treasure chamber', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
+    ['dungeon', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
     ['observatory', 'chapel', 'throne room'],
 ];
 var laterDoorColors = [
-    ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew'],
+    ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
     ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];
@@ -140,7 +140,7 @@ var Door = function (color, from, to, locked) {
 
 Door.prototype.go = function (player) {
     if (!this.to) {
-      if (hour > 26 && oneIn(1.6) && (!finalTreasureRoom.doors[0].to || !finalTreasureRoom.doors[0].from)) {
+      if (hour > 26 && Math.round(Math.random()) && (finalTreasureRoom.doors[0].to === true)) {
         this.to = finalTreasureRoom;
         finalTreasureRoom.doors = [this];
         this.locked = false;
@@ -150,7 +150,7 @@ Door.prototype.go = function (player) {
     }
     if (this.locked) {
         if (player.room.monsters.length) {
-            console.log('Kill the monsters in the room to unlock that door.');
+            drawString('Kill the monsters in the room to unlock that door.');
             return false;
         } else {
             this.locked = false;
@@ -163,8 +163,8 @@ Door.prototype.go = function (player) {
         player.room = this.from;
         hour += 1;
     } else {
-        console.log('DOOR ERROR');
-        console.log(this, player);
+        drawString('DOOR ERROR');
+        drawString(this, player);
     }
     this.locked = false;
     this.advanceRoomAndDoorTypes();

@@ -11,38 +11,47 @@ var Player = function () {
     };
     this.weapon = null;
     this.shield = null;
+    this.holding = null;
     this.alive = true;
 };
 
 Player.prototype.welcome = function () {
-    console.log('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
+    drawString('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
+    drawString('');
+    drawString('Find the dragon in the room with only one door and kill it there.');
+    drawString('');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
 };
 
 Player.prototype.lookAround = function () {
-    console.log('You\'re in a ' + this.room.type + '.');
+    clearType();
+    drawString('You\'re in a ' + this.room.type + '.');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
 };
 
 Player.prototype.goTo = function (doorString) {
-    if (!this.alive) {
-        console.log('You\'re dead.');
-        return true;
-    }
     var doorColor;
+    if (!this.alive) {
+        drawString('You\'re dead.');
+        return true;
+    } else {
+      clearType();
+    }
     doorColor = doorString.slice(0, doorString.length - 5);
     this.room.doors.map(function (door) {
         if (door.color === doorColor) {
             door.go(this);
         }
     }.bind(this));
+    this.recover(false);
 };
 
 Player.prototype.get = function (targetName) {
+    clearType();
     var i; var j;
     var target;
     var oldItem;
@@ -54,7 +63,7 @@ Player.prototype.get = function (targetName) {
     if (!target || !target.slot) { return false; }
     oldItem = this[target.slot];
     this[target.slot] = target;
-    console.log('You take the ' + target.name + '.');
+    drawString('You take the ' + target.name + '.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
         if (target === this.room.items[j]) {
@@ -62,25 +71,57 @@ Player.prototype.get = function (targetName) {
         }
     }
     if (oldItem) {
-        console.log('You drop your ' + oldItem.name + '.');
+        drawString('You drop your ' + oldItem.name + '.');
         this.room.items.push(oldItem);
     }
     if (target.slot === 'weapon') {
-      console.log('Your attack' + (this.weapon ? (' (with ' + this.weapon.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
+      drawString('Your attack' + (this.weapon ? (' (with ' + this.weapon.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
     } else if (target.slot === 'shield') {
-      console.log('Your defense' + (this.shield ? (' (with ' + this.shield.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
+      drawString('Your defense' + (this.shield ? (' (with ' + this.shield.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
+    }
+    drawString('');
+};
+
+Player.prototype.hold = function (targetName) {
+    clearType();
+    var i; var j;
+    var target;
+    var oldItem;
+    this.room.items.map(function (item) {
+        if (item.name == targetName) {
+            target = item;
+        }
+    }.bind(this));
+    if (!target) { return false; }
+    oldItem = this.holding;
+    this.holding = target;
+    drawString('You put the ' + target.name + ' away for later.');
+    this.updateStats();
+    for (j=0 ; j<this.room.items.length ; j++) {
+        if (target === this.room.items[j]) {
+            this.room.items = this.room.items.slice(0,j).concat(this.room.items.slice(j+1,this.room.items.length));
+        }
+    }
+    if (oldItem) {
+        drawString('You drop the ' + oldItem.name + ' you were holding.');
+        this.room.items.push(oldItem);
     }
 };
 
 Player.prototype.drop = function (itemName) {
+  clearType();
   if (this.weapon && this.weapon.name == itemName) {
     this.room.items.push(this.weapon);
-    console.log('You drop your ' + this.weapon.name + '.');
+    drawString('You drop your ' + this.weapon.name + '.');
     this.weapon = null;
   } else if (this.shield && this.shield.name == itemName) {
     this.room.items.push(this.shield);
-    console.log('You drop your ' + this.shield.name + '.');
+    drawString('You drop your ' + this.shield.name + '.');
     this.shield = null;
+  } else if (this.holding && this.holding.name == itemName) {
+    this.room.items.push(this.holding);
+    drawString('You drop the ' + this.holding.name + ' you were holding.');
+    this.holding = null;
   }
 };
 
@@ -98,6 +139,7 @@ Player.prototype.fight = function (enemyName) {
     var enemy;
     var i;
     var shieldUse = 0;
+    clearType();
     this.room.monsters.map(function (monster) {
         if (monster.name === enemyName) {
             enemy = monster;
@@ -112,12 +154,15 @@ Player.prototype.fight = function (enemyName) {
         }
         this.stats.hitpoints -= Math.ceil(enemy.attack[i] * (12/12 - (this.stats.defense[i] / 12)));
     }
-    console.log('Player:', this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints);
-    console.log('Enemy:', enemy.hitpoints < 0 ? 0 : enemy.hitpoints);
+    fontcolor = '#aaf';
+    drawString('Player:' + ' ' + (this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints));
+    fontcolor = '#faa';
+    drawString('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
+    fontcolor = '#fff';
     if (this.weapon && this.weapon.ammo) {
         this.weapon.ammo -= 1;
         if (this.weapon.ammo <= 0) {
-            console.log(this.weapon.spentMessage);
+            drawString(this.weapon.spentMessage);
             this.weapon = null;
             this.updateStats();
         }
@@ -125,7 +170,7 @@ Player.prototype.fight = function (enemyName) {
     if (this.shield && this.shield.ammo) {
         this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
         if (this.shield.ammo <= 0) {
-            console.log(this.shield.spentMessage);
+            drawString(this.shield.spentMessage);
             this.shield = null;
             this.updateStats();
         }
@@ -138,16 +183,18 @@ Player.prototype.fight = function (enemyName) {
 };
 
 Player.prototype.die = function () {
-    console.log('You\'re dead.');
+    clearType();
+    fontcolor = '#e22';
+    drawString('You\'re dead.');
     this.alive = false;
 };
 
-Player.prototype.recover = function () {
+Player.prototype.recover = function (active=false) {
     if (!this.room.monsters.length) {
         var diff;
         var gain;
-        if (this.stats.hitpoints >= this.stats.maxHitpoints) {
-            console.log('You\'re already at full hitpoints.');
+        if (this.stats.hitpoints >= this.stats.maxHitpoints && active) {
+            drawString('You\'re already at full hitpoints.');
             return undefined;
         }
         diff = this.stats.maxHitpoints - this.stats.hitpoints;
@@ -155,15 +202,19 @@ Player.prototype.recover = function () {
         gain = this.room.mana < 0 ? diff + this.room.mana : diff;
         gain = gain < 0 ? 0 : gain;
         gain = gain <= diff ? gain : diff;
-        if (gain === 0) {
-            console.log('There\'s no life energy left to draw from in this room. Try another room.');
+        if (gain === 0 && active) {
+            drawString('There\'s no life energy left to draw from in this room. Try another room.');
         } else {
             this.stats.hitpoints += gain;
             this.stats.hitpoints = this.stats.hitpoints > this.stats.maxHitpoints ? this.stats.maxHitpoints : this.stats.hitpoints;
-            console.log('You heal by ' + gain + ' hitpoints, to ' + this.stats.hitpoints + '/' + this.stats.maxHitpoints + ' total.');
+            if (gain) {
+              fontcolor = '#ffa';
+              drawString('You heal by ' + gain + ' hitpoints, to ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' total.');
+              fontcolor = '#fff';
+            }
         }
-    } else {
-        console.log('You can\'t recover when there are monsters in the room.');
+    } else if (active) {
+        drawString('You can\'t recover when there are monsters in the room.');
     }
 };
 
@@ -180,7 +231,7 @@ Player.prototype.describeDoors = function () {
             string += 'a ' + this.room.doors[i].color + ' door.';
         }
     }
-    console.log(string);
+    drawString(string);
 };
 
 Player.prototype.describeMonsters = function () {
@@ -199,7 +250,7 @@ Player.prototype.describeMonsters = function () {
                 string += 'a ' + this.room.monsters[i].name + ' in the room with you.';
             }
         }
-        console.log(string);
+        drawString(string);
     }
 };
 
@@ -226,7 +277,9 @@ Player.prototype.describeItems = function () {
                 string += 'a ' + this.room.items[i].name + ' on the ' + surface + '.';
             }
         }
-        console.log(string);
+        fontcolor = '#9f9';
+        drawString(string);
+        fontcolor = '#fff';
     }
 };
 
@@ -250,35 +303,39 @@ Player.prototype.statObjString = function (stats, item) {
 };
 
 Player.prototype.showStats = function () {
-    console.log('');
-    console.log(')    YOU    (');
+    clearType();
+    drawString('');
+    drawString(')    YOU    (');
 
-    console.log('You have ' + this.stats.hitpoints + '/' + this.stats.maxHitpoints + ' hitpoints.');
+    drawString('You have ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' hitpoints.');
 
-    console.log('Your attack' + (this.weapon ? (' (with ' + this.weapon.name + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
+    drawString('Your attack' + (this.weapon ? (' (with ' + this.weapon.name + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
 
-    console.log('Your defense' + (this.shield ? (' (with ' + this.shield.name + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
+    drawString('Your defense' + (this.shield ? (' (with ' + this.shield.name + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
 };
 
 Player.prototype.info = function () {
-  var bonusString;
+    var bonusString;
     var item;
     var mon;
     var i; var j;
+
+    clearType();
+
     for (i=0 ; i<this.room.monsters.length ; i++) {
       mon = this.room.monsters[i];
-      console.log('');
-      console.log('|    ' + mon.name.toUpperCase() + '    |');
-      console.log(mon.info);
-      console.log('ATTACK: ' + this.statObjString(mon.attack));
-      console.log('DEFENSE: ' + this.statObjString(mon.defense));
-      console.log('The ' + mon.name + ' has ' + mon.hitpoints + ' hitpoints left.');
+      drawString('');
+      drawString('|    ' + mon.name.toUpperCase() + '    |');
+      drawString(mon.info);
+      drawString('ATTACK: ' + this.statObjString(mon.attack));
+      drawString('DEFENSE: ' + this.statObjString(mon.defense));
+      drawString('The ' + mon.name + ' has ' + mon.hitpoints + ' hitpoints left.');
     }
     for (i=0 ; i<this.room.items.length ; i++) {
       item = this.room.items[i];
-      console.log('');
-      console.log('*    ' + item.name.toUpperCase() + '    *');
-      console.log(item.info);
+      drawString('');
+      drawString('*    ' + item.name.toUpperCase() + '    *');
+      drawString(item.info);
     }
     if (!item && !mon) {
       this.lookAround();

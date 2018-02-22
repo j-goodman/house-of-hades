@@ -24,7 +24,7 @@ var Monster = function (room, type) {
 
 Monster.prototype.die = function () {
     var i;
-    console.log(this.onDeath || 'It\'s dead.');
+    drawString(this.onDeath || 'It\'s dead.');
     if (this.deathEvent) {
       this.deathEvent();
     }
@@ -44,6 +44,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
+        onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.'
     }),
     new MonsterType ({
         name: 'giant scorpion',
@@ -60,6 +61,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'Immune to poisons and curses, and supposedly only killable by piercing its heart.',
+        onDeath: 'The vampire hisses in agony before attempting to turn into a bat and dieing mid-transformation.'
     }),
     new MonsterType ({
         name: 'werewolf',

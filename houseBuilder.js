@@ -4,7 +4,7 @@ finalTreasureRoom = null;
 houseBuilder.buildSpawn = function () {
   var colors = ['tin', 'steel', 'copper'];
   var spawnTypes = [
-    'cavernous foyer lit by candlelight', 'gigantic greenhouse filled with strange barbed flowers', 'round dining room with a stained glass skylight', 'vast aquarium room', 'sprawling library filled with old leather-bound books', 'dimly-lit prisonlike corridor with barred windows', 'opulent dining room with a jeweled chandelier', 'museum-like room decorated with massive stuffed apes and bears', 'tile-decorated subterranean hotsprings', 'silent room decorated with painted vases and pots', 'high-ceilinged room decorated with the banners of ancient families', 'long, narrow room with a tapestry stretched across one wall depicting the rise and fall of a strange king', 'vast windowless ballroom', 'mausoleum room'
+    'cavernous foyer lit by candlelight', 'gigantic greenhouse filled with strange barbed flowers', 'round dining room with a stained glass skylight', 'vast aquarium room', 'vast library filled with old leather-bound books', 'dimly-lit prisonlike corridor with barred windows', 'opulent dining room with a jeweled chandelier', 'museum-like room decorated with massive stuffed apes and bears', 'tile-decorated subterranean hotsprings', 'silent room decorated with painted vases and pots', 'high-ceilinged room decorated with the banners of ancient families', 'long, narrow room with a tapestry stretched across one wall depicting the rise and fall of a strange king', 'vast windowless ballroom', 'mausoleum room'
   ];
   var i;
   var spawn;
