@@ -180,6 +180,9 @@ Player.prototype.fight = function (enemyName) {
     } if (this.stats.hitpoints <= 0) {
         this.die();
     }
+    if (enemy.fightEvent && enemy.hitpoints > 0) {
+      enemy.fightEvent();
+    }
 };
 
 Player.prototype.die = function () {

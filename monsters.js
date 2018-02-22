@@ -8,6 +8,7 @@ var MonsterType = function (ob) {
     this.level = ob.level;
     this.onDeath = ob.onDeath;
     this.deathEvent = ob.deathEvent;
+    this.fightEvent = ob.fightEvent;
 };
 
 var Monster = function (room, type) {
@@ -20,6 +21,7 @@ var Monster = function (room, type) {
     this.info = type.info;
     this.onDeath = type.onDeath;
     this.deathEvent = type.deathEvent;
+    this.fightEvent = type.fightEvent;
 };
 
 Monster.prototype.die = function () {
