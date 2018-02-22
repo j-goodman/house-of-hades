@@ -450,6 +450,108 @@ var segments = [
     ];
 
   },
+
+  /*
+
+  *      UNICORN      *
+
+  */
+  (count, rooms) => {
+    var segmentRooms = [];
+    var otherRoom;
+
+    segmentRooms.push(new Room ([], 3));
+
+    segmentRooms[0].type += ' that smells like a barn';
+    segmentRooms[0].items = [];
+    segmentRooms[0].monsters = [
+    new Monster (
+        segmentRooms[0],
+        new MonsterType ({
+            // pierce, slash, crush, burn, poison, curse
+            name: 'unicorn',
+            attack: [11,0,0,0,0,1],
+            defense: [3,3,0,12,12,12],
+            hitpoints: 20,
+            level: 3,
+            info: 'A grey horse the size of a moose with a twisting horn coming out of its nose like a narwhal\'s. It prepares to charge and try to gore you.',
+            onDeath: 'The unicorn collapses and dies.',
+            deathEvent: () => {
+              segmentRooms[0].items.push(
+                new Item (
+                  new ItemType (
+                      'horn', 'weapon',
+                      [11,0,0,0,0,1],
+                      33,
+                      'The unicorn horn you\'ve been using as a weapon splinters and breaks.',
+                      'A twisting horn.'
+                  ),
+                )
+              )
+            }
+        }),
+      )
+    ];
+
+  },
+
+  /*
+
+  *      DOOR SALESMAN      *
+
+  */
+  (count, rooms) => {
+    console.log('Door salesman.');
+    var segmentRooms = [];
+    var otherRoom;
+
+    segmentRooms.push(new Room ([], 2));
+
+    segmentRooms[0].items = [];
+    segmentRooms[0].monsters = [
+    new Monster (
+        segmentRooms[0],
+        new MonsterType ({
+            // pierce, slash, crush, burn, poison, curse
+            name: 'door salesman',
+            attack: [0,2,8,1,0,0],
+            defense: [3,6,5,5,3,8],
+            hitpoints: 20,
+            level: 3,
+            info: 'A seller and manufacturer of very strange trick doors, dressed in olive drab coveralls.',
+            onDeath: 'The door salesman is killed.',
+            fightEvent: function () {
+              var destinationDor;
+              segmentRooms[0].doors.push(
+                new Door (
+                  doorMumbler.mumbleDoor(),
+                  segmentRooms[0],
+                  pick(allDoors.filter((door) => {
+                    return door.to !== true;
+                  })).to
+                )
+              );
+              drawString('The door salesman lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
+              this.hitpoints += 1;
+              this.room.monsters = this.room.monsters.filter((mon) => {
+                return mon.name !== 'door salesman';
+              });
+              destinationDoor = pick(this.room.doors.filter((door) => {
+                return (door.to && door.to !== true);
+              }));
+              if (this.room.id === destinationDoor.to.id) {
+                this.room = destinationDoor.from;
+                destinationDoor.from.monsters.push(this);
+              } else {
+                this.room = destinationDoor.to;
+                destinationDoor.to.monsters.push(this);
+              }
+            }
+        }),
+      )
+    ];
+
+  },
 ]
 
 
