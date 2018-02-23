@@ -36,7 +36,7 @@ var segments = [
           info: 'The delirious corpse of a drowning victim trying desperately to cling to your legs and neck with its pale bloated hands.',
       }),
       new MonsterType ({
-          name: 'deep creature',
+          name: 'blobby amphibious creature',
           attack: [1,5,3,0,0,0,],
           defense: [3,2,9,7,11,4,],
           hitpoints: 20,
@@ -460,7 +460,7 @@ var segments = [
     var segmentRooms = [];
     var otherRoom;
 
-    segmentRooms.push(new Room ([], 3));
+    segmentRooms.push(new Room ([], 4));
 
     segmentRooms[0].type += ' that smells like a barn';
     segmentRooms[0].items = [];
@@ -501,11 +501,11 @@ var segments = [
 
   */
   (count, rooms) => {
-    console.log('Door salesman.');
+    console.log('*');
     var segmentRooms = [];
     var otherRoom;
 
-    segmentRooms.push(new Room ([], 2));
+    segmentRooms.push(new Room ([], 3));
 
     segmentRooms[0].items = [];
     segmentRooms[0].monsters = [
@@ -518,39 +518,39 @@ var segments = [
             defense: [3,6,5,5,3,8],
             hitpoints: 20,
             level: 3,
-            info: 'A seller and manufacturer of very strange trick doors, dressed in olive drab coveralls.',
+            info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
             onDeath: 'The door salesman is killed.',
-            fightEvent: function () {
-              var destinationDor;
-              segmentRooms[0].doors.push(
-                new Door (
-                  doorMumbler.mumbleDoor(),
-                  segmentRooms[0],
-                  pick(allDoors.filter((door) => {
-                    return door.to !== true;
-                  })).to
-                )
-              );
-              drawString('The door salesman lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
-              this.hitpoints += 1;
-              this.room.monsters = this.room.monsters.filter((mon) => {
-                return mon.name !== 'door salesman';
-              });
-              destinationDoor = pick(this.room.doors.filter((door) => {
-                return (door.to && door.to !== true);
-              }));
-              if (this.room.id === destinationDoor.to.id) {
-                this.room = destinationDoor.from;
-                destinationDoor.from.monsters.push(this);
-              } else {
-                this.room = destinationDoor.to;
-                destinationDoor.to.monsters.push(this);
-              }
-            }
         }),
       )
     ];
 
+    segmentRooms[0].monsters[0].fightEvent = function () {
+      var destinationDoor;
+      this.room.doors.push(
+        new Door (
+          doorMumbler.mumbleDoor(),
+          this.room,
+          pick(allDoors.filter((door) => {
+            return door.to !== true;
+          })).to
+        )
+      );
+      drawString('The door salesman lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
+      this.hitpoints += 1;
+      this.room.monsters = this.room.monsters.filter((mon) => {
+        return mon.name !== 'door salesman';
+      });
+      destinationDoor = pick(this.room.doors.filter((door) => {
+        return (door.to && door.to !== true);
+      }));
+      if (this.room.id === destinationDoor.to.id) {
+        destinationDoor.from.monsters.push(this);
+        this.room = destinationDoor.from;
+      } else {
+        destinationDoor.to.monsters.push(this);
+        this.room = destinationDoor.to;
+      }
+    }.bind(segmentRooms[0].monsters[0])
   },
 ]
 
