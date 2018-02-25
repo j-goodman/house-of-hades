@@ -1,27 +1,29 @@
 var MonsterType = function (ob) {
     var i;
-    this.name = ob.name;
     this.attack = ob.attack;
+    this.deathEvent = ob.deathEvent;
     this.defense = ob.defense;
+    this.drop = ob.drop;
+    this.fightEvent = ob.fightEvent;
     this.hitpoints = ob.hitpoints;
     this.info = ob.info;
     this.level = ob.level;
+    this.name = ob.name;
     this.onDeath = ob.onDeath;
-    this.deathEvent = ob.deathEvent;
-    this.fightEvent = ob.fightEvent;
 };
 
 var Monster = function (room, type) {
-    this.room = room;
-    this.name = type.name;
     this.attack = type.attack;
-    this.defense = type.defense;
-    this.hitpoints = type.hitpoints;
-    this.level = type.level;
-    this.info = type.info;
-    this.onDeath = type.onDeath;
     this.deathEvent = type.deathEvent;
-    this.fightEvent = type.fightEvent;
+    this.defense = type.defense;
+    this.drop = type.drop;
+    this.fightEvent = type.fightEvent ? type.fightEvent.bind(this) : false;
+    this.room = room;
+    this.hitpoints = type.hitpoints;
+    this.info = type.info;
+    this.level = type.level;
+    this.name = type.name;
+    this.onDeath = type.onDeath;
 };
 
 Monster.prototype.die = function () {
@@ -31,12 +33,30 @@ Monster.prototype.die = function () {
       this.deathEvent();
     }
     this.room.mana += 4;
+    if (this.drop) {
+      this.drop.map((item) => {
+        this.room.items.push(item);
+      });
+    }
     for (i=0 ; i<this.room.monsters.length ; i++) {
         if (this === this.room.monsters[i]) {
             this.room.monsters = this.room.monsters.slice(0,i).concat(this.room.monsters.slice(i+1,this.room.monsters.length));
         }
     }
 };
+
+var monByName = (name) => {
+    return allMonsterTypes.filter((type) => {
+        return type.name === name;
+    })[0];
+}
+
+var itemByName = (name) => {
+    return allItemTypes.filter((type) => {
+        return type.name === name;
+    })[0];
+}
+
 // levels go from 1-3, most should be 3.
 var allMonsterTypes = [
     new MonsterType ({
@@ -58,20 +78,70 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'vampire',
-        attack: [4,0,0,0,2,6,],
+        attack: [6,0,0,0,2,4,],
         defense: [0,8,8,3,12,12,],
         hitpoints: 20,
         level: 3,
         info: 'Immune to poisons and curses, and supposedly only killable by piercing its heart.',
-        onDeath: 'The vampire hisses in agony before attempting to turn into a bat and dieing mid-transformation.'
+        onDeath: 'The vampire hisses in agony before attempting to turn into a bat and dieing mid-transformation.',
+        drop: [
+          new Item (
+            new ItemType (
+                'half-man half-bat carcass', 'weapon',
+                [0,0,2,0,6,1],
+                3,
+                'The half-man half-bat carcass that you\'ve been carrying and throwing around as a toxic weapon SHRIEKS and its arms seem to be trying to prize it free from the form  of the dead bat. Slowly, a naked vampire, skeletal, hairless and bent, emerges from the rotting mess.',
+                'The corpse of a bat with the twisted arm and face of a human man bursting from it, also dead. It\'s bleeding some kind of ashy black ichor.',
+                (room) => {
+                    room.monsters.push(
+                      new Monster (
+                          room,
+                          new MonsterType ({
+                              // pierce, slash, crush, burn, poison, curse
+                              name: 'misshaped vampire',
+                              attack: [7,1,0,0,1,3,],
+                              defense: [0,9,0,2,12,12,],
+                              hitpoints: 20,
+                              level: 3,
+                              info: 'Immune to poisons and curses, and supposedly only killable by piercing its heart.',
+                              onDeath: 'The vampire starts growing chalky white hair rapidly from its head and body, while its skin becomes papery and constricts its skull. Its eyes shrivel up like raisins and then it explodes into bright red ash.',
+                          }),
+                        )
+                    )
+                }
+            ),
+          ),
+        ]
     }),
     new MonsterType ({
         name: 'werewolf',
-        attack: [1,7,4,0,0,0,],
+        attack: [5,3,0,0,0,0,],
         defense: [3,4,4,2,1,3,],
         hitpoints: 20,
-        level: 2,
-        info: 'A creature like a mangy flea-ridden wild dog reared to her hind legs with a look of ferocious hunger in her eyes.',
+        level: 3,
+        info: 'A creature like a mangy flea-ridden wild dog reared to its hind legs with a look of ferocious hunger in its eyes.',
+        fightEvent: function () {
+            var people;
+            people = [
+                'brown-eyed man with a red beard',
+                'black-haired old woman',
+                'tall long-haired woman',
+                'overweight middle-aged man',
+                'starving looking basset hound'
+            ]
+            if (!this.foughtOnce) {
+              drawString('The werewolf\'s eyes turn bloodshot and its legs and arms seem to extend out as if its bones were stretching.');
+              this.info = 'Something vaguely like a person crouching and breathing heavily, preparing to lunge at you with is jaws open.'
+            } else {
+              drawString('The werewolf is enraged.');
+              this.info = 'A furious looking wolf reared up onto its back legs like a person.'
+            }
+            this.attack[0] -= this.attack[0] > 0 ? 1 : 0; // decrease pierce
+            this.attack[1] += 1; // increase slash
+            this.attack[2] += 2; // increase crush
+            this.onDeath = 'The wolf becomes a ' + pick(people) + ' and dies.';
+            this.foughtOnce = true;
+        }
     }),
     new MonsterType ({
         name: 'violent blob',
@@ -103,7 +173,7 @@ var allMonsterTypes = [
         defense: [6,3,0,0,1,0,],
         hitpoints: 20,
         level: 3,
-        info: 'It\'s part bee but also part person.',
+        info: 'It\'s part bee, but it\'s part person too.',
     }),
     new MonsterType ({
         name: 'fire elemental',
@@ -112,6 +182,8 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',
+        onDeath: 'It\'s face goes slack and swirls into a glob of black flame which falls and bursts leaving something there on the floor.',
+        drop: [new Item(itemByName(Math.floor(Math.random()) ? 'ghostcandle' : 'burned bone'))]
     }),
     new MonsterType ({
         name: 'hellhound',

@@ -1,10 +1,11 @@
-var ItemType = function (name, slot, bonus, ammo, spentMessage, info) {
+var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy) {
     this.name = name;
     this.bonus = bonus;
     this.ammo = ammo;
     this.info = info;
     this.slot = slot;
     this.spentMessage = spentMessage;
+    this.onDestroy = onDestroy ? onDestroy : false;
 };
 
 var Item = function (type) {
@@ -14,6 +15,7 @@ var Item = function (type) {
     this.ammo = type.ammo;
     this.spentMessage = type.spentMessage;
     this.info = type.info;
+    this.onDestroy = type.onDestroy ? type.onDestroy : false;
 };
 
 var allItemTypes = [
@@ -114,6 +116,13 @@ var allItemTypes = [
         4,
         'The ghostcandle burns down to nothing and vanishes with a mournful whale\'s call.',
         'A fire spirit confined to a black wax candle. Adds moderate burn damage to all your attacks.'
+    ),
+    new ItemType (
+        'burned bone', 'shield',
+        [0,0,0,7,0,0],
+        6,
+        'The burned bone you\'re carrying turns into ash.',
+        'A bone from the immolated body of someone who was turned into a fire elemental.'
     ),
     new ItemType (
         'torch', 'weapon',
