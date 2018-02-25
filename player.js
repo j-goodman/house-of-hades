@@ -18,7 +18,7 @@ var Player = function () {
 Player.prototype.welcome = function () {
     drawString('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
     drawString('');
-    drawString('Find the dragon in the room with only one door and kill it there.');
+    drawString('Find the treasure room and kill the dragon.');
     drawString('');
     this.describeDoors();
     this.describeItems();
@@ -73,6 +73,7 @@ Player.prototype.get = function (targetName) {
     if (oldItem) {
         drawString('You drop your ' + oldItem.name + '.');
         this.room.items.push(oldItem);
+        this.updateStats();
     }
     if (target.slot === 'weapon') {
       drawString('Your attack' + (this.weapon ? (' (with ' + this.weapon.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
@@ -123,6 +124,7 @@ Player.prototype.drop = function (itemName) {
     drawString('You drop the ' + this.holding.name + ' you were holding.');
     this.holding = null;
   }
+  this.updateStats();
 };
 
 Player.prototype.updateStats = function () {
@@ -163,9 +165,10 @@ Player.prototype.fight = function (enemyName) {
         this.weapon.ammo -= 1;
         if (this.weapon.ammo <= 0) {
             drawString(this.weapon.spentMessage);
+            if (this.weapon.onDestroy) { this.weapon.onDestroy(this.room); }
             this.weapon = null;
-            this.updateStats();
         }
+        this.updateStats();
     }
     if (this.shield && this.shield.ammo) {
         this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
