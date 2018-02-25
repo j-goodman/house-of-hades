@@ -49,8 +49,8 @@ Typebox.prototype.drawContents = function () {
     this.cursor = 0;
     for (i = 0; i < this.contents.length; i++) {
       character = characters[(shift ? '*' : '') + this.contents[i]] || false;
-      this.context.fillRect(this.cursor, this.top, this.fontsize, this.fontsize);
-      this.context.drawImage(character, this.cursor, this.top, this.fontsize, this.fontsize);
+      // this.context.fillRect(this.cursor, this.top, this.fontsize, this.fontsize);
+      // this.context.drawImage(character, this.cursor, this.top, this.fontsize, this.fontsize);
       this.cursor += this.fontsize;
     }
 };
@@ -140,7 +140,9 @@ var drawString = (string, rightHand=35) => {
     var k = 0;
     var keyLookup;
     var typed = '';
-    var wordLength;
+    var nextWord;
+    var highlightingWord;
+    var resetChar = 0;
 
     carriageReturn();
 
@@ -169,9 +171,60 @@ var drawString = (string, rightHand=35) => {
         });
         k += 1;
 
-        wordLength = string.slice(typed.length, string.length).split(' ')[0].length;
+        nextWord = string.slice(typed.length, string.length).split(' ')[0].toLowerCase();
+        var id;
 
-        if (k + wordLength > rightHand) {
+        // Check for item names
+        if (game.player.room.items.map((item, index) => {
+          if (item.name.split(' ')[0] === nextWord) {
+            id = index;
+          }
+          return item.name.split(' ')[0]
+        }).includes(nextWord)) {
+          highlightingWord = game.player.room.items.map((item, index) => { return item.name })[id];
+          resetChar = typed.length + highlightingWord.length;
+          fontcolor = '#77d';
+        } else if (typed.length >= resetChar) {
+          highlightingWord = false;
+          fontcolor = '#fff';
+        }
+
+        // Check for monster names
+        if (game.player.room.monsters.map((monster, index) => {
+          if (monster.name.split(' ')[0] === nextWord) {
+            id = index;
+          }
+          return monster.name.split(' ')[0]
+        }).includes(nextWord)) {
+          highlightingWord = game.player.room.monsters.map((monster, index) => { return monster.name })[id];
+          resetChar = typed.length + highlightingWord.length;
+          fontcolor = '#e44';
+        } else if (typed.length >= resetChar) {
+          highlightingWord = false;
+          fontcolor = '#fff';
+        }
+
+        if (k + nextWord.length > rightHand) {
+          k = 0;
+          carriageReturn();
+        }
+
+        // Check for door names
+        if (game.player.room.doors.map((door, index) => {
+          if (door.color.split(' ')[0] === nextWord) {
+            id = index;
+          }
+          return door.color.split(' ')[0]
+        }).includes(nextWord)) {
+          highlightingWord = game.player.room.doors.map((door, index) => { return door.color + ' door' })[id];
+          resetChar = typed.length + highlightingWord.length;
+          fontcolor = '#dd9';
+        } else if (typed.length >= resetChar) {
+          highlightingWord = false;
+          fontcolor = '#fff';
+        }
+
+        if (k + nextWord.length > rightHand) {
           k = 0;
           carriageReturn();
         }

@@ -156,11 +156,8 @@ Player.prototype.fight = function (enemyName) {
         }
         this.stats.hitpoints -= Math.ceil(enemy.attack[i] * (12/12 - (this.stats.defense[i] / 12)));
     }
-    fontcolor = '#aaf';
     drawString('Player:' + ' ' + (this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints));
-    fontcolor = '#faa';
     drawString('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
-    fontcolor = '#fff';
     if (this.weapon && this.weapon.ammo) {
         this.weapon.ammo -= 1;
         if (this.weapon.ammo <= 0) {
@@ -190,7 +187,6 @@ Player.prototype.fight = function (enemyName) {
 
 Player.prototype.die = function () {
     clearType();
-    fontcolor = '#e22';
     drawString('You\'re dead.');
     this.alive = false;
 };
@@ -214,9 +210,7 @@ Player.prototype.recover = function (active=false) {
             this.stats.hitpoints += gain;
             this.stats.hitpoints = this.stats.hitpoints > this.stats.maxHitpoints ? this.stats.maxHitpoints : this.stats.hitpoints;
             if (gain) {
-              fontcolor = '#ffa';
               drawString('You heal by ' + gain + ' hitpoints, to ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' total.');
-              fontcolor = '#fff';
             }
         }
     } else if (active) {
@@ -283,9 +277,7 @@ Player.prototype.describeItems = function () {
                 string += 'a ' + this.room.items[i].name + ' on the ' + surface + '.';
             }
         }
-        fontcolor = '#9f9';
         drawString(string);
-        fontcolor = '#fff';
     }
 };
 
