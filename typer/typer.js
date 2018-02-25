@@ -12,12 +12,15 @@ var fontsize = 22;
 var kerning = 1;
 var line = 0;
 
+var typebox;
+
 window.addEventListener('load', () => {
   canvas = document.getElementById('canvas');
   ctx = canvas.getContext('2d');
   colorInput = document.getElementById('color');
-  // document.addEventListener('keydown', keyDown);
-  // document.addEventListener('keyup', keyUp);
+  document.addEventListener('keydown', keyDown);
+  document.addEventListener('keyup', keyUp);
+  typebox = new Typebox ('typebox');
 });
 
 var clearType = () => {
@@ -29,22 +32,73 @@ var clearType = () => {
   }
 }
 
-var keyDown = (event) => {
+var Typebox = function (canvasID) {
+    this.canvas = document.getElementById(canvasID);
+    this.context = this.canvas.getContext('2d');
+    this.contents = [];
+    this.cursor = 0;
+    this.fontsize = fontsize;
+    this.top = 16;
+};
+
+Typebox.prototype.drawContents = function () {
+    var i;
+    var character;
+    this.context.fillStyle = fontcolor;
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.cursor = 0;
+    for (i = 0; i < this.contents.length; i++) {
+      character = characters[(shift ? '*' : '') + this.contents[i]] || false;
+      this.context.fillRect(this.cursor, this.top, this.fontsize, this.fontsize);
+      this.context.drawImage(character, this.cursor, this.top, this.fontsize, this.fontsize);
+      this.cursor += this.fontsize;
+    }
+};
+
+Typebox.prototype.type = function (key) {
+    this.contents.push(key);
+    this.drawContents();
+};
+
+Typebox.prototype.backspace = function () {
+    console.log('backspace.');
+};
+
+Typebox.prototype.enter = function () {
+    console.log('enter.');
+};
+
+var typeChar = (event, typing) => {
     var character;
     character = characters[(shift ? '*' : '') + event.keyCode] || false;
     ctx.fillStyle = fontcolor;
-    if (character) {
+    if (character && !typing) {
         ctx.fillRect(cursor.x, cursor.y, fontsize, fontsize);
         ctx.drawImage(character, cursor.x, cursor.y, fontsize, fontsize);
         cursor.x += fontsize * kerning;
     } else if (event.keyCode === 16) { // SHIFT
         shift = true;
     } else if (event.keyCode === 8) { // BACKSPACE
+        if (typing) {
+          typebox.backspace();
+        }
         cursor.x -= fontsize * kerning;
     } else if (event.keyCode === 13) { // ENTER
+        if (typing) {
+          typebox.enter();
+        }
         cursor.x = fontsize * kerning;
         cursor.y += fontsize * kerning;
     }
+    if (typing) {
+      return event.keyCode;
+    }
+}
+
+var keyDown = (event) => {
+    var characterKey;
+    characterKey = typeChar(event, true);
+    typebox.type(characterKey);
 }
 
 var keyUp = (event) => {
@@ -76,8 +130,8 @@ var loadImages = (callback) => {
 }
 
 var carriageReturn = () => {
-  keyDown({keyCode: 13});
-  keyDown({keyCode: 13});
+  typeChar({keyCode: 13});
+  typeChar({keyCode: 13});
   line++;
 }
 
@@ -85,6 +139,8 @@ var drawString = (string, rightHand=35) => {
     var i;
     var k = 0;
     var keyLookup;
+    var typed = '';
+    var wordLength;
 
     carriageReturn();
 
@@ -106,11 +162,16 @@ var drawString = (string, rightHand=35) => {
           key = irregulars[string[i]];
         };
 
-        keyDown({
+        typed += string[i];
+
+        typeChar({
           keyCode: eventmap[key]
         });
         k += 1;
-        if (k > rightHand) {
+
+        wordLength = string.slice(typed.length, string.length).split(' ')[0].length;
+
+        if (k + wordLength > rightHand) {
           k = 0;
           carriageReturn();
         }
@@ -153,6 +214,8 @@ var irregulars = {
   '.': 'period',
   ':': 'colon',
   '?': 'question_mark',
+  '+': 'plus',
+  '+': 'plus',
   '|': 'bar',
   '\'': 'apostrophe',
   // '"': 'open_quote',
@@ -196,6 +259,7 @@ var eventmap = {
     'period': 190,
     'colon': '*186',
     'question_mark': '*191',
+    'plus': '*187',
     'bar': '*220',
     'apostrophe': 222,
     // 'open_quote': '*222',
@@ -315,7 +379,88 @@ var keymap = {
     121: 'y',
     122: 'z',
     124: 'bar',
+    187: 'plus',
     8217: 'apostrophe',
     8220: 'open_quote',
     8221: 'close_quote',
+}
+
+var literalMap = {
+  a: 'a',
+  b: 'b',
+  c: 'c',
+  d: 'd',
+  e: 'e',
+  f: 'f',
+  g: 'g',
+  h: 'h',
+  i: 'i',
+  j: 'j',
+  k: 'k',
+  l: 'l',
+  m: 'm',
+  n: 'n',
+  o: 'o',
+  p: 'p',
+  q: 'q',
+  r: 'r',
+  s: 's',
+  t: 't',
+  u: 'u',
+  v: 'v',
+  w: 'w',
+  x: 'x',
+  y: 'y',
+  z: 'z',
+  'exclamation_point': '!',
+  'open_parenthesis': '(',
+  'close_parenthesis': ')',
+  'asterisk': '*',
+  'comma': ',',
+  'hyphen': '-',
+  'period': '.',
+  'colon': ':',
+  'question_mark': '?',
+  'plus': '+',
+  'bar': '|',
+  'apostrophe': '\'',
+  // 'open_quote': '"',
+  'close_quote': '"',
+  'space': ' ',
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  'A_cap': 'A',
+  'B_cap': 'B',
+  'C_cap': 'C',
+  'D_cap': 'D',
+  'E_cap': 'E',
+  'F_cap': 'F',
+  'G_cap': 'G',
+  'H_cap': 'H',
+  'I_cap': 'I',
+  'J_cap': 'J',
+  'K_cap': 'K',
+  'L_cap': 'L',
+  'M_cap': 'M',
+  'N_cap': 'N',
+  'O_cap': 'O',
+  'P_cap': 'P',
+  'Q_cap': 'Q',
+  'R_cap': 'R',
+  'S_cap': 'S',
+  'T_cap': 'T',
+  'U_cap': 'U',
+  'V_cap': 'V',
+  'W_cap': 'W',
+  'X_cap': 'X',
+  'Y_cap': 'Y',
+  'Z_cap': 'Z',
 }
