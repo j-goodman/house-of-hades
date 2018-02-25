@@ -1,18 +1,23 @@
 var buildSegments = (count, rooms) => {
-  segments[Math.floor(Math.random() * segments.length)](count, rooms);
+  var number = 2;
+  var choices = [];
+  var choice;
+  var i;
+  for (i = 0; i < number; i++) {
+    if (segments.length < number) {
+      console.log('Not enough segments.');
+      number = segments.length - 1;
+    };
+    choice = Math.floor(Math.random() * segments.length);
+    while (choices.includes(choice)) {
+      choice = Math.floor(Math.random() * segments.length);
+    }
+    choices.push(choice);
+  }
+  choices.map((index) => {
+    segments[index](count, rooms);
+  });
 };
-
-var monByName = (name) => {
-    return allMonsterTypes.filter((type) => {
-        return type.name === name;
-    })[0];
-}
-
-var itemByName = (name) => {
-    return allItemTypes.filter((type) => {
-        return type.name === name;
-    })[0];
-}
 
 var segments = [
   /*
@@ -339,7 +344,7 @@ var segments = [
         segmentRooms[0],
         new MonsterType ({
             name: 'lich',
-            attack: [0,3,0,0,0,8],
+            attack: [0,2,0,0,0,5],
             defense: [12,1,3,12,12,6],
             hitpoints: 20,
             level: 3,
@@ -362,7 +367,7 @@ var segments = [
                             segmentRooms[0],
                             new MonsterType ({
                                 name: 'biting head',
-                                attack: [0,2,4,0,0,0,],
+                                attack: [0,2,2,0,0,0,],
                                 defense: [12,0,0,12,12,0,],
                                 hitpoints: 20,
                                 info: 'A severed head with dry white hair springing from its scalp irregularly. Its bright green eyes sit in sunken sockets and it moves its mouth in a silent scream while rolling and biting.',
@@ -378,7 +383,7 @@ var segments = [
                                           'A pale white ear that\'s been cursed with dark magic. Protects from all poison damage.'
                                       ) : new ItemType (
                                           'lich\'s nose', 'shield',
-                                          [0,0,0,12,0,12],
+                                          [0,0,0,0,0,12],
                                           '20',
                                           'The lich\'s nose crumbles and becomes rotten-smelling ash.',
                                           'A rotting nose that\'s been cursed with dark magic. Protects from all curse damage.'
@@ -413,7 +418,7 @@ var segments = [
                                 [0,0,0,0,0,0],
                                 '50',
                                 'The lich\'s torso rots away to sludge.',
-                                'The torso of an aged woman with all appendages severed. It lies inert and bloodless but you can still see its heart beating.'
+                                'The torso of an aged woman with no appendages. It lies inert and bloodless but you can still see its heart beating.'
                             ),
                           )
                         )
@@ -497,11 +502,10 @@ var segments = [
 
   /*
 
-  *      DOOR SALESMAN      *
+  *      DOOR MUMBLER      *
 
   */
   (count, rooms) => {
-    console.log('*');
     var segmentRooms = [];
     var otherRoom;
 
@@ -513,13 +517,13 @@ var segments = [
         segmentRooms[0],
         new MonsterType ({
             // pierce, slash, crush, burn, poison, curse
-            name: 'door salesman',
+            name: 'door mumbler',
             attack: [0,2,8,1,0,0],
             defense: [3,6,5,5,3,8],
             hitpoints: 20,
             level: 3,
             info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
-            onDeath: 'The door salesman is killed.',
+            onDeath: 'The door mumbler is killed.',
         }),
       )
     ];
@@ -535,10 +539,10 @@ var segments = [
           })).to
         )
       );
-      drawString('The door salesman lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
+      drawString('The door mumbler lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
       this.hitpoints += 1;
       this.room.monsters = this.room.monsters.filter((mon) => {
-        return mon.name !== 'door salesman';
+        return mon.name !== 'door mumbler';
       });
       destinationDoor = pick(this.room.doors.filter((door) => {
         return (door.to && door.to !== true);
