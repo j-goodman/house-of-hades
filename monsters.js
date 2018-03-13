@@ -66,7 +66,28 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
-        onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.'
+        onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
+        deathEvent: () => {
+          var door;
+          door = new Door ('trap', game.player.room, null);
+          game.player.room.doors.push(door);
+          door.to = new Room ([], 16);
+          door.to.items.push(
+            itemByName('sacred tomohawk'),
+            itemByName('wand of oceans'),
+            itemByName('laughing mask'),
+            itemByName('bag of devil\'s gold'),
+            itemByName('golem\'s blood'),
+            itemByName('jar of salt'),
+          )
+          door.to.mana += 100;
+          door.from.mana += 50;
+          if (game.player.room.type = 'treasure room') {
+            drawString('');
+            drawString('    ) YOU WIN (    ');
+            drawString('');
+          }
+        }
     }),
     new MonsterType ({
         name: 'giant scorpion',
