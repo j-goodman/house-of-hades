@@ -12,6 +12,7 @@ var recover = game.player.recover.bind(game.player, true);
 var check = game.player.lookAround.bind(game.player);
 var stats = game.player.showStats.bind(game.player);
 var info = game.player.info.bind(game.player);
+var use = game.player.use.bind(game.player);
 
 window.addEventListener('load', () => {
   loadImages(game.player.welcome.bind(game.player));

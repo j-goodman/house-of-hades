@@ -11,7 +11,7 @@ var Player = function () {
     };
     this.weapon = null;
     this.shield = null;
-    this.holding = null;
+    this.holding = [];
     this.alive = true;
 };
 
@@ -87,15 +87,13 @@ Player.prototype.hold = function (targetName) {
     clearType();
     var i; var j;
     var target;
-    var oldItem;
     this.room.items.map(function (item) {
         if (item.name == targetName) {
             target = item;
         }
     }.bind(this));
     if (!target) { return false; }
-    oldItem = this.holding;
-    this.holding = target;
+    this.holding.push(target);
     drawString('You put the ' + target.name + ' away for later.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
@@ -103,14 +101,12 @@ Player.prototype.hold = function (targetName) {
             this.room.items = this.room.items.slice(0,j).concat(this.room.items.slice(j+1,this.room.items.length));
         }
     }
-    if (oldItem) {
-        drawString('You drop the ' + oldItem.name + ' you were holding.');
-        this.room.items.push(oldItem);
-    }
 };
 
 Player.prototype.drop = function (itemName) {
   clearType();
+  let holding = null;
+  let unique = false;
   if (this.weapon && this.weapon.name == itemName) {
     this.room.items.push(this.weapon);
     drawString('You drop your ' + this.weapon.name + '.');
@@ -119,10 +115,20 @@ Player.prototype.drop = function (itemName) {
     this.room.items.push(this.shield);
     drawString('You drop your ' + this.shield.name + '.');
     this.shield = null;
-  } else if (this.holding && this.holding.name == itemName) {
-    this.room.items.push(this.holding);
-    drawString('You drop the ' + this.holding.name + ' you were holding.');
-    this.holding = null;
+  } else if (this.holding.map(item => {
+    holding = (item.name === itemName) ? item : holding;
+    return item.name;
+  }).includes(itemName)) {
+    this.room.items.push(holding);
+    drawString('You drop the ' + holding.name + ' you were holding.');
+    this.holding = this.holding.filter(item => {
+      if (item.name === itemName && !unique) {
+        unique = true;
+        return false;
+      } else {
+        return true;
+      }
+    });
   }
   this.updateStats();
 };
@@ -160,6 +166,7 @@ Player.prototype.fight = function (enemyName) {
     drawString('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
     if (this.weapon && this.weapon.ammo) {
         this.weapon.ammo -= 1;
+        if (this.weapon.onUse) { this.weapon.onUse(this); }
         if (this.weapon.ammo <= 0) {
             drawString(this.weapon.spentMessage);
             if (this.weapon.onDestroy) { this.weapon.onDestroy(this.room); }
@@ -169,6 +176,7 @@ Player.prototype.fight = function (enemyName) {
     }
     if (this.shield && this.shield.ammo) {
         this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
+        if (shieldUse && this.shield.onUse) { this.shield.onUse(this) }
         if (this.shield.ammo <= 0) {
             drawString(this.shield.spentMessage);
             this.shield = null;
@@ -184,6 +192,17 @@ Player.prototype.fight = function (enemyName) {
       enemy.fightEvent();
     }
 };
+
+Player.prototype.use = function (itemName) {
+    if (this.weapon && this.weapon.name === itemName) {
+        if (this.weapon.onUse && this.weapon.name === itemName) {
+            this.weapon.onUse(this);
+        } else {
+            clearType();
+            drawString(`You wave your ${itemName} in front of you.`);
+        }
+    };
+}
 
 Player.prototype.die = function () {
     clearType();
@@ -339,3 +358,4 @@ Player.prototype.info = function () {
       this.lookAround();
     }
 };
+;

@@ -1,4 +1,4 @@
-var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy) {
+var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse) {
     this.name = name;
     this.bonus = bonus;
     this.ammo = ammo;
@@ -6,6 +6,7 @@ var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy)
     this.slot = slot;
     this.spentMessage = spentMessage;
     this.onDestroy = onDestroy ? onDestroy : false;
+    this.onUse = onUse ? onUse : false;
 };
 
 var Item = function (type) {
@@ -16,6 +17,7 @@ var Item = function (type) {
     this.spentMessage = type.spentMessage;
     this.info = type.info;
     this.onDestroy = type.onDestroy ? type.onDestroy : false;
+    this.onUse = type.onUse ? type.onUse : false;
 };
 
 var allItemTypes = [
