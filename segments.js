@@ -1,5 +1,5 @@
 var buildSegments = (count, rooms) => {
-  var number = 2;
+  var number = 1;
   var choices = [];
   var choice;
   var i;
@@ -248,7 +248,7 @@ var segments = [
 
     var slitheringLeg = new MonsterType ({
         name: 'slithering leg',
-        attack: [0,1,2,0,0,0,],
+        attack: [0,1,1,0,0,0,],
         defense: [12,0,0,12,12,0,],
         hitpoints: 20,
         info: 'A single fleshy leg that wriggles around the grotto like a snake.',
@@ -276,7 +276,7 @@ var segments = [
 
     var writhingArm = new MonsterType ({
         name: 'writhing arm',
-        attack: [0,1,2,0,0,0,],
+        attack: [0,1,1,0,0,0,],
         defense: [12,0,0,12,12,0,],
         hitpoints: 20,
         info: 'A wrinkly withered arm that flaps around by the elbow trying to claw at things.',
@@ -304,7 +304,7 @@ var segments = [
 
     var bitingHead = new MonsterType ({
         name: 'biting head',
-        attack: [2,0,2,0,0,0,],
+        attack: [2,0,1,0,0,0,],
         defense: [12,0,0,12,12,0,],
         hitpoints: 20,
         info: 'A wrinkly withered arm that flaps around by the elbow trying to claw at things.',
@@ -344,7 +344,7 @@ var segments = [
         segmentRooms[0],
         new MonsterType ({
             name: 'lich',
-            attack: [0,2,0,0,0,5],
+            attack: [0,2,0,0,1,5],
             defense: [12,1,3,12,12,6],
             hitpoints: 20,
             level: 3,
@@ -497,7 +497,6 @@ var segments = [
         }),
       )
     ];
-
   },
 
   /*
@@ -519,7 +518,7 @@ var segments = [
             // pierce, slash, crush, burn, poison, curse
             name: 'door mumbler',
             attack: [0,2,8,1,0,0],
-            defense: [3,6,5,5,3,8],
+            defense: [8,4,8,1,3,8],
             hitpoints: 20,
             level: 3,
             info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
@@ -555,6 +554,35 @@ var segments = [
         this.room = destinationDoor.to;
       }
     }.bind(segmentRooms[0].monsters[0])
+  },
+
+  /*
+
+  *      LABORATORY      *
+
+  */
+  (count, rooms) => {
+    console.log('$')
+    var segmentRooms = [];
+    var otherRoom;
+
+    segmentRooms.push(new Room ([], 3));
+
+    segmentRooms[0].items = [
+      new ItemType (
+          'uncurser', 'weapon',
+          [0,0,3,0,0,0],
+          14,
+          '',
+          'A disk made of a matte black metal whose internal weight seems to shift fluidly in your hands.',
+          null,
+          player => {
+              clearType();
+              drawString('You put your hand through the hole at the middle of the uncurser and it injects you with something. You\'re innoculated against all curses and syphilis now, and your right eye starts going lazy.');
+              player.stats.defense[5] = 12;
+          }
+      ),
+    ];
   },
 ]
 
