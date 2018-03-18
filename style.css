@@ -1,0 +1,47 @@
+body {
+    background: #000;
+    color: #fe8;
+    font-family: 'IBM Plex Mono', sans-serif;
+}
+
+.block {
+    background: #321;
+    padding: 16px;
+}
+
+.bubble, .action {
+    background: #332;
+    padding: 16px;
+    margin: 16px 0 16px 0;
+}
+
+.bubble {
+    border-radius: 24px;
+}
+
+.bubble:hover {
+    background: #220;
+    cursor: pointer;
+}
+
+.bubble > .bubble > .bubble:hover {
+    background: #110;
+    cursor: pointer;
+}
+
+.bubble > .bubble.small:hover {
+    background: #443;
+    cursor: pointer;
+}
+
+.bubble.small {
+    max-height: 52px;
+}
+
+.action {
+    border-radius: 18px;
+}
+
+.action:hover {
+    background: #c44;
+}

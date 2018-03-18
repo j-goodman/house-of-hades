@@ -16,5 +16,22 @@ var info = game.player.info.bind(game.player);
 var use = game.player.use.bind(game.player);
 
 window.addEventListener('load', () => {
-  loadImages(game.player.welcome.bind(game.player));
+  game.player.welcome.bind(game.player);
 });
+
+
+/*
+
+1.
+Description of the room, items monsters and doors are buttons.
+
+ITEM -> description, GET
+MONSTER -> description, FIGHT, CHECK
+DOOR -> GO THROUGH
+
+2.
+YOU
+Stats -> Weapon (drop), Shield (drop), stats
+Inventory -> Items (drop, conditionally use)
+
+*/

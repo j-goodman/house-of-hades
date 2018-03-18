@@ -248,7 +248,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'weaselcat',
-        attack: [5,0,0,0,4,0,],
+        attack: [5,0,0,0,3,0,],
         defense: [4,0,1,2,5,1,],
         hitpoints: 20,
         level: 2,
