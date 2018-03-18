@@ -111,7 +111,7 @@ var allMonsterTypes = [
                 'half-man half-bat carcass', 'weapon',
                 [0,0,2,0,6,1],
                 3,
-                'The half-man half-bat carcass that you\'ve been carrying and throwing around as a toxic weapon SHRIEKS and its arms seem to be trying to prize it free from the form  of the dead bat. Slowly, a naked vampire, skeletal, hairless and bent, emerges from the rotting mess.',
+                'The half-man half-bat carcass that you\'ve been carrying and throwing around as a toxic weapon SHRIEKS and its arms seem to be trying to prize it free from the form of the dead bat. Slowly, a naked vampire, skeletal, hairless and bent, emerges from the rotting mess.',
                 'The corpse of a bat with the twisted arm and face of a human man bursting from it, also dead. It\'s bleeding some kind of ashy black ichor.',
                 (room) => {
                     room.monsters.push(
@@ -203,7 +203,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',
-        onDeath: 'It\'s face goes slack and swirls into a glob of black flame which falls and bursts leaving something there on the floor.',
+        onDeath: 'Its face goes slack and swirls into a glob of black flame which falls and bursts leaving something there on the floor.',
         drop: [new Item(itemByName(Math.floor(Math.random()) ? 'ghostcandle' : 'burned bone'))]
     }),
     new MonsterType ({

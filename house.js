@@ -102,7 +102,7 @@ var Room = function (doors, doorCount) {
     this.monsters = (this.monsters.length === 2 &&this.monsters[0].name === this.monsters[1].name) ?
     [this.monsters[0]] : this.monsters;
     if (oneIn(1.7)) {
-        this.items.push(new Item (pick(allItemTypes)));
+        this.items.push(new Item (pick(allItemTypes), this));
     }
     doorCount = doorCount ? doorCount : Math.ceil(Math.random() * (2.1));
     for (i=0 ; i<doorCount ; i++) {

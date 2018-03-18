@@ -1,5 +1,5 @@
 var buildSegments = (count, rooms) => {
-  var number = 1;
+  var number = 2;
   var choices = [];
   var choice;
   var i;
@@ -91,7 +91,7 @@ var segments = [
             room.monsters = [];
         }
         room.items = [
-          new Item (pickUnique(segmentItems, usedItems)),
+          new Item (pickUnique(segmentItems, usedItems), room),
         ];
         usedItems.push(room.items[0]);
 
@@ -207,7 +207,7 @@ var segments = [
               new Monster (room, pick(segmentMonsters)),
             ];
             room.items = [
-              new Item (pick(segmentItems)),
+              new Item (pick(segmentItems), room),
             ];
             room.doors[1] = middle.doors[index];
             if (room.doors[1].color === room.doors[0].color) {
@@ -268,7 +268,7 @@ var segments = [
                   '20',
                   'The lich\'s ankle crumbles and becomes rotten-smelling ash.',
                   'A fleshy ankle that\'s been cursed with dark magic. Protects from all pierce damage.'
-              )
+              ), this.room
             ),
           );
         }
@@ -296,7 +296,7 @@ var segments = [
                   '20',
                   'The lich\'s thumb crumbles and becomes rotten-smelling ash.',
                   'A fleshy thumb that\'s been cursed with dark magic. Protects from all burn damage.'
-              )
+              ), this.room
             ),
           );
         }
@@ -324,7 +324,7 @@ var segments = [
                   '20',
                   'The lich\'s finger crumbles and becomes rotten-smelling ash.',
                   'A fleshy finger that\'s been cursed with dark magic. Protects from all burn damage.'
-              )
+              ), this.room
             ),
           );
         }
@@ -387,7 +387,7 @@ var segments = [
                                           '20',
                                           'The lich\'s nose crumbles and becomes rotten-smelling ash.',
                                           'A rotting nose that\'s been cursed with dark magic. Protects from all curse damage.'
-                                      )
+                                      ), segmentRooms[0]
                                     ),
                                     new Item (
                                       new ItemType (
@@ -397,7 +397,7 @@ var segments = [
                                           'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
                                           'A green eye with the power to kill those it looks upon.'
                                       )
-                                    )
+                                    ), segmentRooms[0]
                                   );
                                 }
                             }),
@@ -419,7 +419,7 @@ var segments = [
                                 '50',
                                 'The lich\'s torso rots away to sludge.',
                                 'The torso of an aged woman with no appendages. It lies inert and bloodless but you can still see its heart beating.'
-                            ),
+                            ), segmentRooms[0]
                           )
                         )
                       }
@@ -490,7 +490,7 @@ var segments = [
                       33,
                       'The unicorn horn you\'ve been using as a weapon splinters and breaks.',
                       'A twisting horn.'
-                  ),
+                  ), segmentRooms[0]
                 )
               )
             }
@@ -571,7 +571,7 @@ var segments = [
     segmentRooms[0].items = [
       new ItemType (
           'uncurser', 'weapon',
-          [0,0,3,0,0,0],
+          [0,0,2,0,0,0],
           14,
           '',
           'A disk made of a matte black metal whose internal weight seems to shift fluidly in your hands.',
@@ -579,7 +579,82 @@ var segments = [
           player => {
               clearType();
               drawString('You put your hand through the hole at the middle of the uncurser and it injects you with something. You\'re innoculated against all curses and syphilis now, and your right eye starts going lazy.');
-              player.stats.defense[5] = 12;
+              player.stats.baseDefense[5] = 12;
+              player.weapon.ammo = 0;
+          }
+      ),
+      new ItemType (
+          'red light bulb', 'weapon',
+          [0,0,1,0,0,0],
+          19,
+          'The red light bulb bursts with a flash and a shower of hot sparks.',
+          'A inert spherical light bulb made of orange-red glass.',
+          null,
+          player => {
+            let targetBulb = game.player.data.violetBulb ? game.player.data.violetBulb : false;
+            game.player.data.redBulb = game.player.weapon;
+            if (targetBulb && targetBulb.room === 'player') {
+                drop('violet light bulb');
+            }
+            if (targetBulb) {
+              player.weapon.info = 'When you hold it the bulb glows with blazing red light.'
+              player.room.items.push(player.weapon);
+              player.weapon.room = player.room;
+              player.weapon = null;
+              player.room = targetBulb.room;
+              clearType();
+              drawString('There\'s a blinding flash of red light and when it fades the red bulb is gone and in its place is a glass sphere of violet light.');
+              check();
+            } else {
+                clearType();
+                drawString('The bulb becomes hot for a moment but stays dark.');
+            }
+          },
+          self => {
+            game.player.data.redBulb = self;
+            self.info = game.player.data.violetBulb ?
+                'When you hold it the bulb glows with blazing red light.' :
+                self.info;
+            if (!game.player.data.violetBulb) {
+              self.room.items.push(new Item (itemByName('violet light bulb'), self.room))
+            }
+          }
+      ),
+      new ItemType (
+          'violet light bulb', 'weapon',
+          [0,0,1,0,0,0],
+          19,
+          'The violet light bulb bursts with a flash and a shower of hot sparks.',
+          'A inert spherical light bulb made of blue-violet glass.',
+          null,
+          player => {
+            let targetBulb = game.player.data.redBulb ? game.player.data.redBulb : false;
+            game.player.data.violetBulb = game.player.weapon;
+            if (targetBulb && targetBulb.room === 'player') {
+                drop('red light bulb');
+            }
+            if (targetBulb) {
+              player.weapon.info = 'When you hold it the bulb glows with cold violet light.'
+              player.room.items.push(player.weapon);
+              player.weapon.room = player.room;
+              player.weapon = null;
+              player.room = targetBulb.room;
+              clearType();
+              drawString('There\'s a blinding flash of violet light and when it fades the violet bulb is gone and in its place is a red glass sphere.');
+              check();
+            } else {
+                clearType();
+                drawString('The bulb becomes hot for a moment but stays dark.');
+            }
+          },
+          self => {
+            game.player.data.violetBulb = self;
+            self.info = game.player.data.redBulb ?
+                'When you hold it the bulb glows with cold violet light.' :
+                self.info;
+            if (!game.player.data.redBulb) {
+              self.room.items.push(new Item (itemByName('red light bulb'), self.room))
+            }
           }
       ),
     ];
