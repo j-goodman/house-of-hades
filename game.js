@@ -10,6 +10,7 @@ var drop = game.player.drop.bind(game.player);
 var fight = game.player.fight.bind(game.player);
 var recover = game.player.recover.bind(game.player, true);
 var check = game.player.lookAround.bind(game.player);
+var holding = game.player.showHolding.bind(game.player);
 var stats = game.player.showStats.bind(game.player);
 var info = game.player.info.bind(game.player);
 var use = game.player.use.bind(game.player);

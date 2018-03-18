@@ -13,6 +13,7 @@ var Player = function () {
     this.shield = null;
     this.holding = [];
     this.alive = true;
+    this.data = {};
 };
 
 Player.prototype.welcome = function () {
@@ -31,6 +32,14 @@ Player.prototype.lookAround = function () {
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
+};
+
+Player.prototype.showHolding = function () {
+    clearType();
+    drawString('You\'re holding:');
+    this.holding.map(item => {
+        drawString(item.name);
+    });
 };
 
 Player.prototype.goTo = function (doorString) {
@@ -63,6 +72,7 @@ Player.prototype.get = function (targetName) {
     if (!target || !target.slot) { return false; }
     oldItem = this[target.slot];
     this[target.slot] = target;
+    target.room = 'player';
     drawString('You take the ' + target.name + '.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
@@ -73,6 +83,7 @@ Player.prototype.get = function (targetName) {
     if (oldItem) {
         drawString('You drop your ' + oldItem.name + '.');
         this.room.items.push(oldItem);
+        oldItem.room = this.room;
         this.updateStats();
     }
     if (target.slot === 'weapon') {
@@ -93,6 +104,7 @@ Player.prototype.hold = function (targetName) {
         }
     }.bind(this));
     if (!target) { return false; }
+    target.room = 'player';
     this.holding.push(target);
     drawString('You put the ' + target.name + ' away for later.');
     this.updateStats();
@@ -109,10 +121,12 @@ Player.prototype.drop = function (itemName) {
   let unique = false;
   if (this.weapon && this.weapon.name == itemName) {
     this.room.items.push(this.weapon);
+    this.weapon.room = this.room;
     drawString('You drop your ' + this.weapon.name + '.');
     this.weapon = null;
   } else if (this.shield && this.shield.name == itemName) {
     this.room.items.push(this.shield);
+    this.shield.room = this.room;
     drawString('You drop your ' + this.shield.name + '.');
     this.shield = null;
   } else if (this.holding.map(item => {
@@ -120,6 +134,7 @@ Player.prototype.drop = function (itemName) {
     return item.name;
   }).includes(itemName)) {
     this.room.items.push(holding);
+    holding.room = this.room;
     drawString('You drop the ' + holding.name + ' you were holding.');
     this.holding = this.holding.filter(item => {
       if (item.name === itemName && !unique) {

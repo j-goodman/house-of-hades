@@ -1,4 +1,4 @@
-var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse) {
+var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse, onInstantiate) {
     this.name = name;
     this.bonus = bonus;
     this.ammo = ammo;
@@ -7,22 +7,27 @@ var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy,
     this.spentMessage = spentMessage;
     this.onDestroy = onDestroy ? onDestroy : false;
     this.onUse = onUse ? onUse : false;
+    this.onInstantiate = onInstantiate ? onInstantiate : false;
 };
 
-var Item = function (type) {
+var Item = function (type, room) {
     this.name = type.name;
     this.slot = type.slot;
     this.bonus = type.bonus;
     this.ammo = type.ammo;
     this.spentMessage = type.spentMessage;
     this.info = type.info;
+    this.room = room;
     this.onDestroy = type.onDestroy ? type.onDestroy : false;
     this.onUse = type.onUse ? type.onUse : false;
+    this.onInstantiate = type.onInstantiate ? type.onInstantiate : false;
+    if (this.onInstantiate) {
+        this.onInstantiate(this);
+    }
 };
 
 var allItemTypes = [
     // pierce, slash, crush, burn, poison, curse
-
 
     /*///
     WEAPONS
