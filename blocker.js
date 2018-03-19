@@ -38,11 +38,13 @@ Block.prototype.setupBubble = function () {
     this.childBlocks = [];
     this.node.onclick = function (event) {
         event.stopPropagation();
-        Array.from(this.node.parentNode.getElementsByClassName('bubble')).map((node) => {
-            if (node !== this.node) {
-                node.block.bubbleCollapse();
-            }
-        });
+        if (this.node.parentNode) { // If node is on DOM
+            Array.from(this.node.parentNode.getElementsByClassName('bubble')).map((node) => {
+                if (node !== this.node) {
+                    node.block.bubbleCollapse();
+                }
+            });
+        }
         if (this.node.className.includes('small')) {
             this.node.className = 'bubble big';
             this.node.innerText = this.content;

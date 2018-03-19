@@ -28,7 +28,7 @@ var Monster = function (room, type) {
 
 Monster.prototype.die = function () {
     var i;
-    drawString(this.onDeath || 'It\'s dead.');
+    // drawString(this.onDeath || 'It\'s dead.');
     if (this.deathEvent) {
       this.deathEvent();
     }
@@ -83,9 +83,9 @@ var allMonsterTypes = [
           door.to.mana += 100;
           door.from.mana += 50;
           if (game.player.room.type = 'treasure room') {
-            drawString('');
-            drawString('    ) YOU WIN (    ');
-            drawString('');
+            // drawString('');
+            // drawString('    ) YOU WIN (    ');
+            // drawString('');
           }
         }
     }),
@@ -151,10 +151,10 @@ var allMonsterTypes = [
                 'starving looking basset hound'
             ]
             if (!this.foughtOnce) {
-              drawString('The werewolf\'s eyes turn bloodshot and its legs and arms seem to extend out as if its bones were stretching.');
+              // drawString('The werewolf\'s eyes turn bloodshot and its legs and arms seem to extend out as if its bones were stretching.');
               this.info = 'Something vaguely like a person crouching and breathing heavily, preparing to lunge at you with is jaws open.'
             } else {
-              drawString('The werewolf is enraged.');
+              // drawString('The werewolf is enraged.');
               this.info = 'A furious looking wolf reared up onto its back legs like a person.'
             }
             this.attack[0] -= this.attack[0] > 0 ? 1 : 0; // decrease pierce

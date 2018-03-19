@@ -150,7 +150,7 @@ Door.prototype.go = function (player) {
     }
     if (this.locked) {
         if (player.room.monsters.length) {
-            drawString('Kill the monsters in the room to unlock that door.');
+            // drawString('Kill the monsters in the room to unlock that door.');
             return false;
         } else {
             this.locked = false;
@@ -163,8 +163,8 @@ Door.prototype.go = function (player) {
         player.room = this.from;
         hour += 1;
     } else {
-        drawString('DOOR ERROR');
-        drawString(this, player);
+        // drawString('DOOR ERROR');
+        // drawString(this, player);
     }
     this.locked = false;
     this.advanceRoomAndDoorTypes();
