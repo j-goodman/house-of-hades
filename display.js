@@ -12,7 +12,6 @@ window.onload = () => {
         let roomDescription = `You're in a ${game.player.room.type}.`;
 
         display.room.title = roomDescription;
-        display.room.content = roomDescription;
         display.room.node.innerText = display.room.node.className.includes('small') ?
             display.room.title:
             display.room.content;
