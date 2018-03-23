@@ -14,6 +14,7 @@ var MonsterType = function (ob) {
 
 var Monster = function (room, type) {
     this.attack = type.attack;
+    this.data = {};
     this.deathEvent = type.deathEvent;
     this.defense = type.defense;
     this.drop = type.drop;
@@ -35,6 +36,7 @@ Monster.prototype.die = function () {
     this.room.mana += 4;
     if (this.drop) {
       this.drop.map((item) => {
+        drawString(`There\'s a ${item.name} on the ground.`);
         this.room.items.push(item);
       });
     }
@@ -84,7 +86,7 @@ var allMonsterTypes = [
           door.from.mana += 50;
           if (game.player.room.type = 'treasure room') {
             drawString('');
-            drawString('    ) YOU WIN (    ');
+            drawString('    | YOU WIN |    ');
             drawString('');
           }
         }
@@ -137,7 +139,7 @@ var allMonsterTypes = [
     new MonsterType ({
         name: 'werewolf',
         attack: [5,3,0,0,0,0,],
-        defense: [3,4,4,2,1,3,],
+        defense: [4,6,7,3,2,4,],
         hitpoints: 20,
         level: 3,
         info: 'A creature like a mangy flea-ridden wild dog reared to its hind legs with a look of ferocious hunger in its eyes.',
@@ -203,7 +205,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',
-        onDeath: 'Its face goes slack and swirls into a glob of black flame which falls and bursts leaving something there on the floor.',
+        onDeath: 'Its face goes slack and swirls into a glob of black flame which falls and bursts.',
         drop: [new Item(itemByName(Math.floor(Math.random()) ? 'ghostcandle' : 'burned bone'))]
     }),
     new MonsterType ({
@@ -333,6 +335,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'The body of a crusading knight beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.',
+        drop: [new Item(itemByName(pick(['chainmail shirt', 'bag of devil\'s gold', 'executioner\'s sword'])))]
     }),
     new MonsterType ({
         name: 'mad gasser',
@@ -340,15 +343,7 @@ var allMonsterTypes = [
         defense: [4,0,5,0,10,1,],
         hitpoints: 20,
         level: 3,
-        info: 'It\'s too cowardly to attack up close so it protects its face with a gas max and sprays toxic fumes at anything it sees breathing. It\'s vulnerable to slashing and fire.',
-    }),
-    new MonsterType ({
-        name: 'fanged ghost',
-        attack: [3,0,2,0,0,0,],
-        defense: [9,8,0,7,10,2,],
-        hitpoints: 20,
-        level: 2,
-        info: 'Only its teeth can still interact with the material plane.',
+        info: 'It\'s too cowardly to attack up close so it protects its face with a gas mask and sprays toxic fumes at anything it sees breathing. It\'s vulnerable to slashing and fire.',
     }),
     new MonsterType ({
         name: 'weird oak',
@@ -389,6 +384,63 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'A monstrous automaton the size and shape of a North American Grizzly Bear. It spits acrid black smoke from its mouth, nose, and eyes as it bears down on you.',
+    }),
+    new MonsterType ({
+        name: 'omnivorous fungus',
+        attack: [0,0,1,0,3,0,],
+        defense: [12,6,6,0,8,4,],
+        hitpoints: 20,
+        level: 2,
+        info: 'A massive greenish-blue fungal growth with spores wriggling out of its back as it devours the walls it\'s growing on.',
+        fightEvent: function () {
+            if (
+                game.player.weapon && // Player is armed
+                (
+                    game.player.weapon.bonus[1] > 0 || // Slash damage
+                    game.player.weapon.bonus[2] > 0 // Crush damage
+                ) &&
+                game.player.weapon.bonus[3] < 4 && // No substantial burn damage
+                game.player.weapon.ammo > 0 && // Weapon still has ammo
+                this.hitpoints > 0 // Still alive
+              ) {
+                let weapon = game.player.weapon;
+                game.player.weapon = null;
+                drawString(`The omnivorous fungus devours your ${weapon.name}.`);
+                this.attack = this.attack.map((stat, index) => {
+                    return stat + weapon.bonus[index];
+                })
+                this.info += ` The power of your ${weapon.name} is added to its attack.`
+            }
+        }
+    }),
+    new MonsterType ({
+        name: 'weaghrai',
+        attack: [0,0,0,0,0,0,],
+        defense: [9,7,6,3,3,1,],
+        hitpoints: 20,
+        level: 1,
+        info: 'A sharp-toothed feline-eared diminuitive grey implike creature with wild deranged eyes.',
+        fightEvent: function () {
+            if (this.data.weapon) {
+                this.data.weapon.ammo -= 1;
+                if (this.data.weapon.ammo > 0) {
+                    drawString(`The weaghrai drops its ${this.data.weapon.name}.`);
+                    this.room.items.push(this.data.weapon);
+                } else {
+                    drawString(`The weaghrai's ${this.data.weapon.name} is destroyed.`);
+                }
+                this.data.weapon = null;
+            }
+            this.data.weapon = new Item(itemByName(pick(
+                ['revolver', 'cursed pistol', 'thompson gun',
+                 'hand grenade', 'shotgun', 'laughing mask',
+                 'firebomb', 'case of chemical bombs']
+            )));
+            this.drop = this.data.weapon.ammo > 1 ? [this.data.weapon] : [];
+            drawString(`The weaghrai conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`)
+            this.info = `A sharp-toothed feline-eared diminuitive grey implike creature armed with a ${this.data.weapon.name}.`;
+            this.attack = this.data.weapon.bonus;
+        }
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

@@ -76,7 +76,7 @@ var Room = function (doors, doorCount) {
     this.id = nextRoomId;
     this.monsters = [];
     this.items = [];
-    this.mana = 7;
+    this.mana = 8;
     nextRoomId += 1;
     var i;
     var door;
@@ -92,8 +92,9 @@ var Room = function (doors, doorCount) {
     var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 1;
     });
-    if (oneIn(1.2)) {
+    if (oneIn(1.3)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
+        // this.monsters.push(new Monster (this, monByName('weaghrai')));
     }
     if (oneIn(7)) {
         this.monsters.push(new Monster (this, pick(secondMonsterPool)));

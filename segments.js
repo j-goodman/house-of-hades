@@ -128,6 +128,7 @@ var segments = [
 
     var segmentMonsters = [
       monByName('shoggoth'),
+      monByName('weaghrai'),
       // pierce, slash, crush, burn, poison, curse
       new MonsterType ({
           name: 'starving cannibal',
@@ -396,8 +397,9 @@ var segments = [
                                           '9',
                                           'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
                                           'A green eye with the power to kill those it looks upon.'
-                                      )
-                                    ), segmentRooms[0]
+                                      ),
+                                      segmentRooms[0]
+                                    ),
                                   );
                                 }
                             }),
@@ -562,27 +564,26 @@ var segments = [
 
   */
   (count, rooms) => {
-    console.log('$')
     var segmentRooms = [];
     var otherRoom;
 
     segmentRooms.push(new Room ([], 3));
 
     segmentRooms[0].items = [
-      new ItemType (
-          'uncurser', 'weapon',
-          [0,0,2,0,0,0],
-          14,
-          '',
-          'A disk made of a matte black metal whose internal weight seems to shift fluidly in your hands.',
-          null,
-          player => {
-              clearType();
-              drawString('You put your hand through the hole at the middle of the uncurser and it injects you with something. You\'re innoculated against all curses and syphilis now, and your right eye starts going lazy.');
-              player.stats.baseDefense[5] = 12;
-              player.weapon.ammo = 0;
-          }
-      ),
+      // new ItemType (
+      //     'uncurser', 'weapon',
+      //     [0,0,2,0,0,0],
+      //     14,
+      //     '',
+      //     'A disk made of a matte black metal whose internal weight seems to shift fluidly in your hands.',
+      //     null,
+      //     player => {
+      //         clearType();
+      //         drawString('You put your hand through the hole at the middle of the uncurser and it injects you with something. You\'re innoculated against all curses and syphilis now, and your right eye starts going lazy.');
+      //         player.stats.baseDefense[5] = 12;
+      //         player.weapon.ammo = 0;
+      //     }
+      // ),
       new ItemType (
           'red light bulb', 'weapon',
           [0,0,1,0,0,0],

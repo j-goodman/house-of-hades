@@ -125,13 +125,6 @@ var allItemTypes = [
         'A fire spirit confined to a black wax candle. Adds moderate burn damage to all your attacks.'
     ),
     new ItemType (
-        'burned bone', 'shield',
-        [0,0,0,7,0,0],
-        6,
-        'The burned bone you\'re carrying turns into ash.',
-        'A bone from the immolated body of someone who was turned into a fire elemental.'
-    ),
-    new ItemType (
         'torch', 'weapon',
         [0,0,2,3,0,0],
         7,
@@ -179,6 +172,13 @@ var allItemTypes = [
         9,
         'Your sword breaks at the handle.',
         'A massive stainless steel blade that deals powerful slashing damage.'
+    ),
+    new ItemType (
+        'shotgun', 'weapon',
+        [5,0,3,0,0,0],
+        6,
+        'Your shotgun is out of ammo.',
+        'It\'s a sawed-off shotgun with six rounds. Deals pierce and crush damage.'
     ),
     // pierce, slash, crush, burn, poison, curse
 
@@ -263,5 +263,20 @@ var allItemTypes = [
         'You\'re out of salt.',
         'A glass jar filled with rock salt, said to ward off curses.'
     ),
+    new ItemType (
+        'burned bone', 'shield',
+        [0,0,0,7,0,0],
+        6,
+        'The burned bone you\'re carrying turns into ash.',
+        'A bone from the immolated body of someone who was turned into a fire elemental.'
+    ),
+    new ItemType (
+        'chainmail shirt', 'shield',
+        [10,1,0,0,0,0],
+        9,
+        'Your chainmail shirt is too badly damaged to use anymore.',
+        'And old iron mail shirt. Protects effectively against pierce damage.'
+    ),
+
     // pierce, slash, crush, burn, poison, curse
 ];
