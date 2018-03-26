@@ -73,7 +73,7 @@ var segments = [
     segmentRooms.push(new Room ([], 3));
     segmentRooms.push(new Room([], 2));
     segmentRooms.push(new Room([], 2));
-    segmentRooms.push(new Room([], 3));
+    segmentRooms.push(new Room([], 2));
     segmentRooms.push(new Room([], 2));
     segmentRooms.push(new Room([], 2));
 
@@ -420,7 +420,7 @@ var segments = [
                                 [0,0,0,0,0,0],
                                 '50',
                                 'The lich\'s torso rots away to sludge.',
-                                'The torso of an aged woman with no appendages. It lies inert and bloodless but you can still see its heart beating.'
+                                'The torso of a aged woman with no appendages. It lies inert and bloodless but you can still see its heart beating.'
                             ), segmentRooms[0]
                           )
                         )
@@ -560,106 +560,102 @@ var segments = [
 
   /*
 
-  *      LABORATORY      *
+  *      CURSE DEN      *
 
   */
   (count, rooms) => {
-    var segmentRooms = [];
-    var otherRoom;
+      console.log('curse')
+      var segmentRooms = []
+      var otherRoom
 
-    segmentRooms.push(new Room ([], 3));
+      let cursedRevolver = new ItemType (
+          'cursed revolver', 'weapon',
+          [dice(6),0,0,0,0,dice(12)],
+          9,
+          'The protean cursed revolver finally spins out of control and curls tightly into a laughing ball before exploding into a thick black cloud of spores.',
+          'A Nambu 26 Revolver with a acrid black lichen growing out from its barrel that wails with laughter when it\'s fired',
+          null,
+          function () {
+              this.bonus = [dice(4),0,0,0,0,dice(4)]
+              game.player.updateStats()
+              this.bonus[dice(6) - 1] += dice(10)
+              drawString('Your cursed revolver spins wildly and pulls against you like a gyroscope as its shape seems to change completely before returning to being itself')
+          }
+      )
 
-    segmentRooms[0].items = [
-      // new ItemType (
-      //     'uncurser', 'weapon',
-      //     [0,0,2,0,0,0],
-      //     14,
-      //     '',
-      //     'A disk made of a matte black metal whose internal weight seems to shift fluidly in your hands.',
-      //     null,
-      //     player => {
-      //         clearType();
-      //         drawString('You put your hand through the hole at the middle of the uncurser and it injects you with something. You\'re innoculated against all curses and syphilis now, and your right eye starts going lazy.');
-      //         player.stats.baseDefense[5] = 12;
-      //         player.weapon.ammo = 0;
-      //     }
-      // ),
-      new ItemType (
-          'red light bulb', 'weapon',
-          [0,0,1,0,0,0],
-          19,
-          'The red light bulb bursts with a flash and a shower of hot sparks.',
-          'A inert spherical light bulb made of orange-red glass.',
-          null,
-          player => {
-            let targetBulb = game.player.data.violetBulb ? game.player.data.violetBulb : false;
-            game.player.data.redBulb = game.player.weapon;
-            if (targetBulb && targetBulb.room === 'player') {
-                drop('violet light bulb');
-            }
-            if (targetBulb) {
-              player.weapon.info = 'When you hold it the bulb glows with blazing red light.'
-              player.room.items.push(player.weapon);
-              player.weapon.room = player.room;
-              player.weapon = null;
-              player.room = targetBulb.room;
-              clearType();
-              drawString('There\'s a blinding flash of red light and when it fades the red bulb is gone and in its place is a glass sphere of violet light.');
-              check();
-            } else {
-                clearType();
-                drawString('The bulb becomes hot for a moment but stays dark.');
-            }
-          },
-          self => {
-            game.player.data.redBulb = self;
-            self.info = game.player.data.violetBulb ?
-                'When you hold it the bulb glows with blazing red light.' :
-                self.info;
-            if (!game.player.data.violetBulb) {
-              self.room.items.push(new Item (itemByName('violet light bulb'), self.room))
-            }
+      let paranoidWitch = new MonsterType ({
+          // pierce, slash, crush, burn, poison, curse
+          name: 'paranoid witch',
+          attack: [0,0,0,0,2,8,],
+          defense: [0,5,8,0,8,7,],
+          hitpoints: 20,
+          level: 1,
+          info: 'A middle-aged woman in black whose eyes dart from corner to corner of the room she\'s in. She seems to have come here as a haven from something dangerous.',
+          fightEvent: function () {
+              let escapeDoor = pick(this.room.doors)
+              let escapeRoom = escapeDoor.from === this.room ? escapeDoor.to : escapeDoor.from;
+              this.room.monsters = this.room.monsters.filter(mon => {
+                  return mon !== this
+              })
+              escapeRoom.monsters.push(this)
+              this.room = escapeRoom
+              drawString('The paranoid witch escapes.')
           }
-      ),
-      new ItemType (
-          'violet light bulb', 'weapon',
-          [0,0,1,0,0,0],
-          19,
-          'The violet light bulb bursts with a flash and a shower of hot sparks.',
-          'A inert spherical light bulb made of blue-violet glass.',
-          null,
-          player => {
-            let targetBulb = game.player.data.redBulb ? game.player.data.redBulb : false;
-            game.player.data.violetBulb = game.player.weapon;
-            if (targetBulb && targetBulb.room === 'player') {
-                drop('red light bulb');
-            }
-            if (targetBulb) {
-              player.weapon.info = 'When you hold it the bulb glows with cold violet light.'
-              player.room.items.push(player.weapon);
-              player.weapon.room = player.room;
-              player.weapon = null;
-              player.room = targetBulb.room;
-              clearType();
-              drawString('There\'s a blinding flash of violet light and when it fades the violet bulb is gone and in its place is a red glass sphere.');
-              check();
-            } else {
-                clearType();
-                drawString('The bulb becomes hot for a moment but stays dark.');
-            }
-          },
-          self => {
-            game.player.data.violetBulb = self;
-            self.info = game.player.data.redBulb ?
-                'When you hold it the bulb glows with cold violet light.' :
-                self.info;
-            if (!game.player.data.redBulb) {
-              self.room.items.push(new Item (itemByName('red light bulb'), self.room))
-            }
-          }
-      ),
-    ];
+      })
+
+      let hub = new Room ([], dice(3) + dice(2) + dice(2))
+      let types = [
+          'damp-smelling old room with heavy patterned velvet curtains on the walls and a moth-eaten Persian rug on the floor',
+          'hallway that looks as if it stretches out into infinity but can be crossed in half a minute',
+          'ornate sitting room whose furniture has all been upturned and made into barricades',
+          'room with a overhead fan turning on the ceiling and some card tables set up below with empty glasses and dice on them',
+          'alternatingly pitch-dark and vividly well lit room',
+          'room with a ornate cigarette-smoke stained fresco painting on its ceiling of two copulating angels',
+          'sphere',
+          'library with long-empty shelves',
+          'cluttered office',
+          'planetarium room',
+          'room with vast curving runes traced into its red sand floor',
+          'room with vast curving runes traced into its white sand floor',
+          'room with vast curving runes traced into its black sand floor',
+      ]
+      let itemTypes = [
+          itemByName('revolver'),
+          itemByName('evil eye'),
+          itemByName('wand of oceans'),
+          itemByName('bag of devil\'s gold'),
+          itemByName('life-giving herb'),
+          cursedRevolver,
+      ]
+      let monsterTypes = [
+          monByName('rabid wizard'),
+          monByName('witch'),
+          monByName('vampire'),
+          monByName('shrieking dog'),
+          monByName('horned woman'),
+          monByName('weaghrai'),
+          paranoidWitch
+      ]
+      segmentRooms.push(hub)
+      hub.type = pick(types)
+
+      window.teleport = hub
+
+      hub.doors.map(door => {
+          let room = new Room ([], dice(2))
+          let secondRoom;
+          room.type = pick(types)
+          room.items = [new Item (pick(itemTypes), room), new Item (pick(itemTypes), room), new Itemra (pick(itemTypes), room)]
+          room.monsters = [new Monster(room, pick(monsterTypes)), new Monster(room, pick(monsterTypes))]
+          room.doors[0] = door
+          door.from = room
+          door.to = hub
+      })
+
+      console.log('hub', hub);
+      console.log('hub.doors', hub.doors);
   },
+
 ]
 
 

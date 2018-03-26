@@ -1,6 +1,9 @@
 var pick = function (array) {
     return array[Math.floor(Math.random() * array.length)];
 };
+var dice = function (sides) {
+    return Math.ceil(Math.random() * sides);
+};
 var oneIn = function (howMany) {
     return !Math.floor(Math.random() * howMany);
 };
