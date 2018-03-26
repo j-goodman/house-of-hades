@@ -188,7 +188,7 @@ var allMonsterTypes = [
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
         level: 2,
-        info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and an expression of lunatic hunger on his face. It reeks of dead flesh.',
+        info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and a expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
         name: 'bee person',
