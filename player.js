@@ -17,10 +17,10 @@ var Player = function () {
 };
 
 Player.prototype.welcome = function () {
-    drawString('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
-    drawString('');
-    drawString('Find the treasure room and kill the dragon.');
-    drawString('');
+    console.log('You find yourself within a sprawling manor, in a ' + this.room.type + '. There\'s nobody else in the room but you.'); // Seek the throne room and kill the Wendigo King.');
+    console.log('');
+    console.log('Find the treasure room and kill the dragon.');
+    console.log('');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
@@ -28,7 +28,7 @@ Player.prototype.welcome = function () {
 
 Player.prototype.lookAround = function () {
     clearType();
-    drawString('You\'re in a ' + this.room.type + '.');
+    console.log('You\'re in a ' + this.room.type + '.');
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
@@ -36,9 +36,9 @@ Player.prototype.lookAround = function () {
 
 Player.prototype.showHolding = function () {
     clearType();
-    drawString('You\'re holding:');
+    console.log('You\'re holding:');
     this.holding.map(item => {
-        drawString(item.name);
+        console.log(item.name);
     });
 };
 
@@ -74,7 +74,7 @@ Player.prototype.get = function (targetName) {
     oldItem = this[target.slot];
     this[target.slot] = target;
     target.room = 'player';
-    drawString('You take the ' + target.name + '.');
+    console.log('You take the ' + target.name + '.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
         if (target === this.room.items[j]) {
@@ -82,17 +82,17 @@ Player.prototype.get = function (targetName) {
         }
     }
     if (oldItem) {
-        drawString('You drop your ' + oldItem.name + '.');
+        console.log('You drop your ' + oldItem.name + '.');
         this.room.items.push(oldItem);
         oldItem.room = this.room;
         this.updateStats();
     }
     if (target.slot === 'weapon') {
-      drawString('Your attack' + (this.weapon ? (' (with ' + this.weapon.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
+      console.log('Your attack' + (this.weapon ? (' (with ' + this.weapon.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
     } else if (target.slot === 'shield') {
-      drawString('Your defense' + (this.shield ? (' (with ' + this.shield.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
+      console.log('Your defense' + (this.shield ? (' (with ' + this.shield.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
     }
-    drawString('');
+    console.log('');
 };
 
 Player.prototype.hold = function (targetName) {
@@ -107,7 +107,7 @@ Player.prototype.hold = function (targetName) {
     if (!target) { return false; }
     target.room = 'player';
     this.holding.push(target);
-    drawString('You put the ' + target.name + ' away for later.');
+    console.log('You put the ' + target.name + ' away for later.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
         if (target === this.room.items[j]) {
@@ -123,12 +123,12 @@ Player.prototype.drop = function (itemName) {
   if (this.weapon && this.weapon.name == itemName) {
     this.room.items.push(this.weapon);
     this.weapon.room = this.room;
-    drawString('You drop your ' + this.weapon.name + '.');
+    console.log('You drop your ' + this.weapon.name + '.');
     this.weapon = null;
   } else if (this.shield && this.shield.name == itemName) {
     this.room.items.push(this.shield);
     this.shield.room = this.room;
-    drawString('You drop your ' + this.shield.name + '.');
+    console.log('You drop your ' + this.shield.name + '.');
     this.shield = null;
   } else if (this.holding.map(item => {
     holding = (item.name === itemName) ? item : holding;
@@ -136,7 +136,7 @@ Player.prototype.drop = function (itemName) {
   }).includes(itemName)) {
     this.room.items.push(holding);
     holding.room = this.room;
-    drawString('You drop the ' + holding.name + ' you were holding.');
+    console.log('You drop the ' + holding.name + ' you were holding.');
     this.holding = this.holding.filter(item => {
       if (item.name === itemName && !unique) {
         unique = true;
@@ -179,8 +179,8 @@ Player.prototype.fight = function (enemyName) {
         }
         this.stats.hitpoints -= Math.ceil(enemy.attack[i] * (12/12 - (this.stats.defense[i] / 12)));
     }
-    drawString('Player:' + ' ' + (this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints));
-    drawString('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
+    console.log('Player:' + ' ' + (this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints));
+    console.log('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
     if (this.weapon && this.weapon.ammo) {
         this.weapon.ammo -= 1;
         if (this.weapon.onUse) { this.weapon.onUse(this); }
@@ -218,7 +218,7 @@ Player.prototype.use = function (itemName) {
             this.weapon.onUse(this);
         } else {
             clearType();
-            drawString(`You wave your ${itemName} in front of you.`);
+            console.log(`You wave your ${itemName} in front of you.`);
         }
     };
 }
@@ -234,7 +234,7 @@ Player.prototype.recover = function (active=false) {
         var diff;
         var gain;
         if (this.stats.hitpoints >= this.stats.maxHitpoints && active) {
-            drawString('You\'re already at full hitpoints.');
+            console.log('You\'re already at full hitpoints.');
             return undefined;
         }
         diff = this.stats.maxHitpoints - this.stats.hitpoints;
@@ -243,16 +243,16 @@ Player.prototype.recover = function (active=false) {
         gain = gain < 0 ? 0 : gain;
         gain = gain <= diff ? gain : diff;
         if (gain === 0 && active) {
-            drawString('There\'s no life energy left to draw from in this room. Try another room.');
+            console.log('There\'s no life energy left to draw from in this room. Try another room.');
         } else {
             this.stats.hitpoints += gain;
             this.stats.hitpoints = this.stats.hitpoints > this.stats.maxHitpoints ? this.stats.maxHitpoints : this.stats.hitpoints;
             if (gain) {
-              drawString('You heal by ' + gain + ' hitpoints, to ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' total.');
+              console.log('You heal by ' + gain + ' hitpoints, to ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' total.');
             }
         }
     } else if (active) {
-        drawString('You can\'t recover when there are monsters in the room.');
+        console.log('You can\'t recover when there are monsters in the room.');
     }
     updateInventory()
 };
@@ -344,14 +344,14 @@ Player.prototype.statObjString = function (stats, item) {
 
 Player.prototype.showStats = function () {
     clearType();
-    drawString('');
-    drawString(')    YOU    (');
+    console.log('');
+    console.log(')    YOU    (');
 
-    drawString('You have ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' hitpoints.');
+    console.log('You have ' + this.stats.hitpoints + '|' + this.stats.maxHitpoints + ' hitpoints.');
 
-    drawString('Your attack' + (this.weapon ? (' (with ' + this.weapon.name + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
+    console.log('Your attack' + (this.weapon ? (' (with ' + this.weapon.name + ')') : '') + ': ' + this.statObjString(this.stats.attack, this.weapon));
 
-    drawString('Your defense' + (this.shield ? (' (with ' + this.shield.name + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
+    console.log('Your defense' + (this.shield ? (' (with ' + this.shield.name + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
 };
 
 Player.prototype.info = function () {
@@ -364,18 +364,18 @@ Player.prototype.info = function () {
 
     for (i=0 ; i<this.room.monsters.length ; i++) {
       mon = this.room.monsters[i];
-      drawString('');
-      drawString('|    ' + mon.name.toUpperCase() + '    |');
-      drawString(mon.info);
-      drawString('ATTACK: ' + this.statObjString(mon.attack));
-      drawString('DEFENSE: ' + this.statObjString(mon.defense));
-      drawString('The ' + mon.name + ' has ' + mon.hitpoints + ' hitpoints left.');
+      console.log('');
+      console.log('|    ' + mon.name.toUpperCase() + '    |');
+      console.log(mon.info);
+      console.log('ATTACK: ' + this.statObjString(mon.attack));
+      console.log('DEFENSE: ' + this.statObjString(mon.defense));
+      console.log('The ' + mon.name + ' has ' + mon.hitpoints + ' hitpoints left.');
     }
     for (i=0 ; i<this.room.items.length ; i++) {
       item = this.room.items[i];
-      drawString('');
-      drawString('*    ' + item.name.toUpperCase() + '    *');
-      drawString(item.info);
+      console.log('');
+      console.log('*    ' + item.name.toUpperCase() + '    *');
+      console.log(item.info);
     }
     if (!item && !mon) {
       this.lookAround();
