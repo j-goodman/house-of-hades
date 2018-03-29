@@ -56,7 +56,8 @@ Player.prototype.goTo = function (doorString) {
             door.go(this);
         }
     }.bind(this));
-    this.recover(false);
+    // this.recover(false);
+    updateRoom()
 };
 
 Player.prototype.get = function (targetName) {
@@ -149,6 +150,7 @@ Player.prototype.drop = function (itemName) {
 };
 
 Player.prototype.updateStats = function () {
+    updateInventory()
     {
         for (i=0 ; i<6 ; i++) {
             this.stats.attack[i] = this.stats.baseAttack[i] + (this.weapon ? this.weapon.bonus[i] : 0);
@@ -206,6 +208,8 @@ Player.prototype.fight = function (enemyName) {
     if (enemy.fightEvent && enemy.hitpoints > 0) {
       enemy.fightEvent();
     }
+    updateRoom()
+    updateInventory()
 };
 
 Player.prototype.use = function (itemName) {
@@ -250,6 +254,7 @@ Player.prototype.recover = function (active=false) {
     } else if (active) {
         drawString('You can\'t recover when there are monsters in the room.');
     }
+    updateInventory()
 };
 
 Player.prototype.describeDoors = function () {
@@ -265,7 +270,8 @@ Player.prototype.describeDoors = function () {
             string += 'a ' + this.room.doors[i].color + ' door.';
         }
     }
-    drawString(string);
+    console.log(string);
+    return string;
 };
 
 Player.prototype.describeMonsters = function () {
@@ -284,7 +290,8 @@ Player.prototype.describeMonsters = function () {
                 string += 'a ' + this.room.monsters[i].name + ' in the room with you.';
             }
         }
-        drawString(string);
+        console.log(string);
+        return string;
     }
 };
 
@@ -311,7 +318,8 @@ Player.prototype.describeItems = function () {
                 string += 'a ' + this.room.items[i].name + ' on the ' + surface + '.';
             }
         }
-        drawString(string);
+        console.log(string);
+        return string;
     }
 };
 

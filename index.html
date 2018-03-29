@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset='utf-8'>
+        <meta name='google' value='notranslate'>
         <title>House of Hades</title>
-        <script src='typer/typer.js'></script>
 
         <script src='player.js'></script>
         <script src='items.js'></script>
@@ -13,29 +13,53 @@
         <script src='segments.js'></script>
         <script src='game.js'></script>
 
+        <script src='display.js'></script>
         <script src='mumbler.js'></script>
+
+        <link rel='stylesheet' href='style.css'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=IBM+Plex+Mono'>
     </head>
     <body>
-        <canvas id='canvas' width='1000' height='700'></canvas>
-        <canvas id='typebox' width='800' height='60'></canvas>
+        <section class='start-screen'>
+            <h2>House of Hades</h2>
+            <a href='#' id='start-button'>START</a>
+        </section>
+        <section class='game-screen hidden'>
+            <section class='area'>
+                <p id='main-message'></p>
+                <div id='monsters'></div>
+                <div id='items'></div>
+                <div id='doors'></div>
+            </section>
+            <section class='player'>
+                <br></br>
+                <div id='hitpoints'>HITPOINTS|20</div>
+                <div id='recover'></div>
+                <div>
+                    <div>
+                        <p>Attack</p>
+                        <div id='attack-pierce'>pierce|1</div>
+                        <div id='attack-slash'>slash|1</div>
+                        <div id='attack-crush'>crush|1</div>
+                        <div id='attack-burn'>burn|1</div>
+                        <div id='attack-poison'>poison|1</div>
+                        <div id='attack-curse'>curse|1</div>
+                    </div>
+                    <div>
+                        <p>Defense</p>
+                        <div id='defense-pierce'>pierce|1</div>
+                        <div id='defense-slash'>slash|1</div>
+                        <div id='defense-crush'>crush|1</div>
+                        <div id='defense-burn'>burn|1</div>
+                        <div id='defense-poison'>poison|1</div>
+                        <div id='defense-curse'>curse|1</div>
+                    </div>
+                </div>
+                <div id='weapon'></div>
+                <div id='shield'></div>
+                <p>Inventory</p>
+                <div id='inventory'></div>
+            </section>
+        </section>
     </body>
-    <style media='screen'>
-        body {
-            align-items: center;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        #canvas {
-            background: #000;
-            width: auto;
-            max-height: 600px;
-            padding: none;
-        }
-        #typebox {
-            background: #000;
-            border: 1px solid #222;
-        }
-    </style>
 </html>

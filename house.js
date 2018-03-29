@@ -116,7 +116,7 @@ var Room = function (doors, doorCount) {
         } else {
           door = new Door (pickUnique(doorColors, usedColors), this, null);
         }
-        door.locked = true;
+        door.locked = !!this.monsters.length;
         usedColors.push(door.color);
         this.doors.push(door);
     }

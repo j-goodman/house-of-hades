@@ -48,6 +48,10 @@ Monster.prototype.die = function () {
     this.room.monsters = this.room.monsters.filter(mon => {
         return mon !== this
     })
+    if (this.room.monsters.length === 0) {
+        this.room.doors.map(door => { door.locked = false })
+    }
+
 };
 
 var monByName = (name) => {

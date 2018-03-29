@@ -27,6 +27,10 @@ houseBuilder.buildSpawn = function () {
           spawn.doors[i].to.doors[1]
       ];
       spawn.doors[i].to.monsters = [];
+      spawn.doors[i].locked = false;
+      spawn.doors[i].to.doors.map(door => {
+          door.locked = false;
+      })
   }
   return spawn;
 };

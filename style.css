@@ -1,0 +1,133 @@
+body  {
+    align-items: center;
+    background: #000;
+    color: #fff;
+    display: flex;
+    font-family: 'IBM Plex Mono', monospace;
+    flex-direction: column;
+    justify-content: center;
+}
+
+li {
+    list-style: none;
+}
+
+.start-screen {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    letter-spacing: 20px;
+    text-indent: 18px;
+    margin-top: 16%;
+}
+
+.start-screen > h2 {
+    text-transform: uppercase;
+}
+
+.start-screen > a {
+    border: 1px solid #fff;
+    color: #fff;
+    margin-top: 7%;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: letter-spacing .2s;
+}
+
+.start-screen > a:hover {
+    letter-spacing: 18.5px;
+}
+
+.game-screen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.area, .player {
+    border: 1px solid #fff;
+}
+
+.area {
+    width: 50%;
+}
+
+.area > p, .player > p {
+    padding: 32px 32px 0px 32px;
+}
+
+.area > div, .player > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 12px;
+}
+
+#inventory {
+    flex-direction: column;
+}
+
+#monsters {
+    flex-direction: column;
+}
+
+.card {
+    align-items: center;
+    background: rgba(255,255,255,.2);
+    display: flex;
+    flex-direction: column;
+    padding: 0px 12px 12px 12px;
+    margin-top: 2px;
+}
+
+#inventory > .card {
+    background: rgba(255,255,255,.1);
+    flex-direction: row;
+    margin: auto;
+    padding: 0px 12px 0px 12px;
+    width: 70%;
+}
+
+.item-card {
+    min-width: 150px
+}
+
+.card > div {
+    margin: 12px 6px 9px 6px;
+}
+
+.card > p {
+    padding: 8px 12px 8px 12px;
+}
+
+.card > .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.action-button {
+    border: 1px solid #fff;
+    border-radius: 2px;
+    padding: 4px 6px 4px 6px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    border: 1px solid rgba(0,0,0,0);
+    color: #f99
+}
+
+.player {
+    width: 40%;
+}
+
+.hidden {
+    display: none;
+}
