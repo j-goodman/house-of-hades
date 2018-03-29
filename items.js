@@ -97,6 +97,13 @@ var allItemTypes = [
         'A old axe for splitting wood. Deals moderate slash damage.'
     ),
     new ItemType (
+        'sledgehammer', 'weapon',
+        [1,0,4,0,0,0],
+        12,
+        'Your sledgehammer breaks in your hand.',
+        'A rusty old hammer.'
+    ),
+    new ItemType (
         'evil eye', 'weapon',
         [0,0,0,0,0,4],
         5,
@@ -285,78 +292,78 @@ var allItemTypes = [
     TOOLS
     /*///
 
-    new ItemType (
-        'red light bulb', 'weapon',
-        [0,0,1,0,0,0],
-        19,
-        'The red light bulb bursts with a flash and a shower of hot sparks.',
-        'A inert spherical light bulb made of orange-red glass.',
-        null,
-        player => {
-          let targetBulb = game.player.data.violetBulb ? game.player.data.violetBulb : false;
-          game.player.data.redBulb = game.player.weapon;
-          if (targetBulb && targetBulb.room === 'player') {
-              drop('violet light bulb');
-          }
-          if (targetBulb) {
-            player.weapon.info = 'When you hold it the bulb glows with blazing red light.'
-            player.room.items.push(player.weapon);
-            player.weapon.room = player.room;
-            player.weapon = null;
-            player.room = targetBulb.room;
-            clearType();
-            drawString('There\'s a blinding flash of red light and when it fades the red bulb is gone and in its place is a glass sphere of violet light.');
-            check();
-          } else {
-              clearType();
-              drawString('The bulb becomes hot for a moment but stays dark.');
-          }
-        },
-        self => {
-          game.player.data.redBulb = self;
-          self.info = game.player.data.violetBulb ?
-              'When you hold it the bulb glows with blazing red light.' :
-              self.info;
-          if (!game.player.data.violetBulb) {
-            self.room.items.push(new Item (itemByName('violet light bulb'), self.room))
-          }
-        }
-    ),
-    new ItemType (
-        'violet light bulb', 'weapon',
-        [0,0,1,0,0,0],
-        19,
-        'The violet light bulb bursts with a flash and a shower of hot sparks.',
-        'A inert spherical light bulb made of blue-violet glass.',
-        null,
-        player => {
-          let targetBulb = game.player.data.redBulb ? game.player.data.redBulb : false;
-          game.player.data.violetBulb = game.player.weapon;
-          if (targetBulb && targetBulb.room === 'player') {
-              drop('red light bulb');
-          }
-          if (targetBulb) {
-            player.weapon.info = 'When you hold it the bulb glows with cold violet light.'
-            player.room.items.push(player.weapon);
-            player.weapon.room = player.room;
-            player.weapon = null;
-            player.room = targetBulb.room;
-            clearType();
-            drawString('There\'s a blinding flash of violet light and when it fades the violet bulb is gone and in its place is a red glass sphere.');
-            check();
-          } else {
-              clearType();
-              drawString('The bulb becomes hot for a moment but stays dark.');
-          }
-        },
-        self => {
-          game.player.data.violetBulb = self;
-          self.info = game.player.data.redBulb ?
-              'When you hold it the bulb glows with cold violet light.' :
-              self.info;
-          if (!game.player.data.redBulb) {
-            self.room.items.push(new Item (itemByName('red light bulb'), self.room))
-          }
-        }
-    ),
+    // new ItemType (
+    //     'red light bulb', 'weapon',
+    //     [0,0,1,0,0,0],
+    //     19,
+    //     'The red light bulb bursts with a flash and a shower of hot sparks.',
+    //     'A inert spherical light bulb made of orange-red glass.',
+    //     null,
+    //     player => {
+    //       let targetBulb = game.player.data.violetBulb ? game.player.data.violetBulb : false;
+    //       game.player.data.redBulb = game.player.weapon;
+    //       if (targetBulb && targetBulb.room === 'player') {
+    //           drop('violet light bulb');
+    //       }
+    //       if (targetBulb) {
+    //         player.weapon.info = 'When you hold it the bulb glows with blazing red light.'
+    //         player.room.items.push(player.weapon);
+    //         player.weapon.room = player.room;
+    //         player.weapon = null;
+    //         player.room = targetBulb.room;
+    //         clearType();
+    //         drawString('There\'s a blinding flash of red light and when it fades the red bulb is gone and in its place is a glass sphere of violet light.');
+    //         check();
+    //       } else {
+    //           clearType();
+    //           drawString('The bulb becomes hot for a moment but stays dark.');
+    //       }
+    //     },
+    //     self => {
+    //       game.player.data.redBulb = self;
+    //       self.info = game.player.data.violetBulb ?
+    //           'When you hold it the bulb glows with blazing red light.' :
+    //           self.info;
+    //       if (!game.player.data.violetBulb) {
+    //         self.room.items.push(new Item (itemByName('violet light bulb'), self.room))
+    //       }
+    //     }
+    // ),
+    // new ItemType (
+    //     'violet light bulb', 'weapon',
+    //     [0,0,1,0,0,0],
+    //     19,
+    //     'The violet light bulb bursts with a flash and a shower of hot sparks.',
+    //     'A inert spherical light bulb made of blue-violet glass.',
+    //     null,
+    //     player => {
+    //       let targetBulb = game.player.data.redBulb ? game.player.data.redBulb : false;
+    //       game.player.data.violetBulb = game.player.weapon;
+    //       if (targetBulb && targetBulb.room === 'player') {
+    //           drop('red light bulb');
+    //       }
+    //       if (targetBulb) {
+    //         player.weapon.info = 'When you hold it the bulb glows with cold violet light.'
+    //         player.room.items.push(player.weapon);
+    //         player.weapon.room = player.room;
+    //         player.weapon = null;
+    //         player.room = targetBulb.room;
+    //         clearType();
+    //         drawString('There\'s a blinding flash of violet light and when it fades the violet bulb is gone and in its place is a red glass sphere.');
+    //         check();
+    //       } else {
+    //           clearType();
+    //           drawString('The bulb becomes hot for a moment but stays dark.');
+    //       }
+    //     },
+    //     self => {
+    //       game.player.data.violetBulb = self;
+    //       self.info = game.player.data.redBulb ?
+    //           'When you hold it the bulb glows with cold violet light.' :
+    //           self.info;
+    //       if (!game.player.data.redBulb) {
+    //         self.room.items.push(new Item (itemByName('red light bulb'), self.room))
+    //       }
+    //     }
+    // ),
 ];

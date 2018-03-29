@@ -108,7 +108,7 @@ var Room = function (doors, doorCount) {
     if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes), this));
     }
-    doorCount = doorCount ? doorCount : Math.ceil(Math.random() * (2.1));
+    doorCount = (doorCount || doorCount === 0) ? doorCount : Math.ceil(Math.random() * (2.1));
     for (i=0 ; i<doorCount ; i++) {
         if (i > 0 && hour > 0 && allDoors.length > 10 && allUnresolvedDoors().filter((door)=>{ return !usedColors.includes(door.color) }).length > 0 && (allUnresolvedDoors().length > 3)) {
           door = pick(allUnresolvedDoors().filter((selectDoor)=>{ return !usedColors.includes(selectDoor.color) }));
@@ -144,7 +144,7 @@ var Door = function (color, from, to, locked) {
 
 Door.prototype.go = function (player) {
     if (!this.to) {
-      if (hour > 26 && Math.round(Math.random()) && (finalTreasureRoom.doors[0].to === true)) {
+      if (hour > 26 && Math.round(Math.random()) && finalTreasureRoom.doors[0] && (finalTreasureRoom.doors[0].to === true)) {
         this.to = finalTreasureRoom;
         finalTreasureRoom.doors = [this];
         this.locked = false;

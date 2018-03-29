@@ -10,6 +10,7 @@ var MonsterType = function (ob) {
     this.level = ob.level;
     this.name = ob.name;
     this.onDeath = ob.onDeath;
+    this.onInstantiate = ob.onInstantiate;
 };
 
 var Monster = function (room, type) {
@@ -25,6 +26,10 @@ var Monster = function (room, type) {
     this.level = type.level;
     this.name = type.name;
     this.onDeath = type.onDeath;
+    this.onInstantiate = type.onInstantiate ? type.onInstantiate.bind(this) : false;
+    if (this.onInstantiate) {
+        this.onInstantiate.bind(this)();
+    }
 };
 
 Monster.prototype.die = function () {
@@ -40,11 +45,9 @@ Monster.prototype.die = function () {
         this.room.items.push(item);
       });
     }
-    for (i=0 ; i<this.room.monsters.length ; i++) {
-        if (this === this.room.monsters[i]) {
-            this.room.monsters = this.room.monsters.slice(0,i).concat(this.room.monsters.slice(i+1,this.room.monsters.length));
-        }
-    }
+    this.room.monsters = this.room.monsters.filter(mon => {
+        return mon !== this
+    })
 };
 
 var monByName = (name) => {
@@ -250,7 +253,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'weaselcat',
-        attack: [5,0,0,0,4,0,],
+        attack: [5,0,0,0,3,0,],
         defense: [4,0,1,2,5,1,],
         hitpoints: 20,
         level: 2,
@@ -420,25 +423,36 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 1,
         info: 'A sharp-toothed feline-eared diminuitive grey implike creature with wild deranged eyes.',
+        onInstantiate: function () {
+            this.data.arsenal = [
+                itemByName('revolver'),
+                itemByName('cursed pistol'),
+                itemByName('thompson gun'),
+                itemByName('hand grenade'),
+                itemByName('shotgun'),
+                itemByName('laughing mask'),
+                itemByName('firebomb'),
+                itemByName('case of chemical bombs'),
+            ];
+            this.data.notify = function () {
+                drawString(`The weaghrai conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`);
+                this.info = `A sharp-toothed feline-eared diminuitive grey implike creature armed with a ${this.data.weapon.name}.`;
+            }.bind(this)
+        },
         fightEvent: function () {
             if (this.data.weapon) {
                 this.data.weapon.ammo -= 1;
                 if (this.data.weapon.ammo > 0) {
-                    drawString(`The weaghrai drops its ${this.data.weapon.name}.`);
+                    drawString(`The ${this.name} drops its ${this.data.weapon.name}.`);
                     this.room.items.push(this.data.weapon);
                 } else {
-                    drawString(`The weaghrai's ${this.data.weapon.name} is destroyed.`);
+                    drawString(`The ${this.name}'s ${this.data.weapon.name} is destroyed.`);
                 }
                 this.data.weapon = null;
             }
-            this.data.weapon = new Item(itemByName(pick(
-                ['revolver', 'cursed pistol', 'thompson gun',
-                 'hand grenade', 'shotgun', 'laughing mask',
-                 'firebomb', 'case of chemical bombs']
-            )));
+            this.data.weapon = new Item(pick(this.data.arsenal), this.room);
             this.drop = this.data.weapon.ammo > 1 ? [this.data.weapon] : [];
-            drawString(`The weaghrai conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`)
-            this.info = `A sharp-toothed feline-eared diminuitive grey implike creature armed with a ${this.data.weapon.name}.`;
+            this.data.notify();
             this.attack = this.data.weapon.bonus;
         }
     }),
