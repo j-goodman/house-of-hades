@@ -580,6 +580,7 @@ var segments = [
             info: 'It\'s the devil, bright red and with a three-pronged hayfork in his hands.',
             onDeath: 'You killed the devil.',
             drop: [
+                new Item (itemByName('bag of devil\'s gold'), this.room),
                 new Item (
                     new ItemType (
                       'devil\'s fork', 'weapon',
@@ -590,7 +591,17 @@ var segments = [
                     ),
                     this.room
                 ),
-                new Item (itemByName('bag of devil\'s gold'), this.room)
+                new Item (pick(allItemTypes), this.room),
+                new Item (
+                    new ItemType (
+                      'angel\'s armor', 'shield',
+                      [2,2,3,0,8,8],
+                      9,
+                      'Your angel\'s armor turns into sunlight and vanishes.',
+                      'Armor forged by the almighty himself to protect his most trusted servants.'
+                    ),
+                    this.room
+                ),
             ],
             fightEvent: function () {
                 let stolen = false
