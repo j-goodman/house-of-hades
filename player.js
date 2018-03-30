@@ -56,6 +56,11 @@ Player.prototype.goTo = function (doorString) {
             door.go(this);
         }
     }.bind(this));
+    if (this.room.monsters.length === 0) {
+        this.room.doors.map(door => {
+            door.locked = false
+        })
+    }
     // this.recover(false);
     updateRoom()
 };
