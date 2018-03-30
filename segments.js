@@ -1,3 +1,54 @@
+let arcaneMerchant = Object.assign({}, monByName('weaghrai'))
+arcaneMerchant.name = 'arcane merchant'
+arcaneMerchant.info = 'A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The cat\'s eye on his necklace marks him as a worshipper of the night god Tezcatlipoca.'
+arcaneMerchant.defense[5] = 10
+arcaneMerchant.defense[2] = 10
+arcaneMerchant.onInstantiate = function () {
+    this.data.arsenal = [
+        itemByName('sacred tomohawk'),
+        itemByName('ghostcandle'),
+        new ItemType (
+            'lich\'s eye', 'weapon',
+            [0,0,0,0,10,0],
+            '9',
+            'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
+            'A green eye with the power to kill those it looks upon.'
+        ),
+        new ItemType (
+            'Byzantine murder ring', 'weapon',
+            [0,13,0,0,0,0],
+            '7',
+            'The murder ring shrinks suddenly, slicing off your finger from your hand before diminishing out of sight with a stench like methane. It\'s gone.',
+            'A bronze ring embedded with a mosaic of brightly colored near-microscopic stones. Imbued by the holy men of ancient Constantinople with the power to summon throat-cutting demons against one\'s enemies.'
+        ),
+        new ItemType (
+            'cosmic ball', 'weapon',
+            [0,0,10,0,0,0],
+            '12',
+            'The cosmic ball seems to reaccrue its natural weightiness all at once. It plummets through the floor, vanishing into the earth.',
+            'An impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be.'
+        ),
+        new ItemType (
+            'djinn\'s sword', 'weapon',
+            [0,5,0,7,0,0],
+            '13',
+            'The djinn\'s sword becomes fire in your hands, returning to the plane of its creator.',
+            'The curved blazing blade of a fire-born djinn, given to one of Saladin\'s lietenants to help defend Jerusalem against the western Crusaders.'
+        ),
+        new ItemType (
+            'spidersilk sling', 'weapon',
+            [7,0,7,0,0,0],
+            '11',
+            'The spidersilk sling is worn out after centuries of use and dissipates.',
+            'A throwing sling woven by the Norse craftsmen of Greenland and the native people of Canada working in concert, later used in the war between the two.'
+        ),
+    ];
+    this.data.notify = function () {
+        drawString(`The merchant withdraws a ${this.data.weapon.name} from the folds of his velvety black coat.`);
+        this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's armed with a ${this.data.weapon.name}.`;
+    }.bind(this)
+}
+
 var buildSegments = (count, rooms) => {
   var number = 2;
   var choices = [];
@@ -236,6 +287,12 @@ var segments = [
           )
         ]
     })
+
+    segmentRooms.map(room => {
+        room.doors.map(door => {
+            door.locked = true
+        })
+    })
   },
 
   /*
@@ -466,7 +523,7 @@ var segments = [
 
   /*
 
-  *      UNICORN      *
+  *      UNICORN AND THE DEVIL      *
 
   */
   (count, rooms) => {
@@ -478,33 +535,93 @@ var segments = [
     segmentRooms[0].type += ' that smells like a barn';
     segmentRooms[0].items = [];
     segmentRooms[0].monsters = [
+        new Monster (
+            segmentRooms[0],
+            new MonsterType ({
+                // pierce, slash, crush, burn, poison, curse
+                name: 'unicorn',
+                attack: [11,0,0,0,0,1],
+                defense: [3,3,0,12,12,12],
+                hitpoints: 20,
+                level: 3,
+                info: 'A grey horse the size of a moose with a twisting horn coming out of its nose like a narwhal\'s. It prepares to charge and try to gore you.',
+                onDeath: 'The unicorn collapses and dies.',
+                deathEvent: () => {
+                  segmentRooms[0].items.push(
+                    new Item (
+                      new ItemType (
+                          'horn', 'weapon',
+                          [11,0,0,0,0,1],
+                          33,
+                          'The unicorn horn you\'ve been using as a weapon splinters and breaks.',
+                          'A twisting horn.'
+                      ), segmentRooms[0]
+                    )
+                  )
+                }
+            }),
+        )
+    ]
+
+    segmentRooms.push(new Room ([], 3));
+
+    segmentRooms[1].type += ' that smells like sulfur';
+    segmentRooms[1].items = [];
+    segmentRooms[1].monsters = [
     new Monster (
-        segmentRooms[0],
+        segmentRooms[1],
         new MonsterType ({
             // pierce, slash, crush, burn, poison, curse
-            name: 'unicorn',
-            attack: [11,0,0,0,0,1],
-            defense: [3,3,0,12,12,12],
-            hitpoints: 20,
+            name: 'devil',
+            attack: [3,0,0,7,5,2],
+            defense: [11,2,5,11,11,0],
+            hitpoints: 29,
             level: 3,
-            info: 'A grey horse the size of a moose with a twisting horn coming out of its nose like a narwhal\'s. It prepares to charge and try to gore you.',
-            onDeath: 'The unicorn collapses and dies.',
-            deathEvent: () => {
-              segmentRooms[0].items.push(
+            info: 'It\'s the devil, bright red and with a three-pronged hayfork in his hands.',
+            onDeath: 'You killed the devil.',
+            drop: [
                 new Item (
-                  new ItemType (
-                      'horn', 'weapon',
-                      [11,0,0,0,0,1],
-                      33,
-                      'The unicorn horn you\'ve been using as a weapon splinters and breaks.',
-                      'A twisting horn.'
-                  ), segmentRooms[0]
-                )
-              )
+                    new ItemType (
+                      'devil\'s fork', 'weapon',
+                      [3,0,0,7,5,2],
+                      13,
+                      'The devil\'s fork turns into smoke.',
+                      'A three-pronged hayfork.'
+                    ),
+                    this.room
+                ),
+                new Item (itemByName('bag of devil\'s gold'), this.room)
+            ],
+            fightEvent: function () {
+                let stolen = false
+                if (game.player.weapon && (oneIn(2) || !game.player.shield)) {
+                    stolen = game.player.weapon
+                    game.player.weapon = null
+                } else if (game.player.shield) {
+                    stolen = game.player.shield
+                    game.player.shield = null
+                }
+                if (stolen) {
+                  this.drop.push(stolen)
+                  drawString(`The devil thiefs your ${stolen.name}.`)
+                }
+                this.room.monsters = this.room.monsters.filter( mon => { return mon !== this } )
+                let door = pick(allDoors.filter( door => { return door.to || door.from } ))
+                if (door.from) {
+                    this.room = door.from
+                } else {
+                    this.room = door.to
+                }
+                this.room.monsters.push(this)
+                drawString('The devil cracks his hoof on the floor and vanishes in a swirl of hellfire.')
+                if (this.room.monsters.length === 0) {
+                    this.room.doors.map(door => { door.locked = false })
+                }
             }
         }),
       )
     ];
+    console.log('unicorn')
   },
 
   /*
@@ -594,7 +711,7 @@ var segments = [
           [12,6,0,0,0,0],
           8,
           'Your wild compass seems to become the size of a olive pit, then the size of a horse, then it\'s gone.',
-          'An old bronze compass with three wildly spinning hands. It can unfix your position in space, making you nearly impossible to hit with piercing and slashing attacks.',
+          'A old bronze compass with three wildly spinning hands. It can unfix your position in space, making you nearly impossible to hit with piercing and slashing attacks.',
       )
 
       let bonehardener = new ItemType (
@@ -612,6 +729,15 @@ var segments = [
           'The bottle of whiskey is shattered.',
           'A bottle of inexpensive barrel-aged Kentucky bourbon.',
       )
+
+      let molotovCocktail = new ItemType (
+          'molotov cocktail', 'weapon',
+          [0,2,0,10,0,0],
+          1,
+          'The smoke from the molotov cocktail clears leaving a dark crater.',
+          'A crude homemade firebomb. Only good for one use, but should deal poweful burn damage.'
+      )
+
 
       let chestOfDevilsGold = new ItemType (
           'chest of devil\'s gold', 'shield',
@@ -685,57 +811,6 @@ var segments = [
               drawString(`With a noise like a colossal bullfrog\'s croak the shapeshifter becomes a ${pickUnique(allMonsterTypes, [targetType]).name}, a ${pickUnique(allMonsterTypes, [targetType]).name}, then a ${targetType.name}`)
           }
       })
-
-      let arcaneMerchant = Object.assign({}, monByName('weaghrai'))
-      arcaneMerchant.name = 'arcane merchant'
-      arcaneMerchant.info = 'A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The cat\'s eye on his necklace marks him as a worshipper of the night god Tezcatlipoca.'
-      arcaneMerchant.defense[5] = 10
-      arcaneMerchant.defense[2] = 10
-      arcaneMerchant.onInstantiate = function () {
-          this.data.arsenal = [
-              itemByName('sacred tomohawk'),
-              itemByName('ghostcandle'),
-              new ItemType (
-                  'lich\'s eye', 'weapon',
-                  [0,0,0,0,10,0],
-                  '9',
-                  'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
-                  'A green eye with the power to kill those it looks upon.'
-              ),
-              new ItemType (
-                  'Byzantine murder ring', 'weapon',
-                  [0,13,0,0,0,0],
-                  '7',
-                  'The murder ring shrinks suddenly, slicing off your finger from your hand before diminishing out of sight with a stench like methane. It\'s gone.',
-                  'A bronze ring embedded with a mosaic of brightly colored near-microscopic stones. Imbued by the holy men of ancient Constantinople with the power to summon throat-cutting demons against one\'s enemies.'
-              ),
-              new ItemType (
-                  'cosmic ball', 'weapon',
-                  [0,0,10,0,0,0],
-                  '12',
-                  'The cosmic ball seems to reaccrue its natural weightiness all at once. It plummets through the floor, vanishing into the earth.',
-                  'An impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be.'
-              ),
-              new ItemType (
-                  'djinn\'s sword', 'weapon',
-                  [0,5,0,7,0,0],
-                  '13',
-                  'The djinn\'s sword becomes fire in your hands, returning to the plane of its creator.',
-                  'The curved blazing blade of a fire-born djinn, given to one of Saladin\'s lietenants to help defend Jerusalem against the western Crusaders.'
-              ),
-              new ItemType (
-                  'spidersilk sling', 'weapon',
-                  [7,0,7,0,0,0],
-                  '11',
-                  'The spidersilk sling is worn out after centuries of use and dissipates.',
-                  'A throwing sling woven by the Norse craftsmen of Greenland and the native people of Canada working in concert, later used in the war between the two.'
-              ),
-          ];
-          this.data.notify = function () {
-              drawString(`The merchant withdraws a ${this.data.weapon.name} from the folds of his velvety black coat.`);
-              this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's armed with a ${this.data.weapon.name}.`;
-          }.bind(this)
-      }
 
       let sorcerousGambler = new MonsterType ({
           // pierce, slash, crush, burn, poison, curse
@@ -832,6 +907,7 @@ var segments = [
           chestOfDevilsGold,
           gin,
           whiskey,
+          molotovCocktail,
           setOfDice,
       ]
       let monsterTypes = [
@@ -842,6 +918,7 @@ var segments = [
           monByName('weaghrai'),
           paranoidSummoner,
           crow,
+          shapeshifter,
           shapeshifter,
           desperateGrifter,
           sorcerousGambler,
@@ -890,7 +967,7 @@ var segments = [
                   this.name = 'jaguar'
                   this.attack = [6,6,5,0,0,0,]
                   this.defense = [9,5,12,5,9,3,]
-                  this.info = 'An enormous jet-black jaguar with razor claws and phosphorous eyes.'
+                  this.info = 'A enormous jet-black jaguar with razor claws and phosphorous eyes.'
               } else if (this.name === 'jaguar' && oneIn(2)) {
                   drawString(`The night wind blows through in a gale as the jaguar\'s skin becomes a lifeless pelt and the human shape of the nagual emerges out from under it.`)
                   this.name = 'nagual'
@@ -980,6 +1057,14 @@ var segments = [
                       level: 1,
                       info: 'A night-black wildcat.',
                   }),
+                  new MonsterType ({
+                      name: 'moose',
+                      attack: [1,0,7,0,0,0,],
+                      defense: [0,9,10,0,2,0,],
+                      hitpoints: 20,
+                      level: 2,
+                      info: 'A massive antlered mammal grinding a hoof against the ground in preparation to charge.',
+                  }),
               ]
               let monsterType = pick(monsterTypes)
               this.room.monsters.push(new Monster (this.room, monsterType))
@@ -1025,6 +1110,8 @@ var segments = [
           nagual,
           colossalStoneHead,
           wildgod,
+          wildgod,
+          arcaneMerchant,
           astrologer,
       ]
       segmentRooms.push(hub)
@@ -1049,6 +1136,7 @@ var segments = [
           door.to = hub
       })
   },
+
 ]
 
 
