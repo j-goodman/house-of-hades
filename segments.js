@@ -456,6 +456,12 @@ var segments = [
       )
     ];
 
+    segmentRooms.map(room => {
+        room.doors.map(door => {
+            door.locked = false;
+        })
+    })
+
   },
 
   /*
@@ -905,6 +911,20 @@ var segments = [
           info: 'A 40 ton monumental basalt head. Its expression remains placid as it sweeps slowly into position to crush you.',
       })
 
+      let astrologer = new MonsterType ({
+          // pierce, slash, crush, burn, poison, curse
+          name: 'astrologer',
+          attack: [0,0,3,0,0,0,],
+          defense: [0,0,0,0,6,12,],
+          hitpoints: 20,
+          level: 1,
+          info: 'A student of the night sky who has learned through observation to observe the future positions of the stars, and endeavors to apply the same methods to events on earth.',
+          onDeath: `"Oh god!" the astrologer cries, "my god — why have you forsaken me?"`,
+          onInstantiate: function () {
+              this.room.doors.map(door => { door.locked = false })
+          }
+      })
+
       let wildgod = new MonsterType ({
           // pierce, slash, crush, burn, poison, curse
           name: 'wildgod',
@@ -972,29 +992,43 @@ var segments = [
 
       let hub = new Room ([], dice(3) + dice(2) + dice(2))
       let types = [
-          'xibalba',
+          'a dark underground passageway with a cold moisture hanging in the air',
+          'a underground tunnel through dirt, with roots sprouting from ceiling to floor and growing branches',
+          'a underground passageway lit by some luminescent fungus in the soil of its ceiling and walls',
       ]
       let itemTypes = [
           itemByName('life-giving herb'),
           itemByName('firebomb'),
-          itemByName('sacred tomohawk'),
           itemByName('atalatl'),
           itemByName('sledgehammer'),
           itemByName('blowgun'),
           itemByName('torch'),
-          itemByName('laughing mask'),
           itemByName('ghostcandle'),
+          new ItemType (
+              'obsidian axe', 'weapon',
+              [0,8,0,2,0,2],
+              7,
+              'Your obsidian axe explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
+              'A one-handed obsidian axe decorated with crowsfeathers. Deals very powerful slash damage and stays silent.'
+          ),
+          new ItemType (
+              'dragonfeather', 'shield',
+              [4,0,0,0,9,4],
+              13,
+              'Your dragonfeather dries out and becomes dust.',
+              'A gold dragonfeather, symbol of the serpent god. It\'s supposed to invoke the god\'s protection.'
+          ),
       ]
       let monsterTypes = [
-          monByName('skullhead'),
           monByName('skullhead'),
           monByName('rain ghost'),
           nagual,
           colossalStoneHead,
           wildgod,
+          astrologer,
       ]
       segmentRooms.push(hub)
-      hub.type = 'grim under-realm'
+      hub.type = pick(types)
       hub.items = [new Item (pick(itemTypes), hub)]
       hub.monsters = [new Monster(hub, pick(monsterTypes))]
 

@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
         weapon: document.getElementById('weapon'),
         hitpoints: document.getElementById('hitpoints'),
         recover: document.getElementById('recover'),
+        room: document.getElementById('room'),
         attack: {},
         defense: {},
     }
@@ -23,13 +24,27 @@ window.addEventListener('load', () => {
     })
     updateRoom()
     updateInventory()
+    display.message.innerText = display.message.innerText + `
+
+    Find the treasure room and kill the dragon there.`
 });
 
 clearType = () => {}
 
 drawString = string => {
-    display.message.innerText = string
-    console.log(string)
+    if (display.newMessage) {
+        display.message.innerText += `
+
+        ${string}`
+    } else {
+        display.message.innerText = string
+        display.message.style.color = '#d00'
+        display.newMessage = true;
+        window.setTimeout(() => {
+          display.message.style.color = '#fff'
+          display.newMessage = false;
+        }, 1000)
+    }
 }
 
 updateRecover = () => {
@@ -48,7 +63,22 @@ updateRecover = () => {
 }
 
 updateRoom = () => {
-    display.message.innerText = `You're in a ${game.player.room.type}. ${game.player.describeMonsters() || ''} ${game.player.describeItems() || ''} ${game.player.describeDoors() || ''}`
+    display.message.innerText = `You're in a ${game.player.room.type}.
+
+    ${game.player.describeMonsters() || ''} ${game.player.describeItems() || ''} ${game.player.describeDoors() || ''}`
+    updateMonsters()
+    updateItems()
+    updateDoors()
+    updateRecover()
+
+    if (game.player.room.monsters.length > 0 || game.player.room.type.length < 25) {
+        display.room.innerText = `${game.player.room.type[0].toUpperCase() + game.player.room.type.slice(1,game.player.room.type.length)}.`
+    } else {
+        display.room.innerText = ''
+    }
+}
+
+updateRoomContents = () => {
     updateMonsters()
     updateItems()
     updateDoors()
@@ -204,7 +234,7 @@ itemCard = (item, inventory) => {
             game.player.drop(item.name)
             game.player.get(item.name)
           }
-          updateRoom()
+          updateRoomContents()
           updateInventory()
         })
         actions.appendChild(get)
@@ -216,7 +246,7 @@ itemCard = (item, inventory) => {
         drop.innerText = 'DROP'
         drop.addEventListener('click', () => {
             game.player.drop(item.name)
-            updateRoom()
+            updateRoomContents()
             updateInventory()
         })
         actions.appendChild(drop)
@@ -226,7 +256,7 @@ itemCard = (item, inventory) => {
         hold.innerText = 'HOLD'
         hold.addEventListener('click', () => {
             game.player.hold(item.name)
-            updateRoom()
+            updateRoomContents()
             updateInventory()
         })
         actions.appendChild(hold)

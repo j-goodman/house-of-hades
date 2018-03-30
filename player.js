@@ -208,7 +208,7 @@ Player.prototype.fight = function (enemyName) {
     if (enemy.fightEvent && enemy.hitpoints > 0) {
       enemy.fightEvent();
     }
-    updateRoom()
+    updateRoomContents()
     updateInventory()
 };
 
@@ -230,6 +230,10 @@ Player.prototype.die = function () {
 };
 
 Player.prototype.recover = function (active=false) {
+    if (!this.alive) {
+        drawString('You\'re dead.')
+        return false
+    }
     if (!this.room.monsters.length) {
         var diff;
         var gain;

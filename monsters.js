@@ -277,7 +277,7 @@ var allMonsterTypes = [
         defense: [10,10,10,0,0,0,],
         hitpoints: 20,
         level: 3,
-        info: 'A savagely deadly creature of the boreal forests, the tortured body of one who was forced to eat their own kind to survive, and now must continue or die. Its body is numb to pain and can weather most physical attacks.',
+        info: 'A savagely deadly creature of the boreal forests, the tortured body of one who was forced to eat their own kind to survive, and now must continue or die. Its body is numb to pain and it can weather most physical attacks.',
     }),
     new MonsterType ({
         name: 'rabid wizard',
