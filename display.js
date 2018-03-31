@@ -182,7 +182,7 @@ monsterCard = monster => {
     fight.className = 'action-button'
     fight.innerText = 'FIGHT'
     fight.addEventListener('click', () => {
-        game.player.fight(monster.name)
+        game.player.fight(monster)
         updateMonsters()
     })
     actions.appendChild(fight)
@@ -210,6 +210,7 @@ monsterCard = monster => {
 itemCard = (item, inventory) => {
     let element = document.createElement('div')
     element.className = 'item-card card'
+    element.className += item.slot === 'shield' ? ' shield' : ' weapon'
     let header = document.createElement('div')
     header.innerText = item.name
     element.appendChild(header)
@@ -229,10 +230,10 @@ itemCard = (item, inventory) => {
         get.innerText = 'EQUIP'
         get.addEventListener('click', () => {
           if (game.player.room.items.includes(item)) {
-            game.player.get(item.name)
+            game.player.get(item)
           } else if (game.player.holding.includes(item)) {
-            game.player.drop(item.name)
-            game.player.get(item.name)
+            game.player.drop(item)
+            game.player.get(item)
           }
           updateRoomContents()
           updateInventory()
@@ -245,7 +246,7 @@ itemCard = (item, inventory) => {
         drop.className = 'action-button'
         drop.innerText = 'DROP'
         drop.addEventListener('click', () => {
-            game.player.drop(item.name)
+            game.player.drop(item)
             updateRoomContents()
             updateInventory()
         })
@@ -255,7 +256,7 @@ itemCard = (item, inventory) => {
         hold.className = 'action-button'
         hold.innerText = 'HOLD'
         hold.addEventListener('click', () => {
-            game.player.hold(item.name)
+            game.player.hold(item)
             updateRoomContents()
             updateInventory()
         })

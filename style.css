@@ -117,7 +117,19 @@ li {
 }
 
 .item-card {
-    min-width: 150px
+    min-width: 150px;
+}
+
+.item-card.shield {
+    background: #448;
+}
+
+.item-card.weapon {
+    background: #484;
+}
+
+.monster-card {
+    background: #933;
 }
 
 .card > div {
