@@ -598,7 +598,7 @@ var segments = [
                       [2,2,3,0,8,8],
                       9,
                       'Your angel\'s armor turns into sunlight and vanishes.',
-                      'Armor forged by the almighty himself to protect his most trusted servants.'
+                      'Armor forged by the almighty himself to protect his most loyal representatives.'
                     ),
                     this.room
                 ),

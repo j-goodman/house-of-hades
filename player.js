@@ -43,19 +43,23 @@ Player.prototype.showHolding = function () {
 };
 
 Player.prototype.goTo = function (doorString) {
-    var doorColor;
+    var doorColor
     if (!this.alive) {
-        drawString('You\'re dead.');
-        return true;
+        drawString('You\'re dead.')
+        return true
     } else {
-      clearType();
+        clearType()
     }
-    doorColor = doorString.slice(0, doorString.length - 5);
-    this.room.doors.map(function (door) {
-        if (door.color === doorColor) {
-            door.go(this);
-        }
-    }.bind(this));
+    if (typeof doorString === 'string') {
+        doorColor = doorString.slice(0, doorString.length - 5)
+        this.room.doors.map(function (door) {
+          if (door.color === doorColor) {
+            door.go(this)
+          }
+        }.bind(this))
+    } else if (doorString.go) {
+        doorString.go(this)
+    }
     if (this.room.monsters.length === 0) {
         this.room.doors.map(door => {
             door.locked = false
@@ -70,11 +74,15 @@ Player.prototype.get = function (targetName) {
     var i; var j;
     var target;
     var oldItem;
-    this.room.items.map(function (item) {
-        if (item.name == targetName) {
+    if (typeof(targetName) === 'string') {
+        this.room.items.map(function (item) {
+          if (item.name == targetName) {
             target = item;
-        }
-    }.bind(this));
+          }
+        }.bind(this));
+    } else {
+        target = targetName;
+    }
     if (!target || !target.slot) { return false; }
     oldItem = this[target.slot];
     this[target.slot] = target;

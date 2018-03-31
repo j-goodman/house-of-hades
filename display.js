@@ -155,7 +155,7 @@ doorCard = door => {
         goto.className = 'action-button'
         goto.innerText = 'GO'
         goto.addEventListener('click', () => {
-          game.player.goTo(`${door.color} door`)
+          game.player.goTo(door)
         })
         element.appendChild(goto)
     }
