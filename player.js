@@ -112,11 +112,15 @@ Player.prototype.hold = function (targetName) {
     clearType();
     var i; var j;
     var target;
-    this.room.items.map(function (item) {
-        if (item.name == targetName) {
+    if (typeof targetName === 'string') {
+        this.room.items.map(function (item) {
+          if (item.name == targetName) {
             target = item;
-        }
-    }.bind(this));
+          }
+        }.bind(this));
+    } else {
+        target = targetName;
+    }
     if (!target) { return false; }
     target.room = 'player';
     this.holding.push(target);
@@ -133,6 +137,9 @@ Player.prototype.drop = function (itemName) {
   clearType();
   let holding = null;
   let unique = false;
+  if (typeof itemName !== 'string' && itemName.name) {
+      itemName = itemName.name
+  }
   if (this.weapon && this.weapon.name == itemName) {
     this.room.items.push(this.weapon);
     this.weapon.room = this.room;
@@ -178,11 +185,15 @@ Player.prototype.fight = function (enemyName) {
     var i;
     var shieldUse = 0;
     clearType();
-    this.room.monsters.map(function (monster) {
-        if (monster.name === enemyName) {
+    if (typeof enemyName === 'string') {
+        this.room.monsters.map(function (monster) {
+          if (monster.name === enemyName) {
             enemy = monster;
-        }
-    }.bind(this));
+          }
+        }.bind(this));
+    } else {
+        enemy = enemyName
+    }
     for (i=0 ; i<6 ; i++) {
         enemy.hitpoints -= Math.ceil(this.stats.attack[i] * (12/12 - (enemy.defense[i] / 12)));
     }
