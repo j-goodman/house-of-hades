@@ -109,11 +109,18 @@ li {
 }
 
 #inventory > .card {
-    background: rgba(255,255,255,.1);
     flex-direction: row;
     margin: auto;
     padding: 0px 12px 0px 12px;
     width: 70%;
+}
+
+#inventory > .weapon {
+    background: rgba(0,255,0,.1);
+}
+
+#inventory > .shield {
+    background: rgba(0,0,255,.1);
 }
 
 #inventory > .item-card > .item-card-description {
@@ -125,15 +132,15 @@ li {
 }
 
 .item-card.shield {
-    background: #448;
+    background: rgba(0,0,255,.35);
 }
 
 .item-card.weapon {
-    background: #484;
+    background: rgba(0,255,0,.35);
 }
 
 .monster-card {
-    background: #933;
+    background: rgba(255,0,0,.35);
 }
 
 .card > div {
