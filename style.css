@@ -116,6 +116,10 @@ li {
     width: 70%;
 }
 
+#inventory > .item-card > .item-card-description {
+    display: none;
+}
+
 .item-card {
     min-width: 150px;
 }

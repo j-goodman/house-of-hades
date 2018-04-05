@@ -217,6 +217,7 @@ itemCard = (item, inventory) => {
 
     if (game.player.weapon === item || game.player.shield === item) {
         let paragraph = document.createElement('p')
+        paragraph.className = 'item-card-description'
         paragraph.innerText = item.info
         element.appendChild(paragraph)
     }
