@@ -257,6 +257,7 @@ itemCard = (item, inventory) => {
         hold.className = 'action-button'
         hold.innerText = 'HOLD'
         hold.addEventListener('click', () => {
+            console.log('Holdclick')
             game.player.hold(item)
             updateRoomContents()
             updateInventory()
