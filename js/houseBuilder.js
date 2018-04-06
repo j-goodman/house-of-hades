@@ -10,14 +10,14 @@ houseBuilder.buildSpawn = function () {
   var spawn;
   spawn = new Room (null, 3);
   spawn.type = pick(spawnTypes);
-  finalTreasureRoom = new Room ([], 0);
+  finalTreasureRoom = new Room ([], 1);
   finalTreasureRoom.type = 'treasure room';
   spawn.monsters = [];
   finalTreasureRoom.doors.forEach((door) => {
     door.to = true;
   });
   finalTreasureRoom.monsters = [new Monster (finalTreasureRoom,
-    allMonsterTypes.filter((type)=>{return type.name==='dragon'})[0]
+    allMonsterTypes.filter((type) => {return type.name === 'dragon'})[0]
   )];
   for (i=0 ; i<3 ; i++) {
       spawn.doors[i].color = colors[i];
@@ -27,6 +27,10 @@ houseBuilder.buildSpawn = function () {
           spawn.doors[i].to.doors[1]
       ];
       spawn.doors[i].to.monsters = [];
+      spawn.doors[i].locked = false;
+      spawn.doors[i].to.doors.map(door => {
+          door.locked = false;
+      })
   }
   return spawn;
 };

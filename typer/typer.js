@@ -144,6 +144,8 @@ var drawString = (string, rightHand=35) => {
     var highlightingWord;
     var resetChar = 0;
 
+    console.log(string);
+
     carriageReturn();
 
     keyLookup = Object.keys(eventmap);

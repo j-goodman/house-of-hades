@@ -16,7 +16,11 @@ var info = game.player.info.bind(game.player);
 var use = game.player.use.bind(game.player);
 
 window.addEventListener('load', () => {
-  game.player.welcome.bind(game.player);
+    if (window.loadImages) {
+        loadImages(game.player.welcome.bind(game.player));
+    } else {
+        game.player.welcome.bind(game.player);
+    }
 });
 
 

@@ -1,6 +1,9 @@
 var pick = function (array) {
     return array[Math.floor(Math.random() * array.length)];
 };
+var dice = function (sides) {
+    return Math.ceil(Math.random() * sides);
+};
 var oneIn = function (howMany) {
     return !Math.floor(Math.random() * howMany);
 };
@@ -76,7 +79,7 @@ var Room = function (doors, doorCount) {
     this.id = nextRoomId;
     this.monsters = [];
     this.items = [];
-    this.mana = 7;
+    this.mana = 8;
     nextRoomId += 1;
     var i;
     var door;
@@ -92,8 +95,9 @@ var Room = function (doors, doorCount) {
     var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 1;
     });
-    if (oneIn(1.2)) {
+    if (oneIn(1.3)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
+        // this.monsters.push(new Monster (this, monByName('weaghrai')));
     }
     if (oneIn(7)) {
         this.monsters.push(new Monster (this, pick(secondMonsterPool)));
@@ -104,7 +108,7 @@ var Room = function (doors, doorCount) {
     if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes), this));
     }
-    doorCount = doorCount ? doorCount : Math.ceil(Math.random() * (2.1));
+    doorCount = (doorCount || doorCount === 0) ? doorCount : Math.ceil(Math.random() * (2.1));
     for (i=0 ; i<doorCount ; i++) {
         if (i > 0 && hour > 0 && allDoors.length > 10 && allUnresolvedDoors().filter((door)=>{ return !usedColors.includes(door.color) }).length > 0 && (allUnresolvedDoors().length > 3)) {
           door = pick(allUnresolvedDoors().filter((selectDoor)=>{ return !usedColors.includes(selectDoor.color) }));
@@ -112,7 +116,7 @@ var Room = function (doors, doorCount) {
         } else {
           door = new Door (pickUnique(doorColors, usedColors), this, null);
         }
-        door.locked = true;
+        door.locked = !!this.monsters.length;
         usedColors.push(door.color);
         this.doors.push(door);
     }
@@ -140,7 +144,8 @@ var Door = function (color, from, to, locked) {
 
 Door.prototype.go = function (player) {
     if (!this.to) {
-      if (hour > 26 && Math.round(Math.random()) && (finalTreasureRoom.doors[0].to === true)) {
+      console.log(hour > 20, finalTreasureRoom.doors[0])
+      if (hour > 20 && Math.round(Math.random()) && finalTreasureRoom.doors[0] && (finalTreasureRoom.doors[0].to === true)) {
         this.to = finalTreasureRoom;
         finalTreasureRoom.doors = [this];
         this.locked = false;
@@ -150,7 +155,7 @@ Door.prototype.go = function (player) {
     }
     if (this.locked) {
         if (player.room.monsters.length) {
-            // drawString('Kill the monsters in the room to unlock that door.');
+            console.log('Kill the monsters in the room to unlock that door.');
             return false;
         } else {
             this.locked = false;
@@ -163,8 +168,8 @@ Door.prototype.go = function (player) {
         player.room = this.from;
         hour += 1;
     } else {
-        // drawString('DOOR ERROR');
-        // drawString(this, player);
+        console.log('DOOR ERROR');
+        console.log(this, player);
     }
     this.locked = false;
     this.advanceRoomAndDoorTypes();
