@@ -125,15 +125,19 @@ extras['paranoid summoner'] = new MonsterType ({
         })
         escapeRoom.monsters.push(this)
         this.room = escapeRoom
+        console.log('Fight event.')
+        console.log('this.room:', this.room)
         drawString('The paranoid summoner escapes.')
     },
     deathEvent: function () {
         drawString('The fabric of space seems to stretch into a claw that rips open the torso of the paranoid summoner releasing a murder of crows and killing her. The crows fly out of the room and the rift remains open.')
+        console.log('Death event.')
+        console.log('this.room:', this.room)
         let rift = new Door ('demoniac rift', this.room)
         let dungeon = new Room ([rift], 0)
         rift.to = dungeon
         this.room.doors.push(rift)
-        this.room.monsters.push(new Monster (this.room, crow), new Monster (this.room, crow), new Monster (this.room, crow))
+        this.room.monsters.push(new Monster (this.room, extras['crow']), new Monster (this.room, extras['crow']), new Monster (this.room, extras['crow']))
         dungeon.mana *= 12;
 
         dungeon.type = 'infernal dungeon'
@@ -329,5 +333,30 @@ extras['shapeshifter'] = new MonsterType ({
         this.defense = targetType.defense
         this.info = targetType.info
         drawString(`With a noise like a colossal bullfrog\'s croak the shapeshifter becomes a ${pickUnique(allMonsterTypes, [targetType]).name}, a ${pickUnique(allMonsterTypes, [targetType]).name}, then a ${targetType.name}`)
+    }
+})
+
+extras['nagual'] = new MonsterType ({
+    // pierce, slash, crush, burn, poison, curse
+    name: 'nagual',
+    attack: [0,0,0,3,0,6,],
+    defense: [3,10,7,0,9,12,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.',
+    fightEvent: function () {
+        if (this.name === 'nagual' && oneIn(1.3)) {
+            drawString(`The night wind blows through in a gale as the nagual sheds his form and becomes a massive black jaguar with claws like obsidian razors and eyes like planets in the night sky.`)
+            this.name = 'jaguar'
+            this.attack = [6,6,5,0,0,0,]
+            this.defense = [9,5,12,5,9,3,]
+            this.info = 'A enormous jet-black jaguar with razor claws and phosphorous eyes.'
+        } else if (this.name === 'jaguar' && oneIn(2)) {
+            drawString(`The night wind blows through in a gale as the jaguar\'s skin becomes a lifeless pelt and the human shape of the nagual emerges out from under it.`)
+            this.name = 'nagual'
+            this.attack = [0,0,0,3,0,7,]
+            this.defense = [0,10,7,0,9,12,]
+            this.info = 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.'
+        }
     }
 })

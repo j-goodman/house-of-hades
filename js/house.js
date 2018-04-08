@@ -40,7 +40,7 @@ var laterRoomTypes = [
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
-    ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood'],
+    ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood', 'heavily fortified', 'automatic', 'plaster-covered', 'canvas-covered', 'grass-green', 'thick'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];
 var surfaceTypes = [
@@ -97,7 +97,7 @@ var Room = function (doors, doorCount) {
     });
     if (oneIn(1.3)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
-        // this.monsters.push(new Monster (this, monByName('necromancer')));
+        // this.monsters.push(new Monster (this, extras['paranoid summoner']));
     }
     if (oneIn(7)) {
         this.monsters.push(new Monster (this, pick(secondMonsterPool)));

@@ -767,31 +767,6 @@ var segments = [
       var segmentRooms = []
       var otherRoom
 
-      let nagual = new MonsterType ({
-          // pierce, slash, crush, burn, poison, curse
-          name: 'nagual',
-          attack: [0,0,0,3,0,6,],
-          defense: [3,10,7,0,9,12,],
-          hitpoints: 20,
-          level: 1,
-          info: 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.',
-          fightEvent: function () {
-              if (this.name === 'nagual' && oneIn(1.3)) {
-                  drawString(`The night wind blows through in a gale as the nagual sheds his form and becomes a massive black jaguar with claws like obsidian razors and eyes like planets in the night sky.`)
-                  this.name = 'jaguar'
-                  this.attack = [6,6,5,0,0,0,]
-                  this.defense = [9,5,12,5,9,3,]
-                  this.info = 'A enormous jet-black jaguar with razor claws and phosphorous eyes.'
-              } else if (this.name === 'jaguar' && oneIn(2)) {
-                  drawString(`The night wind blows through in a gale as the jaguar\'s skin becomes a lifeless pelt and the human shape of the nagual emerges out from under it.`)
-                  this.name = 'nagual'
-                  this.attack = [0,0,0,3,0,7,]
-                  this.defense = [0,10,7,0,9,12,]
-                  this.info = 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.'
-              }
-          }
-      })
-
       let colossalStoneHead = new MonsterType ({
           // pierce, slash, crush, burn, poison, curse
           name: 'colossal stone head',
@@ -848,7 +823,7 @@ var segments = [
       let monsterTypes = [
           monByName('skullhead'),
           monByName('rain ghost'),
-          nagual,
+          extras['nagual'],
           colossalStoneHead,
           extras['wildgod'],
           extras['wildgod'],
@@ -911,6 +886,12 @@ var segments = [
         west.doors[0].color = 'west'
 
         hub.type = pick(['deep crossroads', 'fortified crossroads', 'distorted crossroads', 'vine-overgrown indoor crossroads', 'underground crossroads', 'crossroads over a mile-deep pit', 'ontological crossroads'])
+        console.log([
+            extras['glass man'],
+            extras['laughing woman'],
+            extras['murderer\'s courage'],
+            extras['arcane merchant'],
+        ])
         hub.monsters = [new Monster (
             hub,
             pick([
@@ -921,6 +902,13 @@ var segments = [
             ])
         )]
         north.type = pick(['long corridor covered in brightly polished shining steel', 'colossal machine room made up of a thousand moving parts', 'control and observation room with its walls in panels and monitors'])
+        console.log([
+            extras['glass man'],
+            extras['screaming mechanical searcher'],
+        ], [
+            extras['glass man'],
+            extras['screaming mechanical searcher'],
+        ])
         north.monsters = [
             new Monster (
                 north,
@@ -938,6 +926,18 @@ var segments = [
             ),
         ]
         east.type = pick(['arid vault that extends for hundreds of yards, with bright light and heat radiating into it through vents in the ceiling', 'vast lobby filled halfway with constantly shifting baking-hot red sand'])
+        console.log([
+            extras['glass man'],
+            extras['half-goat soldier'],
+            extras['sandeater'],
+            extras['shapeshifter'],
+        ], [
+            monByName('necromancer'),
+            extras['half-goat soldier'],
+            extras['sandeater'],
+            extras['shapeshifter'],
+            extras['murderer\'s courage'],
+        ])
         east.monsters = [
             new Monster (
                 east,
@@ -951,6 +951,7 @@ var segments = [
             new Monster (
                 east,
                 pick([
+                    monByName('necromancer'),
                     extras['half-goat soldier'],
                     extras['sandeater'],
                     extras['shapeshifter'],
@@ -966,6 +967,10 @@ var segments = [
             ),
         ]
         south.type = pick(['enormous sandy room containing a vast saltwater lake and whose ceiling is an impossibly huge painting of the night sky with moving stars and planets', 'room where a long stone bridge passes over an immense subterranean lake that moves as if it had tides'])
+        console.log([
+            extras['kraken'],
+            extras['seagod'],
+        ])
         south.monsters = [new Monster (
             south,
             pick([
@@ -974,6 +979,14 @@ var segments = [
             ])
         )]
         west.type = pick(['vast damp room densely infested with creeping vines and thorn-covered trees', 'massive reception hall that\'s become so overgrown with trees and vines and fungus as to now more resemble a forest'])
+        console.log([
+            extras['wildgod'],
+            extras['nagual'],
+            extras['laughing woman'],
+            extras['murderer\'s courage'],
+            extras['boa constrictor'],
+            monByName('wendigo'),
+        ])
         west.monsters = [new Monster (
             west,
             pick([
