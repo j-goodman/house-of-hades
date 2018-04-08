@@ -97,7 +97,7 @@ var Room = function (doors, doorCount) {
     });
     if (oneIn(1.3)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
-        // this.monsters.push(new Monster (this, monByName('weaghrai')));
+        // this.monsters.push(new Monster (this, monByName('necromancer')));
     }
     if (oneIn(7)) {
         this.monsters.push(new Monster (this, pick(secondMonsterPool)));

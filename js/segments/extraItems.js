@@ -103,3 +103,11 @@ extras['goat\'s armor'] = new ItemType (
     'Your goat\'s armor breaks.',
     'Tightly-crafted black armor engraved with a eye with two perpendicular roads passing through it.',
 )
+
+extras['mithril vest'] = new ItemType (
+    'mithril vest', 'shield',
+    [12,3,0,0,0,0],
+    90,
+    'You\'ve run out of mithril.',
+    'A vest of shining white metal linked together into chainmail in the subterranean forges of the mountain dwarves of Central Africa.'
+)

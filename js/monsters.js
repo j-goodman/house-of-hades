@@ -285,7 +285,7 @@ var allMonsterTypes = [
         defense: [6,1,2,0,0,4,],
         hitpoints: 20,
         level: 3,
-        info: 'He looks like he\'s not used to being around other people. His eyes are constantly moving around the room and his beard is wild and matted. His fingers and ears are crackling with hairswidth bolts of black lightning.',
+        info: 'he looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
     }),
     new MonsterType ({
         name: 'shrieking dog',
@@ -439,7 +439,7 @@ var allMonsterTypes = [
                 itemByName('case of chemical bombs'),
             ];
             this.data.notify = function () {
-                drawString(`The weaghrai conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`);
+                drawString(`The ${this.name} conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`);
                 this.info = `A sharp-toothed feline-eared diminuitive grey implike creature armed with a ${this.data.weapon.name}.`;
             }.bind(this)
         },
@@ -459,6 +459,86 @@ var allMonsterTypes = [
             this.data.notify();
             this.attack = this.data.weapon.bonus;
         }
+    }),
+    new MonsterType ({
+        name: 'necromancer',
+        attack: [0,1,4,0,0,0],
+        defense: [6,1,2,0,0,4,],
+        hitpoints: 20,
+        level: 3,
+        info: 'A well-dressed thin tall man with a hat.',
+        fightEvent: function () {
+            this.data.monstersInRoom.map(mon => {
+                if (!this.room.monsters.includes(mon) && !mon.undead) {
+                    drawString(`The necromancer raises the ${mon.name} from the dead ${
+                        pick([
+                            'like he thinks he\'s the king of hell or something.',
+                            'by standing over the corpse and shouting so loudly that spit comes out.',
+                            'with his hand.',
+                            'after removing his hat to speak a prayer.',
+                            `like it's a ${mon.name.split(' ')[mon.name.split(' ').length - 1]} Lazarus`,
+                            `but it almost looks as if it\'s resisting being pulled back into life, its body dissolving as it rises`,
+                        ])
+                    }`)
+                    let roll = dice(3)
+                    mon.defense[1] = 0 // weak against slash
+                    mon.defense[3] = 0 // weak against fire
+                    mon.defense[0] = 12 // immune to pierce
+                    mon.defense[4] = 12 // immune to poison
+                    mon.undead = true
+                    mon.hitpoints = 20
+                    switch (roll) {
+                        case 1:
+                            mon.name = `once-murdered ${mon.name}`
+                            mon.attack[0] += 3 // pierce attack bonus
+                            mon.attack[5] += 1 // curse attack bonus
+                            mon.info += ' It\'s been murdered once, and has risen changed.'
+                            break;
+                        case 2:
+                            mon.name = `reanimated ${mon.name}`
+                            // all attack weakened:
+                            mon.attack = mon.attack.map(stat => {
+                                return Math.floor(stat / 2)
+                            })
+                            // crush increased:
+                            mon.attack[2] += dice(6) + dice(6) + dice(6)
+                            mon.info += ' It\'s been reanimated but it looks like it wasn\'t quite fresh enough.'
+                            break;
+                        case 3:
+                            mon.name = `half-dead ${mon.name}`
+                            // all attack weakened:
+                            mon.attack = mon.attack.map(stat => {
+                                return Math.floor(stat / 2)
+                            })
+                            mon.info = `Somebody botched the job of returning this thing to the ranks of the living. ${mon.info}`
+                            break;
+                    }
+                    this.room.monsters.push(mon);
+                }
+            })
+            if (this.room.monsters.filter(mon => { return !mon.undead }).length > 0) {
+                drawString(`The necromancer opens his mouth twice as wide as you\'ve ever seen anyone open his mouth, sucking the lifeforce of the room\'s other occupants in through it.`)
+                this.room.monsters.map(mon => {
+                    if (
+                        mon.hitpoints > 0 &&
+                        !mon.undead &&
+                        this.hitpoints < 20
+                    ) {
+                        let amount = (20 - this.hitpoints) < (mon.hitpoints) ? (20 - this.hitpoints) : (mon.hitpoints)
+                        mon.hitpoints -= amount
+                        this.hitpoints += amount
+                        if (mon.hitpoints <= 0) {
+                            mon.die()
+                        }
+                    }
+                })
+            }
+        },
+        onInstantiate: function () {
+            this.undead = true
+            this.room.monsters.push(new Monster (this.room, pick(allMonsterTypes)))
+            this.data.monstersInRoom = this.room.monsters.filter(mon => { return mon.name !== 'necromancer' })
+        },
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({
