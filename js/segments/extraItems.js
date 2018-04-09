@@ -6,7 +6,7 @@ extras['lich\'s eye'] = new ItemType (
     '9',
     'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
     'A green eye with the power to kill those it looks upon.'
-),
+)
 
 extras['Byzantine murder ring'] = new ItemType (
     'Byzantine murder ring', 'weapon',
@@ -118,7 +118,7 @@ extras['angel\'s armor'] = new ItemType (
     9,
     'Your angel\'s armor turns into sunlight and vanishes.',
     'Armor forged by the almighty itself to protect its most loyal representatives.'
-),
+)
 
 extras['Greek\'s dagger'] = new ItemType (
     'Greek\'s dagger', 'weapon',
@@ -126,4 +126,4 @@ extras['Greek\'s dagger'] = new ItemType (
     15,
     'The Greek\'s dagger falls to the earth and shatters into dust with a rattling clang.',
     'Used during the Athenian uprising against the Roman General Sulla, after which its owner was cursed by the death-god Pluto, that he should always have the power to kill the ones he hated.'
-),
+)
