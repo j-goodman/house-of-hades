@@ -187,6 +187,13 @@ var allItemTypes = [
         'Your shotgun is out of ammo.',
         'It\'s a sawed-off shotgun with six rounds. Deals pierce and crush damage.'
     ),
+    new ItemType (
+        'fire poker', 'weapon',
+        [3,0,4,0,0,0],
+        15,
+        'Your fire poker breaks in two.',
+        'A hooked cast-iron fire poker.'
+    ),
     // pierce, slash, crush, burn, poison, curse
 
     /*///
@@ -254,7 +261,7 @@ var allItemTypes = [
         [2,5,7,1,0,0],
         8,
         'You\'re out of golem\'s blood.',
-        'A vial of silty mud from the veins of a golem. Drink it to increase your resiliance against physical attacks.'
+        'A vial of silty mud from the veins of a golem. Increases your resiliance against physical attacks.'
     ),
     new ItemType (
         'bleeding mushroom', 'shield',

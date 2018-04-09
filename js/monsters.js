@@ -285,7 +285,7 @@ var allMonsterTypes = [
         defense: [6,1,2,0,0,4,],
         hitpoints: 20,
         level: 3,
-        info: 'he looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
+        info: 'He looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
     }),
     new MonsterType ({
         name: 'shrieking dog',
@@ -305,7 +305,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'tumorous bleating mass',
-        attack: [0,0,1,0,1,2,],
+        attack: [0,0,1,0,2,0,],
         defense: [0,10,0,5,2,1,],
         hitpoints: 20,
         level: 2,
@@ -428,6 +428,8 @@ var allMonsterTypes = [
         level: 1,
         info: 'A sharp-toothed feline-eared diminuitive grey implike creature with wild deranged eyes.',
         onInstantiate: function () {
+            this.data.baseDefense = this.defense.map(stat => { return stat })
+            this.data.baseAttack = this.attack.map(stat => { return stat })
             this.data.arsenal = [
                 itemByName('revolver'),
                 itemByName('cursed pistol'),
@@ -439,25 +441,33 @@ var allMonsterTypes = [
                 itemByName('case of chemical bombs'),
             ];
             this.data.notify = function () {
-                drawString(`The ${this.name} conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`);
-                this.info = `A sharp-toothed feline-eared diminuitive grey implike creature armed with a ${this.data.weapon.name}.`;
+                drawString(`The ${this.name} conjures a ${this.data.item.name} in a flash of ${pick(['ultraviolet light', 'ultraviolet light', 'ultraviolet light', 'darkness', 'white light'])}.`);
+                this.info = `A sharp-toothed feline-eared diminuitive grey implike creature ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending itself with' } a ${this.data.item.name}.`;
             }.bind(this)
         },
         fightEvent: function () {
-            if (this.data.weapon) {
-                this.data.weapon.ammo -= 1;
-                if (this.data.weapon.ammo > 0) {
-                    drawString(`The ${this.name} drops its ${this.data.weapon.name}.`);
-                    this.room.items.push(this.data.weapon);
+            if (this.data.item) {
+                this.data.item.ammo -= 1;
+                if (this.data.item.ammo > 0) {
+                    drawString(`The ${this.name} drops its ${this.data.item.name}.`);
+                    this.room.items.push(this.data.item);
                 } else {
-                    drawString(`The ${this.name}'s ${this.data.weapon.name} is destroyed.`);
+                    drawString(`The ${this.name}'s ${this.data.item.name} is destroyed.`);
                 }
-                this.data.weapon = null;
+                this.data.item = null;
             }
-            this.data.weapon = new Item(pick(this.data.arsenal), this.room);
-            this.drop = this.data.weapon.ammo > 1 ? [this.data.weapon] : [];
+            this.data.item = new Item(pick(this.data.arsenal), this.room);
+            this.drop = this.data.item.ammo > 1 ? [this.data.item] : [];
             this.data.notify();
-            this.attack = this.data.weapon.bonus;
+            if (this.data.item.slot === 'shield') {
+                this.defense = this.data.baseDefense.map((stat, index) => {
+                    return stat + this.data.item.bonus[index] > 12 ? 12 : stat + this.data.item.bonus[index]
+                });
+            } else if (this.data.item.slot === 'weapon') {
+                this.attack = this.data.baseAttack.map((stat, index) => {
+                    return stat + this.data.item.bonus[index]
+                });
+            }
         }
     }),
     new MonsterType ({

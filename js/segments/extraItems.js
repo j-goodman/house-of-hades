@@ -21,7 +21,7 @@ extras['cosmic ball'] = new ItemType (
     [0,0,10,0,0,0],
     '12',
     'The cosmic ball seems to reaccrue its natural weightiness all at once. It plummets through the floor, vanishing into the earth.',
-    'An impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be.'
+    'A impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be. It\'s held at the end of a long white chain.'
 )
 
 extras['djinn\'s sword'] = new ItemType (
@@ -77,7 +77,7 @@ extras['death\'s beak'] = new ItemType (
     [dice(12), dice(5), dice(3) + dice(3), dice(3), dice(6) + dice(6) + dice(6), dice(3) - 1],
     dice(6) + dice(6) + dice(6) + dice(6) + dice(6) + dice(6),
     'DEATH\'S BEAK IS UNDONE.',
-    'The beak of an abominable being you encountered beyond the shadow of time. It wriggles in your hands seeking breathing flesh to kill.'
+    'The beak of a abominable being you encountered beyond the shadow of time. It wriggles in your hands seeking breathing flesh to kill.'
 )
 
 extras['kraken\'s ink sac'] = new ItemType (
@@ -111,3 +111,19 @@ extras['mithril vest'] = new ItemType (
     'You\'ve run out of mithril.',
     'A vest of shining white metal linked together into chainmail in the subterranean forges of the mountain dwarves of Central Africa.'
 )
+
+extras['angel\'s armor'] = new ItemType (
+    'angel\'s armor', 'shield',
+    [2,2,3,0,8,8],
+    9,
+    'Your angel\'s armor turns into sunlight and vanishes.',
+    'Armor forged by the almighty itself to protect its most loyal representatives.'
+),
+
+extras['Greek\'s dagger'] = new ItemType (
+    'Greek\'s dagger', 'weapon',
+    [6,0,0,0,6,6],
+    15,
+    'The Greek\'s dagger falls to the earth and shatters into dust with a rattling clang.',
+    'Used during the Athenian uprising against the Roman General Sulla, after which its owner was cursed by the death-god Pluto, that he should always have the power to kill the ones he hated.'
+),

@@ -7,19 +7,25 @@ extras['arcane merchant'].name = 'arcane merchant'
 extras['arcane merchant'].info = 'A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The cat\'s eye on his necklace marks him as a worshipper of the night god Tezcatlipoca.'
 extras['arcane merchant'].defense[5] = 10
 extras['arcane merchant'].defense[2] = 10
+extras['arcane merchant'].attack[2] = 4
 extras['arcane merchant'].onInstantiate = function () {
+    this.data.baseDefense = this.defense.map(stat => { return stat })
+    this.data.baseAttack = this.attack.map(stat => { return stat })
     this.data.arsenal = [
         itemByName('sacred tomohawk'),
-        itemByName('ghostcandle'),
         extras['lich\'s eye'],
         extras['Byzantine murder ring'],
         extras['cosmic ball'],
         extras['djinn\'s sword'],
         extras['spidersilk sling'],
+        extras['Greek\'s dager'],
+        extras['mithril vest'],
+        extras['angel\'s armor'],
+        extras['goat\'s armor'],
     ];
     this.data.notify = function () {
-        drawString(`The merchant withdraws a ${this.data.weapon.name} from the folds of his velvety black coat.`);
-        this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's armed with a ${this.data.weapon.name}.`;
+        drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
+        this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending himself with' } with a ${this.data.item.name}.`;
     }.bind(this)
 }
 
@@ -332,7 +338,7 @@ extras['shapeshifter'] = new MonsterType ({
         this.defense = targetType.defense
         this.defense = targetType.defense
         this.info = targetType.info
-        drawString(`With a noise like a colossal bullfrog\'s croak the shapeshifter becomes a ${pickUnique(allMonsterTypes, [targetType]).name}, a ${pickUnique(allMonsterTypes, [targetType]).name}, then a ${targetType.name}`)
+        drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes, [targetType]).name}, a ${pickUnique(allMonsterTypes, [targetType]).name}, then a ${targetType.name}`)
     }
 })
 
@@ -359,4 +365,13 @@ extras['nagual'] = new MonsterType ({
             this.info = 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.'
         }
     }
+})
+
+extras['chained specter'] = new MonsterType ({
+    name: 'chained specter',
+    attack: [0,0,0,2,5,2,],
+    defense: [12,12,12,0,12,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A oily black specter with its wrists locked in cold iron chains.',
 })

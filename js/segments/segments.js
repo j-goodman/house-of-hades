@@ -107,9 +107,9 @@ var segments = [
     var segmentMonsters = [
       monByName('shoggoth'),
       monByName('weaghrai'),
-      // pierce, slash, crush, burn, poison, curse
       extras['starving cannibal'],
       extras['cyclops'],
+      extras['chained specter'],
       extras['sarcophagus'],
     ];
 
@@ -119,7 +119,6 @@ var segments = [
       itemByName('jar of salt'),
       itemByName('bag of devil\'s gold'),
       itemByName('canned ghost'),
-      // pierce, slash, crush, burn, poison, curse
       extras['laughing key'],
       extras['molar'],
     ];
@@ -461,16 +460,7 @@ var segments = [
                     this.room
                 ),
                 new Item (pick(allItemTypes), this.room),
-                new Item (
-                    new ItemType (
-                      'angel\'s armor', 'shield',
-                      [2,2,3,0,8,8],
-                      9,
-                      'Your angel\'s armor turns into sunlight and vanishes.',
-                      'Armor forged by the almighty himself to protect his most loyal representatives.'
-                    ),
-                    this.room
-                ),
+                new Item (extras['angel\'s armor'], this.room),
             ],
             fightEvent: function () {
                 let stolen = false
@@ -784,7 +774,7 @@ var segments = [
           defense: [0,0,0,0,6,12,],
           hitpoints: 20,
           level: 1,
-          info: 'A student of the night sky who has learned through observation to observe the future positions of the stars, and endeavors to apply the same methods to events on earth.',
+          info: 'A student of the night sky who has learned through observation to know the future positions of the stars, and endeavors to apply the same methods to events on earth.',
           onDeath: `"Oh god!" the astrologer cries, "my god — why have you forsaken me?"`,
           onInstantiate: function () {
               this.room.doors.map(door => { door.locked = false })
@@ -886,12 +876,6 @@ var segments = [
         west.doors[0].color = 'west'
 
         hub.type = pick(['deep crossroads', 'fortified crossroads', 'distorted crossroads', 'vine-overgrown indoor crossroads', 'underground crossroads', 'crossroads over a mile-deep pit', 'ontological crossroads'])
-        console.log([
-            extras['glass man'],
-            extras['laughing woman'],
-            extras['murderer\'s courage'],
-            extras['arcane merchant'],
-        ])
         hub.monsters = [new Monster (
             hub,
             pick([
@@ -902,17 +886,13 @@ var segments = [
             ])
         )]
         north.type = pick(['long corridor covered in brightly polished shining steel', 'colossal machine room made up of a thousand moving parts', 'control and observation room with its walls in panels and monitors'])
-        console.log([
-            extras['glass man'],
-            extras['screaming mechanical searcher'],
-        ], [
-            extras['glass man'],
-            extras['screaming mechanical searcher'],
-        ])
         north.monsters = [
             new Monster (
                 north,
                 pick([
+                    monByName('mad gasser'),
+                    monByName('mechanical bear'),
+                    monByName('omnivorous fungus'),
                     extras['glass man'],
                     extras['screaming mechanical searcher'],
                 ])
@@ -920,24 +900,13 @@ var segments = [
             new Monster (
                 north,
                 pick([
+                    monByName('mad gasser'),
                     extras['glass man'],
                     extras['screaming mechanical searcher'],
                 ])
             ),
         ]
         east.type = pick(['arid vault that extends for hundreds of yards, with bright light and heat radiating into it through vents in the ceiling', 'vast lobby filled halfway with constantly shifting baking-hot red sand'])
-        console.log([
-            extras['glass man'],
-            extras['half-goat soldier'],
-            extras['sandeater'],
-            extras['shapeshifter'],
-        ], [
-            monByName('necromancer'),
-            extras['half-goat soldier'],
-            extras['sandeater'],
-            extras['shapeshifter'],
-            extras['murderer\'s courage'],
-        ])
         east.monsters = [
             new Monster (
                 east,
@@ -967,10 +936,6 @@ var segments = [
             ),
         ]
         south.type = pick(['enormous sandy room containing a vast saltwater lake and whose ceiling is an impossibly huge painting of the night sky with moving stars and planets', 'room where a long stone bridge passes over an immense subterranean lake that moves as if it had tides'])
-        console.log([
-            extras['kraken'],
-            extras['seagod'],
-        ])
         south.monsters = [new Monster (
             south,
             pick([
@@ -979,14 +944,6 @@ var segments = [
             ])
         )]
         west.type = pick(['vast damp room densely infested with creeping vines and thorn-covered trees', 'massive reception hall that\'s become so overgrown with trees and vines and fungus as to now more resemble a forest'])
-        console.log([
-            extras['wildgod'],
-            extras['nagual'],
-            extras['laughing woman'],
-            extras['murderer\'s courage'],
-            extras['boa constrictor'],
-            monByName('wendigo'),
-        ])
         west.monsters = [new Monster (
             west,
             pick([
