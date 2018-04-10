@@ -2,10 +2,10 @@ var Player = function () {
     this.room = null;
     this.stats = {
         // pierce, slash, crush, burn, poison, curse
-        attack: [1,1,3,0,0,0],
-        defense: [3,3,3,1,2,1],
-        baseAttack: [1,1,3,0,0,0],
-        baseDefense: [3,3,3,1,2,1],
+        attack: [0,0,4,0,0,0],
+        defense: [3,3,3,0,0,0],
+        baseAttack: [0,0,4,0,0,0],
+        baseDefense: [3,3,3,0,0,0],
         hitpoints: 20,
         maxHitpoints: 20,
     };
@@ -112,6 +112,10 @@ Player.prototype.hold = function (targetName) {
     clearType();
     var i; var j;
     var target;
+    if (this.holding.length > 5) {
+        drawString('You can only hold six things.');
+        return false
+    }
     if (typeof targetName === 'string') {
         this.room.items.map(function (item) {
           if (item.name == targetName) {
