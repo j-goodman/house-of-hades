@@ -117,7 +117,23 @@ extras['angel\'s armor'] = new ItemType (
     [2,2,3,0,8,8],
     9,
     'Your angel\'s armor turns into sunlight and vanishes.',
-    'Armor forged by the almighty itself to protect its most loyal representatives.'
+    'Armor forged by the almighty himself to protect his most loyal representatives.',
+    null,
+    null,
+    function () {
+        this.info = `Armor forged by the almighty himself to protect his most loyal representatives ${pick([
+          `during the Undoing Wars of the sixtieth century BC.`,
+          `during the war against the Titans and the Gigantes, when the hekatonkheires were slain.`,
+          `during the Gravity Wars.`,
+          `when the ten planets rose in revolt against their creator.`,
+          `from the fires of the suns they were tasked with forging.`,
+          `from the fires of the suns they were tasked with forging.`,
+          `from the crushing deeps of the gravity wells through which they travel the universe.`,
+          `from the crushing deeps of the gravity wells through which they travel the universe.`,
+          `from the murderous grandeur of his divine presence.`,
+          `from the ravages of Death, whose domain is the whole of creation.`,
+        ])}`
+    }
 )
 
 extras['Greek\'s dagger'] = new ItemType (
@@ -132,6 +148,30 @@ extras['Swede\'s head'] = new ItemType (
     'Swede\'s head', 'shield',
     [0,0,0,0,8,11],
     13,
-    'The Swede\'s head .',
-    'The severed head of an old Viking mystic, taken off his body by king Harald Bluetooth for conspiring to bring the Swedish armies against him, then preserved and given the power of speech by a priestess of the cursed god Ve so that future generations could benefit from its wisdom.'
+    'The Swede\'s head bites you and escapes into the folds between space.',
+    'The severed head of a old Viking mystic, taken off his body by king Harald Bluetooth for conspiring to bring the Swedish armies against him, then preserved and given the power of speech by a priestess of the cursed god Ve so that future generations could benefit from its wisdom.'
+)
+
+extras['venomous barb'] = new ItemType (
+    'venomous barb', 'weapon',
+    [3,0,0,1,9,0],
+    7,
+    'Your venomous barb breaks.',
+    'A huge spearlike organic barb from a jelly leviathan, swollen with caustic venom.'
+)
+
+extras['harpoon'] = new ItemType (
+    'harpoon', 'weapon',
+    [10,0,0,0,0,0],
+    5,
+    'Your harpoon breaks',
+    'A old iron whaling harpoon.'
+)
+
+extras['sunfire macana'] = new ItemType (
+    'sunfire macana', 'weapon',
+    [1,0,7,9,0,1],
+    9,
+    'A dried and shriveled corpse descends through the ceiling in a shower of sun-dew -- the mummified remains of Pachacuti Inka himself. He thiefs the macana from out your hand and ascends again to the realm of the sun-god.',
+    'A weapon forged by Pachacuti the Earthshaker and used in his conquest of the Andes, a light wooden shaft ending in a solid gold star-shaped head imbued with the solar fire of Inti.'
 )

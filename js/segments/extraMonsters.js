@@ -23,6 +23,8 @@ extras['arcane merchant'].onInstantiate = function () {
         extras['angel\'s armor'],
         extras['goat\'s armor'],
         extras['Swede\'s head'],
+        extras['sunfire macana'],
+        extras['kraken\'s ink sac'],
     ];
     this.data.notify = function () {
         drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
@@ -302,6 +304,18 @@ extras['kraken'] = new MonsterType ({
     ]
 })
 
+extras['jelly leviathan'] = new MonsterType ({
+    name: 'jelly leviathan',
+    attack: [1,0,3,1,5,0,],
+    defense: [9,3,12,5,12,6,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A jellyfish the size of a cathedral, with cnidoblasts in its colossal tentacles that deploy caustic venomous barbs as big as bicycles when it\'s startled or threatened.',
+    drop: [
+        new Item (extras['venomous barb']),
+    ]
+})
+
 extras['seagod'] = new MonsterType ({
     name: 'seagod',
     attack: [11,0,0,0,0,0,],
@@ -339,7 +353,7 @@ extras['shapeshifter'] = new MonsterType ({
         this.defense = targetType.defense
         this.defense = targetType.defense
         this.info = targetType.info
-        drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes, [targetType]).name}, a ${pickUnique(allMonsterTypes, [targetType]).name}, then a ${targetType.name}`)
+        drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, then a ${targetType.name}`)
     }
 })
 

@@ -80,6 +80,16 @@ var segments = [
         rooms.push(room);
     })
 
+    segmentRooms[3].monsters.push(
+        new Monster (segmentRooms[3],
+            pick([
+                monByName('necromancer'),
+                extras['jelly leviathan'],
+                extras['blobby amphibious creature'],
+            ])
+        )
+    )
+
     segmentRooms[0].doors[2].color = 'rusty iron hatch';
     segmentRooms[0].type = 'mold-infested bathroom';
     segmentRooms[1].type = 'long wet dimly lit tunnel flooded with ankle-deep water';
@@ -581,7 +591,7 @@ var segments = [
       var otherRoom
 
       let cursedRevolver = new ItemType (
-          'cursed revolver', 'weapon',
+          'black cursed revolver', 'weapon',
           [dice(6),0,0,0,0,dice(12)],
           9,
           'The protean cursed revolver finally spins out of control and curls tightly into a laughing ball before exploding into a thick black cloud of spores.',
@@ -752,6 +762,12 @@ var segments = [
           room.doors[0] = door
           door.from = room
           door.to = hub
+      })
+
+      segmentRooms.map(room => {
+          room.doors.map(door => {
+              door.locked = true
+          })
       })
   },
 
@@ -958,6 +974,7 @@ var segments = [
             pick([
                 extras['kraken'],
                 extras['seagod'],
+                extras['jelly leviathan'],
             ])
         )]
         west.type = pick(['vast damp room densely infested with creeping vines and thorn-covered trees', 'massive reception hall that\'s become so overgrown with trees and vines and fungus as to now more resemble a forest'])

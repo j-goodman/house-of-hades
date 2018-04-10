@@ -41,6 +41,7 @@ Monster.prototype.die = function () {
       this.drop.map((item) => {
         drawString(`There\'s a ${item.name} on the ground.`);
         this.room.items.push(item);
+        item.room = this.room
       });
     }
     this.room.monsters = this.room.monsters.filter(mon => {
@@ -76,6 +77,7 @@ var allMonsterTypes = [
         onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
         deathEvent: () => {
           var door;
+          if (game.player.room.type === 'treasure room') {
           door = new Door ('trap', game.player.room, null);
           game.player.room.doors.push(door);
           door.to = new Room ([], 16);
@@ -89,7 +91,6 @@ var allMonsterTypes = [
           )
           door.to.mana += 100;
           door.from.mana += 50;
-          if (game.player.room.type = 'treasure room') {
             drawString('');
             drawString('    | YOU WIN |    ');
             drawString('');
@@ -381,6 +382,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.',
+        drop: [new Item(extras['harpoon'])]
     }),
     new MonsterType ({
         name: 'mechanical bear',
@@ -497,10 +499,10 @@ var allMonsterTypes = [
                     mon.hitpoints = 20
                     switch (roll) {
                         case 1:
-                            mon.name = `once-murdered ${mon.name}`
+                            mon.name = `unmurdered ${mon.name}`
                             mon.attack[0] += 3 // pierce attack bonus
                             mon.attack[5] += 1 // curse attack bonus
-                            mon.info += ' It\'s been murdered once, and has risen changed.'
+                            mon.info += ' It was murdered and has risen changed.'
                             break;
                         case 2:
                             mon.name = `reanimated ${mon.name}`
@@ -551,7 +553,7 @@ var allMonsterTypes = [
     new MonsterType ({
       name: 'man o\' nails',
       attack: [4,2,1,0,0,0,],
-      defense: [11,6,10,3,12,3,],
+      defense: [11,0,10,3,12,3,],
       hitpoints: 20,
       level: 2,
       info: `Sixty-eight thousand stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
@@ -561,10 +563,8 @@ var allMonsterTypes = [
           this.data.splits = 0
       },
       fightEvent: function () {
-          this.die()
           let one = new Monster (this.room, monByName('man o\' nails'))
           let two = new Monster (this.room, monByName('man o\' nails'))
-          drawString('The nails form up into two smaller men.')
           one.hitpoints = Math.ceil(this.hitpoints / 2)
           two.hitpoints = Math.floor(this.hitpoints / 2)
           one.data.splits = this.data.splits + 1
@@ -572,6 +572,8 @@ var allMonsterTypes = [
           one.info = `${(one.data && one.data.numbers) ? one.data.numbers[one.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
           two.info = `${(two.data && two.data.numbers) ? two.data.numbers[two.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
           this.room.monsters.push(one, two)
+          this.die()
+          drawString('The nails form up into two smaller men.')
       }
     }),
     // pierce, slash, crush, burn, poison, curse
