@@ -135,7 +135,7 @@ updateInventory = () => {
         if (game.player.shield && game.player.shield.bonus[index]) {
             display.defense[dam].innerHTML = dam + '|' + game.player.stats.baseDefense[index] + '<b class="blue">+' + game.player.shield.bonus[index] + '</b>'
         } else {
-            display.defense[dam].innerText = `${dam}|${game.player.stats.defense[index]}`
+            display.defense[dam].innerText = game.player.stats.defense[index] ? `${dam}|${game.player.stats.defense[index]}` : ``
         }
     })
     display.hitpoints.innerText = `HITPOINTS|${game.player.stats.hitpoints}`
@@ -226,7 +226,7 @@ itemCard = (item, inventory) => {
     let actions = document.createElement('section')
     actions.className = 'actions'
 
-    if (game.player.weapon !== item && game.player.shield !== item) {
+    if (game.player.weapon !== item && game.player.shield !== item && game.player.room.items.includes(item)) {
         let get = document.createElement('a')
         get.className = 'action-button'
         get.innerText = 'EQUIP'

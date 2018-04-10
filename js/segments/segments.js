@@ -146,7 +146,14 @@ var segments = [
             }
             room.doors[1].to = middle;
             room.doors[1].from = room;
-            room.type = 'black iron cell, with the rumbling of deep tremors audible from outside';
+            room.type = `black iron cell. The ${pick(['rumbling', 'moaning', 'rumbling', 'rocking', 'rumbling'])} of ${pick(['deep tremors', 'earthquakes', ''])} is audible from outside, ${pick([
+                'sounding vaguely like distant shouting and argument',
+                'sounding vaguely like cries for help in the distance',
+                'shaking the cold stone ceiling and loosening shower after shower of sediment and earthworms',
+                'and the only light comes from bioluminescant snails crowding nearby on what looks like a carcass',
+                'loosening the cracks between the bricks of the crude sandstone floor',
+                'barely. The room is insulated by seven-foot thick deposits of groundwater and wet clay',
+            ])}`;
             middle.doors[index].from = room;
         }
 
@@ -559,6 +566,7 @@ var segments = [
         destinationDoor.to.monsters.push(this);
         this.room = destinationDoor.to;
       }
+      pick(this.room.doors).locked = true;
     }.bind(segmentRooms[0].monsters[0])
   },
 
@@ -803,11 +811,11 @@ var segments = [
               'A one-handed obsidian axe decorated with crowsfeathers. Deals very powerful slash damage and stays silent.'
           ),
           new ItemType (
-              'dragonfeather', 'shield',
-              [4,0,0,0,9,4],
+              'snakefeather', 'shield',
+              [3,0,0,0,9,4],
               13,
-              'Your dragonfeather dries out and becomes dust.',
-              'A gold dragonfeather, symbol of the serpent god. It\'s supposed to invoke the god\'s protection.'
+              'Your snakefeather dries out and becomes dust.',
+              'A gold snakefeather, symbol of the god of the cut grass. It\'s supposed to invoke the god\'s protection.'
           ),
       ]
       let monsterTypes = [

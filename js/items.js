@@ -87,7 +87,7 @@ var allItemTypes = [
         [0,5,0,1,0,7],
         5,
         'Your tomohawk explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
-        'A obsidian tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
+        'A black iron tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
     ),
     new ItemType (
         'woodaxe', 'weapon',
@@ -272,7 +272,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'jar of salt', 'shield',
-        [0,0,0,0,0,7],
+        [0,0,0,0,0,6],
         8,
         'You\'re out of salt.',
         'A glass jar filled with rock salt, said to ward off curses.'
@@ -290,6 +290,13 @@ var allItemTypes = [
         9,
         'Your chainmail shirt is too badly damaged to use anymore.',
         'And old iron mail shirt. Protects effectively against pierce damage.'
+    ),
+    new ItemType (
+        'pair of haze glasses', 'shield',
+        [7,0,0,0,0,2],
+        7,
+        'Your haze glasses break.',
+        'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility and make them harder to hit with pierce attacks.'
     ),
 
     // pierce, slash, crush, burn, poison, curse
