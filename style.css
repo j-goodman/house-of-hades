@@ -12,6 +12,14 @@ li {
     list-style: none;
 }
 
+.blue {
+    color: rgba(100,100,255,.7);
+}
+
+.green {
+    color: rgba(0,255,0,.6);
+}
+
 .start-screen {
     align-items: center;
     display: flex;

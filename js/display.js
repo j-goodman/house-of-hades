@@ -39,6 +39,7 @@ drawString = string => {
     } else {
         display.message.innerText = string
         display.message.style.color = '#d00'
+        window.scrollTo(0, 0)
         display.newMessage = true;
         window.setTimeout(() => {
           display.message.style.color = '#fff'
@@ -124,7 +125,7 @@ updateInventory = () => {
     damages.map((dam, index) => {
         if (game.player.stats.attack[index]) {
             if (game.player.weapon && game.player.weapon.bonus[index]) {
-                display.attack[dam].innerText = `${dam}|${game.player.stats.baseAttack[index]}+${game.player.weapon.bonus[index]}`
+                display.attack[dam].innerHTML = dam + '|' + game.player.stats.baseAttack[index] + '<b class="green">+' + game.player.weapon.bonus[index] + '</b>'
             } else {
                 display.attack[dam].innerText = `${dam}|${game.player.stats.attack[index]}`
             }
@@ -132,7 +133,7 @@ updateInventory = () => {
             display.attack[dam].innerText = ``
         }
         if (game.player.shield && game.player.shield.bonus[index]) {
-            display.defense[dam].innerText = `${dam}|${game.player.stats.baseDefense[index]}+${game.player.shield.bonus[index]}`
+            display.defense[dam].innerHTML = dam + '|' + game.player.stats.baseDefense[index] + '<b class="blue">+' + game.player.shield.bonus[index] + '</b>'
         } else {
             display.defense[dam].innerText = `${dam}|${game.player.stats.defense[index]}`
         }
