@@ -442,8 +442,8 @@ var segments = [
             // pierce, slash, crush, burn, poison, curse
             name: 'devil',
             attack: [3,0,0,7,5,2],
-            defense: [11,2,5,11,11,0],
-            hitpoints: 29,
+            defense: [11,2,5,11,11,2],
+            hitpoints: 37,
             level: 3,
             info: 'It\'s the devil, bright red and with a three-pronged hayfork in his hands.',
             onDeath: 'You killed the devil.',
@@ -476,7 +476,7 @@ var segments = [
                   drawString(`The devil thiefs your ${stolen.name}.`)
                 }
                 this.room.monsters = this.room.monsters.filter( mon => { return mon !== this } )
-                let door = pick(allDoors.filter( door => { return door.to || door.from } ))
+                let door = pick(allDoors.filter( door => { return ((door.to || door.from) && !this.room.doors.includes(door)) } ))
                 if (door.from) {
                     this.room = door.from
                 } else {
@@ -841,6 +841,14 @@ var segments = [
           door.from = room
           door.to = hub
       })
+
+      segmentRooms.map(room => {
+          if (room.monsters.length > 0) {
+              room.doors.map(door => {
+                      door.locked = true
+              })
+          }
+      })
   },
 
 
@@ -895,12 +903,13 @@ var segments = [
                     monByName('omnivorous fungus'),
                     extras['glass man'],
                     extras['screaming mechanical searcher'],
+                    extras['screaming mechanical searcher'],
                 ])
             ),
             new Monster (
                 north,
                 pick([
-                    monByName('mad gasser'),
+                    monByName('man o\' nails'),
                     extras['glass man'],
                     extras['screaming mechanical searcher'],
                 ])
@@ -935,7 +944,7 @@ var segments = [
                 ])
             ),
         ]
-        south.type = pick(['enormous sandy room containing a vast saltwater lake and whose ceiling is an impossibly huge painting of the night sky with moving stars and planets', 'room where a long stone bridge passes over an immense subterranean lake that moves as if it had tides'])
+        south.type = pick(['enormous sandy room containing a vast saltwater lake and whose ceiling is a impossibly huge painting of the night sky with moving stars and planets', 'room where a long stone bridge passes over an immense subterranean lake that moves as if it had tides'])
         south.monsters = [new Monster (
             south,
             pick([

@@ -2,9 +2,9 @@ var Player = function () {
     this.room = null;
     this.stats = {
         // pierce, slash, crush, burn, poison, curse
-        attack: [1,2,4,0,0,0],
+        attack: [1,1,3,0,0,0],
         defense: [3,3,3,1,2,1],
-        baseAttack: [1,2,4,0,0,0],
+        baseAttack: [1,1,3,0,0,0],
         baseDefense: [3,3,3,1,2,1],
         hitpoints: 20,
         maxHitpoints: 20,
