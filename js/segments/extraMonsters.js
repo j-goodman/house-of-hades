@@ -22,6 +22,7 @@ extras['arcane merchant'].onInstantiate = function () {
         extras['mithril vest'],
         extras['angel\'s armor'],
         extras['goat\'s armor'],
+        extras['Swede\'s head'],
     ];
     this.data.notify = function () {
         drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
@@ -136,7 +137,7 @@ extras['paranoid summoner'] = new MonsterType ({
         drawString('The paranoid summoner escapes.')
     },
     deathEvent: function () {
-        drawString('The fabric of space seems to stretch into a claw that rips open the torso of the paranoid summoner releasing a murder of crows and killing her. The crows fly out of the room and the rift remains open.')
+        drawString('The fabric of space seems to stretch into a claw that rips open the torso of the paranoid summoner releasing a murder of crows and killing her. The crows fly out and shake themselves clean, and the rift pulses but remains open.')
         console.log('Death event.')
         console.log('this.room:', this.room)
         let rift = new Door ('demoniac rift', this.room)

@@ -1,5 +1,4 @@
 var MonsterType = function (ob) {
-    var i;
     this.attack = ob.attack;
     this.deathEvent = ob.deathEvent;
     this.defense = ob.defense;
@@ -33,7 +32,6 @@ var Monster = function (room, type) {
 };
 
 Monster.prototype.die = function () {
-    var i;
     drawString(this.onDeath || 'It\'s dead.');
     if (this.deathEvent) {
       this.deathEvent();
@@ -482,7 +480,7 @@ var allMonsterTypes = [
                 if (!this.room.monsters.includes(mon) && !mon.undead) {
                     drawString(`The necromancer raises the ${mon.name} from the dead ${
                         pick([
-                            'like he thinks he\'s the king of hell or something.',
+                            'like he thinks he\'s the king of hell.',
                             'by standing over the corpse and shouting so loudly that spit comes out.',
                             'with his hand.',
                             'after removing his hat to speak a prayer.',

@@ -109,7 +109,7 @@ extras['mithril vest'] = new ItemType (
     [12,3,0,0,0,0],
     90,
     'You\'ve run out of mithril.',
-    'A vest of shining white metal linked together into chainmail in the subterranean forges of the mountain dwarves of Central Africa.'
+    'A vest of shining white metal linked together into chainmail in the subterranean forges hidden deep beneath the Tilwezembe Mine in Central Africa.'
 )
 
 extras['angel\'s armor'] = new ItemType (
@@ -126,4 +126,12 @@ extras['Greek\'s dagger'] = new ItemType (
     15,
     'The Greek\'s dagger falls to the earth and shatters into dust with a rattling clang.',
     'Used during the Athenian uprising against the Roman General Sulla, after which its owner was cursed by the death-god Pluto, that he should always have the power to kill the ones he hated.'
+)
+
+extras['Swede\'s head'] = new ItemType (
+    'Swede\'s head', 'shield',
+    [0,0,0,0,8,11],
+    13,
+    'The Swede\'s head .',
+    'The severed head of an old Viking mystic, taken off his body by king Harald Bluetooth for conspiring to bring the Swedish armies against him, then preserved and given the power of speech by a priestess of the cursed god Ve so that future generations could benefit from its wisdom.'
 )
