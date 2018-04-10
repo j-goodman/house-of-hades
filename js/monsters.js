@@ -550,6 +550,32 @@ var allMonsterTypes = [
             this.data.monstersInRoom = this.room.monsters.filter(mon => { return mon.name !== 'necromancer' })
         },
     }),
+    new MonsterType ({
+      name: 'man o\' nails',
+      attack: [4,2,1,0,0,0,],
+      defense: [11,6,10,3,12,3,],
+      hitpoints: 20,
+      level: 2,
+      info: `Sixty-eight thousand stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
+      onDeath: 'It collapses into nails.',
+      onInstantiate: function () {
+          this.data.numbers = ['Sixty-eight thousand', 'Thirty-four thousand', 'Seventeen thousand', 'Eight thousand five hundred', 'Four thousand two hundred and fifty', 'Two thousand one hundred and twenty-five', 'One thousand sixty-two and a half', 'Five hundred thirty-one and a quarter', 'Two hundred sixty-five and five eights', 'A hundred thirty-two and thirteen sixteenths', 'Sixty-six and thirteen thirty-seconds', 'Thirty-three and thirteen sixty-fourths', 'Sixteen and seventy-seven hundred-and-twenty-eighths', 'Eight and seventy-seven two-hundred-and-fifty-sixths', 'Four and seventy-seven five-hundred-and-twelfths']
+          this.data.splits = 0
+      },
+      fightEvent: function () {
+          this.die()
+          let one = new Monster (this.room, monByName('man o\' nails'))
+          let two = new Monster (this.room, monByName('man o\' nails'))
+          drawString('The nails form up into two smaller men.')
+          one.hitpoints = Math.ceil(this.hitpoints / 2)
+          two.hitpoints = Math.floor(this.hitpoints / 2)
+          one.data.splits = this.data.splits + 1
+          two.data.splits = this.data.splits + 1
+          one.info = `${(one.data && one.data.numbers) ? one.data.numbers[one.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
+          two.info = `${(two.data && two.data.numbers) ? two.data.numbers[two.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
+          this.room.monsters.push(one, two)
+      }
+    }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({
     //     name: 'template',
