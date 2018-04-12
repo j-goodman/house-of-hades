@@ -49,7 +49,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'antique saber', 'weapon',
-        [1,3,0,0,0,0],
+        [1,4,0,0,0,0],
         '12',
         'The saber breaks into two pieces as you wield it. That thing really was old.',
         'A old steel cavalry saber. Deals moderate slash damage.'
@@ -297,6 +297,13 @@ var allItemTypes = [
         7,
         'Your haze glasses break.',
         'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility and make them harder to hit with pierce attacks.'
+    ),
+    new ItemType (
+        'sickle', 'weapon',
+        [0,4,0,0,0,0],
+        17,
+        'Your sickle breaks.',
+        'A handheld tool with a curved blade for cutting grass.'
     ),
 
     // pierce, slash, crush, burn, poison, curse

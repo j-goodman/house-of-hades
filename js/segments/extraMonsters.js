@@ -390,3 +390,12 @@ extras['chained specter'] = new MonsterType ({
     level: 3,
     info: 'A oily black specter with its wrists locked in cold iron chains.',
 })
+
+extras['heart-eating fox'] = new MonsterType ({
+    name: 'heart-eating fox',
+    attack: [2,5,0,1,0,0,],
+    defense: [9,1,5,0,0,12,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A red-tailed fox, tasked to execute the vengeance of the sun-god\'s predecessor by devouring the hearts of as many fellow earthly mammals as it has the chance to.',
+})
