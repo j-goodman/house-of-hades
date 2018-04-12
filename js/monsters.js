@@ -60,9 +60,14 @@ var monByName = (name) => {
 }
 
 var itemByName = (name) => {
-    return allItemTypes.filter((type) => {
-        return type.name === name;
+    var item
+    item = allItemTypes.filter((type) => {
+        return type.name === name
     })[0];
+    if (!item) {
+        item = extras[name]
+    }
+    return item
 }
 
 // levels go from 1-3, most should be 3.
@@ -187,6 +192,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'A seething mass of forming and unforming flesh. All other life on earth was created as an accidental byproduct of this writhing parody\'s birth. If you can get close enough you can try burning it.',
+        drop: [new Item(extras['primordial glob'])]
     }),
     new MonsterType ({
         name: 'ghoul',
@@ -269,6 +275,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'The mansion\'s cruel phantoms are the spirits of people who died painful deaths within the walls. They\'re immune to all physical attacks, and determined to return their agony to the still living.',
+        drop: [new Item(extras['phantom\'s blood'])]
     }),
     new MonsterType ({
         name: 'wendigo',
@@ -341,7 +348,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'The body of a crusading knight beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.',
-        drop: [new Item(itemByName(pick(['chainmail shirt', 'bag of devil\'s gold', 'executioner\'s sword'])))]
+        drop: [new Item(itemByName(pick(['bag of devil\'s gold', 'executioner\'s sword', 'crusader\'s shield'])))]
     }),
     new MonsterType ({
         name: 'mad gasser',
@@ -432,13 +439,15 @@ var allMonsterTypes = [
             this.data.baseAttack = this.attack.map(stat => { return stat })
             this.data.arsenal = [
                 itemByName('revolver'),
-                itemByName('cursed pistol'),
+                itemByName('hunting knife'),
                 itemByName('thompson gun'),
                 itemByName('hand grenade'),
                 itemByName('shotgun'),
                 itemByName('laughing mask'),
                 itemByName('firebomb'),
                 itemByName('case of chemical bombs'),
+                itemByName('throwing knife'),
+                itemByName('machete'),
             ];
             this.data.notify = function () {
                 drawString(`The ${this.name} conjures a ${this.data.item.name} in a flash of ${pick(['ultraviolet light', 'ultraviolet light', 'ultraviolet light', 'darkness', 'white light'])}.`);

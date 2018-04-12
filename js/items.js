@@ -194,6 +194,13 @@ var allItemTypes = [
         'Your fire poker breaks in two.',
         'A hooked cast-iron fire poker.'
     ),
+    new ItemType (
+        'sickle', 'weapon',
+        [0,4,0,0,0,0],
+        17,
+        'Your sickle breaks.',
+        'A handheld tool with a curved blade for cutting grass.'
+    ),
     // pierce, slash, crush, burn, poison, curse
 
     /*///
@@ -297,13 +304,6 @@ var allItemTypes = [
         7,
         'Your haze glasses break.',
         'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility and make them harder to hit with pierce attacks.'
-    ),
-    new ItemType (
-        'sickle', 'weapon',
-        [0,4,0,0,0,0],
-        17,
-        'Your sickle breaks.',
-        'A handheld tool with a curved blade for cutting grass.'
     ),
 
     // pierce, slash, crush, burn, poison, curse

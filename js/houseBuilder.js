@@ -9,6 +9,7 @@ houseBuilder.buildSpawn = function () {
   var i;
   var spawn;
   spawn = new Room (null, 3);
+  spawn.items = [new Item (itemByName(pick(['revolver', 'revolver', 'revolver', 'machete', 'crowbar', 'woodaxe', 'woodaxe', 'torch', 'torch'])), spawn)]
   spawn.type = pick(spawnTypes);
   finalTreasureRoom = new Room ([], 1);
   finalTreasureRoom.type = 'treasure room';

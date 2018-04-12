@@ -175,3 +175,43 @@ extras['sunfire macana'] = new ItemType (
     'A dried and shriveled corpse descends through the ceiling in a shower of sun-dew -- the mummified remains of Pachacuti Inka. He thiefs the macana from out your hand and ascends again to the realm of the sun-god.',
     'A weapon forged by Pachacuti the Earthshaker and used in his conquest of the Andes, a light wooden shaft ending in a solid gold star-shaped head imbued with the solar fire of Inti.'
 )
+
+extras['primordial glob'] = new ItemType (
+    'primordial glob', 'weapon',
+    [0,0,1,0,8,3],
+    3,
+    'The primordial glob bursts, diffusing its being over the entirety of the universe, and in so doing becoming dispersed enough that its presence can be only slightly felt.',
+    'A wildly unstable glob of chaotic matter of the sort that existed before the universe was made tame. It\'s being is so different from living matter that it\'s very presence is a corrupting power. You can throw it at your enemies.'
+)
+
+extras['phantom\'s blood'] = new ItemType (
+    'phantom\'s blood', 'shield',
+    [12,12,12,12,12,0],
+    1,
+    'You black out for an unknown period of time. When you wake up the phantom\'s blood is gone.',
+    'The plasmic essence of a being returned from beyond the wall of death. Transfused into you it can make you briefly immune to all physical harm.'
+)
+
+extras['crusader\'s shield'] = new ItemType (
+    'crusader\'s shield', 'shield',
+    [0,10,5,0,0,0],
+    11,
+    'Your shield breaks.',
+    'A white shield blazoned with a scarlet cross.'
+)
+
+extras['throwing knife'] = new ItemType (
+    'throwing knife', 'weapon',
+    [3,5,0,0,0,0],
+    9,
+    'Your throwing knife breaks.',
+    'A bright silver throwing knife with a counterbalancing black-taped handle.'
+)
+
+extras['machete'] = new ItemType (
+    'machete', 'weapon',
+    [1,6,1,0,0,0],
+    30,
+    'Your machete breaks.',
+    'A versatile tool used for cutting crops, trees, or building materials, also functioning as an improvised weapon.'
+)
