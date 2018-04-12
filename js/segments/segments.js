@@ -807,9 +807,9 @@ var segments = [
 
       let hub = new Room ([], dice(3) + dice(2) + dice(2))
       let types = [
-          'a dark underground passageway with a cold moisture hanging in the air',
-          'a underground tunnel through dirt, with roots sprouting from ceiling to floor and growing branches',
-          'a underground passageway lit by some luminescent fungus in the soil of its ceiling and walls',
+          'dark underground passageway with a cold moisture hanging in the air',
+          'underground tunnel through dirt, with roots sprouting from ceiling to floor and growing branches',
+          'underground passageway lit by some luminescent fungus in the soil of its ceiling and walls',
       ]
       let itemTypes = [
           itemByName('life-giving herb'),
@@ -917,7 +917,7 @@ var segments = [
                 extras['arcane merchant'],
             ])
         )]
-        north.type = pick(['long corridor covered in brightly polished shining steel', 'colossal machine room made up of a thousand moving parts', 'control and observation room with its walls in panels and monitors'])
+        north.type = pick(['long corridor covered in brightly polished shining steel', 'colossal machine room made up of a thousand moving parts', 'control and observation room with its walls covered in panels and monitors'])
         north.monsters = [
             new Monster (
                 north,

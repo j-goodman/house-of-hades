@@ -172,6 +172,6 @@ extras['sunfire macana'] = new ItemType (
     'sunfire macana', 'weapon',
     [1,0,7,9,0,1],
     9,
-    'A dried and shriveled corpse descends through the ceiling in a shower of sun-dew -- the mummified remains of Pachacuti Inka himself. He thiefs the macana from out your hand and ascends again to the realm of the sun-god.',
+    'A dried and shriveled corpse descends through the ceiling in a shower of sun-dew -- the mummified remains of Pachacuti Inka. He thiefs the macana from out your hand and ascends again to the realm of the sun-god.',
     'A weapon forged by Pachacuti the Earthshaker and used in his conquest of the Andes, a light wooden shaft ending in a solid gold star-shaped head imbued with the solar fire of Inti.'
 )

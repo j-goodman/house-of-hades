@@ -259,7 +259,7 @@ extras['laughing woman'] = new MonsterType ({
     defense: [12,0,12,12,12,12,],
     hitpoints: 20,
     level: 3,
-    info: 'A happy woman walking an seven foot legs like a colossal spider\'s, whose heart is beating with such force and size that you can see it straining against her ribs.',
+    info: 'A happy woman walking on seven foot legs like a colossal spider\'s, whose heart is beating with such force and size that you can see it straining against her ribs.',
 })
 
 extras['murderer\'s courage'] = new MonsterType ({
@@ -298,7 +298,7 @@ extras['kraken'] = new MonsterType ({
     defense: [9,11,12,10,12,11,],
     hitpoints: 20,
     level: 3,
-    info: 'A oily-skinned black octopus the size of a mountain, creeping inquisitively towards your feet with one of its thousand-foot arms.',
+    info: 'A oily-skinned black octopus the size of a mountain, one of its thousand-foot arms creeping inquisitively towards your feet.',
     drop: [
         new Item (extras['kraken\'s ink sac']),
     ]
