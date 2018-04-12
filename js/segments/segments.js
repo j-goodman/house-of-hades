@@ -986,7 +986,7 @@ var segments = [
                 extras['laughing woman'],
                 extras['murderer\'s courage'],
                 extras['boa constrictor'],
-                monByName('wendigo'),
+                extras['heart-eating fox']
             ])
         )]
 
