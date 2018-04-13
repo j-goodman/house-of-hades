@@ -39,7 +39,7 @@ var laterRoomTypes = [
     ['observatory', 'chapel', 'throne room'],
 ];
 var laterDoorColors = [
-    ['beechwood', 'birchwood', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
+    ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
     ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood', 'heavily fortified', 'automatic', 'plaster-covered', 'canvas-covered', 'grass-green', 'thick'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];
@@ -79,6 +79,7 @@ var Room = function (doors, doorCount) {
     this.id = nextRoomId;
     this.monsters = [];
     this.items = [];
+    this.graveyard = [];
     this.mana = 8;
     nextRoomId += 1;
     var i;
@@ -95,7 +96,7 @@ var Room = function (doors, doorCount) {
     var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 1;
     });
-    if (oneIn(1.3)) {
+    if (oneIn(1.5)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
         // this.monsters.push(new Monster (this, extras['shapeshifter']));
     }

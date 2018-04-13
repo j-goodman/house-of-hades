@@ -9,11 +9,11 @@ houseBuilder.buildSpawn = function () {
   var i;
   var spawn;
   spawn = new Room (null, 3);
-  spawn.items = [new Item (itemByName(pick(['revolver', 'revolver', 'revolver', 'machete', 'crowbar', 'woodaxe', 'woodaxe', 'torch', 'torch'])), spawn)]
   spawn.type = pick(spawnTypes);
   finalTreasureRoom = new Room ([], 1);
   finalTreasureRoom.type = 'treasure room';
   spawn.monsters = [];
+  spawn.items = [];
   finalTreasureRoom.doors.forEach((door) => {
     door.to = true;
   });
@@ -33,5 +33,7 @@ houseBuilder.buildSpawn = function () {
           door.locked = false;
       })
   }
+  let weaponRoom = pick(spawn.doors).to
+  weaponRoom.items.push(new Item (itemByName(pick(['revolver', 'revolver', 'revolver', 'machete', 'crowbar', 'woodaxe', 'woodaxe', 'torch', 'torch'])), spawn))
   return spawn;
 };
