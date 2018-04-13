@@ -90,6 +90,11 @@ var segments = [
         )
     )
 
+    if (!dice(2) - 1) {
+        let handRoom = pick(segmentRooms)
+        handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
+    }
+
     segmentRooms[0].doors[2].color = 'rusty iron hatch';
     segmentRooms[0].type = 'mold-infested bathroom';
     segmentRooms[1].type = 'long wet dimly lit tunnel flooded with ankle-deep water';
@@ -156,7 +161,7 @@ var segments = [
             }
             room.doors[1].to = middle;
             room.doors[1].from = room;
-            room.type = `black iron cell. The ${pick(['rumbling', 'moaning', 'rumbling', 'rocking', 'rumbling'])} of ${pick(['deep tremors', 'earthquakes', ''])} is audible from outside, ${pick([
+            room.type = `black iron cell. The ${pick(['rumbling', 'moaning', 'rumbling', 'rocking', 'rumbling'])} of ${pick(['deep tremors', 'earthquakes'])} is audible from outside, ${pick([
                 'sounding vaguely like distant shouting and argument',
                 'sounding vaguely like cries for help in the distance',
                 'shaking the cold stone ceiling and loosening shower after shower of sediment and earthworms',
@@ -182,7 +187,13 @@ var segments = [
             door.locked = true
         })
     })
+
+    if (!dice(2) - 1) {
+        let handRoom = pick(segmentRooms)
+        handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
+    }
   },
+
 
   /*
 
@@ -764,6 +775,11 @@ var segments = [
           door.to = hub
       })
 
+      if (!dice(2) - 1) {
+          let handRoom = pick(segmentRooms)
+          handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
+      }
+
       segmentRooms.map(room => {
           room.doors.map(door => {
               door.locked = true
@@ -819,13 +835,7 @@ var segments = [
           itemByName('blowgun'),
           itemByName('torch'),
           itemByName('ghostcandle'),
-          new ItemType (
-              'obsidian axe', 'weapon',
-              [0,8,0,2,0,2],
-              7,
-              'Your obsidian axe explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
-              'A one-handed obsidian axe decorated with crowsfeathers. Deals very powerful slash damage and stays silent.'
-          ),
+          itemByName('obsidian axe'),
           new ItemType (
               'snakefeather', 'shield',
               [3,0,0,0,9,4],
@@ -982,7 +992,6 @@ var segments = [
             west,
             pick([
                 extras['wildgod'],
-                extras['nagual'],
                 extras['laughing woman'],
                 extras['murderer\'s courage'],
                 extras['boa constrictor'],

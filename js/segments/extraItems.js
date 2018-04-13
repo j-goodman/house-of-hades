@@ -181,7 +181,7 @@ extras['primordial glob'] = new ItemType (
     [0,0,1,0,8,3],
     3,
     'The primordial glob bursts, diffusing its being over the entirety of the universe, and in so doing becoming dispersed enough that its presence can be only slightly felt.',
-    'A wildly unstable glob of chaotic matter of the sort that existed before the universe was made tame. It\'s being is so different from living matter that it\'s very presence is a corrupting power. You can throw it at your enemies.'
+    'A squirming unstable glob of organic matter. Its composition is so different from any other known living matter that its very presence is a corrupting power. You can throw it at your enemies.'
 )
 
 extras['phantom\'s blood'] = new ItemType (
@@ -214,4 +214,113 @@ extras['machete'] = new ItemType (
     30,
     'Your machete breaks.',
     'A versatile tool used for cutting crops, trees, or building materials, also functioning as an improvised weapon.'
+)
+
+extras['treacherous hand'] = new ItemType (
+    'treacherous hand', 'weapon',
+    [0,0,6,0,0,3],
+    15,
+    'The veins on the treacherous hand pulsate and blacken, then it withers to a inanimate skeletal paw.',
+    'A olive-skinned hand broken off at the wrist. It can suspend itself in the air and grip with the strength of a ape. It seems willing to be used as a weapon.',
+    null,
+    function () { // On use
+        if (this.data.holding && !(dice(4) - 1)) {
+            this.data.betray()
+        }
+    },
+    function () { // On instantiate
+        this.data.baseBonus = this.bonus
+        this.data.betray = function () {
+            drawString(`The treacherous hand leaps out of your grasp and turns against you!`)
+            this.room = game.player.room
+            game.player.weapon = null
+            let monsterVersion = new Monster (this.room, extras['traitorous hand'])
+            monsterVersion.data.holding = this.data.holding
+            monsterVersion.data.ammo = this.ammo
+            monsterVersion.info += `${this.data.holding ? ` It's armed with a ${this.data.holding.name}.` : ''}`
+            monsterVersion.attack = this.bonus
+            monsterVersion.name = this.name
+            this.room.monsters.push(monsterVersion)
+        }.bind(this)
+    },
+    function () { // On drop
+        var choice = false
+        if (this.data.holding || !this.room) {
+            return false
+        }
+        let powerCheck = (item) => {
+            let sum = 0
+            item.bonus.map(num => {
+                sum += num
+            })
+            return sum
+        }
+        this.room.items.filter(item => {
+            return (item.slot === 'weapon' && item.name !== 'treacherous hand')
+        }).map(item => {
+            if (!choice) {
+                choice = item
+            } else {
+                if (powerCheck(item) > powerCheck(choice)) {
+                    choice = item
+                }
+            }
+        })
+        if (choice) {
+            drawString(`The treacherous hand grabs the ${choice.name}!`)
+            var single = true
+            this.room.items = this.room.items.filter(item => {
+                if (single && (item === choice)) {
+                    single = false
+                    return false
+                }
+                return true
+            })
+            choice.bonus.map((num, index) => {
+                this.bonus[index] = num + this.data.baseBonus[index]
+            })
+            this.data.holding = choice
+            this.info = `A olive-skinned hand grasping a ${choice.name}.`
+        }
+    }
+)
+
+extras['king\'s sword'] = new ItemType (
+    'king\'s sword', 'weapon',
+    [6,12,0,0,0,0],
+    30,
+    'Your sword breaks at the handle.',
+    'A two-handed longsword with a gold hilt and a blade of gleaming black steel.'
+)
+
+extras['king\'s sword'] = new ItemType (
+    'king\'s sword', 'weapon',
+    [6,12,0,0,0,0],
+    30,
+    'Your sword breaks at the handle.',
+    'A two-handed longsword with a gold hilt and a blade of gleaming black steel.'
+)
+
+extras['wizard\'s ring'] = new ItemType (
+    'wizard\'s ring', 'shield',
+    [4,4,4,4,4,4],
+    27,
+    'Your wizard\'s ring melts, scalding your ring finger.',
+    'A magic ring forged by some kind of wizard and inscribed with a message that you can\'t understand because you don\'t read Sanskrit.'
+)
+
+extras['obsidian axe'] = new ItemType (
+    'obsidian axe', 'weapon',
+    [0,8,0,2,0,2],
+    7,
+    'Your obsidian axe explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
+    'A one-handed obsidian axe decorated with crowsfeathers. Deals very powerful slash damage and stays silent.'
+)
+
+extras['lion\'s hide'] = new ItemType (
+    'lion\'s hide', 'shield',
+    [8,10,2,0,2,0],
+    21,
+    'Your lion\'s hide withers away.',
+    'The impervious hide of a enormous lion. There are scorch marks around its front as if the beast that once wore it was killed by fire.'
 )

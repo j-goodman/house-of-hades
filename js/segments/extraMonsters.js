@@ -24,7 +24,6 @@ extras['arcane merchant'].onInstantiate = function () {
         extras['goat\'s armor'],
         extras['Swede\'s head'],
         extras['sunfire macana'],
-        extras['kraken\'s ink sac'],
     ];
     this.data.notify = function () {
         drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
@@ -295,7 +294,7 @@ extras['half-goat soldier'] = new MonsterType ({
 extras['kraken'] = new MonsterType ({
     name: 'kraken',
     attack: [0,0,8,0,0,0,],
-    defense: [9,11,12,10,12,11,],
+    defense: [8,11,12,10,12,11,],
     hitpoints: 20,
     level: 3,
     info: 'A oily-skinned black octopus the size of a mountain, one of its thousand-foot arms creeping inquisitively towards your feet.',
@@ -398,4 +397,22 @@ extras['heart-eating fox'] = new MonsterType ({
     hitpoints: 20,
     level: 1,
     info: 'A red-tailed fox, tasked to execute the vengeance of the sun-god\'s predecessor by devouring the hearts of as many fellow earthly mammals as it has the chance to.',
+})
+
+extras['traitorous hand'] = new MonsterType ({
+    name: 'traitorous hand',
+    attack: [0,0,4,0,0,2],
+    defense: [7,4,1,0,10,0,],
+    hitpoints: 20,
+    level: 1,
+    info: `A olive-skinned hand broken off at the wrist. It can suspend itself in the air and grip with the strength of a ape.`,
+    deathEvent: function () {
+        let drop = new Item (extras['treacherous hand'], this.room)
+        drawString(`The treacherous hand goes limp in the air and drops to the ground.`)
+        drop.ammo = this.data.ammo || 15
+        this.room.items.push(drop)
+        if (this.data.holding) {
+            this.room.items.push(this.data.holding)
+        }
+    }
 })
