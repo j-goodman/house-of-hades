@@ -50,7 +50,7 @@ Monster.prototype.die = function () {
     if (this.room.monsters.length === 0) {
         this.room.doors.map(door => { door.locked = false })
     }
-
+    this.room.graveyard.push(this)
 };
 
 var monByName = (name) => {
@@ -81,25 +81,43 @@ var allMonsterTypes = [
         info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
         onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
         deathEvent: () => {
-          var door;
-          if (game.player.room.type === 'treasure room') {
-          door = new Door ('trap', game.player.room, null);
-          game.player.room.doors.push(door);
-          door.to = new Room ([], 16);
-          door.to.items.push(
-            itemByName('sacred tomohawk'),
-            itemByName('wand of oceans'),
-            itemByName('laughing mask'),
-            itemByName('bag of devil\'s gold'),
-            itemByName('golem\'s blood'),
-            itemByName('jar of salt'),
-          )
-          door.to.mana += 100;
-          door.from.mana += 50;
-            drawString('');
-            drawString('    | YOU WIN |    ');
-            drawString('');
-          }
+            var door;
+            if (game.player.room.type === 'treasure room') {
+            door = new Door ('trap', game.player.room, null);
+            game.player.room.doors.push(door);
+            door.to = new Room ([], 13);
+            door.to.type = 'amphitheater with thirteen vaulted walls'
+            door.to.items.push(
+                itemByName(pick(['laughing mask', 'obsidian axe'])),
+                itemByName(pick(['king\'s sword', 'sunfire macana'])),
+                itemByName(pick(['wand of oceans', 'golem\'s blood'])),
+                itemByName(pick(['bag of devil\'s gold', 'canned ghost'])),
+                itemByName(pick(['lion\'s hide', 'goat\'s armor'])),
+                itemByName('wizard\'s ring'),
+            )
+            door.to.doors.map((innerDoor, index) => {
+              innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
+                  'colossal basalt',
+                  'rune-inscribed',
+                  'carved ebony',
+                  'giant sandstone',
+                  'huge steel',
+                  'tiny circular',
+                  'opaque glass',
+                  'tall narrow ivory',
+                  'thirteen-eyed',
+                  'obsidian',
+                  'ornate stained glass',
+                  'polished marble',
+                  'solid gold',
+              ][index]
+            })
+            door.to.mana += 100;
+            door.from.mana += 50;
+                drawString('');
+                drawString('    | YOU WIN |    ');
+                drawString('');
+            }
         }
     }),
     new MonsterType ({
@@ -578,9 +596,14 @@ var allMonsterTypes = [
           two.hitpoints = Math.floor(this.hitpoints / 2)
           one.data.splits = this.data.splits + 1
           two.data.splits = this.data.splits + 1
-          one.info = `${(one.data && one.data.numbers) ? one.data.numbers[one.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
-          two.info = `${(two.data && two.data.numbers) ? two.data.numbers[two.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
-          this.room.monsters.push(one, two)
+          one.info = `${(one.data && one.data.numbers) ? one.data.numbers[one.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`
+          two.info = `${(two.data && two.data.numbers) ? two.data.numbers[two.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`
+          if (one.hitpoints > 0) {
+              this.room.monsters.push(one)
+          }
+          if (two.hitpoints > 0) {
+              this.room.monsters.push(two)
+          }
           this.die()
           drawString('The nails form up into two smaller men.')
       }

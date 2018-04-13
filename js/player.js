@@ -96,6 +96,10 @@ Player.prototype.get = function (targetName) {
     }
     if (oldItem) {
         console.log('You drop your ' + oldItem.name + '.');
+        oldItem.room = game.player.room
+        if (oldItem.onDrop) {
+            oldItem.onDrop()
+        }
         this.room.items.push(oldItem);
         oldItem.room = this.room;
         this.updateStats();
@@ -145,11 +149,21 @@ Player.prototype.drop = function (itemName) {
       itemName = itemName.name
   }
   if (this.weapon && this.weapon.name == itemName) {
+    this.weapon.room = game.player.room
+    if (this.weapon.onDrop) {
+        this.weapon.room = this.room
+        this.weapon.onDrop()
+    }
     this.room.items.push(this.weapon);
     this.weapon.room = this.room;
     console.log('You drop your ' + this.weapon.name + '.');
     this.weapon = null;
   } else if (this.shield && this.shield.name == itemName) {
+    this.shield.room = game.player.room
+    if (this.shield.onDrop) {
+        this.shield.room = this.room
+        this.shield.onDrop()
+    }
     this.room.items.push(this.shield);
     this.shield.room = this.room;
     console.log('You drop your ' + this.shield.name + '.');
@@ -159,6 +173,11 @@ Player.prototype.drop = function (itemName) {
     return item.name;
   }).includes(itemName)) {
     this.room.items.push(holding);
+    holding.room = game.player.room
+    if (holding.onDrop) {
+        holding.room = this.room
+        holding.onDrop()
+    }
     holding.room = this.room;
     console.log('You drop the ' + holding.name + ' you were holding.');
     this.holding = this.holding.filter(item => {
@@ -212,7 +231,7 @@ Player.prototype.fight = function (enemyName) {
     if (this.weapon && this.weapon.ammo) {
         this.weapon.ammo -= 1;
         if (this.weapon.onUse) { this.weapon.onUse(this); }
-        if (this.weapon.ammo <= 0) {
+        if (this.weapon && this.weapon.ammo <= 0) {
             drawString(this.weapon.spentMessage);
             if (this.weapon.onDestroy) { this.weapon.onDestroy(this.room); }
             this.weapon = null;

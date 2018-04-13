@@ -1,4 +1,4 @@
-var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse, onInstantiate) {
+var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse, onInstantiate, onDrop) {
     this.name = name;
     this.bonus = bonus;
     this.ammo = ammo;
@@ -8,6 +8,7 @@ var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy,
     this.onDestroy = onDestroy ? onDestroy : false;
     this.onUse = onUse ? onUse : false;
     this.onInstantiate = onInstantiate ? onInstantiate : false;
+    this.onDrop = onDrop ? onDrop : false;
 };
 
 var Item = function (type, room) {
@@ -17,10 +18,12 @@ var Item = function (type, room) {
     this.ammo = type.ammo;
     this.spentMessage = type.spentMessage;
     this.info = type.info;
+    this.data = {}
     this.room = room;
     this.onDestroy = type.onDestroy ? type.onDestroy : false;
     this.onUse = type.onUse ? type.onUse : false;
     this.onInstantiate = type.onInstantiate ? type.onInstantiate : false;
+    this.onDrop = type.onDrop ? type.onDrop : false;
     if (this.onInstantiate) {
         this.onInstantiate(this);
     }
@@ -303,7 +306,7 @@ var allItemTypes = [
         [7,0,0,0,0,2],
         7,
         'Your haze glasses break.',
-        'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility and make them harder to hit with pierce attacks.'
+        'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility, making them harder to hit with pierce attacks.'
     ),
 
     // pierce, slash, crush, burn, poison, curse
