@@ -219,7 +219,7 @@ extras['machete'] = new ItemType (
 extras['treacherous hand'] = new ItemType (
     'treacherous hand', 'weapon',
     [0,0,6,0,0,3],
-    15,
+    22,
     'The veins on the treacherous hand pulsate and blacken, then it withers to a inanimate skeletal paw.',
     'A olive-skinned hand broken off at the wrist. It can suspend itself in the air and grip with the strength of a ape. It seems willing to be used as a weapon.',
     null,

@@ -408,6 +408,7 @@ extras['traitorous hand'] = new MonsterType ({
     info: `A olive-skinned hand broken off at the wrist. It can suspend itself in the air and grip with the strength of a ape.`,
     deathEvent: function () {
         let drop = new Item (extras['treacherous hand'], this.room)
+        drop.bonus = drop.data.baseBonus
         drawString(`The treacherous hand goes limp in the air and drops to the ground.`)
         drop.ammo = this.data.ammo || 15
         this.room.items.push(drop)
@@ -453,22 +454,36 @@ extras['looking demon'] = new MonsterType ({
     ]
 })
 
+let bottles = ['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps'].map(name => { return itemByName(name) })
+
 extras['bottle demon'] = new MonsterType ({
     name: 'bottle demon',
-    attack: [0,0,12,0,0,0,],
+    attack: [0,0,0,0,0,0,],
     defense: [12,12,0,12,12,6,],
     hitpoints: 20,
     level: 1,
     info: `A long-armed human-shaped demon with papery ${pick(['grey', 'gray'])} skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
     drop: [
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-    ]
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+    ],
+    onInstantiate: function () {
+        this.data.weaponTypes = bottles
+        this.data.getWeapon = function () {
+            this.data.weapon = new Item (pick(this.data.weaponTypes))
+            this.attack = this.data.weapon.bonus
+        }.bind(this)
+        this.data.getWeapon()
+    },
+    fightEvent: function () {
+        this.data.getWeapon()
+        drawString(`The bottle demon siezes a ${this.data.weapon.name} out from inside its torso.`)
+    }
 })
 
 extras['carcinogenic demon'] = new MonsterType ({

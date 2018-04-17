@@ -17,9 +17,9 @@ var buildSegments = (count, rooms) => {
     choices.push(choice);
   }
   choices.map((index) => {
-    segments[index](count, rooms);
+    // segments[index](count, rooms);
   });
-  // segments[8](count, rooms)
+  segments[8](count, rooms)
 };
 
 var segments = [
@@ -1019,10 +1019,11 @@ var segments = [
         console.log('realm')
         var segmentRooms = []
         var otherRoom
+        let segmentDoors = ['yellow', 'sickly yellow', 'sulfur-colored', 'gold', 'greyish-yellow', 'melting', 'opaque black glass', 'carved', 'pale oak', 'pale iron', 'pale steel']
 
         let center = new Room ([], 0)
         let prisonCells = [
-            new Room ([], 2),
+            new Room ([], 3),
             new Room ([], 2),
             new Room ([], 2),
         ]
@@ -1035,45 +1036,53 @@ var segments = [
         prisonCells.map((cell, index) => {
             let hall = []
             cell.type = 'prison cell made of stinking lemon-colored stone'
-            // hall.length = Math.ceil(dice(4) + dice(2))
-            // hall.fill(null)
-            // hall.map((el, subIndex) => {
-            //     let fromRoom
-            //     let toRoom
-            //     if (subIndex === 0) {
-            //         fromRoom = cell
-            //         toRoom = hall[subIndex]
-            //         fromRoom.doors[0].from = fromRoom
-            //         fromRoom.doors[1].to = toRoom
-            //         hall[subIndex] = new Room ([fromRoom.doors[1]], 1)
-            //     } else if (subIndex > 0 && subIndex < hall.length - 1) {
-            //         fromRoom = hall[subIndex - 1]
-            //         toRoom = hall[subIndex]
-            //         fromRoom.doors[0].from = fromRoom
-            //         fromRoom.doors[1].to = toRoom
-            //         hall[subIndex] = new Room ([fromRoom.doors[1]], 1)
-            //     } else {
-            //         fromRoom = hall[subIndex - 1]
-            //         toRoom = prisonCells[index + 1] || prisonCells[0]
-            //         fromRoom.doors[0].from = fromRoom
-            //         fromRoom.doors[1].to = toRoom
-            //         hall[subIndex] = new Room ([fromRoom.doors[1], (prisonCells[index + 1] || prisonCells[0]).doors[0]], 0)
-            //         hall[subIndex].doors[1].to = prisonCells[index + 1] || prisonCells[0]
-            //     }
-            //     hall[subIndex].from = fromRoom
-            //     hall[subIndex].to = toRoom
-            //     hall.type = `long narrow corridor made of yellow stone. You can see a vague ${pick(['blue', 'red'])}-${pick(['purple', 'black', 'orange', 'gold'])} glow through the fortified slit windows`
-            // })
-            // hall.map(room => {
-            //     segmentRooms.push(room)
-            //     room.doors.map(door => {
-            //         window.counterman = window.counterman + 1 || 1
-            //         door.color = `Demon realm ${window.counterman}`
-            //     })
-            // })
+            hall.length = Math.ceil(dice(4) + dice(2))
+            hall.fill(null)
+            hall.map((el, subIndex) => {
+                let fromRoom
+                let toRoom
+                if (subIndex === 0) {
+                    fromRoom = cell
+                    hall[subIndex] = new Room ([fromRoom.doors[1]], 1)
+                    toRoom = hall[subIndex]
+                } else if (subIndex > 0 && subIndex < hall.length - 1) {
+                    fromRoom = hall[subIndex - 1]
+                    hall[subIndex] = new Room ([fromRoom.doors[1]], 1)
+                    toRoom = hall[subIndex]
+                    fromRoom.doors[1].to = toRoom
+                } else {
+                    fromRoom = hall[subIndex - 1]
+                    hall[subIndex] = new Room ([fromRoom.doors[1], (prisonCells[index + 1] || prisonCells[0]).doors[0]], 0)
+                    toRoom = prisonCells[index + 1] || prisonCells[0]
+                    hall[subIndex].doors[1].to = prisonCells[index + 1] || prisonCells[0]
+                }
+                hall[subIndex].doors[0].from = fromRoom
+                hall[subIndex].doors[0].to = hall[subIndex]
+                hall[subIndex].doors[1].from = hall[subIndex]
+                hall[subIndex].doors[1].to = toRoom
+                hall[subIndex].type = `long narrow corridor made of yellow stone. You can see a vague ${pick(['blue', 'red'])}-${pick(['purple', 'black', 'orange', 'gold'])} glow through the fortified slit windows`
+            })
+            hall.map(room => {
+                segmentRooms.push(room)
+                room.doors.map(door => {
+                    window.counterman = window.counterman + 1 || 1
+                    door.color = pick(segmentDoors)
+                })
+            })
         })
+        prisonCells[0].doors[2].to = new Room ([prisonCells[0].doors[2]], 1)
+        prisonCells[0].doors[2].to.type = 'ornate yellow gateway room denoting the passage between two states of being'
+        prisonCells[0].doors[2].to.monsters = []
+        prisonCells[0].doors[2].color = 'gateway'
+        prisonCells[0].doors[0].color = 'black'
+        prisonCells[0].doors[1].color = 'yellow'
 
         segmentRooms.map(room => {
+            if (room.doors.length > 1) {
+                while (room.doors[0].color === room.doors[1].color) {
+                  room.doors[1].color = pick(segmentDoors)
+                }
+            }
             room.monsters = []
             if (oneIn(2)) {
                 room.monsters.push(new Monster (room, extras[pick([
