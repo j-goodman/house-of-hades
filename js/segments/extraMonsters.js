@@ -416,3 +416,69 @@ extras['traitorous hand'] = new MonsterType ({
         }
     }
 })
+
+extras['strangling demon'] = new MonsterType ({
+    name: 'strangling demon',
+    attack: [0,0,12,0,0,0,],
+    defense: [12,0,12,12,0,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `It\'s a tangle of many-elbowed arms ending in hands with six four-jointed fingers and two opposable thumbs each, emerging from a emaciated headless body wearing a mask on its chest that depicts a wide-eyed broad-smiling fanged woman. Its hands fumble blindly for your throat.`,
+    drop: [
+        new Item (itemByName(pick(['laughing mask'])))
+    ]
+})
+
+extras['looking demon'] = new MonsterType ({
+    name: 'looking demon',
+    attack: [0,0,0,0,0,12,],
+    defense: [0,12,12,12,0,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `A creature in the shape of a eight foot tall corpulent man with every inch of its skin covered in eyeballs of every color which all blink in exact unison twice a minute.`,
+    drop: [
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+    ]
+})
+
+extras['bottle demon'] = new MonsterType ({
+    name: 'bottle demon',
+    attack: [0,0,12,0,0,0,],
+    defense: [12,12,0,12,12,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `A long-armed human-shaped demon with papery grey skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
+    drop: [
+        new Item (itemByName(pick(['treacherous hand'])))
+    ]
+})
+
+extras['carcinogenic demon'] = new MonsterType ({
+    name: 'carcinogenic demon',
+    attack: [0,0,0,0,13,0,],
+    defense: [12,0,12,12,0,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `A bone-white demon with huge black eyes and a crushed-looking chest cavity, with two lungs hanging on the outside of its body under its armpits, struggling and faltering as the rapidly inflate and deflate in ragged breaths. They're leaking black miasmic fumes as they contract.`,
+    drop: [
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+    ]
+})

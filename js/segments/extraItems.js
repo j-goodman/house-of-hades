@@ -324,3 +324,99 @@ extras['lion\'s hide'] = new ItemType (
     'Your lion\'s hide withers away.',
     'The impervious hide of a enormous lion. There are scorch marks around its front as if the beast that once wore it was killed by fire.'
 )
+
+extras['weeping eye'] = new ItemType (
+    'weeping eye', 'weapon',
+    [0,0,0,6,0,0],
+    5,
+    'Your weeping eye turns into fire and vanishes with a whistling sound like a kettle.',
+    `A ${pick(['blue', 'brown', 'green', 'violet', 'obsidian-black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eyeball that weeps scalding hot fluid.`
+)
+
+extras['congealed eye'] = new ItemType (
+    'congealed eye', 'weapon',
+    [0,0,0,0,6,0],
+    5,
+    'Your congealed eye turns into fire and vanishes with a whistling sound like a kettle.',
+    `A ${pick(['blue', 'brown', 'green', 'violet', 'red', 'bloodshot', 'cloudy', 'brown'])} eyeball with some kind of toxic coagulated fluid coating its conjunctiva.`
+)
+
+extras['afflicted eye'] = new ItemType (
+    'afflicted eye', 'weapon',
+    [6,0,0,0,0,0],
+    5,
+    'Your afflicted eye turns into fire and vanishes with a whistling sound like a kettle.',
+    `A ${pick(['blue', 'brown', 'bloodshot', 'bloodshot', 'green', 'violet', 'black', 'yellow', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eyeball so plagued with painful affliction that it passes its suffering on to those over whom its piercing gaze passes.`
+)
+
+extras['watchful eye'] = new ItemType (
+    'watchful eye', 'weapon',
+    [0,0,6,0,0,0],
+    5,
+    'Your afflicted eye turns into fire and vanishes with a whistling sound like a kettle.',
+    `A ${pick(['blue', 'brown', 'green', 'violet', 'black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eye whose ever-present scrutinizing gaze becomes a physically constricting presence with its overbearing attention.`
+)
+
+extras['bottle of violet powder'] = new ItemType (
+    'bottle of violet powder', 'weapon',
+    [0,0,0,0,7,0],
+    1,
+    'The vial of violet powder shatters.',
+    `A tall corked glass vial of fine purple crushed powder.`
+)
+
+extras['bottle of liquid swords'] = new ItemType (
+    'bottle of liquid swords', 'weapon',
+    [0,9,0,0,0,0],
+    1,
+    'The flask shatters.',
+    `A erlenmeyer flask filled with a transparent viscous liquid that slashes everything it touches to pieces with fifty-two simultaneous fatal strikes.`
+)
+
+extras['bottle of black goo'] = new ItemType (
+    'bottle of black goo', 'weapon',
+    [0,0,0,11,0,0],
+    1,
+    'The bottle shatters as the black goo ignites into bright blue flame.',
+    `A round-bottomed flask filled with a thick black tarrish substance that spontaneously bursts into fire when it strikes something.`
+)
+
+extras['bottle of demon\'s blood'] = new ItemType (
+    'bottle of demon\'s blood', 'weapon',
+    [0,0,0,0,0,9],
+    1,
+    'The bottle shatters spilling demon\'s blood everywhere.',
+    `A bottle full of the pulpy dark purplish-red blood of a demon. It\'s been biologically engineered over the course of time by sixteen generations of Demon Kings to curse all who spill it.`
+)
+
+extras['bottle of green acid'] = new ItemType (
+    'bottle of green acid', 'weapon',
+    [0,0,0,5,0,0],
+    1,
+    'The bottle of green acid shatters.',
+    `A bottle full of a burning frog-green acid.`
+)
+
+extras['bottle of orange fumes'] = new ItemType (
+    'bottle of orange fumes', 'weapon',
+    [0,0,0,0,9,0],
+    1,
+    'The bottle of orange fumes shatters.',
+    `A tightly sealed jar pumped full with thick orange fumes.`
+)
+
+extras['bottle of doughy fungus'] = new ItemType (
+    'bottle of doughy fungus', 'weapon',
+    [0,0,15,0,0,0],
+    1,
+    'The bottle of doughy fungus shatters.',
+    `A tightly sealed glass bottle with a doughy fungus growing inside it and straining against the glass, trying to use its expansive crushing power to break free.`
+)
+
+extras['bottle of wasps'] = new ItemType (
+    'bottle of wasps', 'weapon',
+    [5,0,0,0,0,0],
+    1,
+    'The bottle of wasps shatters.',
+    `A spherical glass bottle occupied by a thousand tiny wasps.`
+)

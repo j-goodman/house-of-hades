@@ -111,7 +111,7 @@ var allItemTypes = [
         [0,0,0,0,0,4],
         5,
         'Your evil eye amulet turns into fire and vanishes with a whistling sound like a kettle.',
-        'A jet black amulet with a curious eye painted on it. Adds moderate curse damage to your attacks.'
+        'A jet black calcified eyeball with a curious pattern painted on it. Adds moderate curse damage to your attacks.'
     ),
     new ItemType (
         'blowgun', 'weapon',
