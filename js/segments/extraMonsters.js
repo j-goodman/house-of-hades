@@ -7,19 +7,27 @@ extras['arcane merchant'].name = 'arcane merchant'
 extras['arcane merchant'].info = 'A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The cat\'s eye on his necklace marks him as a worshipper of the night god Tezcatlipoca.'
 extras['arcane merchant'].defense[5] = 10
 extras['arcane merchant'].defense[2] = 10
+extras['arcane merchant'].attack[2] = 4
 extras['arcane merchant'].onInstantiate = function () {
+    this.data.baseDefense = this.defense.map(stat => { return stat })
+    this.data.baseAttack = this.attack.map(stat => { return stat })
     this.data.arsenal = [
         itemByName('sacred tomohawk'),
-        itemByName('ghostcandle'),
         extras['lich\'s eye'],
         extras['Byzantine murder ring'],
         extras['cosmic ball'],
         extras['djinn\'s sword'],
         extras['spidersilk sling'],
+        extras['Greek\'s dager'],
+        extras['mithril vest'],
+        extras['angel\'s armor'],
+        extras['goat\'s armor'],
+        extras['Swede\'s head'],
+        extras['sunfire macana'],
     ];
     this.data.notify = function () {
-        drawString(`The merchant withdraws a ${this.data.weapon.name} from the folds of his velvety black coat.`);
-        this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's armed with a ${this.data.weapon.name}.`;
+        drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
+        this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending himself with' } with a ${this.data.item.name}.`;
     }.bind(this)
 }
 
@@ -125,15 +133,19 @@ extras['paranoid summoner'] = new MonsterType ({
         })
         escapeRoom.monsters.push(this)
         this.room = escapeRoom
+        console.log('Fight event.')
+        console.log('this.room:', this.room)
         drawString('The paranoid summoner escapes.')
     },
     deathEvent: function () {
-        drawString('The fabric of space seems to stretch into a claw that rips open the torso of the paranoid summoner releasing a murder of crows and killing her. The crows fly out of the room and the rift remains open.')
+        drawString('The fabric of space seems to stretch into a claw that rips open the torso of the paranoid summoner releasing a murder of crows and killing her. The crows fly out and shake themselves clean, and the rift pulses but remains open.')
+        console.log('Death event.')
+        console.log('this.room:', this.room)
         let rift = new Door ('demoniac rift', this.room)
         let dungeon = new Room ([rift], 0)
         rift.to = dungeon
         this.room.doors.push(rift)
-        this.room.monsters.push(new Monster (this.room, crow), new Monster (this.room, crow), new Monster (this.room, crow))
+        this.room.monsters.push(new Monster (this.room, extras['crow']), new Monster (this.room, extras['crow']), new Monster (this.room, extras['crow']))
         dungeon.mana *= 12;
 
         dungeon.type = 'infernal dungeon'
@@ -246,7 +258,7 @@ extras['laughing woman'] = new MonsterType ({
     defense: [12,0,12,12,12,12,],
     hitpoints: 20,
     level: 3,
-    info: 'A happy woman walking an seven foot legs like a colossal spider\'s, whose heart is beating with such force and size that you can see it straining against her ribs.',
+    info: 'A happy woman walking on seven foot legs like a colossal spider\'s, whose heart is beating with such force and size that you can see it straining against her ribs.',
 })
 
 extras['murderer\'s courage'] = new MonsterType ({
@@ -282,12 +294,24 @@ extras['half-goat soldier'] = new MonsterType ({
 extras['kraken'] = new MonsterType ({
     name: 'kraken',
     attack: [0,0,8,0,0,0,],
-    defense: [9,11,12,10,12,11,],
+    defense: [8,11,12,10,12,11,],
     hitpoints: 20,
     level: 3,
-    info: 'A oily-skinned black octopus the size of a mountain, creeping inquisitively towards your feet with one of its thousand-foot arms.',
+    info: 'A oily-skinned black octopus the size of a mountain, one of its thousand-foot arms creeping inquisitively towards your feet.',
     drop: [
         new Item (extras['kraken\'s ink sac']),
+    ]
+})
+
+extras['jelly leviathan'] = new MonsterType ({
+    name: 'jelly leviathan',
+    attack: [1,0,3,1,5,0,],
+    defense: [9,3,12,5,12,6,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A jellyfish the size of a cathedral, with cnidoblasts in its colossal tentacles that deploy caustic venomous barbs as big as bicycles when it\'s startled or threatened.',
+    drop: [
+        new Item (extras['venomous barb']),
     ]
 })
 
@@ -328,6 +352,148 @@ extras['shapeshifter'] = new MonsterType ({
         this.defense = targetType.defense
         this.defense = targetType.defense
         this.info = targetType.info
-        drawString(`With a noise like a colossal bullfrog\'s croak the shapeshifter becomes a ${pickUnique(allMonsterTypes, [targetType]).name}, a ${pickUnique(allMonsterTypes, [targetType]).name}, then a ${targetType.name}`)
+        drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, then a ${targetType.name}`)
     }
+})
+
+extras['nagual'] = new MonsterType ({
+    // pierce, slash, crush, burn, poison, curse
+    name: 'nagual',
+    attack: [0,0,0,3,0,6,],
+    defense: [3,10,7,0,9,12,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.',
+    fightEvent: function () {
+        if (this.name === 'nagual' && oneIn(1.3)) {
+            drawString(`The night wind blows through in a gale as the nagual sheds his form and becomes a massive black jaguar with claws like obsidian razors and eyes like planets in the night sky.`)
+            this.name = 'jaguar'
+            this.attack = [6,6,5,0,0,0,]
+            this.defense = [9,5,12,5,9,3,]
+            this.info = 'A enormous jet-black jaguar with razor claws and phosphorous eyes.'
+        } else if (this.name === 'jaguar' && oneIn(2)) {
+            drawString(`The night wind blows through in a gale as the jaguar\'s skin becomes a lifeless pelt and the human shape of the nagual emerges out from under it.`)
+            this.name = 'nagual'
+            this.attack = [0,0,0,3,0,7,]
+            this.defense = [0,10,7,0,9,12,]
+            this.info = 'A sorceror in league with the gods of night, granted the power to manifest his spirit in the form of the nocturnal beast that is his totem. He\'s dressed in a slick black animal pelt.'
+        }
+    }
+})
+
+extras['chained specter'] = new MonsterType ({
+    name: 'chained specter',
+    attack: [0,0,0,2,5,2,],
+    defense: [12,12,12,0,12,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A oily black specter with its wrists locked in cold iron chains.',
+})
+
+extras['heart-eating fox'] = new MonsterType ({
+    name: 'heart-eating fox',
+    attack: [2,5,0,1,0,0,],
+    defense: [9,1,5,0,0,12,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A red-tailed fox, tasked to execute the vengeance of the sun-god\'s predecessor by devouring the hearts of as many fellow earthly mammals as it has the chance to.',
+})
+
+extras['traitorous hand'] = new MonsterType ({
+    name: 'traitorous hand',
+    attack: [0,0,4,0,0,2],
+    defense: [7,4,1,0,10,0,],
+    hitpoints: 20,
+    level: 1,
+    info: `A olive-skinned hand broken off at the wrist. It can suspend itself in the air and grip with the strength of a ape.`,
+    deathEvent: function () {
+        let drop = new Item (extras['treacherous hand'], this.room)
+        drop.bonus = drop.data.baseBonus
+        drawString(`The treacherous hand goes limp in the air and drops to the ground.`)
+        drop.ammo = this.data.ammo || 15
+        this.room.items.push(drop)
+        if (this.data.holding) {
+            this.room.items.push(this.data.holding)
+        }
+    }
+})
+
+extras['strangling demon'] = new MonsterType ({
+    name: 'strangling demon',
+    attack: [0,0,12,0,0,0,],
+    defense: [12,0,12,12,0,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `It\'s a tangle of many-elbowed arms ending in hands with six four-jointed fingers and two opposable thumbs each, emerging from a emaciated headless body wearing a mask on its chest that depicts a wide-eyed broad-smiling fanged woman. Its hands fumble blindly for your throat.`,
+    drop: [
+        new Item (itemByName(pick(['laughing mask'])))
+    ]
+})
+
+extras['looking demon'] = new MonsterType ({
+    name: 'looking demon',
+    attack: [0,0,0,0,0,12,],
+    defense: [0,12,12,12,0,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `A creature in the shape of a eight foot tall corpulent man with every inch of its skin covered in eyeballs of every color which all blink in exact unison twice a minute.`,
+    drop: [
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+        new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
+    ]
+})
+
+let bottles = ['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps'].map(name => { return itemByName(name) })
+
+extras['bottle demon'] = new MonsterType ({
+    name: 'bottle demon',
+    attack: [0,0,0,0,0,0,],
+    defense: [12,12,0,12,12,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `A long-armed human-shaped demon with papery ${pick(['grey', 'gray'])} skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
+    drop: [
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+        new Item (pick(bottles)),
+    ],
+    onInstantiate: function () {
+        this.data.weaponTypes = bottles
+        this.data.getWeapon = function () {
+            this.data.weapon = new Item (pick(this.data.weaponTypes))
+            this.attack = this.data.weapon.bonus
+        }.bind(this)
+        this.data.getWeapon()
+    },
+    fightEvent: function () {
+        this.data.getWeapon()
+        drawString(`The bottle demon siezes a ${this.data.weapon.name} out from inside its torso.`)
+    }
+})
+
+extras['carcinogenic demon'] = new MonsterType ({
+    name: 'carcinogenic demon',
+    attack: [0,0,0,0,13,0,],
+    defense: [12,0,12,12,0,6,],
+    hitpoints: 20,
+    level: 1,
+    info: `A bone-white demon with huge black eyes and a crushed-looking chest cavity, with two lungs hanging on the outside of its body under its armpits, struggling and faltering as they rapidly inflate and deflate in ragged breaths. They're leaking black fumes as they contract.`,
+    drop: [
+        new Item (itemByName(pick(['treacherous hand'])))
+    ]
 })

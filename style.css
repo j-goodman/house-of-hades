@@ -12,6 +12,14 @@ li {
     list-style: none;
 }
 
+.blue {
+    color: rgba(100,100,255,.7);
+}
+
+.green {
+    color: rgba(0,255,0,.6);
+}
+
 .start-screen {
     align-items: center;
     display: flex;
@@ -167,7 +175,7 @@ li {
 
 .action-button:hover {
     border: 1px solid rgba(0,0,0,0);
-    color: #f99
+    color: rgba(255,255,0,.7);
 }
 
 .hidden {

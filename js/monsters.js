@@ -1,5 +1,4 @@
 var MonsterType = function (ob) {
-    var i;
     this.attack = ob.attack;
     this.deathEvent = ob.deathEvent;
     this.defense = ob.defense;
@@ -33,8 +32,7 @@ var Monster = function (room, type) {
 };
 
 Monster.prototype.die = function () {
-    var i;
-    // drawString(this.onDeath || 'It\'s dead.');
+    drawString(this.onDeath || 'It\'s dead.');
     if (this.deathEvent) {
       this.deathEvent();
     }
@@ -43,6 +41,7 @@ Monster.prototype.die = function () {
       this.drop.map((item) => {
         drawString(`There\'s a ${item.name} on the ground.`);
         this.room.items.push(item);
+        item.room = this.room
       });
     }
     this.room.monsters = this.room.monsters.filter(mon => {
@@ -51,7 +50,7 @@ Monster.prototype.die = function () {
     if (this.room.monsters.length === 0) {
         this.room.doors.map(door => { door.locked = false })
     }
-
+    this.room.graveyard.push(this)
 };
 
 var monByName = (name) => {
@@ -61,9 +60,14 @@ var monByName = (name) => {
 }
 
 var itemByName = (name) => {
-    return allItemTypes.filter((type) => {
-        return type.name === name;
+    var item
+    item = allItemTypes.filter((type) => {
+        return type.name === name
     })[0];
+    if (!item) {
+        item = extras[name]
+    }
+    return item
 }
 
 // levels go from 1-3, most should be 3.
@@ -77,25 +81,43 @@ var allMonsterTypes = [
         info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
         onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
         deathEvent: () => {
-          var door;
-          door = new Door ('trap', game.player.room, null);
-          game.player.room.doors.push(door);
-          door.to = new Room ([], 16);
-          door.to.items.push(
-            itemByName('sacred tomohawk'),
-            itemByName('wand of oceans'),
-            itemByName('laughing mask'),
-            itemByName('bag of devil\'s gold'),
-            itemByName('golem\'s blood'),
-            itemByName('jar of salt'),
-          )
-          door.to.mana += 100;
-          door.from.mana += 50;
-          if (game.player.room.type = 'treasure room') {
-            drawString('');
-            drawString('    | YOU WIN |    ');
-            drawString('');
-          }
+            var door;
+            if (game.player.room.type === 'treasure room') {
+            door = new Door ('trap', game.player.room, null);
+            game.player.room.doors.push(door);
+            door.to = new Room ([], 13);
+            door.to.type = 'amphitheater with thirteen vaulted walls'
+            door.to.items.push(
+                itemByName(pick(['laughing mask', 'obsidian axe'])),
+                itemByName(pick(['king\'s sword', 'sunfire macana'])),
+                itemByName(pick(['wand of oceans', 'golem\'s blood'])),
+                itemByName(pick(['bag of devil\'s gold', 'canned ghost'])),
+                itemByName(pick(['lion\'s hide', 'goat\'s armor'])),
+                itemByName('wizard\'s ring'),
+            )
+            door.to.doors.map((innerDoor, index) => {
+              innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
+                  'colossal basalt',
+                  'rune-inscribed',
+                  'carved ebony',
+                  'giant sandstone',
+                  'huge steel',
+                  'tiny circular',
+                  'opaque glass',
+                  'tall narrow ivory',
+                  'thirteen-eyed',
+                  'obsidian',
+                  'ornate stained glass',
+                  'polished marble',
+                  'solid gold',
+              ][index]
+            })
+            door.to.mana += 100;
+            door.from.mana += 50;
+                drawString('');
+                drawString('    | YOU WIN |    ');
+                drawString('');
+            }
         }
     }),
     new MonsterType ({
@@ -188,6 +210,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'A seething mass of forming and unforming flesh. All other life on earth was created as an accidental byproduct of this writhing parody\'s birth. If you can get close enough you can try burning it.',
+        drop: [new Item(extras['primordial glob'])]
     }),
     new MonsterType ({
         name: 'ghoul',
@@ -270,6 +293,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'The mansion\'s cruel phantoms are the spirits of people who died painful deaths within the walls. They\'re immune to all physical attacks, and determined to return their agony to the still living.',
+        drop: [new Item(extras['phantom\'s blood'])]
     }),
     new MonsterType ({
         name: 'wendigo',
@@ -285,7 +309,7 @@ var allMonsterTypes = [
         defense: [6,1,2,0,0,4,],
         hitpoints: 20,
         level: 3,
-        info: 'He looks like he\'s not used to being around other people. His eyes are constantly moving around the room and his beard is wild and matted. His fingers and ears are crackling with hairswidth bolts of black lightning.',
+        info: 'He looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
     }),
     new MonsterType ({
         name: 'shrieking dog',
@@ -305,7 +329,7 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'tumorous bleating mass',
-        attack: [0,0,1,0,1,2,],
+        attack: [0,0,1,0,2,0,],
         defense: [0,10,0,5,2,1,],
         hitpoints: 20,
         level: 2,
@@ -342,7 +366,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'The body of a crusading knight beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.',
-        drop: [new Item(itemByName(pick(['chainmail shirt', 'bag of devil\'s gold', 'executioner\'s sword'])))]
+        drop: [new Item(itemByName(pick(['bag of devil\'s gold', 'executioner\'s sword', 'crusader\'s shield'])))]
     }),
     new MonsterType ({
         name: 'mad gasser',
@@ -383,6 +407,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.',
+        drop: [new Item(extras['harpoon'])]
     }),
     new MonsterType ({
         name: 'mechanical bear',
@@ -428,37 +453,160 @@ var allMonsterTypes = [
         level: 1,
         info: 'A sharp-toothed feline-eared diminuitive grey implike creature with wild deranged eyes.',
         onInstantiate: function () {
+            this.data.baseDefense = this.defense.map(stat => { return stat })
+            this.data.baseAttack = this.attack.map(stat => { return stat })
             this.data.arsenal = [
                 itemByName('revolver'),
-                itemByName('cursed pistol'),
+                itemByName('hunting knife'),
                 itemByName('thompson gun'),
                 itemByName('hand grenade'),
                 itemByName('shotgun'),
                 itemByName('laughing mask'),
                 itemByName('firebomb'),
                 itemByName('case of chemical bombs'),
+                itemByName('throwing knife'),
+                itemByName('machete'),
             ];
             this.data.notify = function () {
-                drawString(`The weaghrai conjures a ${this.data.weapon.name} in a flash of ultraviolet light.`);
-                this.info = `A sharp-toothed feline-eared diminuitive grey implike creature armed with a ${this.data.weapon.name}.`;
+                drawString(`The ${this.name} conjures a ${this.data.item.name} in a flash of ${pick(['ultraviolet light', 'ultraviolet light', 'ultraviolet light', 'darkness', 'white light'])}.`);
+                this.info = `A sharp-toothed feline-eared diminuitive grey implike creature ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending itself with' } a ${this.data.item.name}.`;
             }.bind(this)
         },
         fightEvent: function () {
-            if (this.data.weapon) {
-                this.data.weapon.ammo -= 1;
-                if (this.data.weapon.ammo > 0) {
-                    drawString(`The ${this.name} drops its ${this.data.weapon.name}.`);
-                    this.room.items.push(this.data.weapon);
+            if (this.data.item) {
+                this.data.item.ammo -= 1;
+                if (this.data.item.ammo > 0) {
+                    drawString(`The ${this.name} drops its ${this.data.item.name}.`);
+                    this.room.items.push(this.data.item);
                 } else {
-                    drawString(`The ${this.name}'s ${this.data.weapon.name} is destroyed.`);
+                    drawString(`The ${this.name}'s ${this.data.item.name} is destroyed.`);
                 }
-                this.data.weapon = null;
+                this.data.item = null;
             }
-            this.data.weapon = new Item(pick(this.data.arsenal), this.room);
-            this.drop = this.data.weapon.ammo > 1 ? [this.data.weapon] : [];
+            this.data.item = new Item(pick(this.data.arsenal), this.room);
+            this.drop = this.data.item.ammo > 1 ? [this.data.item] : [];
             this.data.notify();
-            this.attack = this.data.weapon.bonus;
+            if (this.data.item.slot === 'shield') {
+                this.defense = this.data.baseDefense.map((stat, index) => {
+                    return stat + this.data.item.bonus[index] > 12 ? 12 : stat + this.data.item.bonus[index]
+                });
+            } else if (this.data.item.slot === 'weapon') {
+                this.attack = this.data.baseAttack.map((stat, index) => {
+                    return stat + this.data.item.bonus[index]
+                });
+            }
         }
+    }),
+    new MonsterType ({
+        name: 'necromancer',
+        attack: [0,1,4,0,0,0],
+        defense: [6,1,2,0,0,4,],
+        hitpoints: 20,
+        level: 3,
+        info: 'A well-dressed thin tall man with a hat.',
+        fightEvent: function () {
+            this.data.monstersInRoom.map(mon => {
+                if (!this.room.monsters.includes(mon) && !mon.undead) {
+                    drawString(`The necromancer raises the ${mon.name} from the dead ${
+                        pick([
+                            'like he thinks he\'s the king of hell.',
+                            'by standing over the corpse and shouting so loudly that spit comes out.',
+                            'with his hand.',
+                            'after removing his hat to speak a prayer.',
+                            `like it's a ${mon.name.split(' ')[mon.name.split(' ').length - 1]} Lazarus`,
+                            `but it almost looks as if it\'s resisting being pulled back into life, its body dissolving as it rises`,
+                        ])
+                    }`)
+                    let roll = dice(3)
+                    mon.defense[1] = 0 // weak against slash
+                    mon.defense[3] = 0 // weak against fire
+                    mon.defense[0] = 12 // immune to pierce
+                    mon.defense[4] = 12 // immune to poison
+                    mon.undead = true
+                    mon.hitpoints = 20
+                    switch (roll) {
+                        case 1:
+                            mon.name = `unmurdered ${mon.name}`
+                            mon.attack[0] += 3 // pierce attack bonus
+                            mon.attack[5] += 1 // curse attack bonus
+                            mon.info += ' It was murdered and has risen changed.'
+                            break;
+                        case 2:
+                            mon.name = `reanimated ${mon.name}`
+                            // all attack weakened:
+                            mon.attack = mon.attack.map(stat => {
+                                return Math.floor(stat / 2)
+                            })
+                            // crush increased:
+                            mon.attack[2] += dice(6) + dice(6) + dice(6)
+                            mon.info += ' It\'s been reanimated but it looks like it wasn\'t quite fresh enough.'
+                            break;
+                        case 3:
+                            mon.name = `half-dead ${mon.name}`
+                            // all attack weakened:
+                            mon.attack = mon.attack.map(stat => {
+                                return Math.floor(stat / 2)
+                            })
+                            mon.info = `Somebody botched the job of returning this thing to the ranks of the living. ${mon.info}`
+                            break;
+                    }
+                    this.room.monsters.push(mon);
+                }
+            })
+            if (this.room.monsters.filter(mon => { return !mon.undead }).length > 0) {
+                drawString(`The necromancer opens his mouth twice as wide as you\'ve ever seen anyone open his mouth, sucking the lifeforce of the room\'s other occupants in through it.`)
+                this.room.monsters.map(mon => {
+                    if (
+                        mon.hitpoints > 0 &&
+                        !mon.undead &&
+                        this.hitpoints < 20
+                    ) {
+                        let amount = (20 - this.hitpoints) < (mon.hitpoints) ? (20 - this.hitpoints) : (mon.hitpoints)
+                        mon.hitpoints -= amount
+                        this.hitpoints += amount
+                        if (mon.hitpoints <= 0) {
+                            mon.die()
+                        }
+                    }
+                })
+            }
+        },
+        onInstantiate: function () {
+            this.undead = true
+            this.room.monsters.push(new Monster (this.room, pick(allMonsterTypes)))
+            this.data.monstersInRoom = this.room.monsters.filter(mon => { return mon.name !== 'necromancer' })
+        },
+    }),
+    new MonsterType ({
+      name: 'man o\' nails',
+      attack: [4,2,1,0,0,0,],
+      defense: [11,0,10,3,12,3,],
+      hitpoints: 20,
+      level: 2,
+      info: `Sixty-eight thousand stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`,
+      onDeath: 'It collapses into nails.',
+      onInstantiate: function () {
+          this.data.numbers = ['Sixty-eight thousand', 'Thirty-four thousand', 'Seventeen thousand', 'Eight thousand five hundred', 'Four thousand two hundred and fifty', 'Two thousand one hundred and twenty-five', 'One thousand sixty-two and a half', 'Five hundred thirty-one and a quarter', 'Two hundred sixty-five and five eights', 'A hundred thirty-two and thirteen sixteenths', 'Sixty-six and thirteen thirty-seconds', 'Thirty-three and thirteen sixty-fourths', 'Sixteen and seventy-seven hundred-and-twenty-eighths', 'Eight and seventy-seven two-hundred-and-fifty-sixths', 'Four and seventy-seven five-hundred-and-twelfths']
+          this.data.splits = 0
+      },
+      fightEvent: function () {
+          let one = new Monster (this.room, monByName('man o\' nails'))
+          let two = new Monster (this.room, monByName('man o\' nails'))
+          one.hitpoints = Math.ceil(this.hitpoints / 2)
+          two.hitpoints = Math.floor(this.hitpoints / 2)
+          one.data.splits = this.data.splits + 1
+          two.data.splits = this.data.splits + 1
+          one.info = `${(one.data && one.data.numbers) ? one.data.numbers[one.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`
+          two.info = `${(two.data && two.data.numbers) ? two.data.numbers[two.data.splits] || 'Sixty-eight thousand' : 'Sixty-eight thousand'} stainless steel nails gathered together into the shape of a man, bearing down on you with a loping skip of a stride.`
+          if (one.hitpoints > 0) {
+              this.room.monsters.push(one)
+          }
+          if (two.hitpoints > 0) {
+              this.room.monsters.push(two)
+          }
+          this.die()
+          drawString('The nails form up into two smaller men.')
+      }
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

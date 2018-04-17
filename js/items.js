@@ -1,4 +1,4 @@
-var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse, onInstantiate) {
+var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy, onUse, onInstantiate, onDrop) {
     this.name = name;
     this.bonus = bonus;
     this.ammo = ammo;
@@ -8,6 +8,7 @@ var ItemType = function (name, slot, bonus, ammo, spentMessage, info, onDestroy,
     this.onDestroy = onDestroy ? onDestroy : false;
     this.onUse = onUse ? onUse : false;
     this.onInstantiate = onInstantiate ? onInstantiate : false;
+    this.onDrop = onDrop ? onDrop : false;
 };
 
 var Item = function (type, room) {
@@ -17,10 +18,12 @@ var Item = function (type, room) {
     this.ammo = type.ammo;
     this.spentMessage = type.spentMessage;
     this.info = type.info;
+    this.data = {}
     this.room = room;
     this.onDestroy = type.onDestroy ? type.onDestroy : false;
     this.onUse = type.onUse ? type.onUse : false;
     this.onInstantiate = type.onInstantiate ? type.onInstantiate : false;
+    this.onDrop = type.onDrop ? type.onDrop : false;
     if (this.onInstantiate) {
         this.onInstantiate(this);
     }
@@ -49,7 +52,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'antique saber', 'weapon',
-        [1,3,0,0,0,0],
+        [1,4,0,0,0,0],
         '12',
         'The saber breaks into two pieces as you wield it. That thing really was old.',
         'A old steel cavalry saber. Deals moderate slash damage.'
@@ -87,7 +90,7 @@ var allItemTypes = [
         [0,5,0,1,0,7],
         5,
         'Your tomohawk explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
-        'A obsidian tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
+        'A black iron tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
     ),
     new ItemType (
         'woodaxe', 'weapon',
@@ -108,7 +111,7 @@ var allItemTypes = [
         [0,0,0,0,0,4],
         5,
         'Your evil eye amulet turns into fire and vanishes with a whistling sound like a kettle.',
-        'A jet black amulet with a curious eye painted on it. Adds moderate curse damage to your attacks.'
+        'A jet black calcified eyeball with a curious pattern painted on it. Adds moderate curse damage to your attacks.'
     ),
     new ItemType (
         'blowgun', 'weapon',
@@ -187,6 +190,20 @@ var allItemTypes = [
         'Your shotgun is out of ammo.',
         'It\'s a sawed-off shotgun with six rounds. Deals pierce and crush damage.'
     ),
+    new ItemType (
+        'fire poker', 'weapon',
+        [3,0,4,0,0,0],
+        15,
+        'Your fire poker breaks in two.',
+        'A hooked cast-iron fire poker.'
+    ),
+    new ItemType (
+        'sickle', 'weapon',
+        [0,4,0,0,0,0],
+        17,
+        'Your sickle breaks.',
+        'A handheld tool with a curved blade for cutting grass.'
+    ),
     // pierce, slash, crush, burn, poison, curse
 
     /*///
@@ -254,7 +271,7 @@ var allItemTypes = [
         [2,5,7,1,0,0],
         8,
         'You\'re out of golem\'s blood.',
-        'A vial of silty mud from the veins of a golem. Drink it to increase your resiliance against physical attacks.'
+        'A vial of silty mud from the veins of a golem. Increases your resiliance against physical attacks.'
     ),
     new ItemType (
         'bleeding mushroom', 'shield',
@@ -265,7 +282,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'jar of salt', 'shield',
-        [0,0,0,0,0,7],
+        [0,0,0,0,0,6],
         8,
         'You\'re out of salt.',
         'A glass jar filled with rock salt, said to ward off curses.'
@@ -283,6 +300,13 @@ var allItemTypes = [
         9,
         'Your chainmail shirt is too badly damaged to use anymore.',
         'And old iron mail shirt. Protects effectively against pierce damage.'
+    ),
+    new ItemType (
+        'pair of haze glasses', 'shield',
+        [7,0,0,0,0,2],
+        7,
+        'Your haze glasses break.',
+        'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility, making them harder to hit with pierce attacks.'
     ),
 
     // pierce, slash, crush, burn, poison, curse
