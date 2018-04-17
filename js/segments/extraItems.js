@@ -420,3 +420,26 @@ extras['bottle of wasps'] = new ItemType (
     'The bottle of wasps shatters.',
     `A spherical glass bottle occupied by a thousand tiny wasps.`
 )
+
+extras['pearl of concentrated pestilence'] = new ItemType (
+    'pearl of concentrated pestilence', 'weapon',
+    [0,0,0,0,4,0],
+    6,
+    `Your pearl of concentrated pestilence bursts.`,
+    `A gleaming black pearl the size of a acorn made up of toxic and carcinogenic materials crammed into a toxic sphere. It becomes more potent each time you use it.`,
+    null,
+    function () { // On use
+        this.bonus[4] = Math.round(this.bonus[4] * 1.4)
+        if (this.ammo > 1) {
+            drawString(`The pearl swells with a quiet noise like a million tiny screams.`)
+        } else {
+            drawString(`Your pearl looks like it's about to burst, you might only get one more use out of it.`)
+        }
+        this.data.size += 1
+        this.info = `A gleaming black pearl the size of a ${this.data.sizes[this.data.size]} made up of toxic and carcinogenic materials crammed into a toxic sphere. It becomes more potent each time you use it.`
+    },
+    function () { // On instantiate
+        this.data.sizes = ['acorn', 'billiard ball', 'plum', 'baseball', 'desktop globe', 'bloated pumpkin', 'wrecking ball', 'wrecking ball', 'wrecking ball']
+        this.data.size = 0
+    }
+)
