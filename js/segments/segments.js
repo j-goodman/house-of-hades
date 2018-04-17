@@ -17,9 +17,9 @@ var buildSegments = (count, rooms) => {
     choices.push(choice);
   }
   choices.map((index) => {
-    // segments[index](count, rooms);
+    segments[index](count, rooms);
   });
-  segments[8](count, rooms)
+  // segments[8](count, rooms)
 };
 
 var segments = [

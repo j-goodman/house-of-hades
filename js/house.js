@@ -96,13 +96,13 @@ var Room = function (doors, doorCount) {
     var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 1;
     });
-    // if (oneIn(1.5)) {
-    //     this.monsters.push(new Monster (this, pick(mainMonsterPool)));
-    //     // this.monsters.push(new Monster (this, extras['shapeshifter']));
-    // }
-    // if (oneIn(7)) {
-    //     this.monsters.push(new Monster (this, pick(secondMonsterPool)));
-    // }
+    if (oneIn(1.5)) {
+        this.monsters.push(new Monster (this, pick(mainMonsterPool)));
+        // this.monsters.push(new Monster (this, extras['shapeshifter']));
+    }
+    if (oneIn(7)) {
+        this.monsters.push(new Monster (this, pick(secondMonsterPool)));
+    }
     // Check that it's not two of the same monster:
     this.monsters = (this.monsters.length === 2 &&this.monsters[0].name === this.monsters[1].name) ?
     [this.monsters[0]] : this.monsters;
