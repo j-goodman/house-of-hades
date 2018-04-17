@@ -29,3 +29,7 @@ Crawler.prototype.goTo = function (door) {
 
     this.room = endRoom
 }
+
+var impossibility_detector = new Crawler ({
+    room: game.player.room
+})

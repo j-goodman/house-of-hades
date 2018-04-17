@@ -148,7 +148,7 @@ extras['paranoid summoner'] = new MonsterType ({
         this.room.monsters.push(new Monster (this.room, extras['crow']), new Monster (this.room, extras['crow']), new Monster (this.room, extras['crow']))
         dungeon.mana *= 12;
 
-        dungeon.type = 'infernal dungeon'
+        dungeon.type = 'limitless unperceivable void'
         dungeon.items = []
         dungeon.monsters = [new Monster (
             dungeon,
@@ -423,10 +423,10 @@ extras['strangling demon'] = new MonsterType ({
     attack: [0,0,12,0,0,0,],
     defense: [12,0,12,12,0,6,],
     hitpoints: 20,
-    level: 1,
+    level: 3,
     info: `It\'s a tangle of many-elbowed arms ending in hands with six four-jointed fingers and two opposable thumbs each, emerging from a emaciated headless body wearing a mask on its chest that depicts a wide-eyed broad-smiling fanged woman. Its hands fumble blindly for your throat.`,
     drop: [
-        new Item (itemByName(pick(['laughing mask'])))
+        new Item (itemByName(pick(['laughing mask', 'treacherous hand'])))
     ]
 })
 
@@ -435,7 +435,7 @@ extras['looking demon'] = new MonsterType ({
     attack: [0,0,0,0,0,12,],
     defense: [0,12,12,12,0,6,],
     hitpoints: 20,
-    level: 1,
+    level: 3,
     info: `A creature in the shape of a eight foot tall corpulent man with every inch of its skin covered in eyeballs of every color which all blink in exact unison twice a minute.`,
     drop: [
         new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
@@ -461,7 +461,7 @@ extras['bottle demon'] = new MonsterType ({
     attack: [0,0,0,0,0,0,],
     defense: [12,12,0,12,12,6,],
     hitpoints: 20,
-    level: 1,
+    level: 3,
     info: `A long-armed human-shaped demon with papery ${pick(['grey', 'gray'])} skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
     drop: [
         new Item (pick(bottles)),
@@ -491,9 +491,57 @@ extras['carcinogenic demon'] = new MonsterType ({
     attack: [0,0,0,0,13,0,],
     defense: [12,0,12,12,0,6,],
     hitpoints: 20,
-    level: 1,
+    level: 3,
     info: `A bone-white demon with huge black eyes and a crushed-looking chest cavity, with two lungs hanging on the outside of its body under its armpits, struggling and faltering as they rapidly inflate and deflate in ragged breaths. They're leaking black fumes as they contract.`,
     drop: [
-        new Item (itemByName(pick(['treacherous hand'])))
+        new Item (itemByName(pick(['pearl of concentrated pestilence'])))
     ]
+})
+
+extras['blood golem'] = new MonsterType ({
+    name: 'blood golem',
+    attack: [3,0,2,0,0,0,],
+    defense: [12,3,5,0,0,12,],
+    hitpoints: 20,
+    level: 1,
+    info: `Your blood combined with that of the razor demon's other victims to form a scarlet bubble the shape of a half-sized human that's coming fast at you.`,
+})
+
+extras['razor demon'] = new MonsterType ({
+    name: 'razor demon',
+    attack: [0,4,0,0,0,0,],
+    defense: [12,12,12,12,6,6,],
+    hitpoints: 20,
+    level: 3,
+    info: `A demon like a tall thin pink-skinned person with the eyelids and lips slashed off of its face. Steel razor blades hover in crowds near each of its fourteen fingers, ready to strike.`,
+    drop: [
+        new Item (itemByName(pick(['bottle of demon\'s blood'])))
+    ],
+    onInstantiate: function () {
+        this.data.damageDone = 0
+        this.data.eyes = true
+    },
+    fightEvent: function () {
+        if (this.data.playerHp) {
+            let difference = this.data.playerHp - game.player.stats.hitpoints
+            this.data.damageDone += difference
+            if (difference > 0) {
+                drawString(`The demon's razors become bright gleaming red liquid streaks and fly into its ${this.data.eyes ? 'eyes' : 'eye sockets'}. Its fingernails become razors to replace them.`)
+                while (this.data.damageDone >= 5) {
+                    this.data.damageDone -= 5
+                    if (this.data.eyes) {
+                        drawString(`The razor demon's eyes pop from its head with a sound like corks from a wine bottle.`)
+                        this.room.items.push(
+                            new Item (itemByName('afflicted eye'), this.room),
+                            new Item (itemByName('afflicted eye'), this.room)
+                        )
+                        this.data.eyes = false
+                    }
+                    drawString(`A creature made of blood crawls out of one of the razor demon's empty eye sockets and slumps to the floor.`)
+                    this.room.monsters.push(new Monster (this.room, extras['blood golem']))
+                }
+            }
+        }
+        this.data.playerHp = game.player.stats.hitpoints
+    },
 })

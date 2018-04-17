@@ -145,7 +145,6 @@ var Door = function (color, from, to, locked) {
 
 Door.prototype.go = function (player) {
     if (!this.to) {
-      console.log(hour > 20, finalTreasureRoom.doors[0])
       if (hour > 20 && Math.round(Math.random()) && finalTreasureRoom.doors[0] && (finalTreasureRoom.doors[0].to === true)) {
         this.to = finalTreasureRoom;
         finalTreasureRoom.doors = [this];

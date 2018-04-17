@@ -1036,7 +1036,7 @@ var segments = [
         prisonCells.map((cell, index) => {
             let hall = []
             cell.type = 'prison cell made of stinking lemon-colored stone'
-            hall.length = Math.ceil(dice(4) + dice(2))
+            hall.length = Math.ceil(dice(3) + dice(2) + dice(2))
             hall.fill(null)
             hall.map((el, subIndex) => {
                 let fromRoom
@@ -1065,7 +1065,6 @@ var segments = [
             hall.map(room => {
                 segmentRooms.push(room)
                 room.doors.map(door => {
-                    window.counterman = window.counterman + 1 || 1
                     door.color = pick(segmentDoors)
                 })
             })
@@ -1089,7 +1088,8 @@ var segments = [
                     'carcinogenic demon',
                     'bottle demon',
                     'looking demon',
-                    'strangling demon'
+                    'strangling demon',
+                    'razor demon',
                 ])]))
             }
             if (room.monsters.length > 0) {

@@ -254,6 +254,7 @@ Player.prototype.fight = function (enemyName) {
     }
     if (enemy.fightEvent && enemy.hitpoints > 0) {
       enemy.fightEvent();
+      updateRoom()
     }
     updateRoomContents()
     updateInventory()
