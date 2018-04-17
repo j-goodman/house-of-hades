@@ -112,6 +112,7 @@ var allMonsterTypes = [
                   'solid gold',
               ][index]
             })
+            segments[8]()
             door.to.mana += 100;
             door.from.mana += 50;
                 drawString('');
