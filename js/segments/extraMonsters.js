@@ -459,9 +459,15 @@ extras['bottle demon'] = new MonsterType ({
     defense: [12,12,0,12,12,6,],
     hitpoints: 20,
     level: 1,
-    info: `A long-armed human-shaped demon with papery grey skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
+    info: `A long-armed human-shaped demon with papery ${pick(['grey', 'gray'])} skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
     drop: [
-        new Item (itemByName(pick(['treacherous hand'])))
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
     ]
 })
 
@@ -471,14 +477,8 @@ extras['carcinogenic demon'] = new MonsterType ({
     defense: [12,0,12,12,0,6,],
     hitpoints: 20,
     level: 1,
-    info: `A bone-white demon with huge black eyes and a crushed-looking chest cavity, with two lungs hanging on the outside of its body under its armpits, struggling and faltering as the rapidly inflate and deflate in ragged breaths. They're leaking black miasmic fumes as they contract.`,
+    info: `A bone-white demon with huge black eyes and a crushed-looking chest cavity, with two lungs hanging on the outside of its body under its armpits, struggling and faltering as they rapidly inflate and deflate in ragged breaths. They're leaking black fumes as they contract.`,
     drop: [
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
-        new Item (itemByName(pick(['bottle of violet powder', 'bottle of liquid swords', 'bottle of black goo', 'bottle of demon\'s blood', 'bottle of green acid', 'bottle of orange fumes', 'bottle of doughy fungus', 'bottle of wasps']))),
+        new Item (itemByName(pick(['treacherous hand'])))
     ]
 })

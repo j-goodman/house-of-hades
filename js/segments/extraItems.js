@@ -210,7 +210,7 @@ extras['throwing knife'] = new ItemType (
 
 extras['machete'] = new ItemType (
     'machete', 'weapon',
-    [1,6,1,0,0,0],
+    [0,5,1,0,0,0],
     30,
     'Your machete breaks.',
     'A versatile tool used for cutting crops, trees, or building materials, also functioning as an improvised weapon.'
