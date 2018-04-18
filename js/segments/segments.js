@@ -1016,7 +1016,7 @@ var segments = [
 
     */
     (count, rooms) => {
-        console.log('realm')
+        console.log('gate')
         var segmentRooms = []
         var otherRoom
         let segmentDoors = ['yellow', 'sickly yellow', 'sulfur-colored', 'gold', 'greyish-yellow', 'melting', 'opaque black glass', 'carved', 'pale oak', 'pale iron', 'pale steel']
