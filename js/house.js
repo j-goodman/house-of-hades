@@ -1,6 +1,13 @@
 var pick = function (array) {
     return array[Math.floor(Math.random() * array.length)];
 };
+Array.prototype.politePush = function (item) {
+    if (!this.includes(item)) {
+        this.push(item)
+        return true
+    }
+    return false
+};
 var dice = function (sides) {
     return Math.ceil(Math.random() * sides);
 };
@@ -31,16 +38,16 @@ var allUnresolvedDoors = () => {
     return (!door.to && door.from.doors.includes(door));
   });
 }
-var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard'];
+var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard', 'living room'];
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
-    ['dungeon', 'laundry room', 'furnace room', 'unfurnished concrete cube'],
-    ['observatory', 'chapel', 'throne room'],
+    ['dungeon', 'laundry room', 'furnace room', 'unfurnished concrete cube', 'artist\'s studio', 'music room'],
+    ['observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
-    ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood', 'heavily fortified', 'automatic', 'plaster-covered', 'canvas-covered', 'grass-green', 'thick'],
+    ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood', 'heavily fortified', 'baroque', 'plaster-covered', 'canvas-covered', 'grass-green', 'thick'],
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
 ];
 var surfaceTypes = [
@@ -55,6 +62,7 @@ var surfaceTypes = [
     ['ground', ['courtyard', 'greenhouse']],
     ['floor', ['ballroom', 'dungeon', 'observatory', 'laundry room', 'chapel', 'furnace room']],
     ['throne', ['throne room']],
+    ['grand piano', ['music room']],
 ];
 
 var nextRoomId = 0;
@@ -71,6 +79,8 @@ var House = function (player) {
 
     this.rooms.push(spawnRoom);
     player.room = spawnRoom;
+    player.detector = impossibility_detector
+    player.detector.room = player.room;
 };
 
 var Room = function (doors, doorCount) {
@@ -178,6 +188,10 @@ Door.prototype.go = function (player) {
 
 Door.prototype.makeDestination = function () {
   this.to = new Room ([this]);
+}
+
+Door.prototype.resolved = function () {
+  return ((this.from && this.to) && (this.from.type && this.to.type))
 }
 
 Door.prototype.advanceRoomAndDoorTypes = function () {

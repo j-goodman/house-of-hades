@@ -24,6 +24,7 @@ var Item = function (type, room) {
     this.onUse = type.onUse ? type.onUse : false;
     this.onInstantiate = type.onInstantiate ? type.onInstantiate : false;
     this.onDrop = type.onDrop ? type.onDrop : false;
+    this.id = getGlobalUniqueId()
     if (this.onInstantiate) {
         this.onInstantiate(this);
     }

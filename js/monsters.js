@@ -26,6 +26,7 @@ var Monster = function (room, type) {
     this.name = type.name;
     this.onDeath = type.onDeath;
     this.onInstantiate = type.onInstantiate ? type.onInstantiate.bind(this) : false;
+    this.id = getGlobalUniqueId()
     if (this.onInstantiate) {
         this.onInstantiate.bind(this)();
     }

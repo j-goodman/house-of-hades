@@ -443,3 +443,11 @@ extras['pearl of concentrated pestilence'] = new ItemType (
         this.data.size = 0
     }
 )
+
+// extras['faker\'s arm'] = new ItemType (
+//     'faker\'s arm', 'weapon',
+//     [0,0,0,0,0,0],
+//     12,
+//     '',
+//     ``
+// )
