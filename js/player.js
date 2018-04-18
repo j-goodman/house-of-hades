@@ -237,19 +237,19 @@ Player.prototype.fight = function (enemyName, fake=false) {
     //console.log('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
     if (this.weapon && this.weapon.ammo) {
         this.weapon.ammo -= 1;
-        if (this.weapon.onUse) { this.weapon.onUse(this); }
+        if (this.weapon.onUse && !fake) { this.weapon.onUse(this); }
         if (this.weapon && this.weapon.ammo <= 0) {
             if (!fake) {
                 drawString(this.weapon.spentMessage);
             }
-            if (this.weapon.onDestroy) { this.weapon.onDestroy(this.room); }
+            if (this.weapon.onDestroy && !fake) { this.weapon.onDestroy(this.room); }
             this.weapon = null;
         }
         this.updateStats(fake);
     }
     if (this.shield && this.shield.ammo) {
         this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
-        if (shieldUse && this.shield.onUse) { this.shield.onUse(this) }
+        if (shieldUse && this.shield.onUse && !fake) { this.shield.onUse(this) }
         if (this.shield.ammo <= 0) {
             if (!fake) {
                 drawString(this.shield.spentMessage);
@@ -263,7 +263,7 @@ Player.prototype.fight = function (enemyName, fake=false) {
     } if (this.stats.hitpoints <= 0 && !fake) {
         this.die();
     }
-    if (enemy.fightEvent && enemy.hitpoints > 0) {
+    if (!fake && enemy.fightEvent && enemy.hitpoints > 0) {
       enemy.fightEvent();
       updateRoom()
     }
@@ -275,7 +275,7 @@ Player.prototype.fight = function (enemyName, fake=false) {
 
 Player.prototype.use = function (itemName) {
     if (this.weapon && this.weapon.name === itemName) {
-        if (this.weapon.onUse && this.weapon.name === itemName) {
+        if (!fake && this.weapon.onUse && this.weapon.name === itemName) {
             this.weapon.onUse(this);
         } else {
             clearType();

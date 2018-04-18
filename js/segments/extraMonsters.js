@@ -545,3 +545,31 @@ extras['razor demon'] = new MonsterType ({
         this.data.playerHp = game.player.stats.hitpoints
     },
 })
+
+extras['foolsfire'] = new MonsterType ({
+    name: 'foolsfire',
+    attack: [0,0,0,0,0,0,],
+    defense: [12,12,7,12,12,12,],
+    hitpoints: 20,
+    level: 1,
+    info: `It's a pale flickering flame hanging passively in the air.`,
+    fightEvent: function () {
+        let door = new Door ('pale-lit', this.room, false, false)
+        let newRoom = new Room ([door], 1 + dice(2))
+        drawString(`The foolsfire passes through a door in the wall that you hadn't seen before, lit by a pale white light.`)
+        newRoom.monsters = []
+        door.to = newRoom
+        this.room.doors.push(door)
+        this.room.monsters = []
+        this.attack[3] += 1 + dice(2)
+        this.defense[0] -= 1
+        this.defense[1] -= 1
+        this.defense[2] -= 1
+        this.defense[5] -= 2
+        this.defense.map((num, index) => {
+            this.defense[index] = num < 0 ? 0 : num
+        })
+        let flightTo = new Room ([], dice(2))
+        game.house.rooms.push(flightTo)
+    }
+})
