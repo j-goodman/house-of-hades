@@ -191,7 +191,9 @@ impossibility_detector.killable = function (monster) {
     fakePlayer.updateStats = game.player.updateStats
     fakePlayer.updateStats()
     fakePlayer.fight = game.player.fight
-    while(fakePlayer.stats.hitpoints > 0 && fakeMonster.hitpoints > 0) {
+    let dex = 0
+    while(fakePlayer.stats.hitpoints > 0 && fakeMonster.hitpoints > 0 && dex < 200) {
+        dex++
         fakePlayer.fight(fakeMonster, true)
         if (!fakePlayer.weapon) {
             fakePlayer.weapon = this.bestWeaponAgainstMonster(monster, this.accessibleWeapons().filter(weapon => { return !fakePlayer.usedWeaponIds.includes(weapon.id) }))
@@ -219,10 +221,15 @@ impossibility_detector.detectImpossibility = function () {
     let openableMysteryDoors = []
     let rooms = this.accessibleRooms()
 
+    let isFoolsfire = false
+
     let possibility = false
     let accessibleRooms = this.accessibleRooms()
 
     rooms.map(room => {
+        if (room.monsters.map(mon => { return mon.name }).includes('foolsfire')) {
+            isFoolsfire = true
+        }
         room.doors.map(door => {
             let accessibleRoom = false
             if (accessibleRooms.includes(door.to)) {
@@ -247,7 +254,7 @@ impossibility_detector.detectImpossibility = function () {
         impossible: false
     }
 
-    if (openableMysteryDoors.length + openMysteryDoors.length === 0) {
+    if (openableMysteryDoors.length + openMysteryDoors.length === 0 && !isFoolsfire) {
         report.impossible = true
     }
 
@@ -255,7 +262,14 @@ impossibility_detector.detectImpossibility = function () {
 }
 
 impossibility_detector.solve = function () {
-    let room = pick(this.accessibleRooms().filter(room => { return room.monsters.length === 0 }))
+    let room = pick(game.player.room.doors.map(door => {
+        if (door.to !== game.player.room) {
+            return door.to
+        } else if (door.from !== game.player.room) {
+            return door.from
+        }
+    }).filter(room => { return room && room.monsters && room.monsters.length === 0 }))
+    room = room ? room : pick(this.accessibleRooms().filter(room => { return room.monsters.length === 0 }))
     console.log('Solving for map impossibility.')
     console.log('Room:', room)
     room.monsters.push(new Monster (room, extras['foolsfire']))

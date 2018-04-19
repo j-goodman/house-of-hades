@@ -3,6 +3,8 @@ var extras = extras ? extras : {}
 // pierce, slash, crush, burn, poison, curse
 
 extras['arcane merchant'] = Object.assign({}, monByName('weaghrai'))
+extras['arcane merchant'].defense = monByName('weaghrai').defense.map(num => { return num })
+extras['arcane merchant'].attack = monByName('weaghrai').attack.map(num => { return num })
 extras['arcane merchant'].name = 'arcane merchant'
 extras['arcane merchant'].info = 'A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The cat\'s eye on his necklace marks him as a worshipper of the night god Tezcatlipoca.'
 extras['arcane merchant'].defense[5] = 10

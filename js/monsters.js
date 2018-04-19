@@ -113,7 +113,6 @@ var allMonsterTypes = [
                   'solid gold',
               ][index]
             })
-            segments[8]()
             door.to.mana += 100;
             door.from.mana += 50;
                 drawString('');
@@ -609,6 +608,14 @@ var allMonsterTypes = [
           this.die()
           drawString('The nails form up into two smaller men.')
       }
+    }),
+    new MonsterType ({
+        name: 'psychic ray',
+        attack: [1,0,0,0,3,3,],
+        defense: [8,1,10,0,0,0,],
+        hitpoints: 20,
+        level: 3,
+        info: 'It\'s A manta ray hovering in the air before you.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

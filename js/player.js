@@ -265,7 +265,6 @@ Player.prototype.fight = function (enemyName, fake=false) {
     }
     if (!fake && enemy.fightEvent && enemy.hitpoints > 0) {
       enemy.fightEvent();
-      updateRoom()
     }
     if (!fake) {
         updateRoomContents()
