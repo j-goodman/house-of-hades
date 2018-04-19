@@ -133,10 +133,10 @@ impossibility_detector.accessibleMana = function () {
             sum += room.mana
         }
     })
-    return sum
+    return sum < 0 ? 0 : sum
 }
 
-impossibility_detector.killable = function (monster) {
+impossibility_detector.killable = function (monster, hp) {
     let certainty = true
     let fakePlayer = Object.assign({}, game.player)
     fakePlayer.stats = Object.assign({}, game.player.stats)
@@ -182,6 +182,9 @@ impossibility_detector.killable = function (monster) {
     fakePlayer.shield = fakeShield
 
     fakePlayer.stats.hitpoints += this.accessibleMana()
+    if (hp) {
+        fakePlayer.stats.hitpoints = hp
+    }
 
     fakePlayer.usedWeaponIds = []
     fakePlayer.usedShieldIds = []
@@ -211,7 +214,8 @@ impossibility_detector.killable = function (monster) {
 
     let report = {
         answer: (fakePlayer.stats.hitpoints > 0 && fakeMonster.hitpoints <= 0),
-        certainty: certainty
+        certainty: certainty,
+        remainingHp: fakePlayer.stats.hitpoints
     }
     return report
 }
@@ -219,15 +223,18 @@ impossibility_detector.killable = function (monster) {
 impossibility_detector.detectImpossibility = function () {
     let openMysteryDoors = []
     let openableMysteryDoors = []
-    let rooms = this.accessibleRooms()
 
     let isFoolsfire = false
 
     let possibility = false
     let accessibleRooms = this.accessibleRooms()
 
-    rooms.map(room => {
-        if (room.monsters.map(mon => { return mon.name }).includes('foolsfire')) {
+    accessibleRooms.map(room => {
+        if (room.monsters.map(mon => {
+            if (mon.attack[3] === 0) {
+                return mon.name
+            }
+        }).includes('foolsfire')) {
             isFoolsfire = true
         }
         room.doors.map(door => {
@@ -237,13 +244,15 @@ impossibility_detector.detectImpossibility = function () {
             } else if (accessibleRooms.includes(door.from)) {
                 accessibleRoom = door.from
             }
+            let remainingHp = 0
             if ((!door.to || !door.from) && !door.locked) {
                 openMysteryDoors.push(door)
             } else if (door.locked && accessibleRoom && accessibleRoom.monsters.length === accessibleRoom.monsters.filter(mon => {
-                let report = this.killable(mon)
+                let report = this.killable(mon, remainingHp || false)
                 if (report.answer && report.certainty) {
                     return true
                 }
+                remainingHp = report.remainingHp
             }).length) {
                 openableMysteryDoors.push(door)
             }

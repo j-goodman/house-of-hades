@@ -555,6 +555,9 @@ extras['foolsfire'] = new MonsterType ({
     hitpoints: 20,
     level: 1,
     info: `It's a pale flickering flame hanging passively in the air.`,
+    drop: [
+        new Item (extras['bottle of black goo']),
+    ],
     fightEvent: function () {
         if (this.attack[3] === 0) {
             let door = new Door ((game.player.room.doors.map(door => { return door.color }).includes('pale-lit') ? 'dim-lit' : 'pale-lit'), this.room, false, false)
@@ -566,6 +569,11 @@ extras['foolsfire'] = new MonsterType ({
             this.room.monsters = []
             let flightTo = new Room ([], dice(2))
             game.house.rooms.push(flightTo)
+        } else {
+            if (this.attack[3] > 8) {
+                this.name = 'fire golem'
+            }
+            drawString(`The ${this.name} flares and swells into a larger, angrier looking blaze.`)
         }
         this.attack[3] += 1 + dice(2)
         this.defense[0] -= 1
