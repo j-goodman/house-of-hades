@@ -235,8 +235,10 @@ Player.prototype.fight = function (enemyName, fake=false) {
     }
     //console.log('Player:' + ' ' + (this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints));
     //console.log('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
-    if (this.weapon && this.weapon.ammo) {
-        this.weapon.ammo -= 1;
+    if (this.weapon && (this.weapon.ammo || this.weapon.ammo === 0)) {
+        if (!fake || !(this.weapon === game.player.weapon)) {
+            this.weapon.ammo -= 1;
+        }
         if (this.weapon.onUse && !fake) { this.weapon.onUse(this); }
         if (this.weapon && this.weapon.ammo <= 0) {
             if (!fake) {

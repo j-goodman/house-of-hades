@@ -81,7 +81,7 @@ impossibility_detector.accessibleItems = function () {
     if (game.player.shield) {
         items.push(game.player.shield)
     }
-    items.concat(game.player.holding)
+    items = items.concat(game.player.holding)
     return items
 }
 
@@ -242,7 +242,7 @@ impossibility_detector.detectImpossibility = function () {
             } else if (door.locked && accessibleRoom && accessibleRoom.monsters.length === accessibleRoom.monsters.filter(mon => {
                 let report = this.killable(mon)
                 if (report.answer && report.certainty) {
-                    openableMysteryDoors.push(door)
+                    return true
                 }
             }).length) {
                 openableMysteryDoors.push(door)

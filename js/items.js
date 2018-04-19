@@ -171,7 +171,7 @@ var allItemTypes = [
         'Three bombs fueled with volatile caustic chemicals.'
     ),
     new ItemType (
-        'silver rifle', 'weapon',
+        'rifle', 'weapon',
         [8,0,0,0,0,8],
         3,
         'Your rifle\'s out of silver bullets.',
@@ -300,7 +300,7 @@ var allItemTypes = [
         [10,1,0,0,0,0],
         9,
         'Your chainmail shirt is too badly damaged to use anymore.',
-        'And old iron mail shirt. Protects effectively against pierce damage.'
+        'An old iron mail shirt. Protects effectively against pierce damage.'
     ),
     new ItemType (
         'pair of haze glasses', 'shield',

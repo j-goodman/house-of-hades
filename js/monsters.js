@@ -615,7 +615,15 @@ var allMonsterTypes = [
         defense: [8,1,10,0,0,0,],
         hitpoints: 20,
         level: 3,
-        info: 'It\'s A manta ray hovering in the air before you.',
+        info: 'It\'s stingray hovering in the air.',
+    }),
+    new MonsterType ({
+        name: 'Opel Manta',
+        attack: [0,0,8,3,0,0,],
+        defense: [2,2,10,8,12,0,],
+        hitpoints: 20,
+        level: 3,
+        info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback a good safety rating and low gas mileage.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({
