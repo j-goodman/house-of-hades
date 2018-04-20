@@ -357,12 +357,12 @@ extras['watchful eye'] = new ItemType (
     `A ${pick(['blue', 'brown', 'green', 'violet', 'black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eye whose ever-present scrutinizing gaze becomes a physically constricting presence with its overbearing attention.`
 )
 
-extras['bottle of violet powder'] = new ItemType (
-    'bottle of violet powder', 'weapon',
-    [0,0,0,0,7,0],
-    1,
-    'The vial of violet powder shatters.',
-    `A tall corked glass vial of fine purple crushed powder.`
+extras['wraith\'s sword'] = new ItemType (
+    'wraith\'s sword', 'weapon',
+    [7,7,0,0,0,0],
+    12,
+    'The swordwraith returns in a whirl of black wind, seizing its sword from your hand. Having been defeated once already, it flees, vanishing into the walls of the house.',
+    `A long curved blade of white light. Given by the ancient king Mahabali to his most loyal and skillful warriors in a vain attempt to protect himself from the justice of the fifth avatar of Vishnu, cursing them to plague the earth as wraiths for eternity.`
 )
 
 extras['bottle of liquid swords'] = new ItemType (
@@ -442,6 +442,15 @@ extras['pearl of concentrated pestilence'] = new ItemType (
         this.data.sizes = ['acorn', 'billiard ball', 'plum', 'baseball', 'desktop globe', 'bloated pumpkin', 'wrecking ball', 'wrecking ball', 'wrecking ball']
         this.data.size = 0
     }
+)
+
+
+extras['bottle of violet powder'] = new ItemType (
+    'bottle of violet powder', 'weapon',
+    [0,0,0,0,7,0],
+    1,
+    'The vial of violet powder shatters.',
+    `A tall corked glass vial of fine purple crushed powder.`
 )
 
 // extras['faker\'s arm'] = new ItemType (
