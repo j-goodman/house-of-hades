@@ -236,7 +236,7 @@ Player.prototype.fight = function (enemyName, fake=false) {
     //console.log('Player:' + ' ' + (this.stats.hitpoints < 0 ? 0 : this.stats.hitpoints));
     //console.log('Enemy:' + ' ' + (enemy.hitpoints < 0 ? 0 : enemy.hitpoints));
     if (this.weapon && (this.weapon.ammo || this.weapon.ammo === 0)) {
-        if (!fake || !(this.weapon === game.player.weapon)) {
+        if ((!fake || this.weapon !== game.player.weapon) && (enemy.room === game.player.room)) {
             this.weapon.ammo -= 1;
         }
         if (this.weapon.onUse && !fake) { this.weapon.onUse(this); }
@@ -250,7 +250,9 @@ Player.prototype.fight = function (enemyName, fake=false) {
         this.updateStats(fake);
     }
     if (this.shield && this.shield.ammo) {
-        this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
+        if (!fake || !(this.shield === game.player.shield)) {
+            this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
+        }
         if (shieldUse && this.shield.onUse && !fake) { this.shield.onUse(this) }
         if (this.shield.ammo <= 0) {
             if (!fake) {
