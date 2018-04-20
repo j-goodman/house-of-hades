@@ -231,9 +231,7 @@ impossibility_detector.detectImpossibility = function () {
 
     accessibleRooms.map(room => {
         if (room.monsters.map(mon => {
-            if (mon.attack[3] === 0) {
-                return mon.name
-            }
+            return mon.name
         }).includes('foolsfire')) {
             isFoolsfire = true
         }
@@ -279,7 +277,6 @@ impossibility_detector.solve = function () {
         }
     }).filter(room => { return room && room.monsters && room.monsters.length === 0 }))
     room = room ? room : pick(this.accessibleRooms().filter(room => { return room.monsters.length === 0 }))
-    console.log('Solving for map impossibility.')
-    console.log('Room:', room)
+    if (!room) { return room }
     room.monsters.push(new Monster (room, extras['foolsfire']))
 }

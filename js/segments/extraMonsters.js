@@ -561,7 +561,7 @@ extras['foolsfire'] = new MonsterType ({
     fightEvent: function () {
         if (this.attack[3] === 0) {
             let door = new Door ((game.player.room.doors.map(door => { return door.color }).includes('pale-lit') ? 'dim-lit' : 'pale-lit'), this.room, false, false)
-            let newRoom = new Room ([door], 1 + dice(2))
+            let newRoom = new Room ([door], 2)
             drawString(`The foolsfire passes through a door in the wall that you hadn't seen before, lit by a pale white light.`)
             newRoom.monsters = []
             door.to = newRoom

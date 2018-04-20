@@ -370,7 +370,7 @@ var segments = [
                             new Item (
                               new ItemType (
                                   'inert torso', 'shield',
-                                  [0,0,0,0,0,0],
+                                  [1,1,2,0,0,0],
                                   '50',
                                   'The lich\'s torso rots away to sludge.',
                                   'The torso of a aged woman with no appendages. It lies inert and bloodless but you can still see its heart beating.'

@@ -304,9 +304,9 @@ extras['king\'s sword'] = new ItemType (
 extras['wizard\'s ring'] = new ItemType (
     'wizard\'s ring', 'shield',
     [4,4,4,4,4,4],
-    27,
+    99,
     'Your wizard\'s ring melts, scalding your ring finger.',
-    'A magic ring forged by some kind of wizard and inscribed with a message that you can\'t understand because you don\'t read Sanskrit.'
+    'A magic ring stolen from the Archwizard of Sao Paolo before he succumbed to the rabid insanity that raveged his kind, hidden under the dragon\'s roost to protect it.'
 )
 
 extras['obsidian axe'] = new ItemType (
