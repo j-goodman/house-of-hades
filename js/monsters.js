@@ -514,8 +514,8 @@ var allMonsterTypes = [
                             'by standing over the corpse and shouting so loudly that spit comes out.',
                             'with his hand.',
                             'after removing his hat to speak a prayer.',
-                            `like it's a ${mon.name.split(' ')[mon.name.split(' ').length - 1]} Lazarus`,
-                            `but it almost looks as if it\'s resisting being pulled back into life, its body dissolving as it rises`,
+                            `like it's a ${mon.name.split(' ')[mon.name.split(' ').length - 1]} Lazarus.`,
+                            `but it almost looks as if it\'s resisting being pulled back into life, its body dissolving as it rises.`,
                         ])
                     }`)
                     let roll = dice(3)
@@ -623,7 +623,7 @@ var allMonsterTypes = [
         defense: [2,2,10,8,12,0,],
         hitpoints: 20,
         level: 3,
-        info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback a good safety rating and low gas mileage.',
+        info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback with a good safety rating but low gas mileage.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

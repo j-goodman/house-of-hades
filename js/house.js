@@ -119,7 +119,10 @@ var Room = function (doors, doorCount) {
     if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes), this));
     }
-    doorCount = (doorCount || doorCount === 0) ? doorCount : Math.ceil(Math.random() * (2.1));
+    let rando = dice(14)
+    let amt = rando > 11 ? 2 : 1
+    amt = rando > 13 ? 3 : amt
+    doorCount = (doorCount || doorCount === 0) ? doorCount : amt;
     for (i=0 ; i<doorCount ; i++) {
         if (i > 0 && hour > 0 && allDoors.length > 10 && allUnresolvedDoors().filter((door)=>{ return !usedColors.includes(door.color) }).length > 0 && (allUnresolvedDoors().length > 3)) {
           door = pick(allUnresolvedDoors().filter((selectDoor)=>{ return !usedColors.includes(selectDoor.color) }));

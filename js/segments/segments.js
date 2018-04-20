@@ -107,7 +107,12 @@ var segments = [
 
       room = new Room([], 3);
       rooms.push(room);
-      // room.doors[0].to = otherRoom;
+
+      segmentRooms.map(room => {
+          room.doors.map(door => {
+              door.locked = true
+          })
+      })
     },
 
     /*
