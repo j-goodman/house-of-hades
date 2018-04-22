@@ -585,3 +585,34 @@ extras['foolsfire'] = new MonsterType ({
         })
     }
 })
+
+extras['swordwraith'] = new MonsterType ({
+    name: 'swordwraith',
+    attack: [0,16,0,0,0,0,],
+    defense: [12,12,12,10,12,3,],
+    hitpoints: 20,
+    level: 3,
+    info: 'It\'s a incorporeal figure of swirling black smoke, cursing at you in Sanskrit with a hissing whisper as it prepares to strike with its blade of white light.',
+    drop: [
+        new Item (extras['wraith\'s sword'])
+    ],
+    fightEvent: function () {
+        let slash = !!Math.round(Math.random())
+        this.attack[0] = slash ? 0 : 16
+        this.attack[1] = slash ? 16 : 0
+        drawString(`The swordwraith winds around you like a worlwind waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
+    }
+})
+
+extras['big floating eyeball'] = new MonsterType ({
+    name: 'big floating eyeball',
+    attack: [0,0,3,9,0,0,],
+    defense: [0,9,8,12,6,6,],
+    hitpoints: 20,
+    level: 3,
+    info: 'It\'s a flying eyeball the size of a pumpkin, bloodshot and swollen with geothermal energy.',
+    onDeath: 'The eyeball melts into molten rock, spilling into a puddle on the floor and hardening into black stone.',
+    fightEvent: function () {
+        drawString('The eyeball swells and steams, then erupts, a streak of red-hot molten lava jetting out from its iris.')
+    }
+})

@@ -96,6 +96,15 @@ var allMonsterTypes = [
                 itemByName(pick(['lion\'s hide', 'goat\'s armor'])),
                 itemByName('wizard\'s ring'),
             )
+            allMonsterTypes = allMonsterTypes.filter(mon => {
+                return oneIn(4)
+            })
+            allMonsterTypes.push(extras['half-goat soldier'])
+            allMonsterTypes.push(extras['swordwraith'])
+            allMonsterTypes.push(extras['murderer\'s courage'])
+            allMonsterTypes.push(extras['shapeshifter'])
+            allMonsterTypes.push(extras['nagual'])
+            allMonsterTypes.push(extras['big floating eyeball'])
             door.to.doors.map((innerDoor, index) => {
               innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
                   'colossal basalt',

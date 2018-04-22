@@ -608,7 +608,7 @@ var segments = [
         var otherRoom
 
         let cursedRevolver = new ItemType (
-            'black cursed revolver', 'weapon',
+            'black Nambu', 'weapon',
             [dice(6),0,0,0,0,dice(12)],
             9,
             'The protean cursed revolver finally spins out of control and curls tightly into a laughing ball before exploding into a thick black cloud of spores.',
