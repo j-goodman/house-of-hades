@@ -13,11 +13,11 @@ var MonsterType = function (ob) {
 };
 
 var Monster = function (room, type) {
-    this.attack = type.attack;
+    this.attack = type.attack ? type.attack.map(num => { return num }) : [];
     this.data = {};
     this.deathEvent = type.deathEvent;
-    this.defense = type.defense;
-    this.drop = type.drop;
+    this.defense = type.defense ? type.defense.map(num => { return num }) : [];
+    this.drop = type.drop ? type.drop.map(item => { return item }) : [];
     this.fightEvent = type.fightEvent ? type.fightEvent.bind(this) : false;
     this.room = room;
     this.hitpoints = type.hitpoints;
@@ -89,7 +89,7 @@ var allMonsterTypes = [
             door.to = new Room ([], 13);
             door.to.type = 'amphitheater with thirteen vaulted walls'
             door.to.items.push(
-                itemByName(pick(['laughing mask', 'obsidian axe'])),
+                itemByName(pick(['executioner\'s sword', 'obsidian axe'])),
                 itemByName(pick(['king\'s sword', 'sunfire macana'])),
                 itemByName(pick(['wand of oceans', 'golem\'s blood'])),
                 itemByName(pick(['bag of devil\'s gold', 'canned ghost'])),
@@ -97,9 +97,14 @@ var allMonsterTypes = [
                 itemByName('wizard\'s ring'),
             )
             allMonsterTypes = allMonsterTypes.filter(mon => {
-                return oneIn(4)
+                return oneIn(5)
             })
-            allMonsterTypes.push(extras['half-goat soldier'])
+            allMonsterTypes.push(
+                extras['half-goat soldier'],
+                extras['half-goat soldier'],
+                extras['half-goat soldier'],
+                extras['half-goat soldier']
+            )
             allMonsterTypes.push(extras['swordwraith'])
             allMonsterTypes.push(extras['murderer\'s courage'])
             allMonsterTypes.push(extras['shapeshifter'])

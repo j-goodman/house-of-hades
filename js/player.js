@@ -249,7 +249,7 @@ Player.prototype.fight = function (enemyName, fake=false) {
         }
         this.updateStats(fake);
     }
-    if (this.shield && this.shield.ammo) {
+    if (this.shield && this.shield !== null && this.shield.ammo || this.shield.ammo === 0) {
         if (!fake || !(this.shield === game.player.shield)) {
             this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
         }

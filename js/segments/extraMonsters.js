@@ -290,7 +290,24 @@ extras['half-goat soldier'] = new MonsterType ({
     info: 'A soldier armored in heavy iron, half-man and half-goat. The insignia carved into his breastplate looks like a eye with two perpendicular roads passing through it.',
     drop: [
         new Item (extras['goat\'s armor']),
-    ]
+    ],
+    onInstantiate: function () {
+        let choice = dice(6)
+        this.attack[choice - 1] += 6
+        let weaponNames = [
+            'green\'s spear', // pierce bonus
+            'blade of grass', // slash bonus
+            'goat\'s mace', // crush bonus
+            'liar\'s torch', // burn bonus
+            'bow and venom-barbed arrows', // poison bonus
+            'goat-priest\'s rattle', // curse bonus
+        ]
+        let drop = extras[weaponNames[choice - 1]]
+        this.info += ` It's armed with a ${drop.info.slice(2, drop.length)}`
+        this.drop.push(
+            new Item (drop)
+        )
+    }
 })
 
 extras['kraken'] = new MonsterType ({
@@ -342,7 +359,7 @@ extras['shapeshifter'] = new MonsterType ({
     // pierce, slash, crush, burn, poison, curse
     name: 'shapeshifter',
     attack: [0,0,0,0,0,0,],
-    defense: [12,12,12,12,12,12,],
+    defense: [12,12,12,0,0,12,],
     hitpoints: 20,
     level: 3,
     info: 'A wizard who\'s spent years studying the art of shapeshifting, as signified by the necklace he wears made from the teeth of a thousand unique beasts. The proportions of his body are somewhat irregular, as if he\'s started to lose track of his original shape.',
@@ -570,7 +587,7 @@ extras['foolsfire'] = new MonsterType ({
             let flightTo = new Room ([], dice(2))
             game.house.rooms.push(flightTo)
         } else {
-            if (this.attack[3] > 8) {
+            if (this.attack[3] > 5) {
                 this.name = 'fire golem'
             }
             drawString(`The ${this.name} flares and swells into a larger, angrier looking blaze.`)
