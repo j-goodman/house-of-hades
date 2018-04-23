@@ -434,8 +434,8 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'omnivorous fungus',
-        attack: [0,0,1,0,3,0,],
-        defense: [12,6,6,0,8,4,],
+        attack: [0,0,1,0,2,0,],
+        defense: [11,3,5,0,8,1,],
         hitpoints: 20,
         level: 2,
         info: 'A massive greenish-blue fungal growth with spores wriggling out of its back as it devours the walls it\'s growing on.',

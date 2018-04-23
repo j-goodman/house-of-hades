@@ -95,7 +95,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'woodaxe', 'weapon',
-        [0,3,2,0,0,0],
+        [0,5,2,0,0,0],
         12,
         'Your woodaxe breaks in your hand.',
         'A old axe for splitting wood. Deals moderate slash damage.'
