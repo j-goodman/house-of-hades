@@ -1,7 +1,7 @@
 
 
 var buildSegments = (count, rooms) => {
-  var number = 2;
+  var number = count;
   var choices = [];
   var choice;
   var i;
@@ -17,9 +17,9 @@ var buildSegments = (count, rooms) => {
     choices.push(choice);
   }
   choices.map((index) => {
-    segments[index](count, rooms);
+    segments[index](rooms);
   });
-  // segments[8](count, rooms)
+  // segments[8](rooms)
 };
 
 var segments = [
@@ -28,7 +28,7 @@ var segments = [
     *      SEWAGE MAIN      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       var segmentRooms = [];
       var otherRoom;
 
@@ -120,7 +120,7 @@ var segments = [
     *      TARTARUS      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('tartarus')
       var segmentRooms = [];
       var otherRoom;
@@ -206,7 +206,7 @@ var segments = [
     *      LICH'S GROTTO      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('bones')
       var segmentRooms = [];
       var otherRoom;
@@ -427,7 +427,7 @@ var segments = [
     *      UNICORN AND THE DEVIL      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('horns')
       var segmentRooms = [];
       var otherRoom;
@@ -532,7 +532,7 @@ var segments = [
     *      DOOR MUMBLER      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('doors')
       var segmentRooms = [];
       var otherRoom;
@@ -602,7 +602,7 @@ var segments = [
     *      CURSE DEN      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('curse')
         var segmentRooms = []
         var otherRoom
@@ -798,7 +798,7 @@ var segments = [
     *      XIBALBA      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('xibalba')
         var segmentRooms = []
         var otherRoom
@@ -897,7 +897,7 @@ var segments = [
     *      CROSSROADS      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('crossroads')
         var segmentRooms = []
         var otherRoom
@@ -1020,8 +1020,9 @@ var segments = [
     *      REALM OF DEMONS      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('gate')
+        game.gated = true
         var segmentRooms = []
         var otherRoom
         let segmentDoors = ['yellow', 'sickly yellow', 'sulfur-colored', 'gold', 'greyish-yellow', 'melting', 'opaque black glass', 'carved', 'pale oak', 'pale iron', 'pale steel']
@@ -1099,7 +1100,7 @@ var segments = [
             }
             if (room.monsters.length > 0) {
                 room.doors.map(door => {
-                        door.locked = true
+                    door.locked = true
                 })
             }
         })

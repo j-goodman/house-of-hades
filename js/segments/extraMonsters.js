@@ -283,7 +283,7 @@ extras['screaming mechanical searcher'] = new MonsterType ({
 
 extras['half-goat soldier'] = new MonsterType ({
     name: 'half-goat soldier',
-    attack: [4,7,0,0,0,0,],
+    attack: [0,0,6,0,0,0,],
     defense: [4,11,8,2,7,2,],
     hitpoints: 20,
     level: 3,
@@ -293,7 +293,7 @@ extras['half-goat soldier'] = new MonsterType ({
     ],
     onInstantiate: function () {
         let choice = dice(6)
-        this.attack[choice - 1] += 6
+        this.attack[choice - 1] += 8
         let weaponNames = [
             'green\'s spear', // pierce bonus
             'blade of grass', // slash bonus
@@ -617,7 +617,7 @@ extras['swordwraith'] = new MonsterType ({
         let slash = !!Math.round(Math.random())
         this.attack[0] = slash ? 0 : 16
         this.attack[1] = slash ? 16 : 0
-        drawString(`The swordwraith winds around you like a worlwind waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
+        drawString(`The swordwraith winds around you like a whirlwind, waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
     }
 })
 
