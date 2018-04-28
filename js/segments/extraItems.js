@@ -98,7 +98,7 @@ extras['pair of earthquake boots'] = new ItemType (
 
 extras['goat\'s armor'] = new ItemType (
     'goat\'s armor', 'shield',
-    [4,11,8,2,7,2,],
+    [2,11,9,2,5,2,],
     19,
     'Your goat\'s armor breaks.',
     'Tightly-crafted black armor engraved with a eye with two perpendicular roads passing through it.',
@@ -229,7 +229,7 @@ extras['treacherous hand'] = new ItemType (
         }
     },
     function () { // On instantiate
-        this.data.baseBonus = this.bonus
+        this.data.baseBonus = this.bonus.map(num => { return num })
         this.data.betray = function () {
             drawString(`The treacherous hand leaps out of your grasp and turns against you!`)
             this.room = game.player.room

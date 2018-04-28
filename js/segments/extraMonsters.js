@@ -617,7 +617,7 @@ extras['swordwraith'] = new MonsterType ({
         let slash = !!Math.round(Math.random())
         this.attack[0] = slash ? 0 : 16
         this.attack[1] = slash ? 16 : 0
-        drawString(`The swordwraith winds around you like a worlwind waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
+        drawString(`The swordwraith winds around you like a whirlwind, waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
     }
 })
 

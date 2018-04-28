@@ -110,6 +110,9 @@ var allMonsterTypes = [
             allMonsterTypes.push(extras['shapeshifter'])
             allMonsterTypes.push(extras['nagual'])
             allMonsterTypes.push(extras['big floating eyeball'])
+            if (!game.gated) {
+                segments[8]([])
+            }
             door.to.doors.map((innerDoor, index) => {
               innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
                   'colossal basalt',

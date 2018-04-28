@@ -75,7 +75,7 @@ var House = function (player) {
 
     spawnRoom = houseBuilder.buildSpawn();
 
-    buildSegments(3, this.rooms);
+    buildSegments(dice(2) + 1, this.rooms);
 
     this.rooms.push(spawnRoom);
     player.room = spawnRoom;
