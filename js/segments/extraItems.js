@@ -298,7 +298,7 @@ extras['wizard\'s ring'] = new ItemType (
     [4,4,4,4,4,4],
     99,
     'Your wizard\'s ring melts, scalding your ring finger.',
-    'A magic ring stolen from the Archwizard of Sao Paolo before he succumbed to the rabid insanity that ravaged his kind, hidden under the dragon\'s roost to protect it.'
+    `A magic ring stolen from the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz'])} before he succumbed to the rabid insanity that ravaged his kind, hidden under the dragon\'s roost to protect it.`
 )
 
 extras['obsidian axe'] = new ItemType (
@@ -446,48 +446,48 @@ extras['bottle of violet powder'] = new ItemType (
 
 extras['green\'s spear'] = new ItemType (
     'green\'s spear', 'weapon',
-    [6,0,0,0,0,0],
-    16,
+    [7,0,0,0,0,0],
+    17,
     'Your green\'s spear breaks.',
     `A long spear made of gleaming green steel with two leather-wrapped handles.`
 )
 
 extras['blade of grass'] = new ItemType (
     'blade of grass', 'weapon',
-    [0,6,0,0,0,0],
-    16,
+    [0,7,0,0,0,0],
+    17,
     'Your blade of grass breaks.',
     `A spearlike weapon ending in a foot-long slashing blade forged out of shining green steel.`
 )
 
 extras['goat\'s mace'] = new ItemType (
     'goat\'s mace', 'weapon',
-    [0,0,6,0,0,0],
-    16,
+    [0,0,7,0,0,0],
+    17,
     'Your goat\'s mace breaks.',
     `A hooked and cragged mace made of heavy blunt-forged blue iron.`
 )
 
 extras['liar\'s torch'] = new ItemType (
     'liar\'s torch', 'weapon',
-    [0,0,0,6,0,0],
-    16,
+    [0,0,0,7,0,0],
+    17,
     'Your liar\'s torch breaks.',
     `A intricate zinc and copper mechanism that takes in air and spits it out as globs of bright blue fire.`
 )
 
 extras['bow and venom-barbed arrows'] = new ItemType (
     'bow and venom-barbed arrows', 'weapon',
-    [0,0,0,0,6,0],
-    16,
+    [0,0,0,0,7,0],
+    17,
     'You\'re out of venom-barbed arrows.',
-    `A bow equipped with small arrows too light to do much damage on their owned, but tipped with venom drawn from more than a million individual harvester ants.`
+    `A bow equipped with small arrows too light to do much damage on their own, but tipped with venom drawn from more than a million individual harvester ants.`
 )
 
 extras['goat-priest\'s rattle'] = new ItemType (
     'goat-priest\'s rattle', 'weapon',
-    [0,0,0,0,0,6],
-    16,
+    [0,0,0,0,0,7],
+    17,
     'The goat-priest\'s rattle breaks.',
     `A blue iron staff ending in a small cage filled with the bones of the ancestors of some long-ago goat-shaman.`
 )

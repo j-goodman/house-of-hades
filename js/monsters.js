@@ -541,10 +541,10 @@ var allMonsterTypes = [
                     mon.hitpoints = 20
                     switch (roll) {
                         case 1:
-                            mon.name = `unmurdered ${mon.name}`
+                            mon.name = `revenant ${mon.name}`
                             mon.attack[0] += 3 // pierce attack bonus
                             mon.attack[5] += 1 // curse attack bonus
-                            mon.info += ' It was murdered and has risen changed.'
+                            mon.info += ' It was murdered and has risen in wrath.'
                             break;
                         case 2:
                             mon.name = `reanimated ${mon.name}`
