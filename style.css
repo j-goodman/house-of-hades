@@ -151,6 +151,10 @@ li {
     background: rgba(255,0,0,.35);
 }
 
+.game-over-card {
+    background: rgba(255,0,0,.20);
+}
+
 .card > div {
     margin: 12px 6px 9px 6px;
 }

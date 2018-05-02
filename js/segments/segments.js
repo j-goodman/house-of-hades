@@ -998,7 +998,6 @@ var segments = [
             west,
             pick([
                 extras['wildgod'],
-                extras['laughing woman'],
                 extras['murderer\'s courage'],
                 extras['boa constrictor'],
                 extras['heart-eating fox']

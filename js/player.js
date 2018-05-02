@@ -29,6 +29,7 @@ Player.prototype.welcome = function () {
     this.describeDoors();
     this.describeItems();
     this.describeMonsters();
+    updateRoom();
 };
 
 Player.prototype.lookAround = function () {
@@ -215,6 +216,10 @@ Player.prototype.fight = function (enemyName, fake=false) {
     var enemy;
     var i;
     var shieldUse = 0;
+    if (!this.alive) {
+        drawString('You\'re dead.')
+        return true
+    }
     if (typeof enemyName === 'string') {
         this.room.monsters.map(function (monster) {
           if (monster.name === enemyName) {
@@ -290,9 +295,10 @@ Player.prototype.use = function (itemName) {
 }
 
 Player.prototype.die = function () {
-    clearType();
-    drawString('You\'re dead.');
+    clearType()
+    drawString('You\'re dead.')
     this.alive = false;
+    window.setTimeout(gameOver, 1500)
 };
 
 Player.prototype.recover = function (active=false) {

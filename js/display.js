@@ -141,6 +141,31 @@ updateInventory = () => {
     display.hitpoints.innerText = `HITPOINTS|${game.player.stats.hitpoints}`
 }
 
+gameOver = () => {
+    let element = document.createElement('div')
+    element.className = 'door-card card game-over-card'
+    let header = document.createElement('div')
+    header.innerText = 'Try to kill the dragon again?'
+    element.appendChild(header)
+
+    let again = document.createElement('a')
+    again.className = 'action-button'
+    again.innerText = 'GO'
+    updateRoom = () => {}
+    updateRoomContents = () => {}
+    updateInventory = () => {}
+    again.addEventListener('click', () => {
+        // instantiateNewGame()
+        // updateRoom()
+        // updateInventory()
+        window.location.reload()
+    })
+
+    element.appendChild(again)
+    display.doors.innerHTML = ''
+    display.doors.appendChild(element)
+}
+
 doorCard = door => {
     let element = document.createElement('div')
     element.className = 'door-card card'

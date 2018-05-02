@@ -1,3 +1,7 @@
+var setupHouse = () => {
+  window.allDoors = [];
+}
+setupHouse()
 var pick = function (array) {
     return array[Math.floor(Math.random() * array.length)];
 };
@@ -32,7 +36,6 @@ var pickUnique = function (array, nonArray) {
         }
     }
 };
-var allDoors = [];
 var allUnresolvedDoors = () => {
   return allDoors.filter((door) => {
     return (!door.to && door.from.doors.includes(door));
