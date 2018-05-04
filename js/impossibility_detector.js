@@ -269,6 +269,11 @@ impossibility_detector.detectImpossibility = function () {
 }
 
 impossibility_detector.solve = function () {
+    if (game.last_solve && hour - game.last_solve <= 7) {
+        return false
+    } else {
+        game.last_solve = hour
+    }
     let room = pick(game.player.room.doors.map(door => {
         if (door.to !== game.player.room) {
             return door.to

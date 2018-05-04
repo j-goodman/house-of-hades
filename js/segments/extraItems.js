@@ -178,8 +178,8 @@ extras['sunfire macana'] = new ItemType (
 
 extras['primordial glob'] = new ItemType (
     'primordial glob', 'weapon',
-    [0,0,1,0,8,3],
-    3,
+    [0,0,1,0,7,3],
+    2,
     'The primordial glob bursts, diffusing its being over the entirety of the universe, and in so doing becoming dispersed enough that its presence can be only slightly felt.',
     'A squirming unstable glob of organic matter. Its composition is so different from any other known living matter that its very presence is a corrupting power. You can throw it at your enemies.'
 )

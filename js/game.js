@@ -23,10 +23,6 @@ var instantiateNewGame = () => {
             game.player.welcome.bind(game.player);
         }
     });
-
-    if (setupHouse) {
-        setupHouse()
-    }
 }
 
 instantiateNewGame()

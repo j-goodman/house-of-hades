@@ -102,8 +102,8 @@ var allItemTypes = [
     ),
     new ItemType (
         'sledgehammer', 'weapon',
-        [1,0,4,0,0,0],
-        12,
+        [1,0,6,0,0,0],
+        9,
         'Your sledgehammer breaks in your hand.',
         'A rusty old hammer.'
     ),
@@ -205,6 +205,29 @@ var allItemTypes = [
         'Your sickle breaks.',
         'A handheld tool with a curved blade for cutting grass.'
     ),
+    new ItemType (
+        'broken bottle', 'weapon',
+        [2,3,0,0,0,0],
+        5,
+        'The broken bottle breaks again, this time into too many pieces for it to be useful as a weapon.',
+        `A glass bottle whose label you can't read, broken off at the bottom into a jagged edge.`
+    ),
+    new ItemType (
+        'bottle of lightning', 'weapon',
+        [0,0,8,11,0,0],
+        8,
+        'The bottle of lightning cracks and then shatters, crackling with electricity as its shards rattle to the ground.',
+        'A liquor bottle whose cork is trapping a bolt of lightning that bounces wildly at 800 miles per hour within the impervious glass, retaining its potency even in captivity.',
+        null,
+        function () { // On use
+            drawString('As you quickly remove and return the cork from the bottle, some of the electricity within escapes with a crack of thunder.')
+            this.bonus = this.bonus.map(num => { return num })
+            this.bonus[3] -= (dice(3) + dice(2))
+            this.bonus[3] = this.bonus[3] < 2 ? 2 : this.bonus[3]
+            this.bonus[2] -= dice(3)
+            this.bonus[2] = this.bonus[2] < 0 ? 0 : this.bonus[2]
+        },
+    ),
     // pierce, slash, crush, burn, poison, curse
 
     /*///
@@ -269,7 +292,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'golem\'s blood', 'shield',
-        [2,5,7,1,0,0],
+        [2,5,7,2,0,0],
         8,
         'You\'re out of golem\'s blood.',
         'A vial of silty mud from the veins of a golem. Increases your resiliance against physical attacks.'
@@ -297,17 +320,24 @@ var allItemTypes = [
     ),
     new ItemType (
         'chainmail shirt', 'shield',
-        [10,1,0,0,0,0],
+        [7,4,0,0,0,0],
         9,
         'Your chainmail shirt is too badly damaged to use anymore.',
         'An old iron mail shirt. Protects effectively against pierce damage.'
     ),
     new ItemType (
-        'pair of haze glasses', 'shield',
-        [7,0,0,0,0,2],
-        7,
-        'Your haze glasses break.',
-        'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility, making them harder to hit with pierce attacks.'
+        'smoke bomb', 'shield',
+        [10,9,4,5,0,0],
+        1,
+        'The smoke bomb bursts into a plume of thick black fumes.',
+        'A blue metal smoke bomb the size of a peach. You can throw it down to shroud yourself in a thick cloud of smoke and make it harder for enemies to hit you.'
+    ),
+    new ItemType (
+        'snowowl\'s mask', 'shield',
+        [0,0,6,6,0,0],
+        8,
+        'Your mask splinters and shatters into frozen shards.',
+        'A mask like the face of a white owl, made of hard unmelting ice. It\'s cursed so that when you wear it your body temperature drops and a hard frost runs through you. Protects against burning and crush damage.'
     ),
 
     // pierce, slash, crush, burn, poison, curse

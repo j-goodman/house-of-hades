@@ -111,7 +111,7 @@ var allMonsterTypes = [
             allMonsterTypes.push(extras['nagual'])
             allMonsterTypes.push(extras['big floating eyeball'])
             if (!game.gated) {
-                segments[8]([])
+                // segments[8]([])
             }
             door.to.doors.map((innerDoor, index) => {
               innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
@@ -143,7 +143,7 @@ var allMonsterTypes = [
         attack: [3,1,0,0,4,0],
         defense: [2,1,3,2,7,0],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'It\'s a scorpion the size of a dog. Careful of that poison sting.',
     }),
     new MonsterType ({
@@ -188,7 +188,7 @@ var allMonsterTypes = [
         attack: [5,3,0,0,0,0,],
         defense: [4,6,7,3,2,4,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'A creature like a mangy flea-ridden wild dog reared to its hind legs with a look of ferocious hunger in its eyes.',
         fightEvent: function () {
             var people;
@@ -235,7 +235,7 @@ var allMonsterTypes = [
         attack: [2,3,0,0,1,0,],
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
-        level: 2,
+        level: 1,
         info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and a expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
@@ -251,7 +251,7 @@ var allMonsterTypes = [
         attack: [0,0,0,8,0,0,],
         defense: [4,4,4,12,2,0,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',
         onDeath: 'Its face goes slack and swirls into a glob of black flame which falls and bursts.',
         drop: [new Item(itemByName(Math.floor(Math.random()) ? 'ghostcandle' : 'burned bone'))]
@@ -277,7 +277,7 @@ var allMonsterTypes = [
         attack: [1,0,0,0,2,0,],
         defense: [0,0,0,0,0,0,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'It\'s poisonous!',
     }),
     new MonsterType ({
@@ -301,7 +301,7 @@ var allMonsterTypes = [
         attack: [5,0,0,0,3,0,],
         defense: [4,0,1,2,5,1,],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'A long, small Amazonian wildcat known for its piercing bite. This one looks like it might be rabid, so be careful of poison. Try slashing or crushing it if you catch it.',
     }),
     new MonsterType ({
@@ -326,7 +326,7 @@ var allMonsterTypes = [
         attack: [0,0,0,0,0,9,],
         defense: [6,1,2,0,0,4,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'He looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
     }),
     new MonsterType ({
@@ -342,7 +342,7 @@ var allMonsterTypes = [
         attack: [0,0,0,6,0,1,],
         defense: [8,7,5,0,5,5,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'The ghost of a man convicted of setting fire to property public and private, recidivating after a lethal injection. He\'s most vulnerable to fire.',
     }),
     new MonsterType ({
@@ -350,7 +350,7 @@ var allMonsterTypes = [
         attack: [0,0,1,0,2,0,],
         defense: [0,10,0,5,2,1,],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'A pulsating blot of veiny scab-covered flesh with seven blinking eyes and a shapeless bleating mouth. It doesn\'t seem dangerous.',
     }),
     new MonsterType ({
@@ -468,7 +468,7 @@ var allMonsterTypes = [
         attack: [0,0,0,0,0,0,],
         defense: [9,7,6,3,3,1,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'A sharp-toothed feline-eared diminuitive grey implike creature with wild deranged eyes.',
         onInstantiate: function () {
             this.data.baseDefense = this.defense.map(stat => { return stat })
@@ -631,7 +631,7 @@ var allMonsterTypes = [
         attack: [1,0,0,0,3,3,],
         defense: [8,1,10,0,0,0,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'It\'s stingray hovering in the air.',
     }),
     new MonsterType ({

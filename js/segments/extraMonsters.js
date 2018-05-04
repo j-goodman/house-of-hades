@@ -427,7 +427,7 @@ extras['traitorous hand'] = new MonsterType ({
     info: `A olive-skinned hand broken off at the wrist. It can suspend itself in the air and grip with the strength of a ape.`,
     deathEvent: function () {
         let drop = new Item (extras['treacherous hand'], this.room)
-        drop.bonus = drop.data.baseBonus
+        drop.bonus = [0,0,6,0,0,3]
         drawString(`The treacherous hand goes limp in the air and drops to the ground.`)
         drop.ammo = this.data.ammo || 15
         this.room.items.push(drop)
@@ -578,17 +578,32 @@ extras['foolsfire'] = new MonsterType ({
     fightEvent: function () {
         if (this.attack[3] === 0) {
             let door = new Door ((game.player.room.doors.map(door => { return door.color }).includes('pale-lit') ? 'dim-lit' : 'pale-lit'), this.room, false, false)
-            let newRoom = new Room ([door], 2)
+            let firstRoom = new Room ([door], 1)
+            let secondRoom = new Room ([firstRoom.doors[1]], 0)
+            firstRoom.type = `long ${pick(['candle-lit', 'fog-filled'])} hallway of black stone bricks`
+            secondRoom.type = 'tomb'
             drawString(`The foolsfire passes through a door in the wall that you hadn't seen before, lit by a pale white light.`)
-            newRoom.monsters = []
-            door.to = newRoom
+            firstRoom.monsters = []
+            door.to = firstRoom
+            firstRoom.doors[1].to = secondRoom
+            firstRoom.doors[1].color = 'black'
+            firstRoom.items.push(
+                new Item (pick(allItemTypes.filter(item => { return item.slot === 'weapon' })), firstRoom),
+                new Item (pick(allItemTypes.filter(item => { return item.slot === 'shield' })), firstRoom),
+                new Item (pick(allItemTypes), firstRoom),
+            )
+            firstRoom.mana += dice(3) + dice(4)
+            secondRoom.items.push(
+                new Item (pick(allItemTypes), firstRoom),
+            )
             this.room.doors.push(door)
             this.room.monsters = []
-            let flightTo = new Room ([], dice(2))
-            game.house.rooms.push(flightTo)
+            secondRoom.monsters = [this]
+            this.room = secondRoom
         } else {
             if (this.attack[3] > 5) {
                 this.name = 'fire golem'
+                this.info = 'It\'s a sparking blue flame fuming black smoke as it shivers in the air before you.'
             }
             drawString(`The ${this.name} flares and swells into a larger, angrier looking blaze.`)
         }

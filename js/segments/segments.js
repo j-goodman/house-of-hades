@@ -42,9 +42,7 @@ var segments = [
 
       var usedItems = [];
       var segmentItems = [
-        itemByName('cursed pistol'), itemByName('evil eye'), itemByName('posessed bible'), itemByName('life-giving herb'), itemByName('crowbar'),
-        // pierce, slash, crush, burn, poison, curse
-        extras['black stone idol'],
+        itemByName('bleeding mushroom'), itemByName('evil eye'), itemByName('posessed bible'), itemByName('life-giving herb'), itemByName('crowbar'),
         extras['razor-sharp bone'],
       ];
 
@@ -80,6 +78,8 @@ var segments = [
           segmentRooms[segmentRooms.length - 1].doors[0] = segmentRooms[segmentRooms.length - 2].doors[segmentRooms[segmentRooms.length - 2].doors.length - 1];
           rooms.push(room);
       })
+
+      pick(segmentRooms).items.push(new Item (extras['black stone idol']))
 
       segmentRooms[3].monsters.push(
           new Monster (segmentRooms[3],

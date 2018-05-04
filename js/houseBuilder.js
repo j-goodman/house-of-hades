@@ -35,5 +35,6 @@ houseBuilder.buildSpawn = function () {
   }
   let weaponRoom = pick(spawn.doors).to
   weaponRoom.items.push(new Item (itemByName(pick(['revolver', 'revolver', 'revolver', 'machete', 'crowbar', 'woodaxe', 'woodaxe', 'torch', 'torch'])), spawn))
+  spawn.mana += 6
   return spawn;
 };
