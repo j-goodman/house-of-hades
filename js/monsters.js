@@ -642,6 +642,14 @@ var allMonsterTypes = [
         level: 3,
         info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback with a good safety rating but low gas mileage.',
     }),
+    new MonsterType ({
+        name: 'toxic snail',
+        attack: [0,0,6,0,5,0,],
+        defense: [3,3,7,0,5,0,],
+        hitpoints: 20,
+        level: 2,
+        info: 'It\'s a yellow snail in a shell the size of a small European car, oozing venomous slime as it crawls at you.',
+    }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({
     //     name: 'template',
