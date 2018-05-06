@@ -594,7 +594,7 @@ extras['foolsfire'] = new MonsterType ({
             )
             firstRoom.mana += dice(3) + dice(4)
             secondRoom.items.push(
-                new Item (pick(allItemTypes), firstRoom),
+                new Item (pick(allItemTypes), secondRoom),
             )
             this.room.doors.push(door)
             this.room.monsters = []
