@@ -632,7 +632,7 @@ var allMonsterTypes = [
         defense: [8,1,10,0,0,0,],
         hitpoints: 20,
         level: 2,
-        info: 'It\'s stingray hovering in the air.',
+        info: 'It\'s a stingray hovering in the air.',
     }),
     new MonsterType ({
         name: 'Opel Manta',
