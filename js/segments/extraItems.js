@@ -298,7 +298,7 @@ extras['wizard\'s ring'] = new ItemType (
     [4,4,4,4,4,4],
     99,
     'Your wizard\'s ring melts, scalding your ring finger.',
-    `A magic ring stolen from the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz'])} before he succumbed to the rabid insanity that ravaged his kind, hidden under the dragon\'s roost to protect it.`
+    `A magic ring stolen from the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])} before he succumbed to the rabid insanity that ravaged his kind, hidden under the dragon\'s roost to protect it.`
 )
 
 extras['obsidian axe'] = new ItemType (

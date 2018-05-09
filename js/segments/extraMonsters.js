@@ -6,7 +6,8 @@ extras['arcane merchant'] = Object.assign({}, monByName('weaghrai'))
 extras['arcane merchant'].defense = monByName('weaghrai').defense.map(num => { return num })
 extras['arcane merchant'].attack = monByName('weaghrai').attack.map(num => { return num })
 extras['arcane merchant'].name = 'arcane merchant'
-extras['arcane merchant'].info = 'A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The cat\'s eye on his necklace marks him as a worshipper of the night god Tezcatlipoca.'
+let randomNum = dice(5) - 1
+extras['arcane merchant'].info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. The ${['cat\'s eye', 'cat\'s eye', 'conch shell', 'corn husk', 'atalatl dart'][randomNum]} on his necklace marks him as a worshipper of ${['the night god Tezcatlipoca', 'the night god Tezcatlipoca', 'the wind god Quetzalcoatl', 'the flayed god Xipe Totec', 'the sun god Huitzilopochtli'][randomNum]}.`
 extras['arcane merchant'].defense[5] = 10
 extras['arcane merchant'].defense[2] = 10
 extras['arcane merchant'].attack[2] = 4
@@ -20,7 +21,7 @@ extras['arcane merchant'].onInstantiate = function () {
         extras['cosmic ball'],
         extras['djinn\'s sword'],
         extras['spidersilk sling'],
-        extras['Greek\'s dager'],
+        extras['Greek\'s dagger'],
         extras['mithril vest'],
         extras['angel\'s armor'],
         extras['goat\'s armor'],
@@ -633,7 +634,7 @@ extras['swordwraith'] = new MonsterType ({
         this.attack[0] = slash ? 0 : 16
         this.attack[1] = slash ? 16 : 0
         drawString(`The swordwraith winds around you like a whirlwind, waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
-    }
+    },
 })
 
 extras['big floating eyeball'] = new MonsterType ({
@@ -646,5 +647,48 @@ extras['big floating eyeball'] = new MonsterType ({
     onDeath: 'The eyeball melts into molten rock, spilling into a puddle on the floor and hardening into black stone.',
     fightEvent: function () {
         drawString('The eyeball swells and steams, then erupts, a streak of red-hot molten lava jetting out from its iris.')
+    }
+})
+
+extras['marble guardian'] = new MonsterType ({
+    name: 'marble guardian',
+    attack: [0,0,0,0,0,0,],
+    defense: [12,12,12,12,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A marble colossus in the shape of a crocodile. Inscribed at its base is the message “By the word of the Seven Archwizards is the Demon King behind this monument sealed.”',
+    onDeath: 'The marble guardian splits in two with a crack like thunder.',
+    fightEvent: function () {
+        if (game.player.shield && game.player.shield.name === 'wizard\'s ring' && this.defense[2] === 12) {
+            drawString('The wizard\'s ring glows with white light as you touch the surface of the marble guardian. The crocodile\'s maw creaks open, revealing a small marble door with a pearl knob.')
+            this.defense[2] = 0
+            let door = new Door ('pearl-handled marble', game.player.room, null);
+            door.to = new Room ([door], 0);
+            door.to.items = []
+            door.to.monsters = []
+            door.to.monsters.push(new Monster (door.to, extras['demon king']))
+            door.to.type = 'ancient prison cell'
+            game.player.room.doors.push(door)
+        } else if (game.player.room.monsters.length === 1) {
+            game.player.room.doors.map(door => {
+                door.locked = false
+                updateRoomContents()
+            })
+        }
+    }
+})
+
+extras['demon king'] = new MonsterType ({
+    name: 'demon king',
+    attack: [0,0,0,5,7,3,],
+    defense: [12,12,12,10,6,5,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A withered old man radiating divine energy, starved and emaciated by centuries of imprisonment.',
+    fightEvent: function () {
+        drawString('The demon king strikes the door you came in through with his hand.')
+        this.room.doors[0].color = 'demon king\'s'
+        this.room.doors[0].from = this.room
+        this.room.doors[0].to = false
     }
 })

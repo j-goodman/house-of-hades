@@ -837,7 +837,6 @@ var segments = [
             itemByName('life-giving herb'),
             itemByName('firebomb'),
             itemByName('atalatl'),
-            itemByName('sledgehammer'),
             itemByName('blowgun'),
             itemByName('torch'),
             itemByName('ghostcandle'),
@@ -1088,6 +1087,7 @@ var segments = [
                 }
             }
             room.monsters = []
+            room.items = []
             if (oneIn(2)) {
                 room.monsters.push(new Monster (room, extras[pick([
                     'carcinogenic demon',
@@ -1103,5 +1103,7 @@ var segments = [
                 })
             }
         })
+        let demonKingCell = pick([prisonCells[1], prisonCells[2]])
+        demonKingCell.monsters.push(new Monster (demonKingCell, extras['marble guardian']))
     },
 ]
