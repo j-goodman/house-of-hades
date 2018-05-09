@@ -669,7 +669,7 @@ extras['marble guardian'] = new MonsterType ({
     defense: [12,12,12,12,12,12,],
     hitpoints: 20,
     level: 3,
-    info: 'A marble colossus in the shape of a crocodile. Inscribed at its base is the message “By the word of the Seven Archwizards is the Demon King behind this monument sealed.”',
+    info: 'A marble colossus in the shape of a crocodile. Inscribed at its base is the message “By the word of the Seven Archwizards is the demon king behind this monument sealed.”',
     onDeath: 'The marble guardian splits in two with a crack like thunder.',
     fightEvent: function () {
         if (game.player.shield && game.player.shield.name === 'wizard\'s ring' && this.defense[2] === 12) {
@@ -697,11 +697,87 @@ extras['demon king'] = new MonsterType ({
     defense: [12,12,12,10,6,5,],
     hitpoints: 20,
     level: 3,
-    info: 'A withered old man radiating divine energy, starved and emaciated by centuries of imprisonment.',
+    info: 'A withered old man radiating divine energy, starved and emaciated by centuries of imprisonment. He\'s the king of demons.',
+    drop: [
+        new Item (itemByName('crown')),
+        new Item (itemByName('knife')),
+    ],
     fightEvent: function () {
         drawString('The demon king strikes the door you came in through with his hand.')
         this.room.doors[0].color = 'demon king\'s'
         this.room.doors[0].from = this.room
-        this.room.doors[0].to = false
+        this.room.doors[0].to = new Room ([this.room.doors[0]], 2)
+        if (this.room.doors[0].to.monsters.length === 0) {
+            this.room.doors[0].to.monsters.push(
+                new Monster (this.room.doors[0].to, extras[
+                    pick([
+                        'carcinogenic demon',
+                        'bottle demon',
+                        'looking demon',
+                        'strangling demon',
+                        'razor demon',
+                        'old old man',
+                    ])
+                ])
+            )
+        }
+    },
+    deathEvent: function () {
+        game.player.stats.baseAttack[2] = 0
+        game.player.stats.baseAttack[3] = 15
+        game.player.stats.baseDefense[0] = 0
+        game.player.stats.baseDefense[1] = 0
+        game.player.stats.baseDefense[2] = 0
+        game.player.stats.baseDefense[4] = 12
+        game.player.stats.baseDefense[5] = 12
+        updateRoom()
+        updateInventory()
+        drawString('You\'ve killed the demon king.')
+    },
+})
+
+extras['raven totem'] = new MonsterType ({
+    name: 'raven totem',
+    attack: [1,0,0,0,0,0,],
+    defense: [12,12,12,11,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A raven-shaped totem twice your height, carved out of pitch black wood with some kind of slick finish. Its eyes are inset pale stones, as dead and motionless as the rest of its graven body.',
+    onInstantiate: function () {
+        this.room.doors[0].locked = true
+    },
+    fightEvent: function () {
+        drawString('You\'re seized by a mild piercing sensation in your chest as you attack the raven totem.')
+    }
+})
+
+extras['Behemoth spawn'] = new MonsterType ({
+    name: 'Behemoth spawn',
+    attack: [0,0,2,0,0,0,],
+    defense: [10,12,12,12,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'One of the hundred children of the Behemoth of Job. It\'s a hairy brown creature the size of a mammoth, idly looking up at you with suspicion as it tries to sleep.',
+    onInstantiate: function () {
+        this.data.progress = 0
+        this.room.doors[0].locked = true
+    },
+    fightEvent: function () {
+        drawString([
+            'The wooly colossus lazily swats at you with one of its long double-jointed arms.',
+            'The Behemoth spawn lazily swats at you again, stirring anxiously as it tries to sleep.',
+            'You feel the air pressure of the room change slightly as the Behemoth spawn inhales a huge breath and swats you, its brow furrowing and looking warningly at you.',
+            'The Behemoth wakes and staggers to its feet, reaching out to swat you away.',
+            'The Behemoth roars and strikes at you.',
+        ][this.data.progress])
+        if (this.data.progress < 4) {
+            this.data.progress += 1
+        } else {
+            this.info = 'One of the hundred children of the Behemoth of Job. It\'s a hairy brown creature the size of a mammoth, fully awake now and fuming with frustration, the force of its hot breath hitting you like a gale.'
+            this.defense[0] -= 1
+            this.defense[1] -= 1
+        }
+        this.attack[2] += this.data.progress
+        this.attack[2] = this.attack[2] > 27 ? 27 : this.attack[2]
     }
 })

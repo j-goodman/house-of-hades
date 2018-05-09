@@ -477,7 +477,7 @@ var segments = [
               name: 'devil',
               attack: [3,0,0,7,5,2],
               defense: [11,2,5,11,11,2],
-              hitpoints: 37,
+              hitpoints: 31,
               level: 3,
               info: 'It\'s the devil, bright red and with a three-pronged hayfork in his hands.',
               onDeath: 'You killed the devil.',
@@ -548,7 +548,7 @@ var segments = [
               // pierce, slash, crush, burn, poison, curse
               name: 'door mumbler',
               attack: [0,2,8,1,0,0],
-              defense: [8,4,8,1,3,8],
+              defense: [9,4,10,1,3,8],
               hitpoints: 20,
               level: 3,
               info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
@@ -573,9 +573,7 @@ var segments = [
           new Door (
             doorMumbler.mumbleDoor(),
             this.room,
-            pick(allDoors.filter((door) => {
-              return door.to !== true;
-            })).to
+            false
           )
         );
         drawString('The door mumbler lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
@@ -1077,7 +1075,10 @@ var segments = [
         })
         prisonCells[0].doors[2].to = new Room ([prisonCells[0].doors[2]], 1)
         prisonCells[0].doors[2].to.type = 'ornate yellow gateway room denoting the passage between two states of being'
-        prisonCells[0].doors[2].to.monsters = []
+        prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, extras[pick([
+            'Behemoth spawn',
+            'raven totem',
+        ])])]
         prisonCells[0].doors[2].color = 'gateway'
         prisonCells[0].doors[0].color = 'black'
         prisonCells[0].doors[1].color = 'yellow'

@@ -171,7 +171,7 @@ extras['harpoon'] = new ItemType (
 extras['sunfire macana'] = new ItemType (
     'sunfire macana', 'weapon',
     [1,0,7,9,0,1],
-    9,
+    11,
     'A dried and shriveled corpse descends through the ceiling in a shower of sun-dew -- the mummified remains of Pachacuti Inka. He thiefs the macana from out your hand and ascends again to the realm of the sun-god.',
     'A weapon forged by Pachacuti the Earthshaker and used in his conquest of the Andes, a light wooden shaft ending in a solid gold star-shaped head imbued with the solar fire of Inti.'
 )
@@ -296,7 +296,7 @@ extras['king\'s sword'] = new ItemType (
 extras['wizard\'s ring'] = new ItemType (
     'wizard\'s ring', 'shield',
     [4,4,4,4,4,4],
-    99,
+    299,
     'Your wizard\'s ring melts, scalding your ring finger.',
     `A magic ring stolen from the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])} before he succumbed to the rabid insanity that ravaged his kind, hidden under the dragon\'s roost to protect it.`
 )
@@ -490,6 +490,22 @@ extras['goat-priest\'s rattle'] = new ItemType (
     17,
     'The goat-priest\'s rattle breaks.',
     `A blue iron staff ending in a small cage filled with the bones of the ancestors of some long-ago goat-shaman.`
+)
+
+extras['knife'] = new ItemType (
+    'knife', 'weapon',
+    [2,4,0,0,0,0],
+    17,
+    'The knife breaks.',
+    `A black steel knife.`
+)
+
+extras['crown'] = new ItemType (
+    'crown', 'shield',
+    [0,1,1,0,0,0],
+    29,
+    'The crown breaks.',
+    `A plain black crown.`
 )
 
 // extras['faker\'s arm'] = new ItemType (
