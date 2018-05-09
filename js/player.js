@@ -97,16 +97,13 @@ Player.prototype.get = function (targetName) {
     //console.log('You take the ' + target.name + '.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
-        if (target === this.room.items[j]) {
+        if (target.id === this.room.items[j].id) {
             this.room.items = this.room.items.slice(0,j).concat(this.room.items.slice(j+1,this.room.items.length));
         }
     }
     if (oldItem) {
         //console.log('You drop your ' + oldItem.name + '.');
         oldItem.room = game.player.room
-        if (oldItem.onDrop) {
-            oldItem.onDrop()
-        }
         this.room.items.push(oldItem);
         oldItem.room = this.room;
         this.updateStats();
@@ -117,6 +114,12 @@ Player.prototype.get = function (targetName) {
       //console.log('Your defense' + (this.shield ? (' (with ' + this.shield.name.toUpperCase() + ')') : '') + ': ' + this.statObjString(this.stats.defense, this.shield));
     }
     //console.log('');
+    updateRoom()
+    if (oldItem) {
+        if (oldItem.onDrop) {
+            oldItem.onDrop()
+        }
+    }
 };
 
 Player.prototype.hold = function (targetName) {
@@ -142,10 +145,11 @@ Player.prototype.hold = function (targetName) {
     //console.log('You put the ' + target.name + ' away for later.');
     this.updateStats();
     for (j=0 ; j<this.room.items.length ; j++) {
-        if (target === this.room.items[j]) {
+        if (target.id === this.room.items[j].id) {
             this.room.items = this.room.items.slice(0,j).concat(this.room.items.slice(j+1,this.room.items.length));
         }
     }
+    updateRoom()
 };
 
 Player.prototype.drop = function (itemName) {
@@ -197,6 +201,7 @@ Player.prototype.drop = function (itemName) {
     });
   }
   this.updateStats();
+  updateRoom()
 };
 
 Player.prototype.updateStats = function (fake=false) {

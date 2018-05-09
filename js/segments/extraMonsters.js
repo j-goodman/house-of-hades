@@ -590,7 +590,7 @@ extras['foolsfire'] = new MonsterType ({
             let door = new Door ((game.player.room.doors.map(door => { return door.color }).includes('pale-lit') ? 'dim-lit' : 'pale-lit'), this.room, false, false)
             let firstRoom = new Room ([door], 1)
             let secondRoom = new Room ([firstRoom.doors[1]], 0)
-            firstRoom.type = `long ${pick(['candle-lit', 'fog-filled'])} hallway of black stone bricks`
+            firstRoom.type = `long ${pick(['candle-lit', 'fog-filled', 'deathly-smelling'])} hallway of black stone bricks ${pick(['', '', 'strewn with skeletons', 'strewn with the skeletons of the adventurers who came before you', 'with a badly burned corpse on the floor, his equipment spilled out across the hallway', 'with a broken-necked corpse on the floor, her equipment spilled out across the hallway'])}`
             secondRoom.type = 'tomb'
             drawString(`The foolsfire passes through a door in the wall that you hadn't seen before, lit by a pale white light.`)
             firstRoom.monsters = []
@@ -600,7 +600,6 @@ extras['foolsfire'] = new MonsterType ({
             firstRoom.items.push(
                 new Item (pick(allItemTypes.filter(item => { return item.slot === 'weapon' })), firstRoom),
                 new Item (pick(allItemTypes.filter(item => { return item.slot === 'shield' })), firstRoom),
-                new Item (pick(allItemTypes), firstRoom),
             )
             firstRoom.mana += dice(3) + dice(4)
             secondRoom.items.push(
@@ -610,20 +609,25 @@ extras['foolsfire'] = new MonsterType ({
             this.room.monsters = []
             secondRoom.monsters = [this]
             this.room = secondRoom
+            this.defense[0] -= dice(5)
+            this.defense[1] -= dice(6)
+            this.defense[2] -= (dice(4) - 1)
+            this.defense[5] -= (dice(2) - 1)
         } else {
-            if (this.attack[3] > 5) {
+            if (this.attack[3] > 4) {
                 this.name = 'fire golem'
                 this.info = 'It\'s a sparking blue flame fuming black smoke as it shivers in the air before you.'
             }
             drawString(`The ${this.name} flares and swells into a larger, angrier looking blaze.`)
         }
-        this.attack[3] += 1 + dice(2)
-        this.defense[0] -= 1
-        this.defense[1] -= 1
+        this.attack[3] += dice(2) + dice(3)
+        this.defense[0] += dice(2)
+        this.defense[1] += dice(2)
         this.defense[2] -= 1
-        this.defense[5] -= 2
+        this.defense[5] -= (dice(6) - 4)
         this.defense.map((num, index) => {
             this.defense[index] = num < 0 ? 0 : num
+            this.defense[index] = num > 12 ? 12 : num
         })
     }
 })

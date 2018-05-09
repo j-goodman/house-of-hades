@@ -481,7 +481,7 @@ extras['bow and venom-barbed arrows'] = new ItemType (
     [0,0,0,0,7,0],
     17,
     'You\'re out of venom-barbed arrows.',
-    `A bow equipped with small arrows too light to do much damage on their own, but tipped with venom drawn from more than a million individual harvester ants.`
+    `A bow equipped with small arrows too light to do much damage on their own, but tipped with venom drawn from a million ants.`
 )
 
 extras['goat-priest\'s rattle'] = new ItemType (
