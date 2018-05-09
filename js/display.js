@@ -241,7 +241,7 @@ itemCard = (item, inventory) => {
     header.innerText = item.name
     element.appendChild(header)
 
-    if (game.player.weapon === item || game.player.shield === item) {
+    if ((game.player.weapon && game.player.weapon.id === item.id) || (game.player.shield && game.player.shield.id === item.id)) {
         let paragraph = document.createElement('p')
         paragraph.className = 'item-card-description'
         paragraph.innerText = item.info
