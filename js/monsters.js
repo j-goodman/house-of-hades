@@ -89,12 +89,12 @@ var allMonsterTypes = [
             door.to = new Room ([], 13);
             door.to.type = 'amphitheater with thirteen vaulted walls'
             door.to.items.push(
-                itemByName(pick(['executioner\'s sword', 'obsidian axe'])),
-                itemByName(pick(['king\'s sword', 'sunfire macana'])),
-                itemByName(pick(['wand of oceans', 'golem\'s blood'])),
-                itemByName(pick(['bag of devil\'s gold', 'canned ghost'])),
-                itemByName(pick(['lion\'s hide', 'goat\'s armor'])),
-                itemByName('wizard\'s ring'),
+                new Item (itemByName(pick(['executioner\'s sword', 'obsidian axe'])), door.to),
+                new Item (itemByName(pick(['king\'s sword', 'sunfire macana'])), door.to),
+                new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
+                new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
+                new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
+                new Item (itemByName('wizard\'s ring'), door.to),
             )
             allMonsterTypes = allMonsterTypes.filter(mon => {
                 return oneIn(5)
@@ -110,9 +110,6 @@ var allMonsterTypes = [
             allMonsterTypes.push(extras['shapeshifter'])
             allMonsterTypes.push(extras['nagual'])
             allMonsterTypes.push(extras['big floating eyeball'])
-            // if (!game.gated) {
-                // segments[8]([])
-            // }
             door.to.doors.map((innerDoor, index) => {
               innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
                   'colossal basalt',

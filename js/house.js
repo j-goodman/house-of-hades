@@ -54,7 +54,7 @@ var laterDoorColors = [
     ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray', 'fake', 'real'],
 ];
 var surfaceTypes = [
-    ['coffee table', ['parlor']],
+    ['coffee table', ['parlor', 'living room']],
     ['dinnertable', ['dining room']],
     ['counter', ['kitchen', 'bathroom']],
     ['desk', ['study']],
@@ -62,10 +62,16 @@ var surfaceTypes = [
     ['shelf', ['storeroom', 'laboratory', 'wine cellar', 'larder']],
     ['end table', ['hallway']],
     ['bed', ['bedroom']],
-    ['ground', ['courtyard', 'greenhouse']],
-    ['floor', ['ballroom', 'dungeon', 'observatory', 'laundry room', 'chapel', 'furnace room']],
+    ['ground', ['greenhouse']],
+    ['floor', ['observatory', 'furnace room']],
     ['throne', ['throne room']],
+    ['dance floor', ['ballroom']],
+    ['altar', ['chapel']],
     ['grand piano', ['music room']],
+    ['concrete floor', ['unfurnished concrete cube']],
+    ['washing machine', ['laundry room']],
+    ['cold stone floor', ['dungeon']],
+    ['grass', ['courtyard']],
 ];
 
 var nextRoomId = 0;
@@ -78,7 +84,11 @@ var House = function (player) {
 
     spawnRoom = houseBuilder.buildSpawn();
 
-    buildSegments(dice(2) + 1, this.rooms);
+    buildSegments(2, this.rooms);
+
+    if (!game.gated) {
+        segments[8]([])
+    }
 
     this.rooms.push(spawnRoom);
     player.room = spawnRoom;

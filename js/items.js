@@ -46,7 +46,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'crowbar', 'weapon',
-        [0,0,3,0,0,0],
+        [0,0,4,0,0,0],
         '12',
         'Your crowbar breaks in your hand. It was pretty rusty anyway.',
         'A crowbar! Deals moderate crush damage.'
@@ -89,7 +89,7 @@ var allItemTypes = [
     new ItemType (
         'sacred tomohawk', 'weapon',
         [0,5,0,1,0,7],
-        5,
+        7,
         'Your tomohawk explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
         'A black iron tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
     ),
