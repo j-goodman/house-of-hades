@@ -989,6 +989,7 @@ var segments = [
             pick([
                 extras['kraken'],
                 extras['seagod'],
+                extras['old old man'],
                 extras['jelly leviathan'],
             ])
         )]
@@ -997,6 +998,7 @@ var segments = [
             west,
             pick([
                 extras['wildgod'],
+                extras['old old man'],
                 extras['murderer\'s courage'],
                 extras['boa constrictor'],
                 extras['heart-eating fox']

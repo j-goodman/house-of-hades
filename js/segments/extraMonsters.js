@@ -61,6 +61,15 @@ extras['starving cannibal'] = new MonsterType ({
     info: 'He wails about his reasons for having devoured the dead and tries to claw at your eyes when you come in.',
 })
 
+extras['old old man'] = new MonsterType ({
+    name: 'old old man',
+    attack: [0,0,2,0,0,0,],
+    defense: [0,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 3,
+    info:`It's a ${pick(['99', '88', '91', '96', '95', '101', '100', '85', '130', '1000', '1003', '1005', '155', '180'])} year old man, moving in desperation to attack you.`,
+})
+
 extras['cyclops'] = new MonsterType ({
     name: 'cyclops',
     attack: [2,0,6,0,0,0,],
@@ -595,7 +604,7 @@ extras['foolsfire'] = new MonsterType ({
             )
             firstRoom.mana += dice(3) + dice(4)
             secondRoom.items.push(
-                new Item (pick(allItemTypes), firstRoom),
+                new Item (pick(allItemTypes), secondRoom),
             )
             this.room.doors.push(door)
             this.room.monsters = []
