@@ -51,7 +51,7 @@ var laterRoomTypes = [
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
     ['foul-smelling', 'tungsten', 'sweet-smelling', 'jewel-encrusted', 'faintly glowing', 'upholstered', 'heavy looking', 'bright yellow', 'small', 'tall', 'blackwood', 'heavily fortified', 'baroque', 'plaster-covered', 'canvas-covered', 'grass-green', 'thick'],
-    ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray'],
+    ['slime-coated', 'perfectly round', 'eldritch', 'weeping', 'gray', 'fake', 'real'],
 ];
 var surfaceTypes = [
     ['coffee table', ['parlor']],

@@ -249,7 +249,7 @@ var allMonsterTypes = [
     new MonsterType ({
         name: 'fire elemental',
         attack: [0,0,0,8,0,0,],
-        defense: [4,4,4,12,2,0,],
+        defense: [5,6,2,12,2,0,],
         hitpoints: 20,
         level: 2,
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',

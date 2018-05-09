@@ -337,7 +337,7 @@ var allItemTypes = [
         [0,0,6,6,0,0],
         8,
         'Your mask splinters and shatters into frozen shards.',
-        'A mask like the face of a white owl, made of hard unmelting ice. It\'s cursed so that when you wear it your body temperature drops and a hard frost runs through you. Protects against burning and crush damage.'
+        'A mask like the face of a white owl, made of hard unmelting ice. It\'s cursed so that when you wear it your body temperature drops and a hard frost runs through you, making it harder to burn or crush you.'
     ),
 
     // pierce, slash, crush, burn, poison, curse
