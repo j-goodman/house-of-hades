@@ -353,8 +353,8 @@ extras['kraken'] = new MonsterType ({
 
 extras['jelly leviathan'] = new MonsterType ({
     name: 'jelly leviathan',
-    attack: [1,0,3,1,5,0,],
-    defense: [9,3,12,5,12,6,],
+    attack: [1,0,10,1,5,0,],
+    defense: [9,2,12,5,12,6,],
     hitpoints: 20,
     level: 3,
     info: 'A jellyfish the size of a cathedral, with cnidoblasts in its colossal tentacles that deploy caustic venomous barbs as big as bicycles when it\'s startled or threatened.',
@@ -609,7 +609,7 @@ extras['foolsfire'] = new MonsterType ({
             let door = new Door ((game.player.room.doors.map(door => { return door.color }).includes('pale-lit') ? 'dim-lit' : 'pale-lit'), this.room, false, false)
             let firstRoom = new Room ([door], 1)
             let secondRoom = new Room ([firstRoom.doors[1]], 0)
-            firstRoom.type = `long ${pick(['candle-lit', 'fog-filled', 'deathly-smelling'])} hallway of black stone bricks ${pick(['', '', 'strewn with skeletons', 'strewn with the skeletons of the adventurers who came before you', 'with a badly burned corpse on the floor, his equipment spilled out across the hallway', 'with a broken-necked corpse on the floor, her equipment spilled out across the hallway'])}`
+            firstRoom.type = `long ${pick(['candle-lit', 'fog-filled', 'deathly-smelling'])} hallway of black stone bricks ${pick(['', '', 'strewn with skeletons', 'strewn with the skeletons of those who passed through before you', 'with a badly burned corpse on the floor, his equipment spilled out across the hallway', 'with a broken-necked corpse on the floor, her equipment spilled out across the hallway'])}`
             secondRoom.type = 'tomb'
             drawString(`The foolsfire passes through a door in the wall that you hadn't seen before, lit by a pale white light.`)
             firstRoom.monsters = []

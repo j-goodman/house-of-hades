@@ -162,8 +162,8 @@ extras['venomous barb'] = new ItemType (
 
 extras['harpoon'] = new ItemType (
     'harpoon', 'weapon',
-    [10,0,0,0,0,0],
-    5,
+    [9,0,0,0,0,0],
+    3 + dice(2),
     'Your harpoon breaks',
     'A old iron whaling harpoon.'
 )
@@ -493,6 +493,166 @@ extras['goat-priest\'s rattle'] = new ItemType (
     17,
     'The goat-priest\'s rattle breaks.',
     `A blue iron staff ending in a small cage filled with the bones of the ancestors of some long-ago goat-shaman.`
+)
+
+extras['kitchen knife'] = new ItemType (
+    'kitchen knife', 'weapon',
+    [1,3,0,0,0,0],
+    '11',
+    'Your kitchen knife breaks.',
+    'It\'s a steel kitchen knife with a wood handle.'
+)
+
+extras['wrench'] = new ItemType (
+    'wrench', 'weapon',
+    [0,0,5,0,0,0],
+    '7',
+    'The wrench breaks in your hand.',
+    'A adjustable steel wrench. Deals moderate crush damage.'
+),
+
+extras['purple orchid'] = new ItemType (
+    'purple orchid', 'weapon',
+    [0,0,0,0,2,0],
+    '15',
+    'The purple orchid wilts and rots.',
+    'It\'s a vibrantly purple orchid with a single sharp barb emerging from its center.',
+    null,
+    function (player, enemy) { // on use
+        enemy.attack.map((num, index) => {
+            if (num > 0) {
+                this.bonus[index] += dice(3)
+                if (this.bonus[index] > num) {
+                    this.bonus[index] = num
+                }
+            } else {
+                this.bonus[index] -= dice(3)
+            }
+
+            if (this.bonus[index] < 0) {
+                this.bonus[index] = 0
+            }
+        })
+        drawString(`As the purple orchid infects the ${enemy.name} its pedals twist, changing to reflect the being it\'s attacking.`)
+    }
+)
+
+extras['bottle of whiskey'] = new ItemType (
+    'bottle of whiskey', 'weapon',
+    [0,3,0,1,1,0],
+    1,
+    'The bottle of whiskey is shattered.',
+    'A bottle of inexpensive barrel-aged Kentucky bourbon.',
+)
+
+extras['weird viol'] = new ItemType (
+  'weird viol', 'shield',
+  [0,0,4,0,4,9],
+  '9',
+  'Your weird viol breaks.',
+  'A German-made string instrument carved from oak, played to ward off or appease terrors from beyond the veil of common space.',
+  null,
+  function () { // on use
+      drawString([
+          `The creaking discordant notes of the viol fill the ${game.player.room.type} as you pull the bow across its strings.`,
+          `A sound almost like a cord rings out from the viol and fills the ${game.player.room.type}.`,
+          `You draw the bow of the viol across its strings and long, low chord reverberates from the instrument.`,
+          `The eerie music of the viol fills the ${game.player.room.type}.`,
+      ][this.data.experience])
+      this.data.experience += 1
+      this.data.experience = this.data.experience > 3 ? 3 : this.data.experience
+  },
+  function () { // on instantiate
+      this.data.experience = 0
+  }
+)
+
+extras['clergyman\'s dagger'] = new ItemType (
+    'clergyman\'s dagger', 'weapon',
+    [5,2,0,0,0,3],
+    11,
+    'The clergyman\'s dagger breaks.',
+    'A thin dagger blessed with holy water, held close by clerics, friars, and nuns to protect from the evils of the secular world.'
+)
+
+extras['letter opener'] = new ItemType (
+    'letter opener', 'weapon',
+    [1,2,0,0,0,0],
+    6,
+    'The letter opener breaks.',
+    'A small aluminium letter opener.'
+)
+
+extras['straightrazor'] = new ItemType (
+    'straightrazor', 'weapon',
+    [0,3,0,0,0,0],
+    7,
+    'The straightrazor breaks.',
+    'A stainless steel shaving razor.'
+)
+
+extras['inkwell'] = new ItemType (
+    'inkwell', 'weapon',
+    [0,2,3,0,0,0],
+    1,
+    'The inkwell shatters as you throw it.',
+    'A small glass bottle filled with black ink.'
+)
+
+extras['fountain pen'] = new ItemType (
+    'fountain pen', 'weapon',
+    [2,0,0,0,0,0],
+    dice(5),
+    'The fountain pen breaks.',
+    'A fancy gold-nibbed fountain pen.'
+)
+
+extras['cigarette lighter'] = new ItemType (
+    'cigarette lighter', 'weapon',
+    [0,0,0,2,0,0],
+    7,
+    'Your lighter is out of fuel.',
+    'A old fashioned silver cigarette lighter.'
+)
+
+extras['old iron chain'] = new ItemType (
+    'old iron chain', 'weapon',
+    [0,0,6,0,0,0],
+    6,
+    'The iron chain breaks.',
+    'A heavy rusted iron chain about four feet long.'
+)
+
+extras['makeshift stabbing implement'] = new ItemType (
+    'makeshift stabbing implement', 'weapon',
+    [5,0,0,0,2,0],
+    4,
+    'The stabbing implement breaks.',
+    'A crudely made stabbing implement whittled down from some fibrous hard white material you don\'t recognize.'
+)
+
+extras['battleaxe'] = new ItemType (
+    'battleaxe', 'weapon',
+    [0,6,4,0,0,0],
+    13,
+    'Your battleaxe breaks.',
+    'A gleaming iron battleaxe with a handle wrapped in soft black leather.'
+)
+
+extras['pike'] = new ItemType (
+    'pike', 'weapon',
+    [7,0,2,0,0,0],
+    13,
+    'Your pike breaks.',
+    'A long wooden pike ending in a barbed iron spike.'
+)
+
+extras['cavalry shield'] = new ItemType (
+    'cavalry shield', 'shield',
+    [0,6,7,3,0,0],
+    11,
+    'Your shield breaks.',
+    `A steel shield, made for use by a mounted knight. There\'s a ${pick(['badger', 'bear', 'kraken', 'lightning-struck tower', 'crowned skull', 'image of the stormgod Tlaloc', 'image of the constellations of the northern skies'])} painted on it.`
 )
 
 extras['knife'] = new ItemType (

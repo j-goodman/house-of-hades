@@ -44,9 +44,9 @@ var allUnresolvedDoors = () => {
 var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard', 'living room'];
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
-    ['laboratory', 'greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
-    ['dungeon', 'laundry room', 'furnace room', 'unfurnished concrete cube', 'artist\'s studio', 'music room'],
-    ['observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center'],
+    ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
+    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room'],
+    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
@@ -69,10 +69,24 @@ var surfaceTypes = [
     ['altar', ['chapel']],
     ['grand piano', ['music room']],
     ['concrete floor', ['unfurnished concrete cube']],
+    ['weapon rack', ['armory']],
     ['washing machine', ['laundry room']],
     ['cold stone floor', ['dungeon']],
     ['grass', ['courtyard']],
 ];
+var roomTypeItems = {
+    'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife'],
+    'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle'],
+    'courtyard': ['purple orchid', 'life-giving herb', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe'],
+    'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
+    'chapel': ['posessed bible', 'clergyman\'s dagger'],
+    'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
+    'study': ['letter opener', 'letter opener', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
+    'bathroom': ['straightrazor', 'straightrazor', 'crowbar', 'wrench'],
+    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bag of devil\'s gold', 'golem\'s blood'],
+    'dungeon': ['makeshift stabbing implement', 'old iron chain'],
+    'armory': ['executioner\'s sword', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
+}
 
 var nextRoomId = 0;
 var hour = 0;
@@ -131,6 +145,11 @@ var Room = function (doors, doorCount) {
     [this.monsters[0]] : this.monsters;
     if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes), this));
+    }
+    if (roomTypeItems[this.type]) {
+        this.items.map((itm, index) => {
+            this.items[index] = new Item (itemByName(pick(roomTypeItems[this.type])), this)
+        })
     }
     let rando = dice(14)
     let amt = rando > 11 ? 2 : 1
@@ -211,17 +230,17 @@ Door.prototype.resolved = function () {
 }
 
 Door.prototype.advanceRoomAndDoorTypes = function () {
-  if (hour > 18 && laterDoorColors[0] && laterRoomTypes[0]) {
+  if (hour > 26 && laterDoorColors[0] && laterRoomTypes[0]) {
       doorColors = doorColors.concat(laterDoorColors[0]);
       roomTypes = roomTypes.concat(laterRoomTypes[0]);
       laterDoorColors[0] = false; laterRoomTypes[0] = false;
   }
-  if (hour > 36 && laterDoorColors[1] && laterRoomTypes[1]) {
+  if (hour > 46 && laterDoorColors[1] && laterRoomTypes[1]) {
       doorColors = doorColors.concat(laterDoorColors[1]);
       roomTypes = roomTypes.concat(laterRoomTypes[1]);
       laterDoorColors[1] = false; laterRoomTypes[1] = false;
   }
-  if (hour > 50 && laterDoorColors[2] && laterRoomTypes[2]) {
+  if (hour > 60 && laterDoorColors[2] && laterRoomTypes[2]) {
       doorColors = doorColors.concat(laterDoorColors[2]);
       roomTypes = roomTypes.concat(laterRoomTypes[2]);
       laterDoorColors[2] = false; laterRoomTypes[2] = false;

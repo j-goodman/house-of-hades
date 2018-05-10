@@ -91,11 +91,6 @@ var segments = [
           )
       )
 
-      if (!dice(2) - 1) {
-          let handRoom = pick(segmentRooms)
-          handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
-      }
-
       segmentRooms[0].doors[2].color = 'rusty iron hatch';
       segmentRooms[0].type = 'mold-infested bathroom';
       segmentRooms[1].type = 'long wet dimly lit tunnel flooded with ankle-deep water';
@@ -487,7 +482,7 @@ var segments = [
                       new ItemType (
                         'devil\'s fork', 'weapon',
                         [3,0,0,7,5,2],
-                        13,
+                        23,
                         'The devil\'s fork turns into smoke.',
                         'A three-pronged hayfork.'
                       ),
@@ -636,13 +631,7 @@ var segments = [
             'A vibrantly green medallion with silver roots that weave out of it and into the skin of the person holding it and fossilize their bones into a heavy metallic substance.',
         )
 
-        let whiskey = new ItemType (
-            'bottle of whiskey', 'weapon',
-            [0,3,0,1,1,0],
-            1,
-            'The bottle of whiskey is shattered.',
-            'A bottle of inexpensive barrel-aged Kentucky bourbon.',
-        )
+        let whiskey = itemByName('bottle of whiskey')
 
         let molotovCocktail = new ItemType (
             'molotov cocktail', 'weapon',
@@ -738,6 +727,7 @@ var segments = [
             itemByName('bag of devil\'s gold'),
             itemByName('life-giving herb'),
             itemByName('thompson gun'),
+            itemByName('cigarette lighter'),
             cursedRevolver,
             wildCompass,
             bonehardener,
@@ -778,11 +768,6 @@ var segments = [
             door.from = room
             door.to = hub
         })
-
-        if (!dice(2) - 1) {
-            let handRoom = pick(segmentRooms)
-            handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
-        }
 
         segmentRooms.map(room => {
             room.doors.map(door => {
@@ -874,6 +859,9 @@ var segments = [
             room.monsters = oneIn(2) ?
                            [new Monster(room, pick(monsterTypes))] :
                            [new Monster(room, pick(monsterTypes)), new Monster(room, pick(monsterTypes))]
+            if (room.monsters.length === 2 && room.monsters[0].name === room.monsters[1].name) {
+                room.monsters = [room.monsters[0]]
+            }
             room.doors[0] = door
             door.from = room
             door.to = hub
