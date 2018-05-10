@@ -72,8 +72,8 @@ extras['molar'] = new ItemType (
     'A human molar tooth.'
 )
 
-extras['death\'s beak'] = new ItemType (
-    'death\'s beak', 'weapon',
+extras['DEATH\'S BEAK'] = new ItemType (
+    'DEATH\'S BEAK', 'weapon',
     [dice(12), dice(5), dice(3) + dice(3), dice(3), dice(6) + dice(6) + dice(6), dice(3) - 1],
     dice(6) + dice(6) + dice(6) + dice(6) + dice(6) + dice(6),
     'DEATH\'S BEAK IS UNDONE.',
@@ -278,6 +278,9 @@ extras['treacherous hand'] = new ItemType (
             })
             choice.bonus.map((num, index) => {
                 this.bonus[index] = num + this.data.baseBonus[index]
+                if (this.bonus[index] > 30) {
+                    this.bonus[index] = 30
+                }
             })
             this.data.holding = choice
             this.info = `A olive-skinned hand grasping a ${choice.name}.`

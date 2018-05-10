@@ -121,7 +121,7 @@ extras['divine malfeasance'] = new MonsterType ({
     level: 3,
     info: 'A thing whose form seems to be made up of the shrieking sound of metal grinding on metal.',
     drop: [
-        new Item (extras['death\'s beak']),
+        new Item (extras['DEATH\'S BEAK']),
     ],
 })
 
@@ -179,6 +179,16 @@ extras['crow'] = new MonsterType ({
     info: 'A glossy black-feathered carrion crow.',
 })
 
+extras['albatross'] = new MonsterType ({
+    // pierce, slash, crush, burn, poison, curse
+    name: 'albatross',
+    attack: [1,0,2,0,0,0,],
+    defense: [12,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A white seabird.',
+})
+
 extras['boa constrictor'] = new MonsterType ({
     name: 'boa constrictor',
     attack: [0,0,9,0,0,0,],
@@ -204,6 +214,7 @@ extras['wildgod'] = new MonsterType ({
             monByName('riverwolf'),
             monByName('weaselcat'),
             extras['crow'],
+            extras['albatross'],
             new MonsterType ({
                 name: 'pit viper',
                 attack: [1,0,0,0,4,0,],
@@ -236,6 +247,14 @@ extras['wildgod'] = new MonsterType ({
                 hitpoints: 20,
                 level: 1,
                 info: 'A night-black wildcat.',
+            }),
+            new MonsterType ({
+                name: 'cougar',
+                attack: [3,5,2,0,0,0,],
+                defense: [6,2,4,0,0,0,],
+                hitpoints: 20,
+                level: 1,
+                info: 'A grey wildcat.',
             }),
             new MonsterType ({
                 name: 'moose',
@@ -680,7 +699,7 @@ extras['marble guardian'] = new MonsterType ({
             door.to.items = []
             door.to.monsters = []
             door.to.monsters.push(new Monster (door.to, extras['demon king']))
-            door.to.type = 'ancient prison cell'
+            door.to.type = 'ANCIENT PRISON CELL'
             game.player.room.doors.push(door)
         } else if (game.player.room.monsters.length === 1) {
             game.player.room.doors.map(door => {
@@ -778,6 +797,6 @@ extras['Behemoth spawn'] = new MonsterType ({
             this.defense[1] -= 1
         }
         this.attack[2] += this.data.progress
-        this.attack[2] = this.attack[2] > 27 ? 27 : this.attack[2]
+        this.attack[2] = this.attack[2] > 20 ? 20 : this.attack[2]
     }
 })

@@ -158,7 +158,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'thompson gun', 'weapon',
-        [8,0,0,2,0,0],
+        [8,0,1,2,0,0],
         3,
         'Your thompson gun is out of ammo.',
         'A mass-market submachine gun, favorite of rumrunners and colonial enforcers. It spends a lot of ammo at once, so you\'ll only get three bursts out of it.'

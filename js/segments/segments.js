@@ -1092,13 +1092,18 @@ var segments = [
             room.monsters = []
             room.items = []
             if (oneIn(2)) {
-                room.monsters.push(new Monster (room, extras[pick([
-                    'carcinogenic demon',
-                    'bottle demon',
-                    'looking demon',
-                    'strangling demon',
-                    'razor demon',
-                ])]))
+                if (room.type.includes('prison cell')) {
+                    room.monsters.push(new Monster (room, extras[pick([
+                        'bottle demon',
+                        'looking demon',
+                    ])]))
+                } else {
+                    room.monsters.push(new Monster (room, extras[pick([
+                        'carcinogenic demon',
+                        'strangling demon',
+                        'razor demon',
+                    ])]))
+                }
             }
             if (room.monsters.length > 0) {
                 room.doors.map(door => {
