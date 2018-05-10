@@ -20,7 +20,7 @@ li {
     color: rgba(0,255,0,.6);
 }
 
-.start-screen {
+.menu {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -30,11 +30,11 @@ li {
     margin-top: 16%;
 }
 
-.start-screen > h2 {
+.menu > h2 {
     text-transform: uppercase;
 }
 
-.start-screen > a {
+.menu > a {
     border: 1px solid #fff;
     color: #fff;
     margin-top: 7%;
@@ -45,8 +45,36 @@ li {
     transition: letter-spacing .2s;
 }
 
-.start-screen > a:hover {
+.menu > a:hover {
     letter-spacing: 18.5px;
+}
+
+.stats-screen {
+    display: flex;
+    align-items: flex-start;
+}
+
+.stats-screen > h2 {
+    font-size: 14px;
+    letter-spacing: normal;
+    text-indent: none;
+}
+
+.stats-screen > h3 {
+    font-size: 14px;
+    letter-spacing: normal;
+    background: rgba(255,255,255,.2);
+    padding: 8px;
+    margin-top: -4px;
+    text-indent: none;
+}
+
+.stats-screen > h4 {
+    letter-spacing: normal;
+    margin-top: -5px;
+    margin-bottom: -3px;
+    padding: 5px;
+    text-indent: none;
 }
 
 .game-screen {

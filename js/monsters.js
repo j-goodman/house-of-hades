@@ -39,11 +39,11 @@ Monster.prototype.die = function () {
     }
     this.room.mana += 4;
     if (this.drop) {
-      this.drop.map((item) => {
-        drawString(`There\'s a ${item.name} on the ground.`);
-        this.room.items.push(item);
-        item.room = this.room
-      });
+        this.drop.map((item) => {
+            drawString(`There\'s a ${item.name} on the ground.`);
+            this.room.items.push(item);
+            item.room = this.room
+        });
     }
     this.room.monsters = this.room.monsters.filter(mon => {
         return mon !== this
@@ -52,6 +52,12 @@ Monster.prototype.die = function () {
         this.room.doors.map(door => { door.locked = false })
     }
     this.room.graveyard.push(this)
+    if (!display.data.monstersKilled.map(ob => { return ob.name }).includes(this.name)) {
+        display.data.monstersKilled.push({
+            name: this.name,
+            info: this.info,
+        })
+    }
 };
 
 var monByName = (name) => {

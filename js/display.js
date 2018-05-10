@@ -3,6 +3,50 @@ window.addEventListener('load', () => {
         document.getElementsByClassName('start-screen')[0].classList.toggle('hidden')
         document.getElementsByClassName('game-screen')[0].classList.toggle('hidden')
     })
+    document.getElementById('stats-button').addEventListener('click', event => {
+        let screen = document.getElementsByClassName('stats-screen')[0]
+        screen.classList.toggle('hidden')
+        document.getElementsByClassName('start-screen')[0].classList.toggle('hidden')
+
+        screen.innerHTML = ''
+
+        // display.data.monstersEncountered.map(mon => {
+        //     let monster = document.createElement('h4')
+        //     monster.innerText = `${mon.name}`
+        //     screen.insertBefore(monster, screen.firstChild)
+        // })
+        // let encountered = document.createElement('h2')
+        // screen.insertBefore(encountered, screen.firstChild)
+        // encountered.innerText = 'Monsters Encountered'
+        //
+        // display.data.itemsUsed.map(itm => {
+        //     let item = document.createElement('h4')
+        //     item.innerText = `${itm.name}`
+        //     screen.insertBefore(item, screen.firstChild)
+        // })
+        // let itemsUsed = document.createElement('h2')
+        // screen.insertBefore(itemsUsed, screen.firstChild)
+        // itemsUsed.innerText = 'Items Used'
+
+        display.data.monstersKilled.map(mon => {
+            let monster = document.createElement('h3')
+            monster.innerText = `${mon.name}`
+            screen.insertBefore(monster, screen.firstChild)
+        })
+        let killed = document.createElement('h2')
+        screen.insertBefore(killed, screen.firstChild)
+        killed.innerText = `☰${display.data.monstersKilled.length}☰ Monsters Killed ☰${display.data.monstersKilled.length}☰`
+
+        let total = document.createElement('h2')
+        total.innerText = `${display.data.monstersKilled.length}/95`
+        screen.appendChild(total)
+
+        screen.appendChild(display.statBackButton)
+    })
+    document.getElementById('back-from-stats-button').addEventListener('click', event => {
+        document.getElementsByClassName('stats-screen')[0].classList.toggle('hidden')
+        document.getElementsByClassName('start-screen')[0].classList.toggle('hidden')
+    })
     display = {
         message: document.getElementById('main-message'),
         doors: document.getElementById('doors'),
@@ -14,9 +58,24 @@ window.addEventListener('load', () => {
         hitpoints: document.getElementById('hitpoints'),
         recover: document.getElementById('recover'),
         room: document.getElementById('room'),
+        statBackButton: document.getElementById('back-from-stats-button'),
         attack: {},
         defense: {},
+        data: {},
     }
+
+    display.data.monstersEncountered = []
+    display.data.monstersKilled = []
+    display.data.itemsUsed = []
+
+    if (localStorage.getItem('monster-data')) {
+        display.data = JSON.parse(localStorage.getItem('monster-data'))
+    }
+
+    if (display.data.monstersEncountered && display.data.monstersEncountered.length === 0) {
+        document.getElementById('stats-button').classList.add('hidden')
+    }
+
     let damages = ['pierce', 'slash', 'crush', 'burn', 'poison', 'curse',]
     damages.map(dam => {
         display.attack[dam] = document.getElementById(`attack-${dam}`)

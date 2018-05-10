@@ -74,6 +74,14 @@ Player.prototype.goTo = function (doorString) {
     // this.recover(false);
     this.detector.update()
     updateRoom()
+    this.room.monsters.map(mon => {
+        if (!display.data.monstersEncountered.map(ob => { return ob.name }).includes(mon.name)) {
+            display.data.monstersEncountered.push({
+                name: mon.name,
+                info: mon.info,
+            })
+        }
+    })
 };
 
 Player.prototype.get = function (targetName) {
@@ -249,6 +257,12 @@ Player.prototype.fight = function (enemyName, fake=false) {
         if ((!fake || this.weapon !== game.player.weapon) && (enemy.room === game.player.room)) {
             this.weapon.ammo -= 1;
         }
+        if (!display.data.itemsUsed.map(ob => { return ob.name }).includes(this.weapon.name)) {
+            display.data.itemsUsed.push({
+                name: this.weapon.name,
+                info: this.weapon.info,
+            })
+        }
         if (this.weapon.onUse && !fake) { this.weapon.onUse(this); }
         if (this.weapon && this.weapon.ammo <= 0) {
             if (!fake) {
@@ -264,6 +278,12 @@ Player.prototype.fight = function (enemyName, fake=false) {
             if (this.shield.ammo) {
                 this.shield.ammo -= shieldUse < 1 ? shieldUse : 1;
             }
+        }
+        if (!display.data.itemsUsed.map(ob => { return ob.name }).includes(this.shield.name)) {
+            display.data.itemsUsed.push({
+                name: this.shield.name,
+                info: this.shield.info,
+            })
         }
         if (shieldUse && this.shield.onUse && !fake) { this.shield.onUse(this) }
         if (this.shield.ammo <= 0) {
@@ -303,6 +323,9 @@ Player.prototype.die = function () {
     clearType()
     drawString('You\'re dead.')
     this.alive = false;
+
+    localStorage.setItem('monster-data', JSON.stringify(display.data))
+
     window.setTimeout(gameOver, 1500)
 };
 
@@ -335,6 +358,20 @@ Player.prototype.recover = function (active=false) {
     } else if (active) {
         //console.log('You can\'t recover when there are monsters in the room.');
     }
+
+    if (display.data.monstersKilled && display.data.itemsUsed) {
+        display.data.monstersKilled = display.data.monstersKilled.sort((x, y) => {
+            return x.name[0] < y.name[0]
+        })
+        display.data.monstersEncountered = display.data.monstersEncountered.sort((x, y) => {
+            return x.name[0] < y.name[0]
+        })
+        display.data.itemsUsed = display.data.itemsUsed.sort((x, y) => {
+            return x.name[0] < y.name[0]
+        })
+    }
+    localStorage.setItem('monster-data', JSON.stringify(display.data))
+
     updateInventory()
 };
 
