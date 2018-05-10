@@ -263,7 +263,7 @@ Player.prototype.fight = function (enemyName, fake=false) {
                 info: this.weapon.info,
             })
         }
-        if (this.weapon.onUse && !fake) { this.weapon.onUse(this); }
+        if (this.weapon.onUse && !fake) { this.weapon.onUse(this, enemy); }
         if (this.weapon && this.weapon.ammo <= 0) {
             if (!fake) {
                 drawString(this.weapon.spentMessage);

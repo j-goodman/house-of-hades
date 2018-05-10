@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
         screen.insertBefore(killed, screen.firstChild)
         killed.innerText = `☰${display.data.monstersKilled.length}☰ Monsters Killed ☰${display.data.monstersKilled.length}☰`
 
-        if (display.data.monstersKilled.length >= 13) {
+        if (display.data.monstersKilled.length >= 7) {
             let total = document.createElement('h2')
             total.innerText = `${display.data.monstersKilled.length}/95`
             screen.appendChild(total)
