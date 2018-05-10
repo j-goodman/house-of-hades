@@ -72,7 +72,7 @@ window.addEventListener('load', () => {
         display.data = JSON.parse(localStorage.getItem('monster-data'))
     }
 
-    if (display.data.monstersEncountered && display.data.monstersEncountered.length === 0) {
+    if (!display.data || (display.data.monstersEncountered && display.data.monstersEncountered.length === 0)) {
         document.getElementById('stats-button').classList.add('hidden')
     }
 
