@@ -46,7 +46,7 @@ var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'go
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room'],
-    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center'],
+    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
@@ -84,8 +84,14 @@ var roomTypeItems = {
     'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
     'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bag of devil\'s gold', 'golem\'s blood'],
-    'dungeon': ['makeshift stabbing implement', 'old iron chain', 'fire poker', 'bleeding mushroom', 'burned bone'],
+    'dungeon': ['makeshift stabbing implement', 'old iron chain', 'fire poker', 'bleeding mushroom', 'burned bone', 'crowbar'],
     'armory': ['executioner\'s sword', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
+}
+var roomTypeMonsters = {
+    'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
+    'furnace room': ['arsonist ghost', 'fire elemental', 'posessed furnace'],
+    'throne room': ['swordwraith'],
+    'dungeon': ['rabid wizard', 'weaghrai', 'shoggoth', 'chained specter', 'foolsfire'],
 }
 
 var nextRoomId = 0;
@@ -99,6 +105,13 @@ var House = function (player) {
     spawnRoom = houseBuilder.buildSpawn();
 
     buildSegments(2, this.rooms);
+
+    let newRoom = new Room ([], 3)
+    newRoom.type = pick(roomTypes)
+    newRoom = new Room ([], 1 + dice(2))
+    newRoom.type = pick(roomTypes)
+    newRoom = new Room ([], 2)
+    newRoom.type = pick(roomTypes)
 
     if (!game.gated) {
         segments[8]([])
@@ -135,7 +148,15 @@ var Room = function (doors, doorCount) {
     });
     if (oneIn(1.5)) {
         this.monsters.push(new Monster (this, pick(mainMonsterPool)));
-        // this.monsters.push(new Monster (this, extras['shapeshifter']));
+    }
+    if (this.type === 'glass vault' && this.monsters.length === 1 && !game.sphinxed) {
+        this.monsters[0] = new Monster (this, extras['sphinx'])
+        game.sphinxed = true
+    }
+    if (roomTypeMonsters[this.type]) {
+        this.monsters.map((mon, index) => {
+            this.monsters[index] = new Monster (this, monByName(pick(roomTypeMonsters[this.type])))
+        })
     }
     if (oneIn(7)) {
         this.monsters.push(new Monster (this, pick(secondMonsterPool)));

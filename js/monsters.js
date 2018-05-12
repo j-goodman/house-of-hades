@@ -41,6 +41,8 @@ Monster.prototype.die = function () {
     if (this.drop) {
         this.drop.map((item) => {
             drawString(`There\'s a ${item.name} on the ground.`);
+            item = Object.assign({}, item);
+            item.id = getGlobalUniqueId()
             this.room.items.push(item);
             item.room = this.room
         });
@@ -52,7 +54,7 @@ Monster.prototype.die = function () {
         this.room.doors.map(door => { door.locked = false })
     }
     this.room.graveyard.push(this)
-    if (!display.data.monstersKilled.map(ob => { return ob.name }).includes(this.name)) {
+    if (!this.undead && !display.data.monstersKilled.map(ob => { return ob.name }).includes(this.name)) {
         display.data.monstersKilled.push({
             name: this.name,
             info: this.info,
@@ -61,9 +63,14 @@ Monster.prototype.die = function () {
 };
 
 var monByName = (name) => {
-    return allMonsterTypes.filter((type) => {
-        return type.name === name;
+    var mon
+    mon = allMonsterTypes.filter((type) => {
+        return type.name === name
     })[0];
+    if (!mon) {
+        mon = extras[name]
+    }
+    return mon
 }
 
 var itemByName = (name) => {
@@ -79,69 +86,6 @@ var itemByName = (name) => {
 
 // levels go from 1-3, most should be 3.
 var allMonsterTypes = [
-    new MonsterType ({
-        name: 'dragon',
-        attack: [0,6,6,12,0,1],
-        defense: [12,10,9,12,3,12],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
-        onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
-        deathEvent: () => {
-            var door;
-            if (game.player.room.type === 'treasure room') {
-            door = new Door ('trap', game.player.room, null);
-            game.player.room.doors.push(door);
-            door.to = new Room ([], 13);
-            door.to.type = 'amphitheater with thirteen vaulted walls'
-            door.to.items.push(
-                new Item (itemByName(pick(['executioner\'s sword', 'obsidian axe'])), door.to),
-                new Item (itemByName(pick(['king\'s sword', 'sunfire macana'])), door.to),
-                new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
-                new Item (itemByName('wizard\'s ring'), door.to),
-                new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
-                new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
-                // new Item (itemByName(pick(['archwizard\'s note', 'demon king\'s note'])), door.to),
-            )
-            allMonsterTypes = allMonsterTypes.filter(mon => {
-                return oneIn(5)
-            })
-            allMonsterTypes.push(
-                extras['half-goat soldier'],
-                extras['half-goat soldier'],
-                extras['half-goat soldier'],
-                extras['half-goat soldier']
-            )
-            allMonsterTypes.push(extras['swordwraith'])
-            allMonsterTypes.push(extras['murderer\'s courage'])
-            allMonsterTypes.push(extras['shapeshifter'])
-            allMonsterTypes.push(extras['nagual'])
-            allMonsterTypes.push(extras['big floating eyeball'])
-            door.to.doors.map((innerDoor, index) => {
-              innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
-                  'colossal basalt',
-                  'rune-inscribed',
-                  'carved ebony',
-                  'giant sandstone',
-                  'huge steel',
-                  'tiny circular',
-                  'opaque glass',
-                  'tall narrow ivory',
-                  'thirteen-eyed',
-                  'obsidian',
-                  'ornate stained glass',
-                  'polished marble',
-                  'solid gold',
-              ][index]
-            })
-            door.to.mana += 100;
-            door.from.mana += 50;
-                drawString('');
-                drawString('    | YOU WIN |    ');
-                drawString('');
-            }
-        }
-    }),
     new MonsterType ({
         name: 'giant scorpion',
         attack: [3,1,0,0,4,0],
@@ -307,6 +251,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'A long, small Amazonian wildcat known for its piercing bite. This one looks like it might be rabid, so be careful of poison. Try slashing or crushing it if you catch it.',
+        onDeath: 'The weaselcat dies.'
     }),
     new MonsterType ({
         name: 'cruel phantom',
@@ -315,15 +260,17 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'The mansion\'s cruel phantoms are the spirits of people who died painful deaths within the walls. They\'re immune to all physical attacks, and determined to return their agony to the still living.',
+        onDeath: 'With a howl like a coyote the cruel phantom dissipates.',
         drop: [new Item(extras['phantom\'s blood'])]
     }),
     new MonsterType ({
         name: 'wendigo',
-        attack: [7,7,7,0,0,0,],
+        attack: [8,8,8,0,0,0,],
         defense: [10,10,10,0,0,0,],
         hitpoints: 20,
         level: 3,
         info: 'A savagely deadly creature of the boreal forests, the tortured body of one who was forced to eat their own kind to survive, and now must continue or die. Its body is numb to pain and it can weather most physical attacks.',
+        onDeath: `The wendigo\'s agonized expression ${pick(['goes placid', 'twists and wrinkles'])} and it dies.`
     }),
     new MonsterType ({
         name: 'rabid wizard',
@@ -332,6 +279,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'He looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
+        onDeath: 'The wizard collapses and twitches for a moment then dies.',
     }),
     new MonsterType ({
         name: 'shrieking dog',
@@ -340,6 +288,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'Its weird scream is supposed to be an omen of disease. It can\'t wield weapons so it\'s most vulnerable to slashing attacks.',
+        onDeath: 'The shrieking dog dies.'
     }),
     new MonsterType ({
         name: 'arsonist ghost',
@@ -348,6 +297,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'The ghost of a man convicted of setting fire to property public and private, recidivating after a lethal injection. He\'s most vulnerable to fire.',
+        onDeath: 'The ghost wails in agony as it\'s consumed by fire and dies.'
     }),
     new MonsterType ({
         name: 'tumorous bleating mass',
