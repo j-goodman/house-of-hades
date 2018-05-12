@@ -99,7 +99,7 @@ extras['pair of earthquake boots'] = new ItemType (
 extras['goat\'s armor'] = new ItemType (
     'goat\'s armor', 'shield',
     [2,8,7,2,5,2,],
-    19,
+    11,
     'Your goat\'s armor breaks.',
     'Tightly-crafted black armor engraved with a eye with two perpendicular roads passing through it.',
 )
@@ -354,7 +354,7 @@ extras['watchful eye'] = new ItemType (
 
 extras['wraith\'s sword'] = new ItemType (
     'wraith\'s sword', 'weapon',
-    [7,7,0,0,0,0],
+    [8,8,0,0,0,0],
     12,
     'The swordwraith returns in a whirl of black wind, seizing its sword from your hand. Having been defeated once already, it flees, vanishing into the walls of the house.',
     `A long curved blade of white light. Given by the ancient king Mahabali to his most loyal and skillful warriors in a vain attempt to protect himself from the justice of the fifth avatar of Vishnu, cursing them to plague the earth as wraiths for eternity.`
@@ -370,7 +370,7 @@ extras['bottle of liquid swords'] = new ItemType (
 
 extras['bottle of black goo'] = new ItemType (
     'bottle of black goo', 'weapon',
-    [0,0,0,11,0,0],
+    [0,0,0,9,5,0],
     1,
     'The bottle shatters as the black goo ignites into bright blue flame.',
     `A round-bottomed flask filled with a thick black tarrish substance that spontaneously bursts into fire when it strikes something.`
@@ -378,7 +378,7 @@ extras['bottle of black goo'] = new ItemType (
 
 extras['bottle of demon\'s blood'] = new ItemType (
     'bottle of demon\'s blood', 'weapon',
-    [0,0,0,0,0,9],
+    [0,0,0,5,5,14],
     1,
     'The bottle shatters spilling demon\'s blood everywhere.',
     `A bottle full of the pulpy dark purplish-red blood of a demon. It\'s been biologically engineered over the course of time by sixteen generations of Demon Kings to curse all who spill it.`
@@ -386,7 +386,7 @@ extras['bottle of demon\'s blood'] = new ItemType (
 
 extras['bottle of green acid'] = new ItemType (
     'bottle of green acid', 'weapon',
-    [0,0,0,5,0,0],
+    [0,0,0,11,11,0],
     1,
     'The bottle of green acid shatters.',
     `A bottle full of a burning frog-green acid.`
@@ -402,7 +402,7 @@ extras['bottle of orange fumes'] = new ItemType (
 
 extras['bottle of doughy fungus'] = new ItemType (
     'bottle of doughy fungus', 'weapon',
-    [0,0,15,0,0,0],
+    [0,0,20,0,0,0],
     1,
     'The bottle of doughy fungus shatters.',
     `A tightly sealed glass bottle with a doughy fungus growing inside it and straining against the glass, trying to use its expansive crushing power to break free.`
@@ -410,7 +410,7 @@ extras['bottle of doughy fungus'] = new ItemType (
 
 extras['bottle of wasps'] = new ItemType (
     'bottle of wasps', 'weapon',
-    [5,0,0,0,0,0],
+    [5,0,0,0,5,0],
     1,
     'The bottle of wasps shatters.',
     `A spherical glass bottle occupied by a thousand tiny wasps.`
@@ -434,7 +434,9 @@ extras['pearl of concentrated pestilence'] = new ItemType (
         this.info = `A gleaming black pearl the size of a ${this.data.sizes[this.data.size]} made up of toxic and carcinogenic materials crammed into a toxic sphere. It becomes more potent each time you use it.`
     },
     function () { // On instantiate
+        this.bonus = this.bonus.map(num => { return num })
         this.data.sizes = ['acorn', 'billiard ball', 'plum', 'baseball', 'desktop globe', 'bloated pumpkin', 'wrecking ball', 'wrecking ball', 'wrecking ball']
+        this.data = Object.assign({}, this.data)
         this.data.size = 0
     }
 )
@@ -498,7 +500,7 @@ extras['goat-priest\'s rattle'] = new ItemType (
 extras['kitchen knife'] = new ItemType (
     'kitchen knife', 'weapon',
     [1,3,0,0,0,0],
-    '11',
+    11,
     'Your kitchen knife breaks.',
     'It\'s a steel kitchen knife with a wood handle.'
 )
@@ -506,7 +508,7 @@ extras['kitchen knife'] = new ItemType (
 extras['wrench'] = new ItemType (
     'wrench', 'weapon',
     [0,0,5,0,0,0],
-    '7',
+    7,
     'The wrench breaks in your hand.',
     'A adjustable steel wrench. Deals moderate crush damage.'
 ),
@@ -514,7 +516,7 @@ extras['wrench'] = new ItemType (
 extras['purple orchid'] = new ItemType (
     'purple orchid', 'weapon',
     [0,0,0,0,2,0],
-    '15',
+    15,
     'The purple orchid wilts and rots.',
     'It\'s a vibrantly purple orchid with a single sharp barb emerging from its center.',
     null,
@@ -534,6 +536,9 @@ extras['purple orchid'] = new ItemType (
             }
         })
         drawString(`As the purple orchid infects the ${enemy.name} its pedals twist, changing to reflect the being it\'s attacking.`)
+    },
+    function () { // on instantiate
+        this.bonus = this.bonus.map(num => { return num })
     }
 )
 
@@ -548,7 +553,7 @@ extras['bottle of whiskey'] = new ItemType (
 extras['weird viol'] = new ItemType (
   'weird viol', 'shield',
   [0,0,4,0,4,9],
-  '9',
+  9,
   'Your weird viol breaks.',
   'A German-made string instrument carved from oak, played to ward off or appease terrors from beyond the veil of common space.',
   null,
@@ -663,6 +668,14 @@ extras['knife'] = new ItemType (
     `A black steel knife.`
 )
 
+extras['stake'] = new ItemType (
+    'stake', 'weapon',
+    [8,0,0,0,0,14],
+    7,
+    'The stake breaks.',
+    `A ash wood stake.`
+)
+
 extras['crown'] = new ItemType (
     'crown', 'shield',
     [0,1,1,0,0,0],
@@ -671,20 +684,28 @@ extras['crown'] = new ItemType (
     `A plain black crown.`
 )
 
-extras['archwizard\'s note'] = new ItemType (
-    'archwizard\'s note', 'shield',
-    [0,0,0,0,0,3],
-    2,
+extras['archwizard\'s letter'] = new ItemType (
+    'archwizard\'s letter', 'shield',
+    [0,0,1,1,0,3],
+    3,
     'The wizard\'s note is torn into pulp.',
-    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this curséd house.".`
+    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this accursed house."`
 )
 
 extras['demon king\'s note'] = new ItemType (
     'demon king\'s note', 'weapon',
-    [0,0,0,0,0,3],
-    2,
+    [0,0,0,2,0,2],
+    3,
     'The demon\'s note is torn into pulp.',
-    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth.".`
+    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to battle dragons but to find and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this accursed Earth."`
+)
+
+extras['trident'] = new ItemType (
+  'trident', 'weapon',
+  [11,0,11,0,0,0],
+  17,
+  'The trident turns into seafoam.',
+  'A three-pronged fishing spear.'
 )
 
 // extras['faker\'s arm'] = new ItemType (

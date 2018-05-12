@@ -612,6 +612,9 @@ var segments = [
                 game.player.updateStats()
                 this.bonus[dice(6) - 1] += dice(10)
                 drawString('Your cursed revolver spins wildly and pulls against you like a gyroscope as its shape seems to change completely before returning to being itself')
+            },
+            function () {
+                this.bonus = this.bonus.map(num => { return num })
             }
         )
 
@@ -741,7 +744,6 @@ var segments = [
             monByName('witch'),
             monByName('vampire'),
             monByName('shrieking dog'),
-            monByName('horned woman'),
             monByName('weaghrai'),
             extras['paranoid summoner'],
             extras['crow'],

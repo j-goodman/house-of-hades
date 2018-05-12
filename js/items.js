@@ -236,7 +236,7 @@ var allItemTypes = [
 
     new ItemType (
         'riot shield', 'shield',
-        [0,4,4,0,0,0],
+        [0,4,5,0,0,0],
         14,
         'Your shield breaks.',
         'It\'s a paramilitary riot shield.'
