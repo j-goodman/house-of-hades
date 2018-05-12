@@ -264,6 +264,14 @@ extras['wildgod'] = new MonsterType ({
                 level: 2,
                 info: 'A massive antlered mammal grinding a hoof against the ground in preparation to charge.',
             }),
+            new MonsterType ({
+                name: 'hippopotamus',
+                attack: [0,0,15,0,0,0,],
+                defense: [0,9,10,1,4,0,],
+                hitpoints: 20,
+                level: 2,
+                info: 'A huge barrel-shaped grey riverhorse with a huge mouth and large tusk-like canine teeth.',
+            }),
         ]
         let monsterType = pick(monsterTypes)
         this.room.monsters.push(new Monster (this.room, monsterType))
@@ -799,4 +807,80 @@ extras['Behemoth spawn'] = new MonsterType ({
         this.attack[2] += this.data.progress
         this.attack[2] = this.attack[2] > 20 ? 20 : this.attack[2]
     }
+})
+
+
+extras['sphinx'] = new MonsterType ({
+    name: 'sphinx',
+    attack: [0,20,10,0,0,0,],
+    defense: [7,10,10,7,7,9,],
+    hitpoints: 20,
+    level: 3,
+    info: `A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back.`,
+    onDeath: `The sphinx rears up and collapses, dead. There's a small round door on the floor beneath her.`,
+    fightEvent: function () {
+        if (this.attack[0] === 10) {
+            drawString('The sphinx blows fiery hot air at you with her great wings and simultaneously jabs at you with one of her huge claws.')
+            if (game.player.shield && (game.player.shield[0] + game.player.shield[3]) > (game.player.shield[1] + game.player.shield[2]) && oneIn(2)) {
+                this.attack[1] = 27
+                this.attack[2] = 3
+                this.attack[0] = 0
+                this.attack[3] = 0
+            }
+        }
+        if (this.attack[1] === 20 && game.player.shield && game.player.shield.bonus[1] > 6 && game.player.shield.bonus[2] > 6 ) {
+            drawString('The sphinx rears back warily, not satisfied with the efficacy of her attack.')
+            this.attack[1] = 0
+            this.attack[2] = 0
+            this.attack[0] = 10
+            this.attack[3] = 10
+        }
+    },
+    deathEvent: function () {
+        let door = new Door ('small round', this.room, false, false)
+        let firstRoom = new Room ([door], 1)
+        let secondRoom = new Room ([firstRoom.doors[1]], 1)
+        let thirdRoom = new Room ([secondRoom.doors[1]], 1)
+        let fourthRoom = new Room ([thirdRoom.doors[1]], 0)
+        firstRoom.type = `narrow sandstone corridor`
+        secondRoom.type = `sandstone atrium`
+        thirdRoom.type = `narrow sandstone corridor`
+        fourthRoom.type = `hidden chamber`
+        firstRoom.monsters = []
+        secondRoom.monsters = []
+        fourthRoom.monsters = []
+        door.to = firstRoom
+
+        firstRoom.doors[1].to = secondRoom
+        firstRoom.doors[1].color = 'sandstone'
+        secondRoom.doors[1].to = thirdRoom
+        secondRoom.doors[1].color = 'white stone'
+        thirdRoom.doors[1].to = fourthRoom
+        thirdRoom.doors[1].color = 'sandstone'
+
+        firstRoom.items = []
+        secondRoom.items = []
+        thirdRoom.items = []
+        fourthRoom.items = []
+
+        firstRoom.mana += dice(3) + dice(4)
+        secondRoom.mana += dice(3) + dice(4)
+        thirdRoom.mana += dice(3) + dice(4)
+        fourthRoom.mana += dice(3) + dice(4)
+
+        this.room.doors.push(door)
+
+        secondRoom.monsters = []
+        thirdRoom.items = []
+        fourthRoom.monsters = []
+    }
+})
+
+extras['archwizard'] = new MonsterType ({
+    name: 'archwizard',
+    attack: [2,2,2,2,2,11,],
+    defense: [7,2,3,1,1,5,],
+    hitpoints: 20,
+    level: 3,
+    info: `A dignified looking old man in black and silver robes with a expression of hateful disdain behind his crinkled greasy black beard. It's the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])}, squirreled away in a hidden bunker to survive the epidemic that claimed the rest of his kind.`,
 })

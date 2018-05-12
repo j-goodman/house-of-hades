@@ -98,9 +98,10 @@ var allMonsterTypes = [
                 new Item (itemByName(pick(['executioner\'s sword', 'obsidian axe'])), door.to),
                 new Item (itemByName(pick(['king\'s sword', 'sunfire macana'])), door.to),
                 new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
+                new Item (itemByName('wizard\'s ring'), door.to),
                 new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
                 new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
-                new Item (itemByName('wizard\'s ring'), door.to),
+                // new Item (itemByName(pick(['archwizard\'s note', 'demon king\'s note'])), door.to),
             )
             allMonsterTypes = allMonsterTypes.filter(mon => {
                 return oneIn(5)

@@ -98,7 +98,7 @@ extras['pair of earthquake boots'] = new ItemType (
 
 extras['goat\'s armor'] = new ItemType (
     'goat\'s armor', 'shield',
-    [2,11,9,2,5,2,],
+    [2,8,7,2,5,2,],
     19,
     'Your goat\'s armor breaks.',
     'Tightly-crafted black armor engraved with a eye with two perpendicular roads passing through it.',
@@ -669,6 +669,22 @@ extras['crown'] = new ItemType (
     29,
     'The crown breaks.',
     `A plain black crown.`
+)
+
+extras['archwizard\'s note'] = new ItemType (
+    'archwizard\'s note', 'shield',
+    [0,0,0,0,0,3],
+    2,
+    'The wizard\'s note is torn into pulp.',
+    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this curséd house.".`
+)
+
+extras['demon king\'s note'] = new ItemType (
+    'demon king\'s note', 'weapon',
+    [0,0,0,0,0,3],
+    2,
+    'The demon\'s note is torn into pulp.',
+    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth.".`
 )
 
 // extras['faker\'s arm'] = new ItemType (

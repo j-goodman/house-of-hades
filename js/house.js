@@ -81,10 +81,10 @@ var roomTypeItems = {
     'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
     'chapel': ['posessed bible', 'clergyman\'s dagger'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
-    'study': ['letter opener', 'letter opener', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
-    'bathroom': ['straightrazor', 'straightrazor', 'crowbar', 'wrench'],
+    'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
+    'bathroom': ['straightrazor', 'crowbar', 'wrench'],
     'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bag of devil\'s gold', 'golem\'s blood'],
-    'dungeon': ['makeshift stabbing implement', 'old iron chain'],
+    'dungeon': ['makeshift stabbing implement', 'old iron chain', 'fire poker', 'bleeding mushroom', 'burned bone'],
     'armory': ['executioner\'s sword', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
 }
 
