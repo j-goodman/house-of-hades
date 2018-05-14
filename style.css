@@ -50,14 +50,20 @@ li {
 }
 
 .stats-screen {
-    display: flex;
     align-items: flex-start;
+    background: rgba(255,255,255,.04);
+    display: flex;
+}
+
+.stats-screen > a {
+    align-self: center;
 }
 
 .stats-screen > h2 {
+    text-align: center;
     font-size: 14px;
     letter-spacing: normal;
-    text-indent: none;
+    margin-right: 14px;
 }
 
 .stats-screen > h3 {

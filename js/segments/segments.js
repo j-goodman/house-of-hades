@@ -628,7 +628,7 @@ var segments = [
 
         let bonehardener = new ItemType (
             'bonehardener', 'shield',
-            [0,3,9,0,1,2],
+            [0,3,6,0,1,2],
             8,
             'You\'ve run out of bonehardener.',
             'A vibrantly green medallion with silver roots that weave out of it and into the skin of the person holding it and fossilize their bones into a heavy metallic substance.',

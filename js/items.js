@@ -259,7 +259,7 @@ var allItemTypes = [
         'canned ghost', 'shield',
         [1,1,1,1,1,8],
         5,
-        'Your canned ghost bursts free during the fight. He flies west to murder all his still-living descendants.',
+        `Your canned ghost bursts free during the fight. He flies ${pick(['west', 'south', 'east', 'north'])} to murder all his still-living descendants.`,
         'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.'
     ),
     new ItemType (

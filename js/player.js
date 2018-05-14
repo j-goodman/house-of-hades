@@ -2,6 +2,9 @@ var globalUniqueId = -1
 var getGlobalUniqueId = () => {
     return globalUniqueId += 1
 }
+var pick = function (array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
 
 var Player = function () {
     this.room = null;
