@@ -208,11 +208,11 @@ li {
 .action-button {
     border: 1px solid #fff;
     border-radius: 2px;
-    padding: 4px 6px;
+    padding: 6px 9px;
     cursor: pointer;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 1000px) {
     .action-button {
         padding: 18px 27px;
     }
