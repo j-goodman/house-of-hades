@@ -1065,10 +1065,13 @@ var segments = [
         })
         prisonCells[0].doors[2].to = new Room ([prisonCells[0].doors[2]], 1)
         prisonCells[0].doors[2].to.type = 'ornate yellow gateway room denoting the passage between two states of being'
-        prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, extras[pick([
+        prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, monByName(pick([
             'Behemoth spawn',
             'raven totem',
-        ])])]
+            'raven totem',
+            'shoggoth',
+            'swordwraith',
+        ])))]
         prisonCells[0].doors[2].color = 'gateway'
         prisonCells[0].doors[0].color = 'black'
         prisonCells[0].doors[1].color = 'yellow'

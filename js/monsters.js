@@ -329,7 +329,7 @@ var allMonsterTypes = [
         defense: [12,2,1,2,1,1,],
         hitpoints: 20,
         level: 2,
-        info: 'An unseeable stunted hairy creature that will attack and gnaw on random targets in public places, sometimes dismembering them with its razor claws. Burning and crushing attacks will be most likely to hit it.',
+        info: 'A fully unseeable stunted hairy creature that will attack and gnaw on random targets in public places, sometimes dismembering them with its razor claws. Burning and crushing attacks will be most likely to hit it.',
     }),
     new MonsterType ({
         name: 'headless knight',

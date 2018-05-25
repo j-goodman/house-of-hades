@@ -19,15 +19,21 @@ extras['dragon'] = new MonsterType ({
         door.to.type = 'amphitheater with thirteen vaulted walls'
         door.to.items.push(
             new Item (itemByName(pick(['executioner\'s sword', 'obsidian axe'])), door.to),
-            new Item (itemByName(pick(['king\'s sword', 'sunfire macana'])), door.to),
+            new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'sunfire macana'])), door.to),
             new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
             new Item (itemByName('wizard\'s ring'), door.to),
             new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
+            new Item (itemByName(pick(['cavalry shield', 'assassin\'s gun', 'purple orchid'])), door.to),
             new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
             new Item (itemByName(pick(['archwizard\'s letter', 'demon king\'s note'])), door.to),
         )
         allMonsterTypes = allMonsterTypes.filter(mon => {
-            return oneIn(5)
+            if (oneIn(5)) {
+                return true
+            } else {
+                extras[mon.name] = mon
+                return false
+            }
         })
         allMonsterTypes.push(
             extras['half-goat soldier'],
@@ -260,7 +266,25 @@ extras['boa constrictor'] = new MonsterType ({
     hitpoints: 20,
     level: 1,
     info: 'A massive green serpent that crushes its prey to death in its muscular coils.',
-}),
+})
+
+extras['pit viper'] = new MonsterType ({
+    name: 'pit viper',
+    attack: [1,0,0,0,4,0,],
+    defense: [6,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A venomous black viper.',
+})
+
+extras['hawk'] = new MonsterType ({
+    name: 'hawk',
+    attack: [1,4,0,0,0,0,],
+    defense: [12,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'a fierce brownfeathered bird of prey.',
+})
 
 extras['wildgod'] = new MonsterType ({
     // pierce, slash, crush, burn, poison, curse
@@ -279,15 +303,9 @@ extras['wildgod'] = new MonsterType ({
             monByName('weaselcat'),
             extras['crow'],
             extras['albatross'],
-            new MonsterType ({
-                name: 'pit viper',
-                attack: [1,0,0,0,4,0,],
-                defense: [6,0,0,0,0,0,],
-                hitpoints: 20,
-                level: 1,
-                info: 'A venomous black viper.',
-            }),
             extras['boa constrictor'],
+            extras['pit viper'],
+            extras['hawk'],
             new MonsterType ({
                 name: 'wild boar',
                 attack: [2,0,5,0,0,0,],
@@ -295,14 +313,6 @@ extras['wildgod'] = new MonsterType ({
                 hitpoints: 20,
                 level: 2,
                 info: 'A black-haired boar with freshly bloodied white tusks.',
-            }),
-            new MonsterType ({
-                name: 'hawk',
-                attack: [1,4,0,0,0,0,],
-                defense: [12,0,0,0,0,0,],
-                hitpoints: 20,
-                level: 1,
-                info: 'A fierce brownfeathered bird of prey.',
             }),
             new MonsterType ({
                 name: 'puma',
@@ -413,7 +423,7 @@ extras['half-goat soldier'] = new MonsterType ({
 
 extras['kraken'] = new MonsterType ({
     name: 'kraken',
-    attack: [0,0,8,0,0,0,],
+    attack: [0,0,14,0,0,0,],
     defense: [10,10,12,10,12,11,],
     hitpoints: 20,
     level: 3,
@@ -733,6 +743,10 @@ extras['swordwraith'] = new MonsterType ({
     drop: [
         new Item (extras['wraith\'s sword'])
     ],
+    onInstantiate: function () {
+        this.data.progress = 0
+        this.room.doors[0].locked = true
+    },
     fightEvent: function () {
         let slash = !!Math.round(Math.random())
         this.attack[0] = slash ? 0 : 16
@@ -798,6 +812,9 @@ extras['demon king'] = new MonsterType ({
         this.room.doors[0].color = 'demon king\'s'
         this.room.doors[0].from = this.room
         this.room.doors[0].to = new Room ([this.room.doors[0]], 2)
+        this.room.doors[0].to.doors.map(door => {
+            door.locked = door.color !== 'demon king\'s'
+        })
         if (this.room.doors[0].to.monsters.length === 0) {
             this.room.doors[0].to.monsters.push(
                 new Monster (this.room.doors[0].to, extras[
@@ -875,15 +892,20 @@ extras['Behemoth spawn'] = new MonsterType ({
     }
 })
 
-
 extras['sphinx'] = new MonsterType ({
     name: 'sphinx',
     attack: [0,20,10,0,0,0,],
     defense: [7,10,10,7,7,9,],
     hitpoints: 20,
     level: 3,
-    info: `A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back.`,
+    info: `If you attack it and aren\'t prepared it will kill you with one strike. A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back.`,
     onDeath: `The sphinx rears up and collapses, dead. There's a small round door on the floor beneath her.`,
+    onInstantiate: function () {
+        ['Hippolyta', 'Jocasta', 'Matlalcueye', 'Sobekneferu', 'Wadjet', 'Tawaret', 'Xiuhcuetzin', 'Isabella'].map(name => {
+            nameMumbler.read(name)
+        })
+        this.info = `If you attack it and aren\'t prepared it will kill you with one strike. A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back. Until the recent fall of the wizards the sphinxes spent the past two five-hundred-year generations of their kind in a loose alliance with them, brokered by ${capitalize(nameMumbler.mumble())} the Sphinx Queen and the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])}.`
+    },
     fightEvent: function () {
         if (this.attack[0] === 10) {
             drawString('The sphinx blows fiery hot air at you with her great wings and simultaneously jabs at you with one of her huge claws.')
@@ -937,7 +959,6 @@ extras['sphinx'] = new MonsterType ({
 
         secondRoom.monsters = [new Monster (secondRoom, monByName(pick([
             'strangling demon',
-            'kraken',
             'salt golem',
             'salt golem',
             'sulfur golem',
@@ -948,7 +969,6 @@ extras['sphinx'] = new MonsterType ({
             'trident',
             'purple orchid',
             'pearl of concentrated pestilence',
-            'bottle of demon\'s blood',
             'laughing key',
             'djinn\'s sword',
             'angel\'s armor',
@@ -963,7 +983,7 @@ extras['sphinx'] = new MonsterType ({
 extras['archwizard'] = new MonsterType ({
     name: 'archwizard',
     attack: [3,4,4,4,4,9,],
-    defense: [7,2,3,1,1,5,],
+    defense: [7,4,6,3,3,6,],
     hitpoints: 20,
     level: 3,
     info: `A dignified looking old man in black and silver robes with a expression of hateful disdain behind his crinkled greasy black beard. It's the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])}, squirreled away in a hidden bunker to survive the epidemic that claimed the rest of his kind.`,
@@ -1017,7 +1037,7 @@ extras['salt golem'] = new MonsterType ({
     defense: [12,5,10,8,12,10,],
     hitpoints: 20,
     level: 3,
-    info: 'A golem made of blocks of crystallized salt, standing at three times your height and ducking down to not hit its head on the ceiling.',
+    info: 'A golem made of blocks of crystallized salt, standing at three times your height and ducking down to not hit its head on the ceiling. At the heart of the man of cubes is a flickering black heart of crackling energy that gives it its seismic strength.',
 })
 
 extras['sulfur golem'] = new MonsterType ({
@@ -1026,5 +1046,5 @@ extras['sulfur golem'] = new MonsterType ({
     defense: [12,6,12,6,12,10,],
     hitpoints: 20,
     level: 3,
-    info: 'A golem made of blocks of lemon-yellow sulfur, standing at three times your height and ducking down to not hit its head on the ceiling.',
+    info: 'A golem made of blocks of lemon-yellow sulfur, standing at three times your height and ducking down to not hit its head on the ceiling. At the heart of the sulfuric man is a flickering black heart of crackling energy that gives it its seismic strength.',
 })

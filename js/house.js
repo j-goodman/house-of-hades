@@ -38,12 +38,12 @@ var allUnresolvedDoors = () => {
     return (!door.to && door.from.doors.includes(door));
   });
 }
-var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'hallway', 'storeroom', 'library', 'bedroom', 'courtyard', 'living room'];
+var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'storeroom', 'library', 'bedroom', 'courtyard', 'living room', 'hallway', 'hallway', 'hallway', 'hallway', 'hallway', 'hallway', 'hallway', 'hallway', 'hallway'];
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
-    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room'],
-    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault'],
+    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt'],
+    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
@@ -63,7 +63,7 @@ var surfaceTypes = [
     ['floor', ['observatory', 'furnace room']],
     ['throne', ['throne room']],
     ['dance floor', ['ballroom']],
-    ['altar', ['chapel']],
+    ['altar', ['chapel', 'serpent shrine']],
     ['grand piano', ['music room']],
     ['concrete floor', ['unfurnished concrete cube']],
     ['weapon rack', ['armory']],
@@ -83,12 +83,17 @@ var roomTypeItems = {
     'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bag of devil\'s gold', 'golem\'s blood'],
     'dungeon': ['makeshift stabbing implement', 'old iron chain', 'fire poker', 'bleeding mushroom', 'burned bone', 'crowbar'],
     'armory': ['executioner\'s sword', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
+    'crypt': ['assassin\'s gun'],
+    'serpent shrine': ['assassin\'s gun', 'blowgun', 'evil eye', 'torch', 'bleeding mushroom'],
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
     'furnace room': ['arsonist ghost', 'fire elemental', 'posessed furnace'],
     'throne room': ['swordwraith'],
     'dungeon': ['rabid wizard', 'weaghrai', 'shoggoth', 'chained specter', 'foolsfire'],
+    'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
+    'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
+    'aviary': ['hawk', 'crow', 'albatross'],
 }
 
 var nextRoomId = 0;
@@ -137,10 +142,10 @@ var Room = function (doors, doorCount) {
             usedColors.push(door.color);
         });
     }
-    var mainMonsterPool = hour > 7 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
+    var mainMonsterPool = hour > 12 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 2;
     });
-    var secondMonsterPool = hour > 16 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
+    var secondMonsterPool = hour > 24 ? allMonsterTypes : allMonsterTypes.filter(function (monsterType) {
       return monsterType.level <= 1;
     });
     if (oneIn(1.5)) {
@@ -150,17 +155,19 @@ var Room = function (doors, doorCount) {
         this.monsters[0] = new Monster (this, extras['sphinx'])
         game.sphinxed = true
     }
-    if (roomTypeMonsters[this.type]) {
-        this.monsters.map((mon, index) => {
-            this.monsters[index] = new Monster (this, monByName(pick(roomTypeMonsters[this.type])))
-        })
-    }
     if (oneIn(7)) {
         this.monsters.push(new Monster (this, pick(secondMonsterPool)));
     }
     // Check that it's not two of the same monster:
     this.monsters = (this.monsters.length === 2 &&this.monsters[0].name === this.monsters[1].name) ?
     [this.monsters[0]] : this.monsters;
+
+    if (roomTypeMonsters[this.type]) {
+        this.monsters.map((mon, index) => {
+            this.monsters[index] = new Monster (this, monByName(pick(roomTypeMonsters[this.type])))
+        })
+    }
+    
     if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes), this));
     }
@@ -248,17 +255,17 @@ Door.prototype.resolved = function () {
 }
 
 Door.prototype.advanceRoomAndDoorTypes = function () {
-  if (hour > 26 && laterDoorColors[0] && laterRoomTypes[0]) {
+  if (hour > 30 && laterDoorColors[0] && laterRoomTypes[0]) {
       doorColors = doorColors.concat(laterDoorColors[0]);
       roomTypes = roomTypes.concat(laterRoomTypes[0]);
       laterDoorColors[0] = false; laterRoomTypes[0] = false;
   }
-  if (hour > 46 && laterDoorColors[1] && laterRoomTypes[1]) {
+  if (hour > 60 && laterDoorColors[1] && laterRoomTypes[1]) {
       doorColors = doorColors.concat(laterDoorColors[1]);
       roomTypes = roomTypes.concat(laterRoomTypes[1]);
       laterDoorColors[1] = false; laterRoomTypes[1] = false;
   }
-  if (hour > 60 && laterDoorColors[2] && laterRoomTypes[2]) {
+  if (hour > 80 && laterDoorColors[2] && laterRoomTypes[2]) {
       doorColors = doorColors.concat(laterDoorColors[2]);
       roomTypes = roomTypes.concat(laterRoomTypes[2]);
       laterDoorColors[2] = false; laterRoomTypes[2] = false;

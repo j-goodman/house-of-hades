@@ -56,6 +56,24 @@ extras['razor-sharp bone'] = new ItemType (
     'A four foot long white bone that\'s either been sharpened or naturally comes to a razor-honed edge. You could hold one end and use it as a weapon.'
 )
 
+let capitalize = word => { return word[0].toUpperCase() + word.slice(1, word.length) }
+let firstNames = ['Cristobal', 'Catherine', 'Armin', 'Armando', 'Aaron', 'Elizabeth', 'Yeung', 'Chantel', 'David', 'Charles', 'Lee', 'Mia', 'Maria', 'Fatima', 'Alexander', 'Xicotencatl', 'Achilles', 'Jesus', 'Lars', 'Abraham', 'Iris', 'Diego', 'Francisco', 'Atahualpa', 'Huascar', 'Ariana', 'Ariadne', 'Tycho', 'Brahe', 'Javier', 'Emil', 'Henri', 'Mariana', 'Julia', 'Ana Lilia', 'Emilio', 'Luis', 'Angela', 'Moon', 'Arlingtonius', 'Miranda', 'Boba Fett', 'Roscoe', 'Jupiter', 'Helene', 'Deshawn', 'Rajesh', 'Leo', 'Paul', 'Bicycle', 'Polyphemus', 'Virginia', 'Texas', 'Nebraska']
+extras['assassin\'s gun'] = new ItemType (
+    'assassin\'s gun', 'weapon',
+    [0,0,0,5,7,0],
+    4,
+    'You\'re out of darts.',
+    `A breath powered dart gun with four pinpoint-sharp projectiles. Scores of thousands of these fiery darts were made, but most were sunk during the blockade after the rebel army took Florida. This blowgun was used to assassinate two people.`,
+    null,
+    null,
+    function () { // On instantiate
+        let name = pick(firstNames)
+        nameMumbler.read(name)
+        nameMumbler.names.push(name)
+        this.info = `A breath powered dart gun with four pinpoint-sharp projectiles. There were originally scores of thousands of these darts made, but most were sunk during the blockade after the rebel army took Florida. This one was used to assassinate ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())}.`
+    }
+)
+
 extras['laughing key'] = new ItemType (
     'laughing key', 'shield',
     [1,1,1,1,1,1],
@@ -451,7 +469,7 @@ extras['bottle of violet powder'] = new ItemType (
 
 extras['green\'s spear'] = new ItemType (
     'green\'s spear', 'weapon',
-    [7,0,0,0,0,0],
+    [7,2,0,0,0,0],
     17,
     'Your green\'s spear breaks.',
     `A long spear made of gleaming green steel with two leather-wrapped handles.`
@@ -459,7 +477,7 @@ extras['green\'s spear'] = new ItemType (
 
 extras['blade of grass'] = new ItemType (
     'blade of grass', 'weapon',
-    [0,7,0,0,0,0],
+    [0,7,0,2,0,0],
     17,
     'Your blade of grass breaks.',
     `A spearlike weapon ending in a foot-long slashing blade forged out of shining green steel.`
@@ -467,15 +485,15 @@ extras['blade of grass'] = new ItemType (
 
 extras['goat\'s mace'] = new ItemType (
     'goat\'s mace', 'weapon',
-    [0,0,7,0,0,0],
+    [0,0,7,0,0,2],
     17,
     'Your goat\'s mace breaks.',
-    `A hooked and cragged mace made of heavy blunt-forged blue iron.`
+    `A hooked and cragged mace made of heavy blunt-forged blue iron with a long narrow handle.`
 )
 
 extras['liar\'s torch'] = new ItemType (
     'liar\'s torch', 'weapon',
-    [0,0,0,7,0,0],
+    [0,0,0,7,2,0],
     17,
     'Your liar\'s torch breaks.',
     `A intricate zinc and copper mechanism that takes in air and spits it out as globs of bright blue fire.`
@@ -483,7 +501,7 @@ extras['liar\'s torch'] = new ItemType (
 
 extras['bow and venom-barbed arrows'] = new ItemType (
     'bow and venom-barbed arrows', 'weapon',
-    [0,0,0,0,7,0],
+    [2,0,0,0,7,0],
     17,
     'You\'re out of venom-barbed arrows.',
     `A bow equipped with small arrows too light to do much damage on their own, but tipped with venom drawn from a million ants.`
@@ -491,7 +509,7 @@ extras['bow and venom-barbed arrows'] = new ItemType (
 
 extras['goat-priest\'s rattle'] = new ItemType (
     'goat-priest\'s rattle', 'weapon',
-    [0,0,0,0,0,7],
+    [0,0,2,0,0,7],
     17,
     'The goat-priest\'s rattle breaks.',
     `A blue iron staff ending in a small cage filled with the bones of the ancestors of some long-ago goat-shaman.`
@@ -560,7 +578,7 @@ extras['weird viol'] = new ItemType (
   function () { // on use
       drawString([
           `The creaking discordant notes of the viol fill the ${game.player.room.type} as you pull the bow across its strings.`,
-          `A sound almost like a cord rings out from the viol and fills the ${game.player.room.type}.`,
+          `A sound almost like a chord rings out from the viol and fills the ${game.player.room.type}.`,
           `You draw the bow of the viol across its strings and long, low chord reverberates from the instrument.`,
           `The eerie music of the viol fills the ${game.player.room.type}.`,
       ][this.data.experience])

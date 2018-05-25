@@ -119,7 +119,7 @@ var allItemTypes = [
         [0,0,0,0,7,0],
         3,
         'You\'re out of darts.',
-        'A breath powered dart gun with three venemous projectiles. Deals severe poison damage.'
+        'A breath powered dart gun with three pinpoint-sharp projectiles. They\'re poisoned with a cocktail of six different recipes exchanged across the Gulf of Mexico during the time of Louverture\'s revolution.'
     ),
     new ItemType (
         'atalatl', 'weapon',
