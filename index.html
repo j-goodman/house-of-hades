@@ -3,13 +3,15 @@
     <head>
         <meta charset='utf-8'>
         <meta name='google' value='notranslate'>
+        <link rel='icon' href='door.png'/>
         <title>House of Hades</title>
 
         <script src='js/player.js'></script>
         <script src='js/items.js'></script>
         <script src='js/house.js'></script>
-        <script src='js/crawler.js'></script>
+        <script src='js/impossibility_detector.js'></script>
         <script src='js/houseBuilder.js'></script>
+        <script src='js/modules/mumbler.js'></script>
         <script src='js/segments/extraItems.js'></script>
         <script src='js/monsters.js'></script>
         <script src='js/segments/extraMonsters.js'></script>
@@ -17,15 +19,15 @@
         <script src='js/game.js'></script>
 
         <script src='js/display.js'></script>
-        <script src='js/modules/mumbler.js'></script>
 
         <link rel='stylesheet' href='style.css'>
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=IBM+Plex+Mono'>
     </head>
     <body>
-        <section class='start-screen'>
+        <section class='menu start-screen'>
             <h2>House of Hades</h2>
             <a href='#' id='start-button'>START</a>
+            <a href='#' id='stats-button'>STATS</a>
         </section>
         <section class='game-screen hidden'>
             <section class='area'>
@@ -63,6 +65,9 @@
                 <div id='shield'></div>
                 <div id='inventory'></div>
             </section>
+        </section>
+        <section class='menu stats-screen hidden'>
+            <a href='#' id='back-from-stats-button'>BACK</a>
         </section>
     </body>
 </html>

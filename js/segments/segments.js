@@ -1,7 +1,7 @@
 
 
 var buildSegments = (count, rooms) => {
-  var number = 2;
+  var number = count;
   var choices = [];
   var choice;
   var i;
@@ -17,9 +17,9 @@ var buildSegments = (count, rooms) => {
     choices.push(choice);
   }
   choices.map((index) => {
-    segments[index](count, rooms);
+    segments[index](rooms);
   });
-  // segments[8](count, rooms)
+  // segments[8](rooms)
 };
 
 var segments = [
@@ -28,7 +28,7 @@ var segments = [
     *      SEWAGE MAIN      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       var segmentRooms = [];
       var otherRoom;
 
@@ -42,9 +42,7 @@ var segments = [
 
       var usedItems = [];
       var segmentItems = [
-        itemByName('cursed pistol'), itemByName('evil eye'), itemByName('posessed bible'), itemByName('life-giving herb'), itemByName('crowbar'),
-        // pierce, slash, crush, burn, poison, curse
-        extras['black stone idol'],
+        itemByName('bleeding mushroom'), itemByName('evil eye'), itemByName('posessed bible'), itemByName('life-giving herb'), itemByName('crowbar'),
         extras['razor-sharp bone'],
       ];
 
@@ -81,6 +79,8 @@ var segments = [
           rooms.push(room);
       })
 
+      pick(segmentRooms).items.push(new Item (extras['black stone idol']))
+
       segmentRooms[3].monsters.push(
           new Monster (segmentRooms[3],
               pick([
@@ -90,11 +90,6 @@ var segments = [
               ])
           )
       )
-
-      if (!dice(2) - 1) {
-          let handRoom = pick(segmentRooms)
-          handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
-      }
 
       segmentRooms[0].doors[2].color = 'rusty iron hatch';
       segmentRooms[0].type = 'mold-infested bathroom';
@@ -107,7 +102,12 @@ var segments = [
 
       room = new Room([], 3);
       rooms.push(room);
-      // room.doors[0].to = otherRoom;
+
+      segmentRooms.map(room => {
+          room.doors.map(door => {
+              door.locked = true
+          })
+      })
     },
 
     /*
@@ -115,7 +115,7 @@ var segments = [
     *      TARTARUS      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('tartarus')
       var segmentRooms = [];
       var otherRoom;
@@ -201,7 +201,7 @@ var segments = [
     *      LICH'S GROTTO      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('bones')
       var segmentRooms = [];
       var otherRoom;
@@ -370,7 +370,7 @@ var segments = [
                             new Item (
                               new ItemType (
                                   'inert torso', 'shield',
-                                  [0,0,0,0,0,0],
+                                  [1,1,2,0,0,0],
                                   '50',
                                   'The lich\'s torso rots away to sludge.',
                                   'The torso of a aged woman with no appendages. It lies inert and bloodless but you can still see its heart beating.'
@@ -422,7 +422,7 @@ var segments = [
     *      UNICORN AND THE DEVIL      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('horns')
       var segmentRooms = [];
       var otherRoom;
@@ -472,7 +472,7 @@ var segments = [
               name: 'devil',
               attack: [3,0,0,7,5,2],
               defense: [11,2,5,11,11,2],
-              hitpoints: 37,
+              hitpoints: 31,
               level: 3,
               info: 'It\'s the devil, bright red and with a three-pronged hayfork in his hands.',
               onDeath: 'You killed the devil.',
@@ -482,7 +482,7 @@ var segments = [
                       new ItemType (
                         'devil\'s fork', 'weapon',
                         [3,0,0,7,5,2],
-                        13,
+                        23,
                         'The devil\'s fork turns into smoke.',
                         'A three-pronged hayfork.'
                       ),
@@ -527,7 +527,7 @@ var segments = [
     *      DOOR MUMBLER      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
       console.log('doors')
       var segmentRooms = [];
       var otherRoom;
@@ -543,7 +543,7 @@ var segments = [
               // pierce, slash, crush, burn, poison, curse
               name: 'door mumbler',
               attack: [0,2,8,1,0,0],
-              defense: [8,4,8,1,3,8],
+              defense: [9,4,10,1,3,8],
               hitpoints: 20,
               level: 3,
               info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
@@ -568,9 +568,7 @@ var segments = [
           new Door (
             doorMumbler.mumbleDoor(),
             this.room,
-            pick(allDoors.filter((door) => {
-              return door.to !== true;
-            })).to
+            false
           )
         );
         drawString('The door mumbler lets out a wild yelp like a mule and is gone in a pillar of acrid black grease-smoke, a misshapen door in her place');
@@ -597,13 +595,13 @@ var segments = [
     *      CURSE DEN      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('curse')
         var segmentRooms = []
         var otherRoom
 
         let cursedRevolver = new ItemType (
-            'black cursed revolver', 'weapon',
+            'black Nambu', 'weapon',
             [dice(6),0,0,0,0,dice(12)],
             9,
             'The protean cursed revolver finally spins out of control and curls tightly into a laughing ball before exploding into a thick black cloud of spores.',
@@ -614,6 +612,9 @@ var segments = [
                 game.player.updateStats()
                 this.bonus[dice(6) - 1] += dice(10)
                 drawString('Your cursed revolver spins wildly and pulls against you like a gyroscope as its shape seems to change completely before returning to being itself')
+            },
+            function () {
+                this.bonus = this.bonus.map(num => { return num })
             }
         )
 
@@ -627,19 +628,13 @@ var segments = [
 
         let bonehardener = new ItemType (
             'bonehardener', 'shield',
-            [0,3,9,0,1,2],
+            [0,3,6,0,1,2],
             8,
             'You\'ve run out of bonehardener.',
             'A vibrantly green medallion with silver roots that weave out of it and into the skin of the person holding it and fossilize their bones into a heavy metallic substance.',
         )
 
-        let whiskey = new ItemType (
-            'bottle of whiskey', 'weapon',
-            [0,3,0,1,1,0],
-            1,
-            'The bottle of whiskey is shattered.',
-            'A bottle of inexpensive barrel-aged Kentucky bourbon.',
-        )
+        let whiskey = itemByName('bottle of whiskey')
 
         let molotovCocktail = new ItemType (
             'molotov cocktail', 'weapon',
@@ -735,6 +730,7 @@ var segments = [
             itemByName('bag of devil\'s gold'),
             itemByName('life-giving herb'),
             itemByName('thompson gun'),
+            itemByName('cigarette lighter'),
             cursedRevolver,
             wildCompass,
             bonehardener,
@@ -748,7 +744,6 @@ var segments = [
             monByName('witch'),
             monByName('vampire'),
             monByName('shrieking dog'),
-            monByName('horned woman'),
             monByName('weaghrai'),
             extras['paranoid summoner'],
             extras['crow'],
@@ -776,11 +771,6 @@ var segments = [
             door.to = hub
         })
 
-        if (!dice(2) - 1) {
-            let handRoom = pick(segmentRooms)
-            handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
-        }
-
         segmentRooms.map(room => {
             room.doors.map(door => {
                 door.locked = true
@@ -793,7 +783,7 @@ var segments = [
     *      XIBALBA      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('xibalba')
         var segmentRooms = []
         var otherRoom
@@ -832,7 +822,6 @@ var segments = [
             itemByName('life-giving herb'),
             itemByName('firebomb'),
             itemByName('atalatl'),
-            itemByName('sledgehammer'),
             itemByName('blowgun'),
             itemByName('torch'),
             itemByName('ghostcandle'),
@@ -872,6 +861,9 @@ var segments = [
             room.monsters = oneIn(2) ?
                            [new Monster(room, pick(monsterTypes))] :
                            [new Monster(room, pick(monsterTypes)), new Monster(room, pick(monsterTypes))]
+            if (room.monsters.length === 2 && room.monsters[0].name === room.monsters[1].name) {
+                room.monsters = [room.monsters[0]]
+            }
             room.doors[0] = door
             door.from = room
             door.to = hub
@@ -892,7 +884,7 @@ var segments = [
     *      CROSSROADS      *
 
     */
-    (count, rooms) => {
+    (rooms) => {
         console.log('crossroads')
         var segmentRooms = []
         var otherRoom
@@ -985,6 +977,7 @@ var segments = [
             pick([
                 extras['kraken'],
                 extras['seagod'],
+                extras['old old man'],
                 extras['jelly leviathan'],
             ])
         )]
@@ -993,7 +986,7 @@ var segments = [
             west,
             pick([
                 extras['wildgod'],
-                extras['laughing woman'],
+                extras['old old man'],
                 extras['murderer\'s courage'],
                 extras['boa constrictor'],
                 extras['heart-eating fox']
@@ -1015,8 +1008,9 @@ var segments = [
     *      REALM OF DEMONS      *
 
     */
-    (count, rooms) => {
-        console.log('realm')
+    (rooms) => {
+        console.log('gate')
+        game.gated = true
         var segmentRooms = []
         var otherRoom
         let segmentDoors = ['yellow', 'sickly yellow', 'sulfur-colored', 'gold', 'greyish-yellow', 'melting', 'opaque black glass', 'carved', 'pale oak', 'pale iron', 'pale steel']
@@ -1036,7 +1030,7 @@ var segments = [
         prisonCells.map((cell, index) => {
             let hall = []
             cell.type = 'prison cell made of stinking lemon-colored stone'
-            hall.length = Math.ceil(dice(4) + dice(2))
+            hall.length = Math.ceil(dice(3) + dice(2) + dice(2))
             hall.fill(null)
             hall.map((el, subIndex) => {
                 let fromRoom
@@ -1065,14 +1059,20 @@ var segments = [
             hall.map(room => {
                 segmentRooms.push(room)
                 room.doors.map(door => {
-                    window.counterman = window.counterman + 1 || 1
                     door.color = pick(segmentDoors)
                 })
             })
         })
         prisonCells[0].doors[2].to = new Room ([prisonCells[0].doors[2]], 1)
         prisonCells[0].doors[2].to.type = 'ornate yellow gateway room denoting the passage between two states of being'
-        prisonCells[0].doors[2].to.monsters = []
+        prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, monByName(pick([
+            'Behemoth spawn',
+            'raven totem',
+            'raven totem',
+            'shoggoth',
+            'swordwraith',
+        ])))]
+        prisonCells[0].doors[2].locked = true
         prisonCells[0].doors[2].color = 'gateway'
         prisonCells[0].doors[0].color = 'black'
         prisonCells[0].doors[1].color = 'yellow'
@@ -1084,19 +1084,28 @@ var segments = [
                 }
             }
             room.monsters = []
+            room.items = []
             if (oneIn(2)) {
-                room.monsters.push(new Monster (room, extras[pick([
-                    'carcinogenic demon',
-                    'bottle demon',
-                    'looking demon',
-                    'strangling demon'
-                ])]))
+                if (room.type.includes('prison cell')) {
+                    room.monsters.push(new Monster (room, extras[pick([
+                        'bottle demon',
+                        'looking demon',
+                    ])]))
+                } else {
+                    room.monsters.push(new Monster (room, extras[pick([
+                        'carcinogenic demon',
+                        'strangling demon',
+                        'razor demon',
+                    ])]))
+                }
             }
             if (room.monsters.length > 0) {
                 room.doors.map(door => {
-                        door.locked = true
+                    door.locked = true
                 })
             }
         })
+        let demonKingCell = pick([prisonCells[1], prisonCells[2]])
+        demonKingCell.monsters.push(new Monster (demonKingCell, extras['marble guardian']))
     },
 ]

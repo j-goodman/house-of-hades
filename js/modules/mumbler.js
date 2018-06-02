@@ -63,6 +63,9 @@ Talker.prototype.write = function (base) {
   string = base[0];
 
   sentence.map((cell, index) => {
+		if (!this.memory[string[index].code()]) {
+				return undefined
+		}
     this.memory[string[index].code()].next.map((nextCell, nextIndex) => {
       if (index + nextIndex < sentence.length) {
         sentence[index + nextIndex].letters = Object.assign(sentence[index + nextIndex].letters, nextCell.letters);
@@ -106,10 +109,13 @@ Talker.prototype.chooseCharDeterm = function (cell) {
       validChoices.push(letter);
     }
   });
-  return(validChoices[Math.floor(Math.random() * validChoices.length)]);
+	if (validChoices) {
+		return(validChoices[Math.floor(Math.random() * validChoices.length)]);
+	}
 }
 
 var doorMumbler = new Talker (2);
+var nameMumbler = new Talker (2);
 laterDoorColors.map((list) => {
   list.map((item) => {
     doorMumbler.read(item);
@@ -119,6 +125,16 @@ doorColors.map((item) => {
   doorMumbler.read(item);
 })
 
+nameMumbler.names = ['Arturo', 'Malinche', 'Joseph', 'Annabel', 'Epimetheus']
+nameMumbler.names.map((item) => {
+  nameMumbler.read(item)
+})
+
+
 doorMumbler.mumbleDoor = () => {
   return doorMumbler.write(pick(doorColors));
+}
+
+nameMumbler.mumble = () => {
+  return nameMumbler.write(pick(nameMumbler.names));
 }

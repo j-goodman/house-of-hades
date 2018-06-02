@@ -24,6 +24,7 @@ var Item = function (type, room) {
     this.onUse = type.onUse ? type.onUse : false;
     this.onInstantiate = type.onInstantiate ? type.onInstantiate : false;
     this.onDrop = type.onDrop ? type.onDrop : false;
+    this.id = getGlobalUniqueId()
     if (this.onInstantiate) {
         this.onInstantiate(this);
     }
@@ -45,7 +46,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'crowbar', 'weapon',
-        [0,0,3,0,0,0],
+        [0,0,4,0,0,0],
         '12',
         'Your crowbar breaks in your hand. It was pretty rusty anyway.',
         'A crowbar! Deals moderate crush damage.'
@@ -88,21 +89,21 @@ var allItemTypes = [
     new ItemType (
         'sacred tomohawk', 'weapon',
         [0,5,0,1,0,7],
-        5,
+        7,
         'Your tomohawk explodes into smoke, dissipating through the mansion\'s walls with a cry like a speared boar dying.',
         'A black iron tomohawk decorated with dragonfeathers. Deals very powerful slash and curse damage, and also whispers reckless advice very quietly.'
     ),
     new ItemType (
         'woodaxe', 'weapon',
-        [0,3,2,0,0,0],
+        [0,5,2,0,0,0],
         12,
         'Your woodaxe breaks in your hand.',
         'A old axe for splitting wood. Deals moderate slash damage.'
     ),
     new ItemType (
         'sledgehammer', 'weapon',
-        [1,0,4,0,0,0],
-        12,
+        [1,0,6,0,0,0],
+        9,
         'Your sledgehammer breaks in your hand.',
         'A rusty old hammer.'
     ),
@@ -118,7 +119,7 @@ var allItemTypes = [
         [0,0,0,0,7,0],
         3,
         'You\'re out of darts.',
-        'A breath powered dart gun with three venemous projectiles. Deals severe poison damage.'
+        'A breath powered dart gun with three pinpoint-sharp projectiles. They\'re poisoned with a cocktail of six different recipes exchanged across the Gulf of Mexico during the time of Louverture\'s revolution.'
     ),
     new ItemType (
         'atalatl', 'weapon',
@@ -157,7 +158,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'thompson gun', 'weapon',
-        [8,0,0,2,0,0],
+        [8,0,1,2,0,0],
         3,
         'Your thompson gun is out of ammo.',
         'A mass-market submachine gun, favorite of rumrunners and colonial enforcers. It spends a lot of ammo at once, so you\'ll only get three bursts out of it.'
@@ -170,7 +171,7 @@ var allItemTypes = [
         'Three bombs fueled with volatile caustic chemicals.'
     ),
     new ItemType (
-        'silver rifle', 'weapon',
+        'rifle', 'weapon',
         [8,0,0,0,0,8],
         3,
         'Your rifle\'s out of silver bullets.',
@@ -204,6 +205,29 @@ var allItemTypes = [
         'Your sickle breaks.',
         'A handheld tool with a curved blade for cutting grass.'
     ),
+    new ItemType (
+        'broken bottle', 'weapon',
+        [2,3,0,0,0,0],
+        5,
+        'The broken bottle breaks again, this time into too many pieces for it to be useful as a weapon.',
+        `A glass bottle whose label you can't read, broken off at the bottom into a jagged edge.`
+    ),
+    new ItemType (
+        'bottle of lightning', 'weapon',
+        [0,0,8,11,0,0],
+        8,
+        'The bottle of lightning cracks and then shatters, crackling with electricity as its shards rattle to the ground.',
+        'A liquor bottle whose cork is trapping a bolt of lightning that bounces wildly at 800 miles per hour within the impervious glass, retaining its potency even in captivity.',
+        null,
+        function () { // On use
+            drawString('As you quickly remove and return the cork from the bottle, some of the electricity within escapes with a crack of thunder.')
+            this.bonus = this.bonus.map(num => { return num })
+            this.bonus[3] -= (dice(3) + dice(2))
+            this.bonus[3] = this.bonus[3] < 2 ? 2 : this.bonus[3]
+            this.bonus[2] -= dice(3)
+            this.bonus[2] = this.bonus[2] < 0 ? 0 : this.bonus[2]
+        },
+    ),
     // pierce, slash, crush, burn, poison, curse
 
     /*///
@@ -212,7 +236,7 @@ var allItemTypes = [
 
     new ItemType (
         'riot shield', 'shield',
-        [0,4,4,0,0,0],
+        [0,4,5,0,0,0],
         14,
         'Your shield breaks.',
         'It\'s a paramilitary riot shield.'
@@ -235,7 +259,7 @@ var allItemTypes = [
         'canned ghost', 'shield',
         [1,1,1,1,1,8],
         5,
-        'Your canned ghost bursts free during the fight. He flies west to murder all his still-living descendants.',
+        `Your canned ghost bursts free during the fight. He flies ${pick(['west', 'south', 'east', 'north'])} to murder all his still-living descendants.`,
         'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.'
     ),
     new ItemType (
@@ -268,15 +292,15 @@ var allItemTypes = [
     ),
     new ItemType (
         'golem\'s blood', 'shield',
-        [2,5,7,1,0,0],
+        [2,5,7,2,0,0],
         8,
         'You\'re out of golem\'s blood.',
         'A vial of silty mud from the veins of a golem. Increases your resiliance against physical attacks.'
     ),
     new ItemType (
         'bleeding mushroom', 'shield',
-        [3,3,0,0,0,0],
-        12,
+        [3,3,0,0,3,0],
+        14,
         'Your bleeding mushroom runs out of blood and wilts.',
         'A mushroom from which you can absorb a seemingly unlimited amount of blood, making bloodloss less of an issue.'
     ),
@@ -296,17 +320,24 @@ var allItemTypes = [
     ),
     new ItemType (
         'chainmail shirt', 'shield',
-        [10,1,0,0,0,0],
+        [7,4,0,0,0,0],
         9,
         'Your chainmail shirt is too badly damaged to use anymore.',
-        'And old iron mail shirt. Protects effectively against pierce damage.'
+        'An old iron mail shirt. Protects effectively against pierce damage.'
     ),
     new ItemType (
-        'pair of haze glasses', 'shield',
-        [7,0,0,0,0,2],
-        7,
-        'Your haze glasses break.',
-        'Old steel reading glasses cursed to shroud the wearer in a cloud of uncertain visibility, making them harder to hit with pierce attacks.'
+        'smoke bomb', 'shield',
+        [10,9,4,5,0,0],
+        1,
+        'The smoke bomb bursts into a plume of thick black fumes.',
+        'A blue metal smoke bomb the size of a peach. You can throw it down to shroud yourself in a thick cloud of smoke and make it harder for enemies to hit you.'
+    ),
+    new ItemType (
+        'snowowl\'s mask', 'shield',
+        [0,0,6,6,0,0],
+        8,
+        'Your mask splinters and shatters into frozen shards.',
+        'A mask like the face of a white owl, made of hard unmelting ice. It\'s cursed so that when you wear it your body temperature drops and a hard frost runs through you, making it harder to burn or crush you.'
     ),
 
     // pierce, slash, crush, burn, poison, curse

@@ -13,11 +13,11 @@ var MonsterType = function (ob) {
 };
 
 var Monster = function (room, type) {
-    this.attack = type.attack;
+    this.attack = type.attack ? type.attack.map(num => { return num }) : [];
     this.data = {};
     this.deathEvent = type.deathEvent;
-    this.defense = type.defense;
-    this.drop = type.drop;
+    this.defense = type.defense ? type.defense.map(num => { return num }) : [];
+    this.drop = type.drop ? type.drop.map(item => { return item }) : [];
     this.fightEvent = type.fightEvent ? type.fightEvent.bind(this) : false;
     this.room = room;
     this.hitpoints = type.hitpoints;
@@ -26,6 +26,7 @@ var Monster = function (room, type) {
     this.name = type.name;
     this.onDeath = type.onDeath;
     this.onInstantiate = type.onInstantiate ? type.onInstantiate.bind(this) : false;
+    this.id = getGlobalUniqueId()
     if (this.onInstantiate) {
         this.onInstantiate.bind(this)();
     }
@@ -38,11 +39,13 @@ Monster.prototype.die = function () {
     }
     this.room.mana += 4;
     if (this.drop) {
-      this.drop.map((item) => {
-        drawString(`There\'s a ${item.name} on the ground.`);
-        this.room.items.push(item);
-        item.room = this.room
-      });
+        this.drop.map((item) => {
+            drawString(`There\'s a ${item.name} on the ground.`);
+            item = Object.assign({}, item);
+            item.id = getGlobalUniqueId()
+            this.room.items.push(item);
+            item.room = this.room
+        });
     }
     this.room.monsters = this.room.monsters.filter(mon => {
         return mon !== this
@@ -51,12 +54,23 @@ Monster.prototype.die = function () {
         this.room.doors.map(door => { door.locked = false })
     }
     this.room.graveyard.push(this)
+    if (!this.undead && !display.data.monstersKilled.map(ob => { return ob.name }).includes(this.name)) {
+        display.data.monstersKilled.push({
+            name: this.name,
+            info: this.info,
+        })
+    }
 };
 
 var monByName = (name) => {
-    return allMonsterTypes.filter((type) => {
-        return type.name === name;
+    var mon
+    mon = allMonsterTypes.filter((type) => {
+        return type.name === name
     })[0];
+    if (!mon) {
+        mon = extras[name]
+    }
+    return mon
 }
 
 var itemByName = (name) => {
@@ -73,59 +87,11 @@ var itemByName = (name) => {
 // levels go from 1-3, most should be 3.
 var allMonsterTypes = [
     new MonsterType ({
-        name: 'dragon',
-        attack: [0,6,6,12,0,1],
-        defense: [12,10,9,12,3,12],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
-        onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
-        deathEvent: () => {
-            var door;
-            if (game.player.room.type === 'treasure room') {
-            door = new Door ('trap', game.player.room, null);
-            game.player.room.doors.push(door);
-            door.to = new Room ([], 13);
-            door.to.type = 'amphitheater with thirteen vaulted walls'
-            door.to.items.push(
-                itemByName(pick(['laughing mask', 'obsidian axe'])),
-                itemByName(pick(['king\'s sword', 'sunfire macana'])),
-                itemByName(pick(['wand of oceans', 'golem\'s blood'])),
-                itemByName(pick(['bag of devil\'s gold', 'canned ghost'])),
-                itemByName(pick(['lion\'s hide', 'goat\'s armor'])),
-                itemByName('wizard\'s ring'),
-            )
-            door.to.doors.map((innerDoor, index) => {
-              innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
-                  'colossal basalt',
-                  'rune-inscribed',
-                  'carved ebony',
-                  'giant sandstone',
-                  'huge steel',
-                  'tiny circular',
-                  'opaque glass',
-                  'tall narrow ivory',
-                  'thirteen-eyed',
-                  'obsidian',
-                  'ornate stained glass',
-                  'polished marble',
-                  'solid gold',
-              ][index]
-            })
-            door.to.mana += 100;
-            door.from.mana += 50;
-                drawString('');
-                drawString('    | YOU WIN |    ');
-                drawString('');
-            }
-        }
-    }),
-    new MonsterType ({
         name: 'giant scorpion',
         attack: [3,1,0,0,4,0],
         defense: [2,1,3,2,7,0],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'It\'s a scorpion the size of a dog. Careful of that poison sting.',
     }),
     new MonsterType ({
@@ -170,7 +136,7 @@ var allMonsterTypes = [
         attack: [5,3,0,0,0,0,],
         defense: [4,6,7,3,2,4,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'A creature like a mangy flea-ridden wild dog reared to its hind legs with a look of ferocious hunger in its eyes.',
         fightEvent: function () {
             var people;
@@ -217,7 +183,7 @@ var allMonsterTypes = [
         attack: [2,3,0,0,1,0,],
         defense: [2,1,0,0,8,0,],
         hitpoints: 20,
-        level: 2,
+        level: 1,
         info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and a expression of lunatic hunger on his face. It reeks of dead flesh.',
     }),
     new MonsterType ({
@@ -231,9 +197,9 @@ var allMonsterTypes = [
     new MonsterType ({
         name: 'fire elemental',
         attack: [0,0,0,8,0,0,],
-        defense: [4,4,4,12,2,0,],
+        defense: [5,6,2,12,2,0,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',
         onDeath: 'Its face goes slack and swirls into a glob of black flame which falls and bursts.',
         drop: [new Item(itemByName(Math.floor(Math.random()) ? 'ghostcandle' : 'burned bone'))]
@@ -259,7 +225,7 @@ var allMonsterTypes = [
         attack: [1,0,0,0,2,0,],
         defense: [0,0,0,0,0,0,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'It\'s poisonous!',
     }),
     new MonsterType ({
@@ -283,8 +249,9 @@ var allMonsterTypes = [
         attack: [5,0,0,0,3,0,],
         defense: [4,0,1,2,5,1,],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'A long, small Amazonian wildcat known for its piercing bite. This one looks like it might be rabid, so be careful of poison. Try slashing or crushing it if you catch it.',
+        onDeath: 'The weaselcat dies.'
     }),
     new MonsterType ({
         name: 'cruel phantom',
@@ -293,23 +260,26 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'The mansion\'s cruel phantoms are the spirits of people who died painful deaths within the walls. They\'re immune to all physical attacks, and determined to return their agony to the still living.',
+        onDeath: 'With a howl like a coyote the cruel phantom dissipates.',
         drop: [new Item(extras['phantom\'s blood'])]
     }),
     new MonsterType ({
         name: 'wendigo',
-        attack: [7,7,7,0,0,0,],
+        attack: [8,8,8,0,0,0,],
         defense: [10,10,10,0,0,0,],
         hitpoints: 20,
         level: 3,
         info: 'A savagely deadly creature of the boreal forests, the tortured body of one who was forced to eat their own kind to survive, and now must continue or die. Its body is numb to pain and it can weather most physical attacks.',
+        onDeath: `The wendigo\'s agonized expression ${pick(['goes placid', 'twists and wrinkles'])} and it dies.`
     }),
     new MonsterType ({
         name: 'rabid wizard',
         attack: [0,0,0,0,0,9,],
         defense: [6,1,2,0,0,4,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'He looks like he\'s not used to being around other people. his eyes are constantly moving around the room and his beard is wild and matted. his fingers and ears are crackling with hairswidth bolts of black lightning.',
+        onDeath: 'The wizard collapses and twitches for a moment then dies.',
     }),
     new MonsterType ({
         name: 'shrieking dog',
@@ -318,21 +288,23 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'Its weird scream is supposed to be an omen of disease. It can\'t wield weapons so it\'s most vulnerable to slashing attacks.',
+        onDeath: 'The shrieking dog dies.'
     }),
     new MonsterType ({
         name: 'arsonist ghost',
         attack: [0,0,0,6,0,1,],
         defense: [8,7,5,0,5,5,],
         hitpoints: 20,
-        level: 3,
+        level: 2,
         info: 'The ghost of a man convicted of setting fire to property public and private, recidivating after a lethal injection. He\'s most vulnerable to fire.',
+        onDeath: 'The ghost wails in agony as it\'s consumed by fire and dies.'
     }),
     new MonsterType ({
         name: 'tumorous bleating mass',
         attack: [0,0,1,0,2,0,],
         defense: [0,10,0,5,2,1,],
         hitpoints: 20,
-        level: 2,
+        level: 3,
         info: 'A pulsating blot of veiny scab-covered flesh with seven blinking eyes and a shapeless bleating mouth. It doesn\'t seem dangerous.',
     }),
     new MonsterType ({
@@ -357,7 +329,7 @@ var allMonsterTypes = [
         defense: [12,2,1,2,1,1,],
         hitpoints: 20,
         level: 2,
-        info: 'An unseeable stunted hairy creature that will attack and gnaw on random targets in public places, sometimes dismembering them with its razor claws. Burning and crushing attacks will be most likely to hit it.',
+        info: 'A fully unseeable stunted hairy creature that will attack and gnaw on random targets in public places, sometimes dismembering them with its razor claws. Burning and crushing attacks will be most likely to hit it.',
     }),
     new MonsterType ({
         name: 'headless knight',
@@ -419,8 +391,8 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'omnivorous fungus',
-        attack: [0,0,1,0,3,0,],
-        defense: [12,6,6,0,8,4,],
+        attack: [0,0,1,0,2,0,],
+        defense: [11,3,5,0,8,1,],
         hitpoints: 20,
         level: 2,
         info: 'A massive greenish-blue fungal growth with spores wriggling out of its back as it devours the walls it\'s growing on.',
@@ -450,7 +422,7 @@ var allMonsterTypes = [
         attack: [0,0,0,0,0,0,],
         defense: [9,7,6,3,3,1,],
         hitpoints: 20,
-        level: 1,
+        level: 2,
         info: 'A sharp-toothed feline-eared diminuitive grey implike creature with wild deranged eyes.',
         onInstantiate: function () {
             this.data.baseDefense = this.defense.map(stat => { return stat })
@@ -513,8 +485,8 @@ var allMonsterTypes = [
                             'by standing over the corpse and shouting so loudly that spit comes out.',
                             'with his hand.',
                             'after removing his hat to speak a prayer.',
-                            `like it's a ${mon.name.split(' ')[mon.name.split(' ').length - 1]} Lazarus`,
-                            `but it almost looks as if it\'s resisting being pulled back into life, its body dissolving as it rises`,
+                            `like it's a ${mon.name.split(' ')[mon.name.split(' ').length - 1]} Lazarus.`,
+                            `but it almost looks as if it\'s resisting being pulled back into life, its body dissolving as it rises.`,
                         ])
                     }`)
                     let roll = dice(3)
@@ -526,10 +498,10 @@ var allMonsterTypes = [
                     mon.hitpoints = 20
                     switch (roll) {
                         case 1:
-                            mon.name = `unmurdered ${mon.name}`
+                            mon.name = `revenant ${mon.name}`
                             mon.attack[0] += 3 // pierce attack bonus
                             mon.attack[5] += 1 // curse attack bonus
-                            mon.info += ' It was murdered and has risen changed.'
+                            mon.info += ' It was murdered and has risen in wrath.'
                             break;
                         case 2:
                             mon.name = `reanimated ${mon.name}`
@@ -607,6 +579,30 @@ var allMonsterTypes = [
           this.die()
           drawString('The nails form up into two smaller men.')
       }
+    }),
+    new MonsterType ({
+        name: 'psychic ray',
+        attack: [1,0,0,0,3,3,],
+        defense: [8,1,10,0,0,0,],
+        hitpoints: 20,
+        level: 2,
+        info: 'It\'s a stingray hovering in the air.',
+    }),
+    new MonsterType ({
+        name: 'Opel Manta',
+        attack: [0,0,8,3,0,0,],
+        defense: [2,2,10,8,12,0,],
+        hitpoints: 20,
+        level: 3,
+        info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback with a good safety rating but low gas mileage.',
+    }),
+    new MonsterType ({
+        name: 'toxic snail',
+        attack: [0,0,6,0,5,0,],
+        defense: [3,3,7,0,5,0,],
+        hitpoints: 20,
+        level: 2,
+        info: 'It\'s a yellow snail in a shell the size of a small European car, oozing venomous slime as it crawls at you.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

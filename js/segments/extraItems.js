@@ -2,7 +2,7 @@ var extras = extras ? extras : {}
 
 extras['lich\'s eye'] = new ItemType (
     'lich\'s eye', 'weapon',
-    [0,0,0,0,10,0],
+    [0,3,0,1,7,1],
     '9',
     'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
     'A green eye with the power to kill those it looks upon.'
@@ -18,7 +18,7 @@ extras['Byzantine murder ring'] = new ItemType (
 
 extras['cosmic ball'] = new ItemType (
     'cosmic ball', 'weapon',
-    [0,0,10,0,0,0],
+    [0,0,9,2,0,0],
     '12',
     'The cosmic ball seems to reaccrue its natural weightiness all at once. It plummets through the floor, vanishing into the earth.',
     'A impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be. It\'s held at the end of a long white chain.'
@@ -56,6 +56,24 @@ extras['razor-sharp bone'] = new ItemType (
     'A four foot long white bone that\'s either been sharpened or naturally comes to a razor-honed edge. You could hold one end and use it as a weapon.'
 )
 
+let capitalize = word => { return word[0].toUpperCase() + word.slice(1, word.length) }
+let firstNames = ['Cristobal', 'Catherine', 'Armin', 'Armando', 'Aaron', 'Elizabeth', 'Yeung', 'Chantel', 'David', 'Charles', 'Lee', 'Mia', 'Maria', 'Fatima', 'Alexander', 'Xicotencatl', 'Achilles', 'Jesus', 'Lars', 'Abraham', 'Iris', 'Diego', 'Francisco', 'Atahualpa', 'Huascar', 'Ariana', 'Ariadne', 'Tycho', 'Brahe', 'Javier', 'Emil', 'Henri', 'Mariana', 'Julia', 'Ana Lilia', 'Emilio', 'Luis', 'Angela', 'Moon', 'Arlingtonius', 'Miranda', 'Boba Fett', 'Roscoe', 'Jupiter', 'Helene', 'Deshawn', 'Rajesh', 'Leo', 'Paul', 'Bicycle', 'Polyphemus', 'Virginia', 'Texas', 'Nebraska']
+extras['assassin\'s gun'] = new ItemType (
+    'assassin\'s gun', 'weapon',
+    [0,0,0,5,7,0],
+    4,
+    'You\'re out of darts.',
+    `A breath powered dart gun with four pinpoint-sharp projectiles. Scores of thousands of these fiery darts were made, but most were sunk during the blockade after the rebel army took Florida. This blowgun was used to assassinate two people.`,
+    null,
+    null,
+    function () { // On instantiate
+        let name = pick(firstNames)
+        nameMumbler.read(name)
+        nameMumbler.names.push(name)
+        this.info = `A breath powered dart gun with four pinpoint-sharp projectiles. There were originally scores of thousands of these darts made, but most were sunk during the blockade after the rebel army took Florida. This one was used to assassinate ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())}.`
+    }
+)
+
 extras['laughing key'] = new ItemType (
     'laughing key', 'shield',
     [1,1,1,1,1,1],
@@ -72,8 +90,8 @@ extras['molar'] = new ItemType (
     'A human molar tooth.'
 )
 
-extras['death\'s beak'] = new ItemType (
-    'death\'s beak', 'weapon',
+extras['DEATH\'S BEAK'] = new ItemType (
+    'DEATH\'S BEAK', 'weapon',
     [dice(12), dice(5), dice(3) + dice(3), dice(3), dice(6) + dice(6) + dice(6), dice(3) - 1],
     dice(6) + dice(6) + dice(6) + dice(6) + dice(6) + dice(6),
     'DEATH\'S BEAK IS UNDONE.',
@@ -82,7 +100,7 @@ extras['death\'s beak'] = new ItemType (
 
 extras['kraken\'s ink sac'] = new ItemType (
     'kraken\'s ink sac', 'weapon',
-    [0,0,0,7,15,0],
+    [0,0,0,7,13,0],
     1,
     'The ink sac explodes on impact.',
     'An inky-black pouch near bursting with briny and corrosive fluid.'
@@ -98,8 +116,8 @@ extras['pair of earthquake boots'] = new ItemType (
 
 extras['goat\'s armor'] = new ItemType (
     'goat\'s armor', 'shield',
-    [4,11,8,2,7,2,],
-    19,
+    [2,8,7,2,5,2,],
+    11,
     'Your goat\'s armor breaks.',
     'Tightly-crafted black armor engraved with a eye with two perpendicular roads passing through it.',
 )
@@ -114,7 +132,7 @@ extras['mithril vest'] = new ItemType (
 
 extras['angel\'s armor'] = new ItemType (
     'angel\'s armor', 'shield',
-    [2,2,3,0,8,8],
+    [7,2,4,7,7,5],
     9,
     'Your angel\'s armor turns into sunlight and vanishes.',
     'Armor forged by the almighty himself to protect his most loyal representatives.',
@@ -127,8 +145,6 @@ extras['angel\'s armor'] = new ItemType (
           `during the Gravity Wars.`,
           `when the ten planets rose in revolt against their creator.`,
           `from the fires of the suns they were tasked with forging.`,
-          `from the fires of the suns they were tasked with forging.`,
-          `from the crushing deeps of the gravity wells through which they travel the universe.`,
           `from the crushing deeps of the gravity wells through which they travel the universe.`,
           `from the murderous grandeur of his divine presence.`,
           `from the ravages of Death, whose domain is the whole of creation.`,
@@ -162,8 +178,8 @@ extras['venomous barb'] = new ItemType (
 
 extras['harpoon'] = new ItemType (
     'harpoon', 'weapon',
-    [10,0,0,0,0,0],
-    5,
+    [8,0,1,0,0,0],
+    3 + dice(2),
     'Your harpoon breaks',
     'A old iron whaling harpoon.'
 )
@@ -171,15 +187,15 @@ extras['harpoon'] = new ItemType (
 extras['sunfire macana'] = new ItemType (
     'sunfire macana', 'weapon',
     [1,0,7,9,0,1],
-    9,
+    11,
     'A dried and shriveled corpse descends through the ceiling in a shower of sun-dew -- the mummified remains of Pachacuti Inka. He thiefs the macana from out your hand and ascends again to the realm of the sun-god.',
     'A weapon forged by Pachacuti the Earthshaker and used in his conquest of the Andes, a light wooden shaft ending in a solid gold star-shaped head imbued with the solar fire of Inti.'
 )
 
 extras['primordial glob'] = new ItemType (
     'primordial glob', 'weapon',
-    [0,0,1,0,8,3],
-    3,
+    [0,0,1,0,7,3],
+    2,
     'The primordial glob bursts, diffusing its being over the entirety of the universe, and in so doing becoming dispersed enough that its presence can be only slightly felt.',
     'A squirming unstable glob of organic matter. Its composition is so different from any other known living matter that its very presence is a corrupting power. You can throw it at your enemies.'
 )
@@ -213,7 +229,7 @@ extras['machete'] = new ItemType (
     [0,5,1,0,0,0],
     30,
     'Your machete breaks.',
-    'A versatile tool used for cutting crops, trees, or building materials, also functioning as an improvised weapon.'
+    'A versatile tool used for cutting crops, trees, or building materials, also functioning as a improvised weapon.'
 )
 
 extras['treacherous hand'] = new ItemType (
@@ -229,7 +245,7 @@ extras['treacherous hand'] = new ItemType (
         }
     },
     function () { // On instantiate
-        this.data.baseBonus = this.bonus
+        this.data.baseBonus = this.bonus.map(num => { return num })
         this.data.betray = function () {
             drawString(`The treacherous hand leaps out of your grasp and turns against you!`)
             this.room = game.player.room
@@ -278,6 +294,9 @@ extras['treacherous hand'] = new ItemType (
             })
             choice.bonus.map((num, index) => {
                 this.bonus[index] = num + this.data.baseBonus[index]
+                if (this.bonus[index] > 30) {
+                    this.bonus[index] = 30
+                }
             })
             this.data.holding = choice
             this.info = `A olive-skinned hand grasping a ${choice.name}.`
@@ -293,20 +312,12 @@ extras['king\'s sword'] = new ItemType (
     'A two-handed longsword with a gold hilt and a blade of gleaming black steel.'
 )
 
-extras['king\'s sword'] = new ItemType (
-    'king\'s sword', 'weapon',
-    [6,12,0,0,0,0],
-    30,
-    'Your sword breaks at the handle.',
-    'A two-handed longsword with a gold hilt and a blade of gleaming black steel.'
-)
-
 extras['wizard\'s ring'] = new ItemType (
     'wizard\'s ring', 'shield',
     [4,4,4,4,4,4],
-    27,
+    299,
     'Your wizard\'s ring melts, scalding your ring finger.',
-    'A magic ring forged by some kind of wizard and inscribed with a message that you can\'t understand because you don\'t read Sanskrit.'
+    `A magic ring stolen from the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])} before he succumbed to the rabid insanity that ravaged his kind, hidden under the dragon\'s roost to protect it.`
 )
 
 extras['obsidian axe'] = new ItemType (
@@ -327,7 +338,7 @@ extras['lion\'s hide'] = new ItemType (
 
 extras['weeping eye'] = new ItemType (
     'weeping eye', 'weapon',
-    [0,0,0,6,0,0],
+    [0,0,0,6,1,0],
     5,
     'Your weeping eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'green', 'violet', 'obsidian-black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eyeball that weeps scalding hot fluid.`
@@ -335,7 +346,7 @@ extras['weeping eye'] = new ItemType (
 
 extras['congealed eye'] = new ItemType (
     'congealed eye', 'weapon',
-    [0,0,0,0,6,0],
+    [0,1,0,0,6,0],
     5,
     'Your congealed eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'green', 'violet', 'red', 'bloodshot', 'cloudy', 'brown'])} eyeball with some kind of toxic coagulated fluid coating its conjunctiva.`
@@ -343,7 +354,7 @@ extras['congealed eye'] = new ItemType (
 
 extras['afflicted eye'] = new ItemType (
     'afflicted eye', 'weapon',
-    [6,0,0,0,0,0],
+    [6,0,1,0,0,0],
     5,
     'Your afflicted eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'bloodshot', 'bloodshot', 'green', 'violet', 'black', 'yellow', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eyeball so plagued with painful affliction that it passes its suffering on to those over whom its piercing gaze passes.`
@@ -351,23 +362,23 @@ extras['afflicted eye'] = new ItemType (
 
 extras['watchful eye'] = new ItemType (
     'watchful eye', 'weapon',
-    [0,0,6,0,0,0],
+    [0,0,6,0,0,1],
     5,
     'Your afflicted eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'green', 'violet', 'black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eye whose ever-present scrutinizing gaze becomes a physically constricting presence with its overbearing attention.`
 )
 
-extras['bottle of violet powder'] = new ItemType (
-    'bottle of violet powder', 'weapon',
-    [0,0,0,0,7,0],
-    1,
-    'The vial of violet powder shatters.',
-    `A tall corked glass vial of fine purple crushed powder.`
+extras['wraith\'s sword'] = new ItemType (
+    'wraith\'s sword', 'weapon',
+    [8,8,0,0,0,0],
+    12,
+    'The swordwraith returns in a whirl of black wind, seizing its sword from your hand. Having been defeated once already, it flees, vanishing into the walls of the house.',
+    `A long curved blade of white light. Given by the ancient king Mahabali to his most loyal and skillful warriors in a vain attempt to protect himself from the justice of the fifth avatar of Vishnu, cursing them to plague the earth as wraiths for eternity.`
 )
 
 extras['bottle of liquid swords'] = new ItemType (
     'bottle of liquid swords', 'weapon',
-    [0,9,0,0,0,0],
+    [2,9,0,1,1,0],
     1,
     'The flask shatters.',
     `A erlenmeyer flask filled with a transparent viscous liquid that slashes everything it touches to pieces with fifty-two simultaneous fatal strikes.`
@@ -375,7 +386,7 @@ extras['bottle of liquid swords'] = new ItemType (
 
 extras['bottle of black goo'] = new ItemType (
     'bottle of black goo', 'weapon',
-    [0,0,0,11,0,0],
+    [0,0,0,9,5,0],
     1,
     'The bottle shatters as the black goo ignites into bright blue flame.',
     `A round-bottomed flask filled with a thick black tarrish substance that spontaneously bursts into fire when it strikes something.`
@@ -383,7 +394,7 @@ extras['bottle of black goo'] = new ItemType (
 
 extras['bottle of demon\'s blood'] = new ItemType (
     'bottle of demon\'s blood', 'weapon',
-    [0,0,0,0,0,9],
+    [0,0,0,5,5,14],
     1,
     'The bottle shatters spilling demon\'s blood everywhere.',
     `A bottle full of the pulpy dark purplish-red blood of a demon. It\'s been biologically engineered over the course of time by sixteen generations of Demon Kings to curse all who spill it.`
@@ -391,7 +402,7 @@ extras['bottle of demon\'s blood'] = new ItemType (
 
 extras['bottle of green acid'] = new ItemType (
     'bottle of green acid', 'weapon',
-    [0,0,0,5,0,0],
+    [0,0,0,11,11,0],
     1,
     'The bottle of green acid shatters.',
     `A bottle full of a burning frog-green acid.`
@@ -407,7 +418,7 @@ extras['bottle of orange fumes'] = new ItemType (
 
 extras['bottle of doughy fungus'] = new ItemType (
     'bottle of doughy fungus', 'weapon',
-    [0,0,15,0,0,0],
+    [0,0,20,0,0,0],
     1,
     'The bottle of doughy fungus shatters.',
     `A tightly sealed glass bottle with a doughy fungus growing inside it and straining against the glass, trying to use its expansive crushing power to break free.`
@@ -415,8 +426,316 @@ extras['bottle of doughy fungus'] = new ItemType (
 
 extras['bottle of wasps'] = new ItemType (
     'bottle of wasps', 'weapon',
-    [5,0,0,0,0,0],
+    [5,0,0,0,5,0],
     1,
     'The bottle of wasps shatters.',
     `A spherical glass bottle occupied by a thousand tiny wasps.`
 )
+
+extras['pearl of concentrated pestilence'] = new ItemType (
+    'pearl of concentrated pestilence', 'weapon',
+    [0,0,0,0,4,0],
+    6,
+    `Your pearl of concentrated pestilence bursts.`,
+    `A gleaming black pearl the size of a acorn made up of toxic and carcinogenic materials crammed into a toxic sphere. It becomes more potent each time you use it.`,
+    null,
+    function () { // On use
+        this.bonus[4] = Math.round(this.bonus[4] * 1.4)
+        if (this.ammo > 1) {
+            drawString(`The pearl swells with a quiet noise like a million tiny screams.`)
+        } else {
+            drawString(`Your pearl looks like it's about to burst, you might only get one more use out of it.`)
+        }
+        this.data.size += 1
+        this.info = `A gleaming black pearl the size of a ${this.data.sizes[this.data.size]} made up of toxic and carcinogenic materials crammed into a toxic sphere. It becomes more potent each time you use it.`
+    },
+    function () { // On instantiate
+        this.bonus = this.bonus.map(num => { return num })
+        this.data.sizes = ['acorn', 'billiard ball', 'plum', 'baseball', 'desktop globe', 'bloated pumpkin', 'wrecking ball', 'wrecking ball', 'wrecking ball']
+        this.data = Object.assign({}, this.data)
+        this.data.size = 0
+    }
+)
+
+extras['bottle of violet powder'] = new ItemType (
+    'bottle of violet powder', 'weapon',
+    [1,2,0,0,6,0],
+    1,
+    'The vial of violet powder shatters.',
+    `A tall corked glass vial of fine purple crushed powder.`
+)
+
+extras['green\'s spear'] = new ItemType (
+    'green\'s spear', 'weapon',
+    [7,2,0,0,0,0],
+    17,
+    'Your green\'s spear breaks.',
+    `A long spear made of gleaming green steel with two leather-wrapped handles.`
+)
+
+extras['blade of grass'] = new ItemType (
+    'blade of grass', 'weapon',
+    [0,7,0,2,0,0],
+    17,
+    'Your blade of grass breaks.',
+    `A spearlike weapon ending in a foot-long slashing blade forged out of shining green steel.`
+)
+
+extras['goat\'s mace'] = new ItemType (
+    'goat\'s mace', 'weapon',
+    [0,0,7,0,0,2],
+    17,
+    'Your goat\'s mace breaks.',
+    `A hooked and cragged mace made of heavy blunt-forged blue iron with a long narrow handle.`
+)
+
+extras['liar\'s torch'] = new ItemType (
+    'liar\'s torch', 'weapon',
+    [0,0,0,7,2,0],
+    17,
+    'Your liar\'s torch breaks.',
+    `A intricate zinc and copper mechanism that takes in air and spits it out as globs of bright blue fire.`
+)
+
+extras['bow and venom-barbed arrows'] = new ItemType (
+    'bow and venom-barbed arrows', 'weapon',
+    [2,0,0,0,7,0],
+    17,
+    'You\'re out of venom-barbed arrows.',
+    `A bow equipped with small arrows too light to do much damage on their own, but tipped with venom drawn from a million ants.`
+)
+
+extras['goat-priest\'s rattle'] = new ItemType (
+    'goat-priest\'s rattle', 'weapon',
+    [0,0,2,0,0,7],
+    17,
+    'The goat-priest\'s rattle breaks.',
+    `A blue iron staff ending in a small cage filled with the bones of the ancestors of some long-ago goat-shaman.`
+)
+
+extras['kitchen knife'] = new ItemType (
+    'kitchen knife', 'weapon',
+    [1,3,0,0,0,0],
+    11,
+    'Your kitchen knife breaks.',
+    'It\'s a steel kitchen knife with a wood handle.'
+)
+
+extras['wrench'] = new ItemType (
+    'wrench', 'weapon',
+    [0,1,4,0,0,0],
+    7,
+    'The wrench breaks in your hand.',
+    'A adjustable steel wrench. Deals moderate crush damage.'
+),
+
+extras['purple orchid'] = new ItemType (
+    'purple orchid', 'weapon',
+    [0,0,0,0,2,0],
+    15,
+    'The purple orchid wilts and rots.',
+    'It\'s a vibrantly purple orchid with a single sharp barb emerging from its center.',
+    null,
+    function (player, enemy) { // on use
+        enemy.attack.map((num, index) => {
+            if (num > 0) {
+                this.bonus[index] += dice(5)
+                if (this.bonus[index] > num) {
+                    this.bonus[index] = num
+                }
+            } else {
+                this.bonus[index] -= dice(3)
+            }
+
+            if (this.bonus[index] < 0) {
+                this.bonus[index] = 0
+            }
+        })
+        drawString(`As the purple orchid infects the ${enemy.name} its pedals twist, changing to reflect the being it\'s attacking.`)
+    },
+    function () { // on instantiate
+        this.bonus = this.bonus.map(num => { return num })
+    }
+)
+
+extras['bottle of whiskey'] = new ItemType (
+    'bottle of whiskey', 'weapon',
+    [0,3,0,1,1,0],
+    1,
+    'The bottle of whiskey is shattered.',
+    'A bottle of inexpensive barrel-aged Kentucky bourbon.',
+)
+
+extras['weird viol'] = new ItemType (
+  'weird viol', 'shield',
+  [0,0,4,0,4,9],
+  9,
+  'Your weird viol breaks.',
+  'A German-made string instrument carved from oak, played to ward off or appease terrors from beyond the veil of common space.',
+  null,
+  function () { // on use
+      drawString([
+          `The creaking discordant notes of the viol fill the ${game.player.room.type} as you pull the bow across its strings.`,
+          `A sound almost like a chord rings out from the viol and fills the ${game.player.room.type}.`,
+          `You draw the bow of the viol across its strings and long, low chord reverberates from the instrument.`,
+          `The eerie music of the viol fills the ${game.player.room.type}.`,
+      ][this.data.experience])
+      this.data.experience += 1
+      this.data.experience = this.data.experience > 3 ? 3 : this.data.experience
+  },
+  function () { // on instantiate
+      this.data.experience = 0
+  }
+)
+
+extras['clergyman\'s dagger'] = new ItemType (
+    'clergyman\'s dagger', 'weapon',
+    [5,2,0,0,0,3],
+    11,
+    'The clergyman\'s dagger breaks.',
+    'A thin dagger blessed with holy water, held close by clerics, friars, and nuns to protect from the evils of the secular world.'
+)
+
+extras['letter opener'] = new ItemType (
+    'letter opener', 'weapon',
+    [1,2,0,0,0,0],
+    6,
+    'The letter opener breaks.',
+    'A small aluminium letter opener.'
+)
+
+extras['straightrazor'] = new ItemType (
+    'straightrazor', 'weapon',
+    [0,3,0,0,0,0],
+    7,
+    'The straightrazor breaks.',
+    'A stainless steel shaving razor.'
+)
+
+extras['inkwell'] = new ItemType (
+    'inkwell', 'weapon',
+    [0,2,3,0,0,0],
+    1,
+    'The inkwell shatters as you throw it.',
+    'A small glass bottle filled with black ink.'
+)
+
+extras['fountain pen'] = new ItemType (
+    'fountain pen', 'weapon',
+    [2,0,0,0,0,0],
+    dice(5),
+    'The fountain pen breaks.',
+    'A fancy gold-nibbed fountain pen.'
+)
+
+extras['cigarette lighter'] = new ItemType (
+    'cigarette lighter', 'weapon',
+    [0,0,0,2,0,0],
+    7,
+    'Your lighter is out of fuel.',
+    'A old fashioned silver cigarette lighter.'
+)
+
+extras['old iron chain'] = new ItemType (
+    'old iron chain', 'weapon',
+    [0,0,6,0,0,0],
+    6,
+    'The iron chain breaks.',
+    'A heavy rusted iron chain about four feet long.'
+)
+
+extras['makeshift stabbing implement'] = new ItemType (
+    'makeshift stabbing implement', 'weapon',
+    [5,0,0,0,2,0],
+    4,
+    'The stabbing implement breaks.',
+    'A crudely made stabbing implement whittled down from some fibrous hard white material you don\'t recognize.'
+)
+
+extras['battleaxe'] = new ItemType (
+    'battleaxe', 'weapon',
+    [0,6,4,0,0,0],
+    13,
+    'Your battleaxe breaks.',
+    'A gleaming iron battleaxe with a handle wrapped in soft black leather.'
+)
+
+extras['pike'] = new ItemType (
+    'pike', 'weapon',
+    [7,0,2,0,0,0],
+    13,
+    'Your pike breaks.',
+    'A long wooden pike ending in a barbed iron spike.'
+)
+
+extras['cavalry shield'] = new ItemType (
+    'cavalry shield', 'shield',
+    [0,6,7,3,0,0],
+    11,
+    'Your shield breaks.',
+    `A steel shield, made for use by a mounted knight. There\'s a ${pick(['badger', 'bear', 'kraken', 'lightning-struck tower', 'crowned skull', 'image of the stormgod Tlaloc', 'image of the constellations of the northern skies'])} painted on it.`
+)
+
+extras['paladin\'s shield'] = new ItemType (
+    'paladin\'s shield', 'shield',
+    [0,5,5,0,1,8],
+    11,
+    'Your shield breaks.',
+    `A steel shield with a ${pick(['eel', 'bear', 'crow', 'lightning-struck tower', 'horned skull', 'image of the flayed god Xipe Totec', 'image of the constellations of the southern skies'])} painted on it.`
+)
+
+extras['knife'] = new ItemType (
+    'knife', 'weapon',
+    [2,4,0,0,0,0],
+    17,
+    'The knife breaks.',
+    `A black steel knife.`
+)
+
+extras['stake'] = new ItemType (
+    'stake', 'weapon',
+    [8,0,0,0,0,14],
+    7,
+    'The stake breaks.',
+    `A ash wood stake.`
+)
+
+extras['crown'] = new ItemType (
+    'crown', 'shield',
+    [0,1,1,0,0,0],
+    29,
+    'The crown breaks.',
+    `A plain black crown.`
+)
+
+extras['archwizard\'s letter'] = new ItemType (
+    'archwizard\'s letter', 'shield',
+    [0,0,1,1,0,3],
+    3,
+    'The wizard\'s note is torn into pulp.',
+    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this accursed house."`
+)
+
+extras['demon king\'s note'] = new ItemType (
+    'demon king\'s note', 'weapon',
+    [0,0,0,2,0,2],
+    3,
+    'The demon\'s note is torn into pulp.',
+    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to battle dragons but to find and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this accursed Earth."`
+)
+
+extras['trident'] = new ItemType (
+  'trident', 'weapon',
+  [11,0,11,0,0,0],
+  17,
+  'The trident turns into seafoam.',
+  'A three-pronged fishing spear.'
+)
+
+// extras['faker\'s arm'] = new ItemType (
+//     'faker\'s arm', 'weapon',
+//     [0,0,0,0,0,0],
+//     12,
+//     '',
+//     ``
+// )
