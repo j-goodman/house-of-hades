@@ -2,7 +2,7 @@ var extras = extras ? extras : {}
 
 extras['lich\'s eye'] = new ItemType (
     'lich\'s eye', 'weapon',
-    [0,0,0,0,10,0],
+    [0,3,0,1,7,1],
     '9',
     'The lich\'s eye rots away to sludge in the same manner any living thing would with time.',
     'A green eye with the power to kill those it looks upon.'
@@ -18,7 +18,7 @@ extras['Byzantine murder ring'] = new ItemType (
 
 extras['cosmic ball'] = new ItemType (
     'cosmic ball', 'weapon',
-    [0,0,10,0,0,0],
+    [0,0,9,2,0,0],
     '12',
     'The cosmic ball seems to reaccrue its natural weightiness all at once. It plummets through the floor, vanishing into the earth.',
     'A impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be. It\'s held at the end of a long white chain.'
@@ -100,7 +100,7 @@ extras['DEATH\'S BEAK'] = new ItemType (
 
 extras['kraken\'s ink sac'] = new ItemType (
     'kraken\'s ink sac', 'weapon',
-    [0,0,0,7,15,0],
+    [0,0,0,7,13,0],
     1,
     'The ink sac explodes on impact.',
     'An inky-black pouch near bursting with briny and corrosive fluid.'
@@ -132,7 +132,7 @@ extras['mithril vest'] = new ItemType (
 
 extras['angel\'s armor'] = new ItemType (
     'angel\'s armor', 'shield',
-    [2,2,3,0,8,8],
+    [7,2,4,7,7,5],
     9,
     'Your angel\'s armor turns into sunlight and vanishes.',
     'Armor forged by the almighty himself to protect his most loyal representatives.',
@@ -145,8 +145,6 @@ extras['angel\'s armor'] = new ItemType (
           `during the Gravity Wars.`,
           `when the ten planets rose in revolt against their creator.`,
           `from the fires of the suns they were tasked with forging.`,
-          `from the fires of the suns they were tasked with forging.`,
-          `from the crushing deeps of the gravity wells through which they travel the universe.`,
           `from the crushing deeps of the gravity wells through which they travel the universe.`,
           `from the murderous grandeur of his divine presence.`,
           `from the ravages of Death, whose domain is the whole of creation.`,
@@ -180,7 +178,7 @@ extras['venomous barb'] = new ItemType (
 
 extras['harpoon'] = new ItemType (
     'harpoon', 'weapon',
-    [9,0,0,0,0,0],
+    [8,0,1,0,0,0],
     3 + dice(2),
     'Your harpoon breaks',
     'A old iron whaling harpoon.'
@@ -340,7 +338,7 @@ extras['lion\'s hide'] = new ItemType (
 
 extras['weeping eye'] = new ItemType (
     'weeping eye', 'weapon',
-    [0,0,0,6,0,0],
+    [0,0,0,6,1,0],
     5,
     'Your weeping eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'green', 'violet', 'obsidian-black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eyeball that weeps scalding hot fluid.`
@@ -348,7 +346,7 @@ extras['weeping eye'] = new ItemType (
 
 extras['congealed eye'] = new ItemType (
     'congealed eye', 'weapon',
-    [0,0,0,0,6,0],
+    [0,1,0,0,6,0],
     5,
     'Your congealed eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'green', 'violet', 'red', 'bloodshot', 'cloudy', 'brown'])} eyeball with some kind of toxic coagulated fluid coating its conjunctiva.`
@@ -356,7 +354,7 @@ extras['congealed eye'] = new ItemType (
 
 extras['afflicted eye'] = new ItemType (
     'afflicted eye', 'weapon',
-    [6,0,0,0,0,0],
+    [6,0,1,0,0,0],
     5,
     'Your afflicted eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'bloodshot', 'bloodshot', 'green', 'violet', 'black', 'yellow', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eyeball so plagued with painful affliction that it passes its suffering on to those over whom its piercing gaze passes.`
@@ -364,7 +362,7 @@ extras['afflicted eye'] = new ItemType (
 
 extras['watchful eye'] = new ItemType (
     'watchful eye', 'weapon',
-    [0,0,6,0,0,0],
+    [0,0,6,0,0,1],
     5,
     'Your afflicted eye turns into fire and vanishes with a whistling sound like a kettle.',
     `A ${pick(['blue', 'brown', 'green', 'violet', 'black', 'brown', 'hazel', 'cloudy', 'grey', 'blue', 'brown'])} eye whose ever-present scrutinizing gaze becomes a physically constricting presence with its overbearing attention.`
@@ -380,7 +378,7 @@ extras['wraith\'s sword'] = new ItemType (
 
 extras['bottle of liquid swords'] = new ItemType (
     'bottle of liquid swords', 'weapon',
-    [0,9,0,0,0,0],
+    [2,9,0,1,1,0],
     1,
     'The flask shatters.',
     `A erlenmeyer flask filled with a transparent viscous liquid that slashes everything it touches to pieces with fifty-two simultaneous fatal strikes.`
@@ -461,7 +459,7 @@ extras['pearl of concentrated pestilence'] = new ItemType (
 
 extras['bottle of violet powder'] = new ItemType (
     'bottle of violet powder', 'weapon',
-    [0,0,0,0,7,0],
+    [1,2,0,0,6,0],
     1,
     'The vial of violet powder shatters.',
     `A tall corked glass vial of fine purple crushed powder.`
@@ -525,7 +523,7 @@ extras['kitchen knife'] = new ItemType (
 
 extras['wrench'] = new ItemType (
     'wrench', 'weapon',
-    [0,0,5,0,0,0],
+    [0,1,4,0,0,0],
     7,
     'The wrench breaks in your hand.',
     'A adjustable steel wrench. Deals moderate crush damage.'
@@ -541,7 +539,7 @@ extras['purple orchid'] = new ItemType (
     function (player, enemy) { // on use
         enemy.attack.map((num, index) => {
             if (num > 0) {
-                this.bonus[index] += dice(3)
+                this.bonus[index] += dice(5)
                 if (this.bonus[index] > num) {
                     this.bonus[index] = num
                 }
@@ -676,6 +674,14 @@ extras['cavalry shield'] = new ItemType (
     11,
     'Your shield breaks.',
     `A steel shield, made for use by a mounted knight. There\'s a ${pick(['badger', 'bear', 'kraken', 'lightning-struck tower', 'crowned skull', 'image of the stormgod Tlaloc', 'image of the constellations of the northern skies'])} painted on it.`
+)
+
+extras['paladin\'s shield'] = new ItemType (
+    'paladin\'s shield', 'shield',
+    [0,5,5,0,1,8],
+    11,
+    'Your shield breaks.',
+    `A steel shield with a ${pick(['eel', 'bear', 'crow', 'lightning-struck tower', 'horned skull', 'image of the flayed god Xipe Totec', 'image of the constellations of the southern skies'])} painted on it.`
 )
 
 extras['knife'] = new ItemType (

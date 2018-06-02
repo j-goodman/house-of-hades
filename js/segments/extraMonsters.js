@@ -18,7 +18,7 @@ extras['dragon'] = new MonsterType ({
         door.to = new Room ([], 13);
         door.to.type = 'amphitheater with thirteen vaulted walls'
         door.to.items.push(
-            new Item (itemByName(pick(['executioner\'s sword', 'obsidian axe'])), door.to),
+            new Item (itemByName(pick(['pike', 'obsidian axe', 'sacred tomohawk', 'paladin\'s shield', 'obsidian axe'])), door.to),
             new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'sunfire macana'])), door.to),
             new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
             new Item (itemByName('wizard\'s ring'), door.to),

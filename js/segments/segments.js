@@ -1072,6 +1072,7 @@ var segments = [
             'shoggoth',
             'swordwraith',
         ])))]
+        prisonCells[0].doors[2].locked = true
         prisonCells[0].doors[2].color = 'gateway'
         prisonCells[0].doors[0].color = 'black'
         prisonCells[0].doors[1].color = 'yellow'

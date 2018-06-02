@@ -80,11 +80,11 @@ var roomTypeItems = {
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
     'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
-    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bag of devil\'s gold', 'golem\'s blood'],
-    'dungeon': ['makeshift stabbing implement', 'old iron chain', 'fire poker', 'bleeding mushroom', 'burned bone', 'crowbar'],
-    'armory': ['executioner\'s sword', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
+    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'assassin\'s gun'],
+    'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
+    'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
     'crypt': ['assassin\'s gun'],
-    'serpent shrine': ['assassin\'s gun', 'blowgun', 'evil eye', 'torch', 'bleeding mushroom'],
+    'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
@@ -167,7 +167,7 @@ var Room = function (doors, doorCount) {
             this.monsters[index] = new Monster (this, monByName(pick(roomTypeMonsters[this.type])))
         })
     }
-    
+
     if (oneIn(1.7)) {
         this.items.push(new Item (pick(allItemTypes), this));
     }
