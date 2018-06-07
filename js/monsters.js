@@ -403,7 +403,7 @@ var allMonsterTypes = [
                     game.player.weapon.bonus[1] > 0 || // Slash damage
                     game.player.weapon.bonus[2] > 0 // Crush damage
                 ) &&
-                game.player.weapon.bonus[3] < 4 && // No substantial burn damage
+                game.player.weapon.bonus[3] < 3 && // No substantial burn damage
                 game.player.weapon.ammo > 0 && // Weapon still has ammo
                 this.hitpoints > 0 // Still alive
               ) {

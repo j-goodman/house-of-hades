@@ -1,10 +1,11 @@
 var globalUniqueId = -1
-var getGlobalUniqueId = () => {
+let getGlobalUniqueId = () => {
     return globalUniqueId += 1
 }
-var pick = function (array) {
+let pick = function (array) {
     return array[Math.floor(Math.random() * array.length)];
 }
+let capitalize = word => { return word[0].toUpperCase() + word.slice(1, word.length) }
 
 var Player = function () {
     this.room = null;

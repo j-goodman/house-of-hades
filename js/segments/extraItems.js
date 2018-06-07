@@ -56,8 +56,7 @@ extras['razor-sharp bone'] = new ItemType (
     'A four foot long white bone that\'s either been sharpened or naturally comes to a razor-honed edge. You could hold one end and use it as a weapon.'
 )
 
-let capitalize = word => { return word[0].toUpperCase() + word.slice(1, word.length) }
-let firstNames = ['Cristobal', 'Catherine', 'Armin', 'Armando', 'Aaron', 'Elizabeth', 'Yeung', 'Chantel', 'David', 'Charles', 'Lee', 'Mia', 'Maria', 'Fatima', 'Alexander', 'Xicotencatl', 'Achilles', 'Jesus', 'Lars', 'Abraham', 'Iris', 'Diego', 'Francisco', 'Atahualpa', 'Huascar', 'Ariana', 'Ariadne', 'Tycho', 'Brahe', 'Javier', 'Emil', 'Henri', 'Mariana', 'Julia', 'Ana Lilia', 'Emilio', 'Luis', 'Angela', 'Moon', 'Arlingtonius', 'Miranda', 'Boba Fett', 'Roscoe', 'Jupiter', 'Helene', 'Deshawn', 'Rajesh', 'Leo', 'Paul', 'Bicycle', 'Polyphemus', 'Virginia', 'Texas', 'Nebraska']
+let firstNames = ['Cristobal', 'Catherine', 'Armin', 'Armando', 'Aaron', 'Elizabeth', 'Yeung', 'Chantel', 'David', 'Charles', 'Lee', 'Mia', 'Maria', 'Fatima', 'Alexander', 'Xicotencatl', 'Achilles', 'Jesus', 'Lars', 'Abraham', 'Iris', 'Diego', 'Francisco', 'Atahualpa', 'Huascar', 'Ariana', 'Ariadne', 'Tycho', 'Brahe', 'Javier', 'Emil', 'Henri', 'Mariana', 'Julia', 'Ana Lilia', 'Emilio', 'Luis', 'Angela', 'Moon', 'Arlingtonius', 'Miranda', 'Roscoe', 'Jupiter', 'Helene', 'Deshawn', 'Rajesh', 'Leo', 'Paul', 'Bicycle', 'Polyphemus', 'Virginia', 'Texas', 'Nebraska']
 extras['assassin\'s gun'] = new ItemType (
     'assassin\'s gun', 'weapon',
     [0,0,0,5,7,0],
@@ -713,7 +712,7 @@ extras['archwizard\'s letter'] = new ItemType (
     [0,0,1,1,0,3],
     3,
     'The wizard\'s note is torn into pulp.',
-    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this curséd house.".`
+    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this curséd house."`
 )
 
 extras['demon king\'s note'] = new ItemType (
@@ -721,22 +720,13 @@ extras['demon king\'s note'] = new ItemType (
     [0,0,0,2,0,2],
     3,
     'The demon\'s note is torn into pulp.',
-    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth.".`
+    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth."`
 )
 
+let moreFirstNames = ['Leonardo', 'Zheng', 'Li', 'Emily', 'Aaron', 'Sancho', 'Isabella', 'Cantlay', 'Muhammad', 'Qui', 'Odysseus', 'Sinbad', 'Meiji', 'Matthew', 'Mark', 'Luke', 'John']
 extras['dueling saber'] = new ItemType (
     'dueling saber', 'weapon',
-    [8,4,0,0,1,1],
-    13,
-    'Your sword breaks at the handle.',
-    'A long steel black-hilted saber used by the victor in the fateful duel between .',
-    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to battle dragons but to find and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this accursed Earth."`
-)
-
-let moreFirstNames = ['Leonardo', 'Zheng', 'Io', 'Li', 'Emily', 'Aaron', 'Sancho', 'Isabella', 'Cantlay', 'Muhammad', 'Qui', 'Odysseus', 'Sinbad', 'Meiji', 'Matthew', 'Mark', 'Luke', 'John']
-extras['dueling saber'] = new ItemType (
-    'dueling saber', 'weapon',
-    [8,4,0,0,1,1],
+    [7,3,0,0,1,1],
     13,
     `Your saber breaks at the handle.`,
     'A long steel black-hilted saber used by the victor in a long-ago fateful duel.',
@@ -746,7 +736,11 @@ extras['dueling saber'] = new ItemType (
         let name = pick(moreFirstNames)
         nameMumbler.read(name)
         nameMumbler.names.push(name)
-        this.info = `A long steel black-hilted saber used by the ${pick(['victor in', 'loser of'])} the fateful duel between ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())} and ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())}.`
+        name = pick(nameMumbler.names)
+        let secondName = capitalize(nameMumbler.mumble())
+        nameMumbler.read(secondName)
+        nameMumbler.names.push(secondName)
+        this.info = `A long steel black-hilted saber used by the ${pick(['victor in', 'loser of'])} the fateful duel between ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())} and ${name + ' ' + secondName}.`
     }
 )
 
@@ -756,6 +750,30 @@ extras['trident'] = new ItemType (
     17,
     'The trident turns into seafoam.',
     'A three-pronged fishing spear.'
+)
+
+extras['gold-plated handgun'] = new ItemType (
+    'gold-plated handgun', 'weapon',
+    [5,0,2,2,0,0],
+    6,
+    'Your gold-plated handgun is out of bullets.',
+    'It\'s a snub-nosed Beretta pistol that\'s been plated with solid gold.'
+)
+
+extras['plague knight\'s sword'] = new ItemType (
+    'plague knight\'s sword', 'weapon',
+    [1,6,0,0,7,0],
+    9,
+    `The plague-knight's sword breaks at the handle.`,
+    'A rusty longsword, used by a long-dead plague knight.',
+    null,
+    null,
+    function () { // On instantiate
+        let name = pick(firstNames)
+        nameMumbler.read(name)
+        nameMumbler.names.push(name)
+        this.info = `A rusty longsword, used by the long-dead plague knight ${capitalize(nameMumbler.mumble())} when he wandered the ${pick(['Iberian coasts', 'German forests', 'French countryside', 'British Isles', 'former Crusader States', 'eastern steppe', 'Mongolian steppe'])} in the fourteenth century fanatically finishing off lingering victims of the Black Death.`
+    }
 )
 
 // extras['faker\'s arm'] = new ItemType (

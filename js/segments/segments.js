@@ -193,6 +193,11 @@ var segments = [
           let handRoom = pick(segmentRooms)
           handRoom.items.push(new Item (itemByName('treacherous hand'), handRoom))
       }
+
+      if (!dice(2) - 1) {
+          let swordRoom = pick(segmentRooms)
+          swordRoom.items.push(new Item (itemByName('plague knight\'s sword'), swordRoom))
+      }
     },
 
 

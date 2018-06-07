@@ -259,8 +259,16 @@ var allItemTypes = [
         'canned ghost', 'shield',
         [1,1,1,1,1,8],
         5,
-        `Your canned ghost bursts free during the fight. He flies ${pick(['west', 'south', 'east', 'north'])} to murder all his still-living descendants.`,
-        'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.'
+        `The canned ghost bursts free during the fight. He flies ${pick(['west', 'south', 'east', 'north'])} to murder all his still-living descendants.`,
+        'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.',
+        null,
+        null,
+        function () { // On instantiate
+            let name = pick(firstNames)
+            nameMumbler.read(name)
+            nameMumbler.names.push(name)
+            this.info = `A hermetically sealed ghost named ${capitalize(nameMumbler.mumble())} who will protect you from curse attacks in exchange for vague promises to free him at some point.`
+        }
     ),
     new ItemType (
         'posessed bible', 'shield',

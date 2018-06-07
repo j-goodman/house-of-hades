@@ -58,13 +58,11 @@ Talker.prototype.write = function (base) {
   var sentence = [];
   var string = '';
   base.map(() => {
-		console.log('*1')
     sentence.push(new Cell ());
   });
   string = base[0];
 
   sentence.map((cell, index) => {
-		console.log('*2')
 		if (!string[index]) {
 				return ''
 		}
@@ -72,20 +70,16 @@ Talker.prototype.write = function (base) {
 				return undefined
 		}
     this.memory[string[index].code()].next.map((nextCell, nextIndex) => {
-			console.log('*3')
       if (index + nextIndex < sentence.length) {
         sentence[index + nextIndex].letters = Object.assign(sentence[index + nextIndex].letters, nextCell.letters);
       }
     });
-		console.log('*4')
     if (string.length < sentence.length) {
-			console.log('*4.1')
 			Math.floor(Math.random() * 1.5) ?
 			string += String.fromCharCode(this.chooseCharDeterm(sentence[string.length])):
       string += String.fromCharCode(this.chooseCharRand(sentence[string.length]));
     }
   });
-	console.log('*1')
   return string;
 }
 
@@ -94,15 +88,13 @@ Talker.prototype.chooseCharRand = function (cell) {
   var choiceList = {};
   var choiceInd;
   var total = 0;
-	console.log('*7.1')
   allChoices = Object.keys(cell.letters);
   allChoices.map((letter) => {
-		console.log('*7.1')
     choiceList[total] = letter;
     total += cell.letters[letter];
   });
   choiceInd = Math.floor(Math.random() * total);
-  while (!choiceList[choiceInd]) {
+  while (!choiceList[choiceInd] && choiceInd > 0) {
     choiceInd -= 1;
   }
   return choiceList[choiceInd];
@@ -112,10 +104,8 @@ Talker.prototype.chooseCharDeterm = function (cell) {
   var allChoices;
   var choiceWeight = 0;
   var validChoices;
-	console.log('*6')
   allChoices = Object.keys(cell.letters);
   allChoices.map((letter) => {
-		console.log('*6.1')
     if (cell.letters[letter] > choiceWeight) {
       validChoices = [letter]; choiceWeight = cell.letters[letter];
     } else if (cell.letters[letter] === choiceWeight) {
