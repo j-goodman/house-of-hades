@@ -188,7 +188,7 @@ extras['phantom\'s blood'] = new ItemType (
     'phantom\'s blood', 'shield',
     [12,12,12,12,12,0],
     1,
-    'You black out for an unknown period of time. When you wake up the phantom\'s blood is gone.',
+    'You black out for a unknown period of time. When you wake up the phantom\'s blood is gone.',
     'The plasmic essence of a being returned from beyond the wall of death. Transfused into you it can make you briefly immune to all physical harm.'
 )
 
@@ -676,7 +676,7 @@ extras['archwizard\'s note'] = new ItemType (
     [0,0,0,0,0,3],
     2,
     'The wizard\'s note is torn into pulp.',
-    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this curséd house.".`
+    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the king of the demons, imprisoned within these walls, who is the source of all the evil that lurks within this curséd house.".`
 )
 
 extras['demon king\'s note'] = new ItemType (
@@ -684,7 +684,15 @@ extras['demon king\'s note'] = new ItemType (
     [0,0,0,0,0,3],
     2,
     'The demon\'s note is torn into pulp.',
-    `A worn scrap of paper torn from an old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth.".`
+    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth.".`
+)
+
+extras['dueling saber'] = new ItemType (
+    'dueling saber', 'weapon',
+    [8,4,0,0,1,1],
+    13,
+    'Your sword breaks at the handle.',
+    'A long steel black-hilted saber used by the victor in the fateful duel between .'
 )
 
 // extras['faker\'s arm'] = new ItemType (

@@ -27,6 +27,7 @@ extras['arcane merchant'].onInstantiate = function () {
         extras['goat\'s armor'],
         extras['Swede\'s head'],
         extras['sunfire macana'],
+        extras['assassin\'s gun'],
     ];
     this.data.notify = function () {
         drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
@@ -732,8 +733,8 @@ extras['demon king'] = new MonsterType ({
     fightEvent: function () {
         drawString('The demon king strikes the door you came in through with his hand.')
         this.room.doors[0].color = 'demon king\'s'
-        this.room.doors[0].from = this.room
         this.room.doors[0].to = new Room ([this.room.doors[0]], 2)
+        this.room.doors[0].from = this.room
         if (this.room.doors[0].to.monsters.length === 0) {
             this.room.doors[0].to.monsters.push(
                 new Monster (this.room.doors[0].to, extras[
