@@ -18,7 +18,7 @@ houseBuilder.buildSpawn = function () {
     door.to = true;
   });
   finalTreasureRoom.monsters = [new Monster (finalTreasureRoom,
-    allMonsterTypes.filter((type) => {return type.name === 'dragon'})[0]
+    monByName('dragon')
   )];
   for (i=0 ; i<3 ; i++) {
       spawn.doors[i].color = colors[i];

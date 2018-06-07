@@ -119,7 +119,7 @@ var allItemTypes = [
         [0,0,0,0,7,0],
         3,
         'You\'re out of darts.',
-        'A breath powered dart gun with three venemous projectiles. Deals severe poison damage.'
+        'A breath powered dart gun with three pinpoint-sharp projectiles. They\'re poisoned with a cocktail of six different recipes exchanged across the Gulf of Mexico during the time of Louverture\'s revolution.'
     ),
     new ItemType (
         'atalatl', 'weapon',
@@ -236,7 +236,7 @@ var allItemTypes = [
 
     new ItemType (
         'riot shield', 'shield',
-        [0,4,4,0,0,0],
+        [0,4,5,0,0,0],
         14,
         'Your shield breaks.',
         'It\'s a paramilitary riot shield.'
@@ -259,7 +259,7 @@ var allItemTypes = [
         'canned ghost', 'shield',
         [1,1,1,1,1,8],
         5,
-        'Your canned ghost bursts free during the fight. He flies west to murder all his still-living descendants.',
+        `Your canned ghost bursts free during the fight. He flies ${pick(['west', 'south', 'east', 'north'])} to murder all his still-living descendants.`,
         'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.'
     ),
     new ItemType (

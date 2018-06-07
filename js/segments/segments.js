@@ -612,6 +612,9 @@ var segments = [
                 game.player.updateStats()
                 this.bonus[dice(6) - 1] += dice(10)
                 drawString('Your cursed revolver spins wildly and pulls against you like a gyroscope as its shape seems to change completely before returning to being itself')
+            },
+            function () {
+                this.bonus = this.bonus.map(num => { return num })
             }
         )
 
@@ -625,7 +628,7 @@ var segments = [
 
         let bonehardener = new ItemType (
             'bonehardener', 'shield',
-            [0,3,9,0,1,2],
+            [0,3,6,0,1,2],
             8,
             'You\'ve run out of bonehardener.',
             'A vibrantly green medallion with silver roots that weave out of it and into the skin of the person holding it and fossilize their bones into a heavy metallic substance.',
@@ -741,7 +744,6 @@ var segments = [
             monByName('witch'),
             monByName('vampire'),
             monByName('shrieking dog'),
-            monByName('horned woman'),
             monByName('weaghrai'),
             extras['paranoid summoner'],
             extras['crow'],
@@ -1063,10 +1065,14 @@ var segments = [
         })
         prisonCells[0].doors[2].to = new Room ([prisonCells[0].doors[2]], 1)
         prisonCells[0].doors[2].to.type = 'ornate yellow gateway room denoting the passage between two states of being'
-        prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, extras[pick([
+        prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, monByName(pick([
             'Behemoth spawn',
             'raven totem',
-        ])])]
+            'raven totem',
+            'shoggoth',
+            'swordwraith',
+        ])))]
+        prisonCells[0].doors[2].locked = true
         prisonCells[0].doors[2].color = 'gateway'
         prisonCells[0].doors[0].color = 'black'
         prisonCells[0].doors[1].color = 'yellow'

@@ -2,6 +2,76 @@ var extras = extras ? extras : {}
 
 // pierce, slash, crush, burn, poison, curse
 
+extras['dragon'] = new MonsterType ({
+    name: 'dragon',
+    attack: [0,6,6,12,0,1],
+    defense: [12,10,9,12,3,12],
+    hitpoints: 20,
+    level: 3,
+    info: 'It\'s a feathered serpentine animal the size of a passenger jet. Conventional attacks would be risky, and even if you could try to poison it, you\'d probably end up roasted first.',
+    onDeath: 'The dragon rears its head back and shrieks to rattle the foundations of the mighty house. Dust showers down from the rafters as it collapses onto the floor dead.',
+    deathEvent: () => {
+        var door;
+        if (game.player.room.type === 'treasure room') {
+        door = new Door ('trap', game.player.room, null);
+        game.player.room.doors.push(door);
+        door.to = new Room ([], 13);
+        door.to.type = 'amphitheater with thirteen vaulted walls'
+        door.to.items.push(
+            new Item (itemByName(pick(['pike', 'obsidian axe', 'sacred tomohawk', 'paladin\'s shield', 'obsidian axe'])), door.to),
+            new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'sunfire macana'])), door.to),
+            new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
+            new Item (itemByName('wizard\'s ring'), door.to),
+            new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
+            new Item (itemByName(pick(['cavalry shield', 'assassin\'s gun', 'purple orchid'])), door.to),
+            new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
+            new Item (itemByName(pick(['archwizard\'s letter', 'demon king\'s note'])), door.to),
+        )
+        allMonsterTypes = allMonsterTypes.filter(mon => {
+            if (oneIn(5)) {
+                return true
+            } else {
+                extras[mon.name] = mon
+                return false
+            }
+        })
+        allMonsterTypes.push(
+            extras['half-goat soldier'],
+            extras['half-goat soldier'],
+            extras['half-goat soldier'],
+            extras['half-goat soldier']
+        )
+        allMonsterTypes.push(extras['swordwraith'])
+        allMonsterTypes.push(extras['murderer\'s courage'])
+        allMonsterTypes.push(extras['shapeshifter'])
+        allMonsterTypes.push(extras['nagual'])
+        allMonsterTypes.push(extras['big floating eyeball'])
+        door.to.doors.map((innerDoor, index) => {
+          innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
+              'colossal basalt',
+              'rune-inscribed',
+              'carved ebony',
+              'giant sandstone',
+              'huge steel',
+              'tiny circular',
+              'opaque glass',
+              'tall narrow ivory',
+              'thirteen-eyed',
+              'obsidian',
+              'ornate stained glass',
+              'polished marble',
+              'solid gold',
+          ][index]
+        })
+        door.to.mana += 100;
+        door.from.mana += 50;
+            drawString('');
+            drawString('    | YOU WIN |    ');
+            drawString('');
+        }
+    }
+})
+
 extras['arcane merchant'] = Object.assign({}, monByName('weaghrai'))
 extras['arcane merchant'].defense = monByName('weaghrai').defense.map(num => { return num })
 extras['arcane merchant'].attack = monByName('weaghrai').attack.map(num => { return num })
@@ -197,7 +267,25 @@ extras['boa constrictor'] = new MonsterType ({
     hitpoints: 20,
     level: 1,
     info: 'A massive green serpent that crushes its prey to death in its muscular coils.',
-}),
+})
+
+extras['pit viper'] = new MonsterType ({
+    name: 'pit viper',
+    attack: [1,0,0,0,4,0,],
+    defense: [6,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A venomous black viper.',
+})
+
+extras['hawk'] = new MonsterType ({
+    name: 'hawk',
+    attack: [1,4,0,0,0,0,],
+    defense: [12,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'a fierce brownfeathered bird of prey.',
+})
 
 extras['wildgod'] = new MonsterType ({
     // pierce, slash, crush, burn, poison, curse
@@ -216,15 +304,9 @@ extras['wildgod'] = new MonsterType ({
             monByName('weaselcat'),
             extras['crow'],
             extras['albatross'],
-            new MonsterType ({
-                name: 'pit viper',
-                attack: [1,0,0,0,4,0,],
-                defense: [6,0,0,0,0,0,],
-                hitpoints: 20,
-                level: 1,
-                info: 'A venomous black viper.',
-            }),
             extras['boa constrictor'],
+            extras['pit viper'],
+            extras['hawk'],
             new MonsterType ({
                 name: 'wild boar',
                 attack: [2,0,5,0,0,0,],
@@ -232,14 +314,6 @@ extras['wildgod'] = new MonsterType ({
                 hitpoints: 20,
                 level: 2,
                 info: 'A black-haired boar with freshly bloodied white tusks.',
-            }),
-            new MonsterType ({
-                name: 'hawk',
-                attack: [1,4,0,0,0,0,],
-                defense: [12,0,0,0,0,0,],
-                hitpoints: 20,
-                level: 1,
-                info: 'A fierce brownfeathered bird of prey.',
             }),
             new MonsterType ({
                 name: 'puma',
@@ -350,8 +424,8 @@ extras['half-goat soldier'] = new MonsterType ({
 
 extras['kraken'] = new MonsterType ({
     name: 'kraken',
-    attack: [0,0,8,0,0,0,],
-    defense: [8,11,12,10,12,11,],
+    attack: [0,0,14,0,0,0,],
+    defense: [10,10,12,10,12,11,],
     hitpoints: 20,
     level: 3,
     info: 'A oily-skinned black octopus the size of a mountain, one of its thousand-foot arms creeping inquisitively towards your feet.',
@@ -400,7 +474,7 @@ extras['shapeshifter'] = new MonsterType ({
     defense: [12,12,12,0,0,12,],
     hitpoints: 20,
     level: 3,
-    info: 'A wizard who\'s spent years studying the art of shapeshifting, as signified by the necklace he wears made from the teeth of a thousand unique beasts. The proportions of his body are somewhat irregular, as if he\'s started to lose track of his original shape.',
+    info: 'A sorceror who\'s spent years studying the art of shapeshifting, as signified by the necklace he wears made from the teeth of a thousand unique beasts. The proportions of his body are somewhat irregular, as if he\'s started to lose track of his original shape.',
     onDeath: 'The shapeshifter returns to its human form and falls to its knees before writhing tentacles tear their way out from the inside of its skull and are consumed in white fire. It\'s dead.',
     fightEvent: function () {
         let targetType = pick(allMonsterTypes)
@@ -477,7 +551,7 @@ extras['traitorous hand'] = new MonsterType ({
 
 extras['strangling demon'] = new MonsterType ({
     name: 'strangling demon',
-    attack: [0,0,12,0,0,0,],
+    attack: [0,0,18,0,0,0,],
     defense: [12,0,12,12,0,6,],
     hitpoints: 20,
     level: 3,
@@ -489,11 +563,11 @@ extras['strangling demon'] = new MonsterType ({
 
 extras['looking demon'] = new MonsterType ({
     name: 'looking demon',
-    attack: [0,0,0,0,0,12,],
+    attack: [0,0,0,12,0,12,],
     defense: [0,12,12,12,0,6,],
     hitpoints: 20,
     level: 3,
-    info: `A creature in the shape of a eight foot tall corpulent man with every inch of its skin covered in eyeballs of every color which all blink in exact unison twice a minute.`,
+    info: `A creature in the shape of a eight foot tall corpulent man with every inch of its skin covered in eyeballs of every color which all blink in exact unison twice a minute. The mouths that are scattered randomly between his eyes breath loudly and belch fire.`,
     drop: [
         new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
         new Item (itemByName(pick(['evil eye', 'weeping eye', 'congealed eye', 'afflicted eye', 'watchful eye']))),
@@ -516,7 +590,7 @@ let bottles = ['bottle of violet powder', 'bottle of liquid swords', 'bottle of 
 extras['bottle demon'] = new MonsterType ({
     name: 'bottle demon',
     attack: [0,0,0,0,0,0,],
-    defense: [12,12,0,12,12,6,],
+    defense: [12,12,0,12,12,12,],
     hitpoints: 20,
     level: 3,
     info: `A long-armed human-shaped demon with papery ${pick(['grey', 'gray'])} skin and a rectangular cavity in its torso like a shelf. Its insides are stuffed with brightly polished but disorganized glass jars and vials containing fluids and powders of every color.`,
@@ -545,7 +619,7 @@ extras['bottle demon'] = new MonsterType ({
 
 extras['carcinogenic demon'] = new MonsterType ({
     name: 'carcinogenic demon',
-    attack: [0,0,0,0,13,0,],
+    attack: [0,0,0,0,30,0,],
     defense: [12,0,12,12,0,6,],
     hitpoints: 20,
     level: 3,
@@ -557,7 +631,7 @@ extras['carcinogenic demon'] = new MonsterType ({
 
 extras['blood golem'] = new MonsterType ({
     name: 'blood golem',
-    attack: [3,0,2,0,0,0,],
+    attack: [3,0,2,0,3,0,],
     defense: [12,3,5,0,0,12,],
     hitpoints: 20,
     level: 1,
@@ -670,6 +744,10 @@ extras['swordwraith'] = new MonsterType ({
     drop: [
         new Item (extras['wraith\'s sword'])
     ],
+    onInstantiate: function () {
+        this.data.progress = 0
+        this.room.doors[0].locked = true
+    },
     fightEvent: function () {
         let slash = !!Math.round(Math.random())
         this.attack[0] = slash ? 0 : 16
@@ -708,7 +786,7 @@ extras['marble guardian'] = new MonsterType ({
             door.to.items = []
             door.to.monsters = []
             door.to.monsters.push(new Monster (door.to, extras['demon king']))
-            door.to.type = 'ANCIENT PRISON CELL'
+            door.to.type = 'ancient prison cell'
             game.player.room.doors.push(door)
         } else if (game.player.room.monsters.length === 1) {
             game.player.room.doors.map(door => {
@@ -722,7 +800,7 @@ extras['marble guardian'] = new MonsterType ({
 extras['demon king'] = new MonsterType ({
     name: 'demon king',
     attack: [0,0,0,5,7,3,],
-    defense: [12,12,12,10,6,5,],
+    defense: [12,12,12,6,10,5,],
     hitpoints: 20,
     level: 3,
     info: 'A withered old man radiating divine energy, starved and emaciated by centuries of imprisonment. He\'s the king of demons.',
@@ -734,7 +812,9 @@ extras['demon king'] = new MonsterType ({
         drawString('The demon king strikes the door you came in through with his hand.')
         this.room.doors[0].color = 'demon king\'s'
         this.room.doors[0].to = new Room ([this.room.doors[0]], 2)
-        this.room.doors[0].from = this.room
+        this.room.doors[0].to.doors.map(door => {
+            door.locked = door.color !== 'demon king\'s'
+        })
         if (this.room.doors[0].to.monsters.length === 0) {
             this.room.doors[0].to.monsters.push(
                 new Monster (this.room.doors[0].to, extras[
@@ -804,12 +884,13 @@ extras['Behemoth spawn'] = new MonsterType ({
             this.info = 'One of the hundred children of the Behemoth of Job. It\'s a hairy brown creature the size of a mammoth, fully awake now and fuming with frustration, the force of its hot breath hitting you like a gale.'
             this.defense[0] -= 1
             this.defense[1] -= 1
+            this.defense[0] = this.defense[0] < 6 ? 6 : this.defense[0]
+            this.defense[1] = this.defense[1] < 9 ? 9 : this.defense[1]
         }
         this.attack[2] += this.data.progress
         this.attack[2] = this.attack[2] > 20 ? 20 : this.attack[2]
     }
 })
-
 
 extras['sphinx'] = new MonsterType ({
     name: 'sphinx',
@@ -817,26 +898,35 @@ extras['sphinx'] = new MonsterType ({
     defense: [7,10,10,7,7,9,],
     hitpoints: 20,
     level: 3,
-    info: `A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back.`,
+    info: `If you attack it and aren\'t prepared it will kill you with one strike. A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back.`,
     onDeath: `The sphinx rears up and collapses, dead. There's a small round door on the floor beneath her.`,
+    onInstantiate: function () {
+        ['Hippolyta', 'Jocasta', 'Matlalcueye', 'Sobekneferu', 'Wadjet', 'Tawaret', 'Xiuhcuetzin', 'Isabella'].map(name => {
+            nameMumbler.read(name)
+        })
+        this.info = `If you attack it and aren\'t prepared it will kill you with one strike. A lioness the size of a hippopotamus with claws like swords and the head of a dark-haired human woman. She has two great black feathered wings folded behind her back. Until the recent fall of the wizards the sphinxes spent the past two five-hundred-year generations of their kind in a loose alliance with them, brokered by ${capitalize(nameMumbler.mumble())} the Sphinx Queen and the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])}.`
+    },
     fightEvent: function () {
         if (this.attack[0] === 10) {
             drawString('The sphinx blows fiery hot air at you with her great wings and simultaneously jabs at you with one of her huge claws.')
             if (game.player.shield && (game.player.shield[0] + game.player.shield[3]) > (game.player.shield[1] + game.player.shield[2]) && oneIn(2)) {
+                drawString('The sphinx folds her wings back again and gets down on her haunches to strike.')
                 this.attack[1] = 27
                 this.attack[2] = 3
                 this.attack[0] = 0
                 this.attack[3] = 0
+                this.defense[0] = 5
             }
-        }
-        if (this.attack[1] === 20 && game.player.shield && game.player.shield.bonus[1] > 6 && game.player.shield.bonus[2] > 6 ) {
+        } else if (this.attack[1] === 20 && game.player.shield && game.player.shield.bonus[1] > 6 && game.player.shield.bonus[2] > 6 ) {
             drawString('The sphinx rears back warily, not satisfied with the efficacy of her attack.')
             this.attack[1] = 0
             this.attack[2] = 0
             this.attack[0] = 10
             this.attack[3] = 10
+            this.defense[0] = 7
         }
     },
+
     deathEvent: function () {
         let door = new Door ('small round', this.room, false, false)
         let firstRoom = new Room ([door], 1)
@@ -847,41 +937,114 @@ extras['sphinx'] = new MonsterType ({
         secondRoom.type = `sandstone atrium`
         thirdRoom.type = `narrow sandstone corridor`
         fourthRoom.type = `hidden chamber`
-        firstRoom.monsters = []
-        secondRoom.monsters = []
-        fourthRoom.monsters = []
         door.to = firstRoom
 
         firstRoom.doors[1].to = secondRoom
         firstRoom.doors[1].color = 'sandstone'
         secondRoom.doors[1].to = thirdRoom
-        secondRoom.doors[1].color = 'white stone'
+        secondRoom.doors[1].color = 'rune-etched sandstone'
+        secondRoom.doors[1].locked = true
         thirdRoom.doors[1].to = fourthRoom
         thirdRoom.doors[1].color = 'sandstone'
 
-        firstRoom.items = []
-        secondRoom.items = []
-        thirdRoom.items = []
-        fourthRoom.items = []
+        let allRooms = [firstRoom, secondRoom, thirdRoom, fourthRoom]
 
-        firstRoom.mana += dice(3) + dice(4)
-        secondRoom.mana += dice(3) + dice(4)
-        thirdRoom.mana += dice(3) + dice(4)
-        fourthRoom.mana += dice(3) + dice(4)
+        allRooms.map(room => {
+            room.items = []
+            room.monsters = []
+            room.mana += dice(3) + dice(4)
+        })
 
         this.room.doors.push(door)
 
-        secondRoom.monsters = []
-        thirdRoom.items = []
-        fourthRoom.monsters = []
+        secondRoom.monsters = [new Monster (secondRoom, monByName(pick([
+            'strangling demon',
+            'salt golem',
+            'salt golem',
+            'sulfur golem',
+        ])))]
+        thirdRoom.items = [new Item (itemByName(pick([
+            'Greek\'s dagger',
+            'archwizard\'s letter',
+            'trident',
+            'purple orchid',
+            'pearl of concentrated pestilence',
+            'laughing key',
+            'djinn\'s sword',
+            'angel\'s armor',
+            'bottle of whiskey',
+        ])), thirdRoom)]
+        fourthRoom.monsters = [
+            new Monster (fourthRoom, monByName('archwizard'))
+        ]
     }
 })
 
 extras['archwizard'] = new MonsterType ({
     name: 'archwizard',
-    attack: [2,2,2,2,2,11,],
-    defense: [7,2,3,1,1,5,],
+    attack: [3,4,4,4,4,9,],
+    defense: [7,4,6,3,3,6,],
     hitpoints: 20,
     level: 3,
     info: `A dignified looking old man in black and silver robes with a expression of hateful disdain behind his crinkled greasy black beard. It's the Archwizard of ${pick(['Sao Paolo', 'Lima', 'Quito', 'Havana', 'Kingston', 'Veracruz', 'San Antonio'])}, squirreled away in a hidden bunker to survive the epidemic that claimed the rest of his kind.`,
+    drop: [
+        new Item (extras['knife']),
+        new Item (extras['stake']),
+    ],
+    fightEvent: function () {
+        if (game.player.shield) {
+            game.player.shield.bonus = game.player.shield.bonus.map((num, index) => {
+                return Math.ceil(num / 2)
+            })
+            drawString(`A dose of crackling black lightning pulses through your ${game.player.shield.name}, rendering it blackened and brittle.`)
+        }
+        updateInventory()
+    },
+    deathEvent: function () {
+        game.player.stats.baseAttack[2] = 0
+        game.player.stats.baseAttack[5] = 7
+        game.player.stats.baseDefense[5] = 4
+        updateRoom()
+        updateInventory()
+        drawString(`You've killed the last of the archwizards.`)
+    }
+})
+
+extras['merman'] = new MonsterType ({
+    name: 'merman',
+    attack: [9,0,9,0,0,4],
+    defense: [7,2,5,12,0,5,],
+    hitpoints: 20,
+    level: 3,
+    info: `A bearded and gilled amphibian man, naked and clutching a razor-sharp shining trident protectively.`,
+    drop: [
+        new Item (extras['trident']),
+    ]
+})
+
+extras['posessed furnace'] = new MonsterType ({
+    name: 'posessed furnace',
+    attack: [0,0,3,7,1,0,],
+    defense: [9,0,3,10,12,1,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A common basement furnace system posessed and corrupted by some kind of malevolent shadowy figure.',
+})
+
+extras['salt golem'] = new MonsterType ({
+    name: 'salt golem',
+    attack: [0,6,24,10,0,0,],
+    defense: [12,5,10,8,12,10,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A golem made of blocks of crystallized salt, standing at three times your height and ducking down to not hit its head on the ceiling. At the heart of the man of cubes is a flickering black heart of crackling energy that gives it its seismic strength.',
+})
+
+extras['sulfur golem'] = new MonsterType ({
+    name: 'sulfur golem',
+    attack: [0,4,20,12,8,0,],
+    defense: [12,6,12,6,12,10,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A golem made of blocks of lemon-yellow sulfur, standing at three times your height and ducking down to not hit its head on the ceiling. At the heart of the sulfuric man is a flickering black heart of crackling energy that gives it its seismic strength.',
 })

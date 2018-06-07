@@ -2,6 +2,9 @@ var globalUniqueId = -1
 var getGlobalUniqueId = () => {
     return globalUniqueId += 1
 }
+var pick = function (array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
 
 var Player = function () {
     this.room = null;
@@ -361,13 +364,13 @@ Player.prototype.recover = function (active=false) {
 
     if (display.data.monstersKilled && display.data.itemsUsed) {
         display.data.monstersKilled = display.data.monstersKilled.sort((x, y) => {
-            return x.name[0] < y.name[0]
+            return x.name[0].toLowerCase() < y.name[0].toLowerCase()
         })
         display.data.monstersEncountered = display.data.monstersEncountered.sort((x, y) => {
-            return x.name[0] < y.name[0]
+            return x.name[0].toLowerCase() < y.name[0].toLowerCase()
         })
         display.data.itemsUsed = display.data.itemsUsed.sort((x, y) => {
-            return x.name[0] < y.name[0]
+            return x.name[0].toLowerCase() < y.name[0].toLowerCase()
         })
     }
     localStorage.setItem('monster-data', JSON.stringify(display.data))
