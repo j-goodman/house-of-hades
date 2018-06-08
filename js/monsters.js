@@ -370,7 +370,7 @@ var allMonsterTypes = [
         defense: [12,0,0,6,12,0,],
         hitpoints: 20,
         level: 1,
-        info: 'An energetically animated human skeleton, moving to attack with its bare hands.',
+        info: 'A energetically animated human skeleton, moving to attack with its bare hands.',
     }),
     new MonsterType ({
         name: 'drowned whaler',

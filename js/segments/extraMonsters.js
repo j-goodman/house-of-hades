@@ -94,7 +94,6 @@ extras['arcane merchant'].onInstantiate = function () {
         itemByName('Greek\'s dagger'),
         itemByName('mithril vest'),
         itemByName('angel\'s armor'),
-        itemByName('goat\'s armor'),
         itemByName('Swede\'s head'),
         itemByName('sunfire macana'),
         itemByName('dueling saber'),
