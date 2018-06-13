@@ -168,25 +168,20 @@ Player.prototype.drop = function (itemName) {
   // clearType();
   let holding = null;
   let unique = false;
+  let dropped = null;
   if (typeof itemName !== 'string' && itemName.name) {
       itemName = itemName.name
   }
   if (this.weapon && this.weapon.name == itemName) {
     this.weapon.room = game.player.room
-    if (this.weapon.onDrop) {
-        this.weapon.room = this.room
-        this.weapon.onDrop()
-    }
+    dropped = this.weapon
     this.room.items.push(this.weapon);
     this.weapon.room = this.room;
     //console.log('You drop your ' + this.weapon.name + '.');
     this.weapon = null;
   } else if (this.shield && this.shield.name == itemName) {
     this.shield.room = game.player.room
-    if (this.shield.onDrop) {
-        this.shield.room = this.room
-        this.shield.onDrop()
-    }
+    dropped = this.shield
     this.room.items.push(this.shield);
     this.shield.room = this.room;
     // console.log('You drop your ' + this.shield.name + '.');
@@ -197,10 +192,7 @@ Player.prototype.drop = function (itemName) {
   }).includes(itemName)) {
     this.room.items.push(holding);
     holding.room = game.player.room
-    if (holding.onDrop) {
-        holding.room = this.room
-        holding.onDrop()
-    }
+    dropped = holding
     holding.room = this.room;
     //console.log('You drop the ' + holding.name + ' you were holding.');
     this.holding = this.holding.filter(item => {
@@ -214,6 +206,11 @@ Player.prototype.drop = function (itemName) {
   }
   this.updateStats();
   updateRoom();
+  if (dropped.onDrop) {
+      dropped.room = this.room
+      dropped.onDrop()
+  }
+  updateRoomContents();
 };
 
 Player.prototype.updateStats = function (fake=false) {

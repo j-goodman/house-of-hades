@@ -308,6 +308,7 @@ extras['wildgod'] = new MonsterType ({
             extras['boa constrictor'],
             extras['pit viper'],
             extras['hawk'],
+            extras['owl of shadows'],
             new MonsterType ({
                 name: 'wild boar',
                 attack: [2,0,5,0,0,0,],
@@ -960,6 +961,7 @@ extras['sphinx'] = new MonsterType ({
 
         secondRoom.monsters = [new Monster (secondRoom, monByName(pick([
             'strangling demon',
+            'owl of shadows',
             'salt golem',
             'salt golem',
             'sulfur golem',
@@ -1048,4 +1050,17 @@ extras['sulfur golem'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A golem made of blocks of lemon-yellow sulfur, standing at three times your height and ducking down to not hit its head on the ceiling. At the heart of the sulfuric man is a flickering black heart of crackling energy that gives it its seismic strength.',
+})
+
+extras['owl of shadows'] = new MonsterType ({
+    name: 'owl of shadows',
+    attack: [5,12,7,0,0,0,],
+    defense: [12,12,12,5,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'When you first look up, the room seems to be without a ceiling, opening into the wide night sky. Then the starry expanse folds into two vast wings, curled around the body of a owl so big it takes up your whole field of vision. The shadowy bird of prey spreads its wings again and swoops down at you.',
+    onDeath: `The owl goes up in flames. As it devours the night raptor\'s feathery frame the fire becomes pale silver and emits a flashing glow like moonlight. The owl falls and smolders into thick black smoke, until all that\'s left is the half-digested remains of a ${pick(allMonsterTypes.map(mon => { return mon.name }))} and a spherical egg.`,
+    drop: [
+        new Item (itemByName('moon egg')),
+    ],
 })

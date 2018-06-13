@@ -1074,8 +1074,8 @@ var segments = [
             'Behemoth spawn',
             'raven totem',
             'raven totem',
+            'owl of shadows',
             'shoggoth',
-            'swordwraith',
         ])))]
         prisonCells[0].doors[2].locked = true
         prisonCells[0].doors[2].color = 'gateway'

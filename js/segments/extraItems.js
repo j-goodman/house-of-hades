@@ -776,6 +776,26 @@ extras['plague knight\'s sword'] = new ItemType (
     }
 )
 
+extras['moon egg'] = new ItemType (
+    'moon egg', 'shield',
+    [0,0,5,3,0,12],
+    15,
+    'The moon egg cracks.',
+    'It\'s a perfectly round egg like a tiny moon.',
+    null,
+    null,
+    null,
+    function () {
+        drawString(`The moon egg ${pick(['quivers', 'shivers', 'shakes', 'rattles', 'rolls around', 'shines with silver light', 'quivers'])} when you drop it.`)
+        if (dice(7) === 7) {
+            game.player.room.items = game.player.room.items.filter(item => { return item.name !== 'moon egg' })
+            game.player.room.monsters.push(new Monster (game.player.room, monByName('owl of shadows')))
+            updateRoom()
+            drawString('The moon egg has burst!')
+        }
+    }
+)
+
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
 //     [0,0,0,0,0,0],
