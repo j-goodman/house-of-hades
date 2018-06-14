@@ -370,7 +370,7 @@ var allMonsterTypes = [
         defense: [12,0,0,6,12,0,],
         hitpoints: 20,
         level: 1,
-        info: 'An energetically animated human skeleton, moving to attack with its bare hands.',
+        info: 'A energetically animated human skeleton, moving to attack with its bare hands.',
     }),
     new MonsterType ({
         name: 'drowned whaler',
@@ -403,7 +403,7 @@ var allMonsterTypes = [
                     game.player.weapon.bonus[1] > 0 || // Slash damage
                     game.player.weapon.bonus[2] > 0 // Crush damage
                 ) &&
-                game.player.weapon.bonus[3] < 4 && // No substantial burn damage
+                game.player.weapon.bonus[3] < 3 && // No substantial burn damage
                 game.player.weapon.ammo > 0 && // Weapon still has ammo
                 this.hitpoints > 0 // Still alive
               ) {

@@ -19,7 +19,7 @@ extras['dragon'] = new MonsterType ({
         door.to.type = 'amphitheater with thirteen vaulted walls'
         door.to.items.push(
             new Item (itemByName(pick(['pike', 'obsidian axe', 'sacred tomohawk', 'paladin\'s shield', 'obsidian axe'])), door.to),
-            new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'sunfire macana'])), door.to),
+            new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'dueling saber', 'dueling saber'])), door.to),
             new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
             new Item (itemByName('wizard\'s ring'), door.to),
             new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
@@ -86,17 +86,19 @@ extras['arcane merchant'].onInstantiate = function () {
     this.data.baseAttack = this.attack.map(stat => { return stat })
     this.data.arsenal = [
         itemByName('sacred tomohawk'),
-        extras['lich\'s eye'],
-        extras['Byzantine murder ring'],
-        extras['cosmic ball'],
-        extras['djinn\'s sword'],
-        extras['spidersilk sling'],
-        extras['Greek\'s dagger'],
-        extras['mithril vest'],
-        extras['angel\'s armor'],
-        extras['goat\'s armor'],
-        extras['Swede\'s head'],
-        extras['sunfire macana'],
+        itemByName('lich\'s eye'),
+        itemByName('Byzantine murder ring'),
+        itemByName('cosmic ball'),
+        itemByName('djinn\'s sword'),
+        itemByName('spidersilk sling'),
+        itemByName('Greek\'s dagger'),
+        itemByName('mithril vest'),
+        itemByName('angel\'s armor'),
+        itemByName('Swede\'s head'),
+        itemByName('sunfire macana'),
+        itemByName('dueling saber'),
+        itemByName('gold-plated handgun'),
+        itemByName('plague knight\'s sword'),
     ];
     this.data.notify = function () {
         drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
@@ -810,7 +812,6 @@ extras['demon king'] = new MonsterType ({
     fightEvent: function () {
         drawString('The demon king strikes the door you came in through with his hand.')
         this.room.doors[0].color = 'demon king\'s'
-        this.room.doors[0].from = this.room
         this.room.doors[0].to = new Room ([this.room.doors[0]], 2)
         this.room.doors[0].to.doors.map(door => {
             door.locked = door.color !== 'demon king\'s'

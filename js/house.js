@@ -74,17 +74,18 @@ var surfaceTypes = [
 var roomTypeItems = {
     'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife'],
     'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle'],
-    'courtyard': ['life-giving herb', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe'],
+    'courtyard': ['life-giving herb', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
     'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
     'chapel': ['posessed bible', 'clergyman\'s dagger'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
     'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
-    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'assassin\'s gun'],
+    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
-    'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow'],
-    'crypt': ['assassin\'s gun'],
+    'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber'],
+    'crypt': ['assassin\'s gun', 'plague knight\'s sword'],
     'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
+    // 'hallway': ['assassin\'s gun', 'plague knight\'s sword', 'dueling saber'],
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],

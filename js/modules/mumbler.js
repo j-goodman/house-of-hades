@@ -63,6 +63,9 @@ Talker.prototype.write = function (base) {
   string = base[0];
 
   sentence.map((cell, index) => {
+		if (!string[index]) {
+				return ''
+		}
 		if (!this.memory[string[index].code()]) {
 				return undefined
 		}
@@ -91,7 +94,7 @@ Talker.prototype.chooseCharRand = function (cell) {
     total += cell.letters[letter];
   });
   choiceInd = Math.floor(Math.random() * total);
-  while (!choiceList[choiceInd]) {
+  while (!choiceList[choiceInd] && choiceInd > 0) {
     choiceInd -= 1;
   }
   return choiceList[choiceInd];
