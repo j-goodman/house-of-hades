@@ -1076,7 +1076,7 @@ extras['witch doctor'] = new MonsterType ({
     deathEvent: () => {
         game.player.room.items.push(
             new Item (
-                itemByName(pick(['basket of jujube seeds', 'necklace of murderers\' teeth'])),
+                itemByName(pick(['necklace of murderers\' teeth'])),
                 game.player.room,
             ),
             new Item (
