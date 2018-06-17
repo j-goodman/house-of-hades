@@ -370,7 +370,7 @@ var allMonsterTypes = [
         defense: [12,0,0,6,12,0,],
         hitpoints: 20,
         level: 1,
-        info: 'A energetically animated human skeleton, moving to attack with its bare hands.',
+        info: 'A dancing human skeleton, moving to attack with its bare hands.',
     }),
     new MonsterType ({
         name: 'drowned whaler',
@@ -603,6 +603,14 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 2,
         info: 'It\'s a yellow snail in a shell the size of a small European car, oozing venomous slime as it crawls at you.',
+    }),
+    new MonsterType ({
+        name: 'gila moth',
+        attack: [2,0,0,3,3,0,],
+        defense: [6,0,0,0,12,3,],
+        hitpoints: 20,
+        level: 2,
+        info: 'It\'s a moth with a wingspan as wide as a man\'s, with red-hot glowing venom dripping from its piercing proboscis.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

@@ -285,7 +285,7 @@ extras['hawk'] = new MonsterType ({
     defense: [12,0,0,0,0,0,],
     hitpoints: 20,
     level: 1,
-    info: 'a fierce brownfeathered bird of prey.',
+    info: 'A fierce brownfeathered bird of prey.',
 })
 
 extras['wildgod'] = new MonsterType ({

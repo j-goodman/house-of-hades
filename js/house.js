@@ -74,7 +74,7 @@ var surfaceTypes = [
 var roomTypeItems = {
     'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife'],
     'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle'],
-    'courtyard': ['life-giving herb', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
+    'courtyard': ['pumpkin', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
     'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
     'chapel': ['posessed bible', 'clergyman\'s dagger'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],

@@ -796,6 +796,14 @@ extras['moon egg'] = new ItemType (
     }
 )
 
+extras['pumpkin'] = new ItemType (
+    'pumpkin', 'weapon',
+    [0,0,2,0,0,0],
+    1,
+    'The pumpkin bursts when you throw it.',
+    `It's a ${pick(['orange', 'yellow', 'orange-yellow', 'rotting', 'orange', 'orange', 'grinning', 'grinning', 'grimacing'])}.`
+)
+
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
 //     [0,0,0,0,0,0],
