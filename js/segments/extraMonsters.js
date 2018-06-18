@@ -1090,3 +1090,38 @@ extras['witch doctor'] = new MonsterType ({
         )
     }
 })
+
+extras['chef\'s ghost'] = Object.assign({}, monByName('weaghrai'))
+extras['chef\'s ghost'].name = 'chef\'s ghost'
+extras['chef\'s ghost'].info = `The infuriated ghost of a cuisinier, levitating around the kitchen dressed in a white apron dotted with scarlet stab wounds, incurred when he was betrayed and murdered by his sous-chef.`
+extras['chef\'s ghost'].attack = [0,0,0,0,0,0,]
+extras['chef\'s ghost'].defense = [12,12,12,11,5,3,]
+extras['chef\'s ghost'].onInstantiate = function () {
+    this.data.baseDefense = this.defense.map(stat => { return stat })
+    this.data.baseAttack = this.attack.map(stat => { return stat })
+    this.data.arsenal = [
+        itemByName('kitchen knife'),
+        itemByName('paring knife'),
+        itemByName('cleaver'),
+        itemByName('cleaver'),
+        itemByName('cast iron pan'),
+        itemByName('cast iron pan'),
+        itemByName('doughroller'),
+    ];
+    this.data.notify = function () {
+        drawString(`The chef ${pick(['cackles', 'screams'])} and withdraws a ${this.data.item.name}.`);
+        this.info = `The infuriated ghost of a cuisinier, levitating around the kitchen dressed in a white apron dotted with scarlet stab wounds, incurred when he was betrayed and murdered by his sous-chef. He's getting ready to hurl a ${this.data.item.name} at you.`;
+    }.bind(this)
+}
+
+extras['sous-chef\'s skeleton'] = new MonsterType ({
+    name: 'sous-chef\'s skeleton',
+    attack: [2,5,0,0,0,0,],
+    defense: [12,0,0,6,12,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A reanimated human skeleton dressed in a white apron and wielding a kitchen knife, the bones of a traitorous sous-chef cursed to continue his shift long after his death.',
+    drop: [
+        new Item (itemByName('kitchen knife')),
+    ],
+})

@@ -523,6 +523,38 @@ extras['kitchen knife'] = new ItemType (
     'It\'s a steel kitchen knife with a wood handle.'
 )
 
+extras['paring knife'] = new ItemType (
+    'paring knife', 'weapon',
+    [1,2,0,0,0,0],
+    9,
+    'Your paring knife breaks.',
+    'It\'s a steel paring knife with a black handle.'
+)
+
+extras['cleaver'] = new ItemType (
+    'cleaver', 'weapon',
+    [0,5,1,0,0,0],
+    11,
+    'Your cleaver breaks.',
+    'A large stainless-steel meat cleaver.'
+)
+
+extras['cast iron pan'] = new ItemType (
+    'cast iron pan', 'weapon',
+    [0,0,7,0,0,0],
+    5,
+    'The pan breaks. Cast iron kitchenware is much heavier than the steel equivalent but it\'s also much more brittle, so this is no surprise.',
+    'A heavy black cast-iron pan. The cast iron lets it build up years of absorbed flavors, which there\'s really no substitute for.'
+)
+
+extras['doughroller'] = new ItemType (
+    'doughroller', 'weapon',
+    [0,0,4,0,0,0],
+    5,
+    'The doughroller breaks.',
+    'A wooden doughroller.'
+)
+
 extras['wrench'] = new ItemType (
     'wrench', 'weapon',
     [0,1,4,0,0,0],

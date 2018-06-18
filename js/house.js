@@ -42,7 +42,7 @@ var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'storeroom', 'libr
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
-    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt'],
+    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt', 'haunted kitchen'],
     ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway'],
 ];
 var laterDoorColors = [
@@ -96,7 +96,8 @@ var roomTypeMonsters = {
     'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
     'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
     'aviary': ['hawk', 'crow', 'albatross', 'owl of shadows'],
-    'witch doctor\'s hideaway': ['wildgod', 'wildgod', 'skullhead', 'witch doctor']
+    'witch doctor\'s hideaway': ['wildgod', 'wildgod', 'skullhead', 'witch doctor'],
+    'haunted kitchen': ['chef\'s ghost', 'sous-chef\'s skeleton'],
 }
 
 var nextRoomId = 0;
