@@ -68,6 +68,9 @@ extras['assassin\'s gun'] = new ItemType (
     function () { // On instantiate
         let name = pick(firstNames)
         nameMumbler.read(name)
+        nameMumbler.read(pick(firstNames))
+        nameMumbler.read(pick(firstNames))
+        nameMumbler.read(pick(firstNames))
         nameMumbler.names.push(name)
         this.info = `A breath powered dart gun with four pinpoint-sharp projectiles. There were originally scores of thousands of these darts made, but most were sunk during the blockade after the rebel army took Florida. This one was used to assassinate ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())}.`
     }
@@ -801,8 +804,32 @@ extras['pumpkin'] = new ItemType (
     [0,0,2,0,0,0],
     1,
     'The pumpkin bursts when you throw it.',
-    `It's a ${pick(['orange', 'yellow', 'orange-yellow', 'rotting', 'orange', 'orange', 'grinning', 'grinning', 'grimacing'])}.`
+    `It's a ${pick(['orange', 'yellow', 'orange-yellow', 'rotting', 'orange', 'orange', 'grinning', 'grinning', 'grimacing'])} pumpkin.`
 )
+
+new ItemType (
+    'basket of jujube seeds', 'shield',
+    [0,0,0,7,7,0],
+    4,
+    'You\'re out of jujube seeds',
+    'It\'s a very small basket, containing a few seeds used by those with ancient medicinal knowledge to protect from venom and flame.'
+),
+
+new ItemType (
+    'necklace of murderers\' teeth', 'shield',
+    [8,9,0,0,0,7],
+    15,
+    'Your necklace of murderer\'s teeth breaks.',
+    'A necklace of strung-together human molars, ostensibly all from those who have killed unjustly. Protects against the ill wishes of those who would stab, cut, or curse the wearer.'
+),
+
+new ItemType (
+    'phantom pestle', 'weapon',
+    [0,5,6,2,0,4],
+    6,
+    'The phantom pestle breaks.',
+    'The brittle pounding stone from a mortar and pestle, shimmering with a ghostly luminescent translucency. Used to grind supernatural substances that would be otherwise atomic before all earthly force.'
+),
 
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',

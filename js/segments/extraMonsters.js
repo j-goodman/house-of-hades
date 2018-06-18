@@ -1064,3 +1064,29 @@ extras['owl of shadows'] = new MonsterType ({
         new Item (itemByName('moon egg')),
     ],
 })
+
+extras['witch doctor'] = new MonsterType ({
+    name: 'witch doctor',
+    attack: [0,0,1,1,2,4,],
+    defense: [6,1,2,1,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A practitioner of ancient herbal remedies and spells.',
+    onDeath: 'A glowing white mist escapes through the witch doctor\'s nose and she dies.',
+    deathEvent: () => {
+        game.player.room.items.push(
+            new Item (
+                itemByName(pick(['basket of jujube seeds', 'necklace of murderers\' teeth'])),
+                game.player.room,
+            ),
+            new Item (
+                itemByName(pick['assassin\'s gun', 'congealed eye', 'bottle of liquid swords', 'venomous barb', 'Byzantine murder ring', 'obsidian axe', 'demon king\'s note']),
+                game.player.room,
+            ),
+            new Item (
+                itemByName(pick['moon egg', 'moon egg', 'phantom pestle', 'pearl of concentrated pestilence']),
+                game.player.room,
+            ),
+        )
+    }
+})

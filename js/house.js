@@ -43,7 +43,7 @@ var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'go
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt'],
-    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary'],
+    ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
@@ -72,20 +72,20 @@ var surfaceTypes = [
     ['grass', ['courtyard']],
 ];
 var roomTypeItems = {
-    'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife'],
-    'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle'],
+    'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife', 'basket of jujube seeds'],
+    'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle', 'basket of jujube seeds'],
     'courtyard': ['pumpkin', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
     'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
     'chapel': ['posessed bible', 'clergyman\'s dagger'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
     'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
-    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'assassin\'s gun', 'dueling saber'],
+    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
     'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber'],
     'crypt': ['assassin\'s gun', 'plague knight\'s sword'],
     'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
-    // 'hallway': ['assassin\'s gun', 'plague knight\'s sword', 'dueling saber'],
+    'witch doctor\'s hideaway': ['assassin\'s gun', 'basket of jujube seeds', 'myrrh bracelet'],
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
@@ -95,6 +95,7 @@ var roomTypeMonsters = {
     'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
     'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
     'aviary': ['hawk', 'crow', 'albatross', 'owl of shadows'],
+    'witch doctor\'s hideaway': ['wildgod', 'wildgod', 'skullhead', 'witch doctor']
 }
 
 var nextRoomId = 0;
@@ -266,7 +267,7 @@ Door.prototype.advanceRoomAndDoorTypes = function () {
       roomTypes = roomTypes.concat(laterRoomTypes[1]);
       laterDoorColors[1] = false; laterRoomTypes[1] = false;
   }
-  if (hour > 80 && laterDoorColors[2] && laterRoomTypes[2]) {
+  if (hour > 90 && laterDoorColors[2] && laterRoomTypes[2]) {
       doorColors = doorColors.concat(laterDoorColors[2]);
       roomTypes = roomTypes.concat(laterRoomTypes[2]);
       laterDoorColors[2] = false; laterRoomTypes[2] = false;

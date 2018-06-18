@@ -347,6 +347,13 @@ var allItemTypes = [
         'Your mask splinters and shatters into frozen shards.',
         'A mask like the face of a white owl, made of hard unmelting ice. It\'s cursed so that when you wear it your body temperature drops and a hard frost runs through you, making it harder to burn or crush you.'
     ),
+    new ItemType (
+        'myrrh bracelet', 'shield',
+        [0,2,0,3,5,2],
+        9,
+        '',
+        'A bracelet of hollow clay beads filled with perfume, worn to protect against fire and sorcery and snakes.'
+    ),
 
     // pierce, slash, crush, burn, poison, curse
 

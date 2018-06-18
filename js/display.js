@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
 
         if (display.data.monstersKilled.length >= 7) {
             let total = document.createElement('h2')
-            total.innerText = `${display.data.monstersKilled.length}/108`
+            total.innerText = `${display.data.monstersKilled.length}/112`
             screen.appendChild(total)
         }
 
