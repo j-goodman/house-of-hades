@@ -807,29 +807,29 @@ extras['pumpkin'] = new ItemType (
     `It's a ${pick(['orange', 'yellow', 'orange-yellow', 'rotting', 'orange', 'orange', 'grinning', 'grinning', 'grimacing'])} pumpkin.`
 )
 
-new ItemType (
+extras['basket of jujube seeds'] = new ItemType (
     'basket of jujube seeds', 'shield',
     [0,0,0,7,7,0],
     4,
     'You\'re out of jujube seeds',
     'It\'s a very small basket, containing a few seeds used by those with ancient medicinal knowledge to protect from venom and flame.'
-),
+)
 
-new ItemType (
+extras['necklace of murderers\' teeth'] = new ItemType (
     'necklace of murderers\' teeth', 'shield',
     [8,9,0,0,0,7],
     15,
     'Your necklace of murderer\'s teeth breaks.',
     'A necklace of strung-together human molars, ostensibly all from those who have killed unjustly. Protects against the ill wishes of those who would stab, cut, or curse the wearer.'
-),
+)
 
-new ItemType (
+extras['phantom pestle'] = new ItemType (
     'phantom pestle', 'weapon',
     [0,5,6,2,0,4],
     6,
     'The phantom pestle breaks.',
     'The brittle pounding stone from a mortar and pestle, shimmering with a ghostly luminescent translucency. Used to grind supernatural substances that would be otherwise atomic before all earthly force.'
-),
+)
 
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
