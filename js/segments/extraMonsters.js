@@ -880,7 +880,7 @@ extras['Behemoth spawn'] = new MonsterType ({
             'The Behemoth wakes and staggers to its feet, reaching out to swat you away.',
             'The Behemoth roars and strikes at you.',
         ][this.data.progress])
-        if (this.data.progress < 4) {
+        if (this.data.progress < 3) {
             this.data.progress += 1
         } else {
             this.info = 'One of the hundred children of the Behemoth of Job. It\'s a hairy brown creature the size of a mammoth, fully awake now and fuming with frustration, the force of its hot breath hitting you like a gale.'
@@ -1124,4 +1124,54 @@ extras['sous-chef\'s skeleton'] = new MonsterType ({
     drop: [
         new Item (itemByName('kitchen knife')),
     ],
+})
+
+extras['zombie'] = new MonsterType ({
+    name: 'zombie',
+    attack: [0,2,8,0,3,1,],
+    defense: [12,0,8,0,12,8,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A sickly pale body with dark rings under its eyes and rot starting to creep in around its gums and lips. It\'s approaching with arms outstretched to strangle you.',
+    onDeath: 'The zombie collapses. It\'s definitely dead.',
+    onInstantiate: function () {
+        this.data.fullHealth = 20
+    },
+    deathEvent: function () {
+        if (this.data.fullHealth > 7) {
+            let lockedDoors = game.player.room.doors.filter(door => {
+                return door.locked
+            })
+            window.setTimeout(() => {
+                let zombie = new Monster (
+                    this.room, monByName('zombie')
+                )
+                lockedDoors.map(door => {
+                    door.locked = true
+                })
+                this.room.monsters.push(zombie)
+                drawString('The zombie staggers back to its feet.')
+                zombie.data.fullHealth = dice(this.data.fullHealth - 2)
+                zombie.hitpoints = zombie.data.fullHealth
+                updateRoomContents()
+            }, 1500)
+        } else {
+            window.setTimeout(() => {
+                drawString('The zombie remains lifeless. A tarantula crawls out of its mouth.')
+                this.room.monsters.push(new Monster (
+                    this.room, monByName('tarantula')
+                ))
+                updateRoomContents()
+            }, 2500)
+        }
+    }
+})
+
+extras['tarantula'] = new MonsterType ({
+    name: 'tarantula',
+    attack: [0,0,0,0,1,0,],
+    defense: [12,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A hairy spider the size of your hand.',
 })

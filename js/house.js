@@ -96,7 +96,7 @@ var roomTypeMonsters = {
     'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
     'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
     'aviary': ['hawk', 'crow', 'albatross', 'owl of shadows'],
-    'witch doctor\'s hideaway': ['wildgod', 'wildgod', 'skullhead', 'witch doctor'],
+    'witch doctor\'s hideaway': ['wildgod', 'skullhead', 'skullhead', 'skullhead', 'witch doctor', 'zombie'],
     'haunted kitchen': ['chef\'s ghost', 'sous-chef\'s skeleton'],
 }
 
@@ -169,6 +169,11 @@ var Room = function (doors, doorCount) {
     if (roomTypeMonsters[this.type]) {
         this.monsters.map((mon, index) => {
             this.monsters[index] = new Monster (this, monByName(pick(roomTypeMonsters[this.type])))
+        })
+        this.monsters.map(mon => {
+            if (this.monsters.filter(monst => { return monst.name === mon.name }).length > 1) {
+                this.monsters = [this.monsters[0]]
+            }
         })
     }
 

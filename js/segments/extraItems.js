@@ -849,7 +849,7 @@ extras['basket of jujube seeds'] = new ItemType (
 
 extras['necklace of murderers\' teeth'] = new ItemType (
     'necklace of murderers\' teeth', 'shield',
-    [8,9,0,0,0,7],
+    [6,7,0,0,0,6],
     15,
     'Your necklace of murderer\'s teeth breaks.',
     'A necklace of strung-together human molars, ostensibly all from those who have killed unjustly. Protects against the ill wishes of those who would stab, cut, or curse the wearer.'
