@@ -81,7 +81,7 @@ var roomTypeItems = {
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
     'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade', 'basket of jujube seeds'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
-    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
+    'storeroom': ['wrench', 'wrench', 'jar of salt', 'jar of salt', 'thompson gun', 'riot shield', 'riot shield', 'riot shield', 'firebomb', 'hand grenade', 'hand grenade', 'woodaxe', 'woodaxe', 'woodaxe', 'woodaxe', 'case of chemical bombs', 'revolver', 'revolver', 'canned ghost', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
     'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber'],
     'crypt': ['assassin\'s gun', 'plague knight\'s sword'],

@@ -128,7 +128,9 @@ doorColors.map((item) => {
   doorMumbler.read(item);
 })
 
-nameMumbler.names = ['Arturo', 'Malinche', 'Joseph', 'Annabel', 'Epimetheus']
+nameMumbler.names = ['Arturo', 'Malinche', 'Joseph', 'Annabel', 'Epimetheus', 'Abdi', 'Olivia',
+										 'Farida', 'Santiago', 'Daniel', 'Valencia', 'Krishna', 'Louisa', 'Mohamed',
+									   'Nikau', 'Petra', 'Richard', 'Lazarus', 'Jack', 'Otis', 'William', 'Deshawn']
 nameMumbler.names.map((item) => {
   nameMumbler.read(item)
 })
