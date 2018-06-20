@@ -1073,18 +1073,18 @@ extras['witch doctor'] = new MonsterType ({
     level: 3,
     info: 'A practitioner of ancient herbal remedies and spells.',
     onDeath: 'A glowing white mist escapes through the witch doctor\'s nose and she dies.',
-    deathEvent: () => {
+    deathEvent: function () {
         game.player.room.items.push(
             new Item (
                 itemByName(pick(['necklace of murderers\' teeth'])),
                 game.player.room,
             ),
             new Item (
-                itemByName(pick['assassin\'s gun', 'congealed eye', 'bottle of liquid swords', 'venomous barb', 'Byzantine murder ring', 'obsidian axe', 'demon king\'s note']),
+                itemByName(pick(['assassin\'s gun', 'congealed eye', 'bottle of liquid swords', 'venomous barb', 'Byzantine murder ring', 'obsidian axe', 'demon king\'s note'])),
                 game.player.room,
             ),
             new Item (
-                itemByName(pick['moon egg', 'moon egg', 'phantom pestle', 'pearl of concentrated pestilence']),
+                itemByName(pick(['moon egg', 'moon egg', 'phantom pestle', 'pearl of concentrated pestilence'])),
                 game.player.room,
             ),
         )
