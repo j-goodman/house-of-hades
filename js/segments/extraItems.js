@@ -841,8 +841,8 @@ extras['pumpkin'] = new ItemType (
 
 extras['basket of jujube seeds'] = new ItemType (
     'basket of jujube seeds', 'shield',
-    [0,0,0,7,7,0],
-    4,
+    [0,0,0,7,4,0],
+    5,
     'You\'re out of jujube seeds',
     'It\'s a very small basket, containing a few seeds used by those with ancient medicinal knowledge to protect from venom and flame.'
 )
