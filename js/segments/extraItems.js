@@ -831,6 +831,22 @@ extras['phantom pestle'] = new ItemType (
     'The brittle pounding stone from a mortar and pestle, shimmering with a ghostly luminescent translucency. Used to grind supernatural substances that would be otherwise atomic before all earthly force.'
 )
 
+extras['ice axe'] = new ItemType (
+    'ice axe', 'weapon',
+    [5,1,1,1,0,0],
+    15,
+    'Your ice axe breaks.',
+    'A climbing tool for scaling frozen peaks.'
+)
+
+extras['stick of dynamite'] = new ItemType (
+    'stick of dynamite', 'weapon',
+    [0,1,9,3,0,0],
+    1,
+    'The dynamite is blasted to smithereens.',
+    'It\'s a stick of dynamite.'
+)
+
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
 //     [0,0,0,0,0,0],

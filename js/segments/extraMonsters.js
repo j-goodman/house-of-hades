@@ -1090,3 +1090,63 @@ extras['witch doctor'] = new MonsterType ({
         )
     }
 })
+
+extras['yeti'] = new MonsterType ({
+    name: 'yeti',
+    attack: [4,10,9,0,0,0,],
+    defense: [9,8,12,0,2,3,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A ravenous devourer of human flesh the size of a polar bear, swathed in long matted white hair and with a wrinkled pink wind-burned face.',
+    onDeath: `The yeti collapses dead.`
+})
+
+extras['ice walker'] = Object.assign({}, monByName('weaghrai'))
+extras['ice walker'].defense = monByName('weaghrai').defense.map(num => { return num })
+extras['ice walker'].attack = monByName('weaghrai').attack.map(num => { return num })
+extras['ice walker'].name = 'ice walker'
+extras['ice walker'].info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground.`
+extras['ice walker'].defense[5] = 10
+extras['ice walker'].defense[1] = 9
+extras['ice walker'].defense[4] = 0
+extras['ice walker'].defense[3] = 1
+extras['ice walker'].defense[2] = 9
+extras['ice walker'].attack[0] = 2
+extras['ice walker'].onInstantiate = function () {
+    let places = ['Lang', 'Rlyeh', 'Nunavut', 'Nocturnalos', 'Carcosa', 'Sargosa', 'Nyarlathotep', 'Scoroso', 'Vladivostok', 'Novgorod', 'Lich', 'Ich']
+    places.map(place => {
+        if (!Math.round(Math.random())) {
+            nameMumbler.read(place)
+            nameMumbler.names.push(place)
+        }
+    })
+    this.info = `A traveler of frozen plains who has traversed from the ${pick(['frozen plateau of', 'icy peaks of', 'snow-scoured ridges of'])} ${capitalize(nameMumbler.mumble())} to the ${pick(['land', 'continent', 'plains', 'tundras'])} of ${capitalize(nameMumbler.mumble())} where ${pick(['a cursed black aurora dominates the cold skies', 'the colors of the northern lights dance in the skies through day and night', 'black night rules eternal and the sun is unknown', 'during storms the air grows cold enough to freeze a man\'s blood in his veins'])}. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground.`
+    this.data.baseDefense = this.defense.map(stat => { return stat })
+    this.data.baseAttack = this.attack.map(stat => { return stat })
+    this.data.arsenal = [
+        itemByName('ice axe'),
+        itemByName('ice axe'),
+        itemByName('ice axe'),
+        itemByName('ice axe'),
+        itemByName('harpoon'),
+        itemByName('revolver'),
+        itemByName('moon egg'),
+        itemByName('stick of dynamite'),
+        itemByName('black stone idol'),
+        itemByName('bottle of lightning'),
+        itemByName('bottle of black goo'),
+    ];
+    this.data.notify = function () {
+        drawString(`The ice walker withdraws a ${this.data.item.name} from the tattered folds of its many-layered furs.`);
+        this.info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground. It's ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending itself with' } with a ${this.data.item.name}.`;
+    }.bind(this)
+}
+
+extras['frozen corpse'] = new MonsterType ({
+    name: 'frozen corpse',
+    attack: [0,1,0,0,0,0,],
+    defense: [12,10,7,5,12,12,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A walking frost-bitten corpse, its skin pale except for its blackened nose, ears, and fingers. Its tongue and eyes have been eaten out by scavengers; it paws blindly for your face.',
+})

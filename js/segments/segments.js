@@ -1113,4 +1113,62 @@ var segments = [
         let demonKingCell = pick([prisonCells[1], prisonCells[2]])
         demonKingCell.monsters.push(new Monster (demonKingCell, extras['marble guardian']))
     },
+
+
+    /*
+
+    *      WALK-IN FRIDGE      *
+
+    */
+    (rooms) => {
+        console.log('refrigerator')
+        var segmentRooms = []
+        var otherRoom
+
+        let hub = new Room ([], dice(3) + dice(2) + dice(2))
+        let types = [
+            'weirdly vast walk-in refrigerator complex',
+            'ice-encased refrigerator with strange noises like the roaring of wind on a high mountain range leaking through tiny gaps in the wall',
+            'snow-buried empty-shelfed refrigerator',
+        ]
+        let monsterTypes = [
+            monByName('frozen corpse'),
+            monByName('frozen corpse'),
+            monByName('frozen corpse'),
+            monByName('yeti'),
+            monByName('ice walker'),
+            monByName('ice walker'),
+            monByName('shoggoth'),
+        ]
+        segmentRooms.push(hub)
+        hub.type = pick(types)
+        hub.items = []
+        hub.monsters = [new Monster(hub, pick(monsterTypes))]
+
+        window.teleport = hub
+
+        hub.doors.map(door => {
+            let room = new Room ([], dice(2))
+            let secondRoom;
+            room.type = pick(types)
+            room.items = []
+            room.monsters = oneIn(2) ?
+                           [new Monster(room, pick(monsterTypes))] :
+                           [new Monster(room, pick(monsterTypes)), new Monster(room, pick(monsterTypes))]
+            if (room.monsters.length === 2 && room.monsters[0].name === room.monsters[1].name) {
+                room.monsters = [room.monsters[0]]
+            }
+            room.doors[0] = door
+            door.from = room
+            door.to = hub
+        })
+
+        segmentRooms.map(room => {
+            if (room.monsters.length > 0) {
+                room.doors.map(door => {
+                        door.locked = true
+                })
+            }
+        })
+    },
 ]
