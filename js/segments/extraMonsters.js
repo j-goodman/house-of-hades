@@ -1098,7 +1098,10 @@ extras['yeti'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A ravenous devourer of human flesh the size of a polar bear, swathed in long matted white hair and with a wrinkled pink wind-burned face.',
-    onDeath: `The yeti collapses dead.`
+    onDeath: `The yeti collapses dead.`,
+    drop: [
+        new Item (extras['yeti\'s hide']),
+    ],
 })
 
 extras['ice walker'] = Object.assign({}, monByName('weaghrai'))
@@ -1128,11 +1131,14 @@ extras['ice walker'].onInstantiate = function () {
         itemByName('ice axe'),
         itemByName('ice axe'),
         itemByName('ice axe'),
-        itemByName('harpoon'),
-        itemByName('revolver'),
-        itemByName('moon egg'),
+        itemByName('stick of dynamite'),
+        itemByName('stick of dynamite'),
         itemByName('stick of dynamite'),
         itemByName('black stone idol'),
+        itemByName('black stone idol'),
+        itemByName('primordial glob'),
+        itemByName('revolver'),
+        itemByName('moon egg'),
         itemByName('bottle of lightning'),
         itemByName('bottle of black goo'),
     ];
@@ -1149,4 +1155,15 @@ extras['frozen corpse'] = new MonsterType ({
     hitpoints: 20,
     level: 1,
     info: 'A walking frost-bitten corpse, its skin pale except for its blackened nose, ears, and fingers. Its tongue and eyes have been eaten out by scavengers; it paws blindly for your face.',
+})
+
+extras['frostbiter'] = new MonsterType ({
+    name: 'frostbiter',
+    attack: [2,0,0,0,0,2,],
+    defense: [12,12,12,2,12,0,],
+    hitpoints: 20,
+    level: 3,
+    info: `An icy-breathed wraith, spirit of a ${pick(['mountain climber', 'hunter', 'shaman', 'explorer', 'ill-fated scientist', 'ill-fated kitchen worker'])} who died naked and frostbitten and is determined to pay its suffering forward to the living.`,
+    onDeath: 'With a howl like a wolf the frostbiter dissipates.',
+    drop: [new Item(extras['phantom\'s blood'])]
 })

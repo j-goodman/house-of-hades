@@ -847,6 +847,15 @@ extras['stick of dynamite'] = new ItemType (
     'It\'s a stick of dynamite.'
 )
 
+extras['yeti\'s hide'] = new ItemType (
+    'yeti\'s hide', 'shield',
+    [6,7,4,0,2,3],
+    17,
+    'Your yeti\'s hide withers away.',
+    'The thick wooly white hide of a yeti.'
+)
+
+
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
 //     [0,0,0,0,0,0],

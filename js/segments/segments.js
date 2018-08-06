@@ -1136,6 +1136,7 @@ var segments = [
             monByName('frozen corpse'),
             monByName('frozen corpse'),
             monByName('yeti'),
+            monByName('frostbiter'),
             monByName('ice walker'),
             monByName('ice walker'),
             monByName('shoggoth'),
