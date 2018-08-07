@@ -337,8 +337,18 @@ var allMonsterTypes = [
         defense: [11,3,3,0,0,0,],
         hitpoints: 20,
         level: 2,
-        info: 'The body of a crusading knight beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.',
-        drop: [new Item(itemByName(pick(['bag of devil\'s gold', 'executioner\'s sword', 'crusader\'s shield'])))]
+        info: `The body of a crusading knight, beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.`,
+        drop: [new Item(itemByName(pick(['bag of devil\'s gold', 'executioner\'s sword', 'crusader\'s shield'])))],
+        onInstantiate: function () {
+            let newName = pick(['Byzantium', 'Constantinople', 'Medina', 'Mecca', 'Florence', 'Venice', 'Westphalia', 'California', 'Mali', 'Cuzco', 'Vienna', 'Austria', 'Carcassonne', 'Holland'])
+            nameMumbler.read(newName)
+            nameMumbler.names.push(newName)
+            this.info = `The body of a crusading knight from the ${pick(['Principality', 'Duchy', 'Marches', 'City', 'City', 'Township', 'Shire', 'Pass', 'Fords', 'Island-city', 'Port-city'])} of ${pick([
+                `${pick(['West', 'East', 'North', 'South'])}${nameMumbler.mumble().toLowerCase()}`,
+                capitalize(nameMumbler.mumble()),
+                `${capitalize(nameMumbler.mumble())}${pick(['shire', 'bridge', 'stadt', 'stad', 'brook', 'borough', 'burg', 'abad', 'fleur', `${pick(['i', 'e', 'a'])}stan`])}`,
+            ])}, beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.`
+        }
     }),
     new MonsterType ({
         name: 'mad gasser',
@@ -377,9 +387,15 @@ var allMonsterTypes = [
         attack: [12,0,0,0,0,0,],
         defense: [0,0,0,2,1,4,],
         hitpoints: 20,
-        level: 2,
-        info: 'The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.',
-        drop: [new Item(extras['harpoon'])]
+        level: 1,
+        info: `The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.`,
+        drop: [new Item(extras['harpoon'])],
+        onInstantiate: function () {
+            let newName = pick(['Pequod', 'Revenge', 'Santamaria', 'Pinta', 'Andalusia', 'Vulture', 'Littlejohn', 'Amicus', 'Malthus', 'Nautilus', 'Zoroaster', 'Marie', 'Cassie', 'Annabel', 'California', 'Theseus'])
+            nameMumbler.read(newName)
+            nameMumbler.names.push(newName)
+            this.info = `The waterlogged corpse of the former ${pick(['captain', 'captain', 'bosun', 'first mate', 'helmsman', 'navigator', 'cook', 'officer', 'cooper', 'carpenter'])} of the doomed whaling ship ${pick(nameMumbler.names)}, reanimated and wielding a deadly barbed harpoon.`
+        }
     }),
     new MonsterType ({
         name: 'mechanical bear',
