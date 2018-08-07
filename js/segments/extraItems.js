@@ -56,7 +56,7 @@ extras['razor-sharp bone'] = new ItemType (
     'A four foot long white bone that\'s either been sharpened or naturally comes to a razor-honed edge. You could hold one end and use it as a weapon.'
 )
 
-let firstNames = ['Cristobal', 'Catherine', 'Armin', 'Armando', 'Aaron', 'Elizabeth', 'Yeung', 'Chantel', 'David', 'Charles', 'Lee', 'Mia', 'Maria', 'Fatima', 'Alexander', 'Xicotencatl', 'Achilles', 'Jesus', 'Lars', 'Abraham', 'Iris', 'Diego', 'Francisco', 'Atahualpa', 'Huascar', 'Ariana', 'Ariadne', 'Tycho', 'Brahe', 'Javier', 'Emil', 'Henri', 'Mariana', 'Julia', 'Ana Lilia', 'Emilio', 'Luis', 'Angela', 'Moon', 'Arlingtonius', 'Miranda', 'Roscoe', 'Jupiter', 'Helene', 'Deshawn', 'Rajesh', 'Leo', 'Paul', 'Bicycle', 'Polyphemus', 'Virginia', 'Texas', 'Nebraska']
+let firstNames = ['Cristobal', 'Catherine', 'Armin', 'Armando', 'Aaron', 'Elizabeth', 'Yeung', 'Chantel', 'David', 'Charles', 'Lee', 'Mia', 'Maria', 'Fatima', 'Alexander', 'Xicotencatl', 'Achilles', 'Jesus', 'Lars', 'Abraham', 'Iris', 'Diego', 'Francisco', 'Atahualpa', 'Huascar', 'Ariana', 'Ariadne', 'Tycho', 'Brahe', 'Javier', 'Emil', 'Henri', 'Mariana', 'Julia', 'Ana Lilia', 'Emilio', 'Luis', 'Angela', 'Moon', 'Arlingtonius', 'Miranda', 'Roscoe', 'Jupiter', 'Helene', 'Rajesh', 'Deshawn', 'Leo', 'Paul', 'Bicycle', 'Polyphemus', 'Virginia', 'Nebraska', 'Xitlali']
 extras['assassin\'s gun'] = new ItemType (
     'assassin\'s gun', 'weapon',
     [0,0,0,5,7,0],
@@ -523,6 +523,38 @@ extras['kitchen knife'] = new ItemType (
     'It\'s a steel kitchen knife with a wood handle.'
 )
 
+extras['paring knife'] = new ItemType (
+    'paring knife', 'weapon',
+    [1,2,0,0,0,0],
+    9,
+    'Your paring knife breaks.',
+    'It\'s a steel paring knife with a black handle.'
+)
+
+extras['cleaver'] = new ItemType (
+    'cleaver', 'weapon',
+    [0,5,1,0,0,0],
+    11,
+    'Your cleaver breaks.',
+    'A large stainless-steel meat cleaver.'
+)
+
+extras['cast iron pan'] = new ItemType (
+    'cast iron pan', 'weapon',
+    [0,0,7,0,0,0],
+    5,
+    'The pan breaks. Cast iron kitchenware is much heavier than the steel equivalent but it\'s also much more brittle, so this is no surprise.',
+    'A heavy black cast-iron pan. The cast iron lets it build up years of absorbed flavors, which there\'s really no substitute for.'
+)
+
+extras['doughroller'] = new ItemType (
+    'doughroller', 'weapon',
+    [0,0,4,0,0,0],
+    5,
+    'The doughroller breaks.',
+    'A wooden doughroller.'
+)
+
 extras['wrench'] = new ItemType (
     'wrench', 'weapon',
     [0,1,4,0,0,0],
@@ -723,7 +755,7 @@ extras['demon king\'s note'] = new ItemType (
     [0,0,0,2,0,2],
     3,
     'The demon\'s note is torn into pulp.',
-    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, who cowers within these walls, and is the greatest source of evil left to walk this curséd Earth."`
+    `A worn scrap of paper torn from a old book. "Know that you were sent here for a reason," it reads, "not to slay dragons but to seek out and kill the last of the Archwizards, whose allies are the sphinxes and who cowers within these walls, the greatest source of evil left to walk this curséd Earth."`
 )
 
 let moreFirstNames = ['Leonardo', 'Zheng', 'Li', 'Emily', 'Aaron', 'Sancho', 'Isabella', 'Cantlay', 'Muhammad', 'Qui', 'Odysseus', 'Sinbad', 'Meiji', 'Matthew', 'Mark', 'Luke', 'John']
@@ -743,7 +775,7 @@ extras['dueling saber'] = new ItemType (
         let secondName = capitalize(nameMumbler.mumble())
         nameMumbler.read(secondName)
         nameMumbler.names.push(secondName)
-        this.info = `A long steel black-hilted saber used by the ${pick(['victor in', 'loser of'])} the fateful duel between ${capitalize(nameMumbler.mumble()) + ' ' + capitalize(nameMumbler.mumble())} and ${name + ' ' + secondName}.`
+        this.info = `A long steel black-hilted saber used by the ${pick(['victor in', 'loser of'])} the fateful duel between ${pick(nameMumbler.names) + ' ' + capitalize(nameMumbler.mumble())} and ${name + ' ' + capitalize(nameMumbler.mumble())}.`
     }
 )
 
@@ -809,15 +841,15 @@ extras['pumpkin'] = new ItemType (
 
 extras['basket of jujube seeds'] = new ItemType (
     'basket of jujube seeds', 'shield',
-    [0,0,0,7,7,0],
-    4,
+    [0,0,0,5,7,0],
+    5,
     'You\'re out of jujube seeds',
     'It\'s a very small basket, containing a few seeds used by those with ancient medicinal knowledge to protect from venom and flame.'
 )
 
 extras['necklace of murderers\' teeth'] = new ItemType (
     'necklace of murderers\' teeth', 'shield',
-    [8,9,0,0,0,7],
+    [6,7,0,0,0,6],
     15,
     'Your necklace of murderer\'s teeth breaks.',
     'A necklace of strung-together human molars, ostensibly all from those who have killed unjustly. Protects against the ill wishes of those who would stab, cut, or curse the wearer.'

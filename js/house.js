@@ -42,7 +42,7 @@ var roomTypes = ['parlor', 'study', 'dining room', 'kitchen', 'storeroom', 'libr
 var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'gold', 'maroon', 'beige', 'oak', 'elmwood', 'lead', 'willow', 'bronze', 'brass', 'cobalt', 'mahogany', 'maple', 'walnut', 'ashwood', 'chestnut', 'pinewood', 'cedar', 'ironwood', 'sandalwood'];
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
-    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt'],
+    ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt', 'haunted kitchen'],
     ['laboratory', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway'],
 ];
 var laterDoorColors = [
@@ -73,19 +73,20 @@ var surfaceTypes = [
 ];
 var roomTypeItems = {
     'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife', 'basket of jujube seeds'],
+    'larder': ['jar of salt', 'basket of jujube seeds', 'canned ghost'],
     'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle', 'basket of jujube seeds'],
     'courtyard': ['pumpkin', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
     'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
-    'chapel': ['posessed bible', 'clergyman\'s dagger'],
+    'chapel': ['posessed bible', 'clergyman\'s dagger', 'basket of jujube seeds'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
-    'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
+    'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade', 'basket of jujube seeds'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
-    'storeroom': ['wrench', 'jar of salt', 'thompson gun', 'riot shield', 'firebomb', 'hand grenade', 'woodaxe', 'case of chemical bombs', 'revolver', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
+    'storeroom': ['wrench', 'wrench', 'jar of salt', 'jar of salt', 'thompson gun', 'riot shield', 'riot shield', 'riot shield', 'firebomb', 'hand grenade', 'hand grenade', 'woodaxe', 'woodaxe', 'woodaxe', 'woodaxe', 'case of chemical bombs', 'revolver', 'revolver', 'canned ghost', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
     'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber'],
     'crypt': ['assassin\'s gun', 'plague knight\'s sword'],
     'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
-    'witch doctor\'s hideaway': ['assassin\'s gun', 'basket of jujube seeds', 'myrrh bracelet'],
+    'witch doctor\'s hideaway': ['assassin\'s gun', 'assassin\'s gun', 'basket of jujube seeds', 'basket of jujube seeds', 'myrrh bracelet', 'myrrh bracelet', 'moon egg'],
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
@@ -95,7 +96,8 @@ var roomTypeMonsters = {
     'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
     'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
     'aviary': ['hawk', 'crow', 'albatross', 'owl of shadows'],
-    'witch doctor\'s hideaway': ['wildgod', 'wildgod', 'skullhead', 'witch doctor']
+    'witch doctor\'s hideaway': ['wildgod', 'skullhead', 'skullhead', 'skullhead', 'witch doctor', 'zombie'],
+    'haunted kitchen': ['chef\'s ghost', 'sous-chef\'s skeleton'],
 }
 
 var nextRoomId = 0;
@@ -167,6 +169,11 @@ var Room = function (doors, doorCount) {
     if (roomTypeMonsters[this.type]) {
         this.monsters.map((mon, index) => {
             this.monsters[index] = new Monster (this, monByName(pick(roomTypeMonsters[this.type])))
+        })
+        this.monsters.map(mon => {
+            if (this.monsters.filter(monst => { return monst.name === mon.name }).length > 1) {
+                this.monsters = [this.monsters[0]]
+            }
         })
     }
 

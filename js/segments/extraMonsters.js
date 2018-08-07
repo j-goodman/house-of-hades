@@ -880,7 +880,7 @@ extras['Behemoth spawn'] = new MonsterType ({
             'The Behemoth wakes and staggers to its feet, reaching out to swat you away.',
             'The Behemoth roars and strikes at you.',
         ][this.data.progress])
-        if (this.data.progress < 4) {
+        if (this.data.progress < 3) {
             this.data.progress += 1
         } else {
             this.info = 'One of the hundred children of the Behemoth of Job. It\'s a hairy brown creature the size of a mammoth, fully awake now and fuming with frustration, the force of its hot breath hitting you like a gale.'
@@ -1073,18 +1073,18 @@ extras['witch doctor'] = new MonsterType ({
     level: 3,
     info: 'A practitioner of ancient herbal remedies and spells.',
     onDeath: 'A glowing white mist escapes through the witch doctor\'s nose and she dies.',
-    deathEvent: () => {
+    deathEvent: function () {
         game.player.room.items.push(
             new Item (
-                itemByName(pick(['basket of jujube seeds', 'necklace of murderers\' teeth'])),
+                itemByName(pick(['necklace of murderers\' teeth'])),
                 game.player.room,
             ),
             new Item (
-                itemByName(pick['assassin\'s gun', 'congealed eye', 'bottle of liquid swords', 'venomous barb', 'Byzantine murder ring', 'obsidian axe', 'demon king\'s note']),
+                itemByName(pick(['assassin\'s gun', 'congealed eye', 'bottle of liquid swords', 'venomous barb', 'Byzantine murder ring', 'obsidian axe', 'demon king\'s note'])),
                 game.player.room,
             ),
             new Item (
-                itemByName(pick['moon egg', 'moon egg', 'phantom pestle', 'pearl of concentrated pestilence']),
+                itemByName(pick(['moon egg', 'moon egg', 'phantom pestle', 'pearl of concentrated pestilence'])),
                 game.player.room,
             ),
         )
@@ -1166,4 +1166,89 @@ extras['frostbiter'] = new MonsterType ({
     info: `An icy-breathed wraith, spirit of a ${pick(['mountain climber', 'hunter', 'shaman', 'explorer', 'ill-fated scientist', 'ill-fated kitchen worker'])} who died naked and frostbitten and is determined to pay its suffering forward to the living.`,
     onDeath: 'With a howl like a wolf the frostbiter dissipates.',
     drop: [new Item(extras['phantom\'s blood'])]
+})
+
+extras['chef\'s ghost'] = Object.assign({}, monByName('weaghrai'))
+extras['chef\'s ghost'].name = 'chef\'s ghost'
+extras['chef\'s ghost'].info = `The infuriated ghost of a cuisinier, levitating around the kitchen dressed in a white apron dotted with scarlet stab wounds, incurred when he was betrayed and murdered by his sous-chef.`
+extras['chef\'s ghost'].attack = [0,0,0,0,0,0,]
+extras['chef\'s ghost'].defense = [12,12,12,11,5,3,]
+extras['chef\'s ghost'].onInstantiate = function () {
+    this.data.baseDefense = this.defense.map(stat => { return stat })
+    this.data.baseAttack = this.attack.map(stat => { return stat })
+    this.data.arsenal = [
+        itemByName('kitchen knife'),
+        itemByName('paring knife'),
+        itemByName('cleaver'),
+        itemByName('cleaver'),
+        itemByName('cast iron pan'),
+        itemByName('cast iron pan'),
+        itemByName('doughroller'),
+    ];
+    this.data.notify = function () {
+        drawString(`The chef ${pick(['cackles', 'screams'])} and withdraws a ${this.data.item.name}.`);
+        this.info = `The infuriated ghost of a cuisinier, levitating around the kitchen dressed in a white apron dotted with scarlet stab wounds, incurred when he was betrayed and murdered by his sous-chef. He's getting ready to hurl a ${this.data.item.name} at you.`;
+    }.bind(this)
+}
+
+extras['sous-chef\'s skeleton'] = new MonsterType ({
+    name: 'sous-chef\'s skeleton',
+    attack: [2,5,0,0,0,0,],
+    defense: [12,0,0,6,12,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A reanimated human skeleton dressed in a white apron and wielding a kitchen knife, the bones of a traitorous sous-chef cursed to continue his shift long after his death.',
+    drop: [
+        new Item (itemByName('kitchen knife')),
+    ],
+})
+
+extras['zombie'] = new MonsterType ({
+    name: 'zombie',
+    attack: [0,2,8,0,3,1,],
+    defense: [12,0,8,0,12,8,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A sickly pale body with dark rings under its eyes and rot starting to creep in around its gums and lips. It\'s approaching with arms outstretched to strangle you.',
+    onDeath: 'The zombie collapses. It\'s definitely dead.',
+    onInstantiate: function () {
+        this.data.fullHealth = 20
+    },
+    deathEvent: function () {
+        if (this.data.fullHealth > 7) {
+            let lockedDoors = game.player.room.doors.filter(door => {
+                return door.locked
+            })
+            window.setTimeout(() => {
+                let zombie = new Monster (
+                    this.room, monByName('zombie')
+                )
+                lockedDoors.map(door => {
+                    door.locked = true
+                })
+                this.room.monsters.push(zombie)
+                drawString('The zombie staggers back to its feet.')
+                zombie.data.fullHealth = dice(this.data.fullHealth - 2)
+                zombie.hitpoints = zombie.data.fullHealth
+                updateRoomContents()
+            }, 1500)
+        } else {
+            window.setTimeout(() => {
+                drawString('The zombie remains lifeless. A tarantula crawls out of its mouth.')
+                this.room.monsters.push(new Monster (
+                    this.room, monByName('tarantula')
+                ))
+                updateRoomContents()
+            }, 2500)
+        }
+    }
+})
+
+extras['tarantula'] = new MonsterType ({
+    name: 'tarantula',
+    attack: [0,0,0,0,1,0,],
+    defense: [12,0,0,0,0,0,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A hairy spider the size of your hand.',
 })
