@@ -96,7 +96,7 @@ var roomTypeMonsters = {
     'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
     'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
     'aviary': ['hawk', 'crow', 'albatross', 'owl of shadows'],
-    'witch doctor\'s hideaway': ['wildgod', 'skullhead', 'skullhead', 'skullhead', 'witch doctor', 'zombie'],
+    'witch doctor\'s hideaway': ['skullhead', 'witch doctor', 'zombie', 'zombie'],
     'haunted kitchen': ['chef\'s ghost', 'sous-chef\'s skeleton'],
 }
 

@@ -406,6 +406,15 @@ extras['half-goat soldier'] = new MonsterType ({
         new Item (extras['goat\'s armor']),
     ],
     onInstantiate: function () {
+        let newName = pick(['Goat', 'Binn', 'Bedivere', 'Palamedes', 'Kay', 'Gawain', 'Gaheris', 'Mordred', 'Arthur', 'Morgana', 'Michael', 'Raphael', 'Gabriel', 'Toros', 'Socrates', 'Hamilton', 'Artillery', 'Rattlesnake', 'Mushroom', 'Yukon', 'Cornelius', 'Santiago', 'Kraken'])
+        nameMumbler.read(newName)
+        nameMumbler.names.push(newName)
+        game.goatClans = game.goatClans || []
+        if (game.goatClans.length < 4) {
+            game.goatClans.push(`${nameMumbler.mumble()}${pick(['', '', '', '', '', 'goat', 'goat', '-goat', 'horn', 'hoof', 'bone', 'clef', 'geist', 'nail', 'son', 'son'])}`)
+        }
+        this.data.clan = pick(game.goatClans)
+        this.info = `A soldier armored in heavy iron, half-man and half-goat. The insignia carved into his breastplate looks like a eye with two perpendicular roads passing through it, with the insignia of the ${this.data.clan} Clan at its middle.`
         let choice = dice(6)
         this.attack[choice - 1] += 8
         let weaponNames = [
@@ -1108,7 +1117,7 @@ extras['ice walker'] = Object.assign({}, monByName('weaghrai'))
 extras['ice walker'].defense = monByName('weaghrai').defense.map(num => { return num })
 extras['ice walker'].attack = monByName('weaghrai').attack.map(num => { return num })
 extras['ice walker'].name = 'ice walker'
-extras['ice walker'].info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground.`
+extras['ice walker'].info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from snowblindness.`
 extras['ice walker'].defense[5] = 10
 extras['ice walker'].defense[1] = 9
 extras['ice walker'].defense[4] = 0
@@ -1123,7 +1132,7 @@ extras['ice walker'].onInstantiate = function () {
             nameMumbler.names.push(place)
         }
     })
-    this.info = `A traveler of frozen plains who has traversed from the ${pick(['frozen plateau of', 'icy peaks of', 'snow-scoured ridges of'])} ${capitalize(nameMumbler.mumble())} to the ${pick(['land', 'continent', 'plains', 'tundras'])} of ${capitalize(nameMumbler.mumble())} where ${pick(['a cursed black aurora dominates the cold skies', 'the colors of the northern lights dance in the skies through day and night', 'black night rules eternal and the sun is unknown', 'during storms the air grows cold enough to freeze a man\'s blood in his veins'])}. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground.`
+    this.info = `A traveler of frozen plains who has traversed from the ${pick(['frozen plateau of', 'icy peaks of', 'snow-scoured ridges of'])} ${capitalize(nameMumbler.mumble())} to the ${pick(['land', 'continent', 'plains', 'tundras'])} of ${capitalize(nameMumbler.mumble())} where ${pick(['a cursed black aurora dominates the cold skies', 'the colors of the northern lights dance in the skies through day and night', 'black night rules eternal and the sun is unknown', 'during storms the air grows cold enough to freeze a man\'s blood in his veins'])}. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from snowblindness.`
     this.data.baseDefense = this.defense.map(stat => { return stat })
     this.data.baseAttack = this.attack.map(stat => { return stat })
     this.data.arsenal = [
@@ -1163,7 +1172,7 @@ extras['frostbiter'] = new MonsterType ({
     defense: [12,12,12,2,12,0,],
     hitpoints: 20,
     level: 3,
-    info: `An icy-breathed wraith, spirit of a ${pick(['mountain climber', 'hunter', 'shaman', 'explorer', 'ill-fated scientist', 'ill-fated kitchen worker'])} who died naked and frostbitten and is determined to pay its suffering forward to the living.`,
+    info: `A icy-breathed wraith, the spirit of a ${pick(['mountain climber', 'hunter', 'shaman', 'explorer', 'ill-fated scientist', 'ill-fated kitchen worker'])} who died naked and frostbitten and is determined to pay its suffering forward to the living.`,
     onDeath: 'With a howl like a wolf the frostbiter dissipates.',
     drop: [new Item(extras['phantom\'s blood'])]
 })
