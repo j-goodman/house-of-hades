@@ -35,7 +35,6 @@ var segments = [
       console.log('sewage')
 
       var segmentMonsters = [
-        monByName('ghoul'), monByName('riverwolf'),
         extras['waterlogged grasper'],
         extras['blobby amphibious creature'],
       ];
@@ -746,7 +745,6 @@ var segments = [
             setOfDice,
         ]
         let monsterTypes = [
-            monByName('witch'),
             monByName('vampire'),
             monByName('shrieking dog'),
             monByName('weaghrai'),
@@ -841,7 +839,6 @@ var segments = [
         ]
         let monsterTypes = [
             monByName('skullhead'),
-            monByName('rain ghost'),
             extras['nagual'],
             colossalStoneHead,
             extras['wildgod'],
@@ -930,8 +927,6 @@ var segments = [
             new Monster (
                 north,
                 pick([
-                    monByName('mad gasser'),
-                    monByName('mechanical bear'),
                     monByName('omnivorous fungus'),
                     extras['glass man'],
                     extras['screaming mechanical searcher'],

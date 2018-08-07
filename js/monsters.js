@@ -87,20 +87,12 @@ var itemByName = (name) => {
 // levels go from 1-3, most should be 3.
 var allMonsterTypes = [
     new MonsterType ({
-        name: 'giant scorpion',
-        attack: [3,1,0,0,4,0],
-        defense: [2,1,3,2,7,0],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s a scorpion the size of a dog. Careful of that poison sting.',
-    }),
-    new MonsterType ({
         name: 'vampire',
         attack: [6,0,0,0,2,4,],
         defense: [0,8,8,3,12,12,],
         hitpoints: 20,
         level: 3,
-        info: 'Immune to poisons and curses, and supposedly only killable by piercing its heart.',
+        info: `A withered accursed corpse-being, risen from its grave by night. Immune to poisons and curses, and supposedly only killable by piercing its heart.`,
         onDeath: 'The vampire hisses in agony before attempting to turn into a bat and dieing mid-transformation.',
         drop: [
           new Item (
@@ -162,14 +154,6 @@ var allMonsterTypes = [
         }
     }),
     new MonsterType ({
-        name: 'violent blob',
-        attack: [0,0,4,0,0,0,],
-        defense: [12,12,10,0,0,0,],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s not clear what it is but it\'s bigger than you are and it doesn\'t look like it likes you.',
-    }),
-    new MonsterType ({
         name: 'shoggoth',
         attack: [1,0,7,0,3,1,],
         defense: [9,8,8,1,4,2,],
@@ -177,22 +161,6 @@ var allMonsterTypes = [
         level: 3,
         info: 'A seething mass of forming and unforming flesh. All other life on earth was created as an accidental byproduct of this writhing parody\'s birth. If you can get close enough you can try burning it.',
         drop: [new Item(extras['primordial glob'])]
-    }),
-    new MonsterType ({
-        name: 'ghoul',
-        attack: [2,3,0,0,1,0,],
-        defense: [2,1,0,0,8,0,],
-        hitpoints: 20,
-        level: 1,
-        info: 'A emaciated human with blood and stringy raw meat clinging around his mouth and in his teeth and a expression of lunatic hunger on his face. It reeks of dead flesh.',
-    }),
-    new MonsterType ({
-        name: 'bee person',
-        attack: [3,0,0,0,3,0,],
-        defense: [6,3,0,0,1,0,],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s part bee, but it\'s part person too.',
     }),
     new MonsterType ({
         name: 'fire elemental',
@@ -203,55 +171,6 @@ var allMonsterTypes = [
         info: 'When it holds a single shape for a flickering moment it\'s that of a woman with blazing eyes and mouth. Most vulnerable to magic attacks.',
         onDeath: 'Its face goes slack and swirls into a glob of black flame which falls and bursts.',
         drop: [new Item(itemByName(Math.floor(Math.random()) ? 'ghostcandle' : 'burned bone'))]
-    }),
-    new MonsterType ({
-        name: 'hellhound',
-        attack: [3,0,0,0,2,2,],
-        defense: [2,2,8,8,2,4,],
-        hitpoints: 20,
-        level: 2,
-        info: 'A massive grey dog with smoldering hellfire foaming out from between its jaws. Don\'t bother with crushing or burning attacks, and just be careful of its bite.',
-    }),
-    new MonsterType ({
-        name: 'witch',
-        attack: [0,0,0,0,2,8,],
-        defense: [3,3,3,0,12,12,],
-        hitpoints: 20,
-        level: 3,
-        info: 'She\'s not moving but her eyes remind you of a cat stalking a bird. Supposed to be most vulnerable to fire.',
-    }),
-    new MonsterType ({
-        name: 'rattlesnake',
-        attack: [1,0,0,0,2,0,],
-        defense: [0,0,0,0,0,0,],
-        hitpoints: 20,
-        level: 2,
-        info: 'It\'s poisonous!',
-    }),
-    new MonsterType ({
-        name: 'angry triceratops',
-        attack: [2,0,8,0,0,0,],
-        defense: [0,4,12,0,0,0,],
-        hitpoints: 20,
-        level: 3,
-        info: 'A beast from out of time, driven into a mad fury and ready to crush anything it stumbles into. Try a strong pierce attack.',
-    }),
-    new MonsterType ({
-        name: 'riverwolf',
-        attack: [0,0,12,0,0,0,],
-        defense: [4,0,5,2,2,1,],
-        hitpoints: 20,
-        level: 3,
-        info: 'A soaking wet apelike dog creature with a emaciated grasping hand sprouting from the end of its long tail. Deals heavy crush damage as it strangles its victims. Try to get close enough to slash at it.',
-    }),
-    new MonsterType ({
-        name: 'weaselcat',
-        attack: [5,0,0,0,3,0,],
-        defense: [4,0,1,2,5,1,],
-        hitpoints: 20,
-        level: 3,
-        info: 'A long, small Amazonian wildcat known for its piercing bite. This one looks like it might be rabid, so be careful of poison. Try slashing or crushing it if you catch it.',
-        onDeath: 'The weaselcat dies.'
     }),
     new MonsterType ({
         name: 'cruel phantom',
@@ -295,41 +214,9 @@ var allMonsterTypes = [
         attack: [0,0,0,6,0,1,],
         defense: [8,7,5,0,5,5,],
         hitpoints: 20,
-        level: 2,
+        level: 1,
         info: 'The ghost of a man convicted of setting fire to property public and private, recidivating after a lethal injection. He\'s most vulnerable to fire.',
         onDeath: 'The ghost wails in agony as it\'s consumed by fire and dies.'
-    }),
-    new MonsterType ({
-        name: 'tumorous bleating mass',
-        attack: [0,0,1,0,2,0,],
-        defense: [0,10,0,5,2,1,],
-        hitpoints: 20,
-        level: 3,
-        info: 'A pulsating blot of veiny scab-covered flesh with seven blinking eyes and a shapeless bleating mouth. It doesn\'t seem dangerous.',
-    }),
-    new MonsterType ({
-        name: 'nightgaunt',
-        attack: [0,5,2,0,0,0,],
-        defense: [2,9,4,2,2,7,],
-        hitpoints: 20,
-        level: 1,
-        info: 'A tall, thin snatcher of innocents in the night. Weakest to piercing and fire.',
-    }),
-    new MonsterType ({
-        name: 'horned woman',
-        attack: [4,0,0,4,4,0,],
-        defense: [3,3,6,0,0,6,],
-        hitpoints: 20,
-        level: 3,
-        info: 'A woman with the head of a stag. The wounds left by her piercing antlers and tentacles of shadow will smolder with heat and become infected.',
-    }),
-    new MonsterType ({
-        name: 'invisible mangler',
-        attack: [0,6,0,0,0,0,],
-        defense: [12,2,1,2,1,1,],
-        hitpoints: 20,
-        level: 2,
-        info: 'A fully unseeable stunted hairy creature that will attack and gnaw on random targets in public places, sometimes dismembering them with its razor claws. Burning and crushing attacks will be most likely to hit it.',
     }),
     new MonsterType ({
         name: 'headless knight',
@@ -337,32 +224,18 @@ var allMonsterTypes = [
         defense: [11,3,3,0,0,0,],
         hitpoints: 20,
         level: 2,
-        info: 'The body of a crusading knight beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.',
-        drop: [new Item(itemByName(pick(['bag of devil\'s gold', 'executioner\'s sword', 'crusader\'s shield'])))]
-    }),
-    new MonsterType ({
-        name: 'mad gasser',
-        attack: [0,0,0,0,8,0,],
-        defense: [4,0,5,0,10,1,],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s too cowardly to attack up close so it protects its face with a gas mask and sprays toxic fumes at anything it sees breathing. It\'s vulnerable to slashing and fire.',
-    }),
-    new MonsterType ({
-        name: 'weird oak',
-        attack: [2,0,5,0,0,0,],
-        defense: [10,1,4,0,12,8,],
-        hitpoints: 20,
-        level: 1,
-        info: 'A large oak tree whose roots are winding into and tearing up the room\'s floor. The knots on its trunk are twisted into a tortured grimace. Vulnerable to slashing and fire.',
-    }),
-    new MonsterType ({
-        name: 'rain ghost',
-        attack: [0,0,0,1,0,1,],
-        defense: [12,12,12,0,0,0,],
-        hitpoints: 20,
-        level: 3,
-        info: 'A once-powerful thunder god whose name hasn\'t been spoken in worship for centuries, now only an embittered cloud of static electricity. Can\'t be harmed with normal physical weapons.',
+        info: `The body of a crusading knight, beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.`,
+        drop: [new Item(itemByName(pick(['bag of devil\'s gold', 'executioner\'s sword', 'crusader\'s shield'])))],
+        onInstantiate: function () {
+            let newName = pick(['Byzantium', 'Constantinople', 'Medina', 'Mecca', 'Florence', 'Venice', 'Westphalia', 'California', 'Mali', 'Cuzco', 'Vienna', 'Austria', 'Carcassonne', 'Holland'])
+            nameMumbler.read(newName)
+            nameMumbler.names.push(newName)
+            this.info = `The body of a crusading knight from the ${pick(['Principality', 'Duchy', 'Marches', 'City', 'City', 'Township', 'Shire', 'Pass', 'Fords', 'Island-city', 'Port-city'])} of ${pick([
+                `${pick(['West', 'East', 'North', 'South'])}${nameMumbler.mumble().toLowerCase()}`,
+                capitalize(nameMumbler.mumble()),
+                `${capitalize(nameMumbler.mumble())}${pick(['shire', 'bridge', 'stadt', 'stad', 'brook', 'borough', 'burg', 'abad', 'fleur', `${pick(['i', 'e', 'a'])}stan`])}`,
+            ])}, beheaded in the Holy Land and resurrected by a witch. His slashing attack is deadly and his chainmail protects him from pierce attacks.`
+        }
     }),
     new MonsterType ({
         name: 'skullhead',
@@ -377,17 +250,15 @@ var allMonsterTypes = [
         attack: [12,0,0,0,0,0,],
         defense: [0,0,0,2,1,4,],
         hitpoints: 20,
-        level: 2,
-        info: 'The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.',
-        drop: [new Item(extras['harpoon'])]
-    }),
-    new MonsterType ({
-        name: 'mechanical bear',
-        attack: [0,4,7,0,0,0,],
-        defense: [4,2,2,0,7,0,],
-        hitpoints: 20,
-        level: 2,
-        info: 'A monstrous automaton the size and shape of a North American Grizzly Bear. It spits acrid black smoke from its mouth, nose, and eyes as it bears down on you.',
+        level: 1,
+        info: `The waterlogged corpse of a whaler reanimated and wielding a deadly barbed harpoon.`,
+        drop: [new Item(extras['harpoon'])],
+        onInstantiate: function () {
+            let newName = pick(['Pequod', 'Revenge', 'Santamaria', 'Pinta', 'Andalusia', 'Intrepid', 'Malthus', 'Nautilus', 'Zoroaster', 'Marie', 'Cassie', 'Annabel'])
+            nameMumbler.read(newName)
+            nameMumbler.names.push(newName)
+            this.info = `The waterlogged corpse of the former ${pick(['captain', 'captain', 'bosun', 'first mate', 'helmsman', 'navigator', 'cook', 'officer', 'cooper', 'carpenter'])} of the doomed whaling ship ${pick(nameMumbler.names)}, reanimated and wielding a deadly barbed harpoon.`
+        }
     }),
     new MonsterType ({
         name: 'omnivorous fungus',
@@ -579,38 +450,6 @@ var allMonsterTypes = [
           this.die()
           drawString('The nails form up into two smaller men.')
       }
-    }),
-    new MonsterType ({
-        name: 'psychic ray',
-        attack: [1,0,0,0,3,3,],
-        defense: [8,1,10,0,0,0,],
-        hitpoints: 20,
-        level: 2,
-        info: 'It\'s a stingray hovering in the air.',
-    }),
-    new MonsterType ({
-        name: 'Opel Manta',
-        attack: [0,0,8,3,0,0,],
-        defense: [2,2,10,8,12,0,],
-        hitpoints: 20,
-        level: 3,
-        info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback with a good safety rating but low gas mileage.',
-    }),
-    new MonsterType ({
-        name: 'toxic snail',
-        attack: [0,0,6,0,5,0,],
-        defense: [3,3,7,0,5,0,],
-        hitpoints: 20,
-        level: 2,
-        info: 'It\'s a yellow snail in a shell the size of a small European car, oozing venomous slime as it crawls at you.',
-    }),
-    new MonsterType ({
-        name: 'gila moth',
-        attack: [2,0,0,3,3,0,],
-        defense: [6,0,0,0,12,3,],
-        hitpoints: 20,
-        level: 2,
-        info: 'It\'s a moth with a wingspan as wide as a man\'s, with red-hot glowing venom dripping from its piercing proboscis.',
     }),
     // pierce, slash, crush, burn, poison, curse
     // new MonsterType ({

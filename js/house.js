@@ -88,12 +88,12 @@ var roomTypeItems = {
     'witch doctor\'s hideaway': ['assassin\'s gun', 'basket of jujube seeds', 'myrrh bracelet'],
 }
 var roomTypeMonsters = {
-    'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
+    'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer'],
     'furnace room': ['arsonist ghost', 'fire elemental', 'posessed furnace'],
     'throne room': ['swordwraith'],
     'dungeon': ['rabid wizard', 'weaghrai', 'shoggoth', 'chained specter', 'foolsfire'],
     'crypt': ['skullhead', 'cruel phantom', 'murderer\'s courage'],
-    'serpent shrine': ['pit viper', 'boa constrictor', 'rattlesnake'],
+    'serpent shrine': ['pit viper', 'boa constrictor'],
     'aviary': ['hawk', 'crow', 'albatross', 'owl of shadows'],
     'witch doctor\'s hideaway': ['wildgod', 'wildgod', 'skullhead', 'witch doctor']
 }

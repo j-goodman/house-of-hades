@@ -133,11 +133,20 @@ nameMumbler.names.map((item) => {
   nameMumbler.read(item)
 })
 
+let untriple = word => {
+		let untripled = ''
+		word.map((char, index) => {
+				if (!(word[index - 1] && word[index - 2] && word[index - 1] === char && word[index - 2] === char)) {
+						untripled += char
+				}
+		})
+		return untripled
+}
 
 doorMumbler.mumbleDoor = () => {
   return doorMumbler.write(pick(doorColors));
 }
 
 nameMumbler.mumble = () => {
-  return nameMumbler.write(pick(nameMumbler.names));
+  return untriple(nameMumbler.write(pick(nameMumbler.names)));
 }

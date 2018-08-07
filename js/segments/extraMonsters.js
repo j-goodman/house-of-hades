@@ -97,6 +97,13 @@ extras['arcane merchant'].onInstantiate = function () {
         itemByName('Swede\'s head'),
         itemByName('sunfire macana'),
         itemByName('dueling saber'),
+        itemByName('revolver'),
+        itemByName('thompson gun'),
+        itemByName('firebomb'),
+        itemByName('cursed pistol'),
+        itemByName('crowbar'),
+        itemByName('laughing mask'),
+        itemByName('ghostcandle'),
         itemByName('gold-plated handgun'),
         itemByName('plague knight\'s sword'),
     ];
@@ -105,6 +112,7 @@ extras['arcane merchant'].onInstantiate = function () {
         this.info = `A transdimensional pochtecatl who scours the known planes of being for strange and powerful artifacts and sells them in exchange for food and cosmic power. He's ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending himself with' } with a ${this.data.item.name}.`;
     }.bind(this)
 }
+allMonsterTypes.push(extras['arcane merchant'])
 
 extras['waterlogged grasper'] = new MonsterType ({
     name: 'waterlogged grasper',
@@ -240,6 +248,7 @@ extras['paranoid summoner'] = new MonsterType ({
         )]
     }
 })
+allMonsterTypes.push(extras['paranoid summoner'])
 
 extras['crow'] = new MonsterType ({
     // pierce, slash, crush, burn, poison, curse
@@ -299,10 +308,6 @@ extras['wildgod'] = new MonsterType ({
     fightEvent: function () {
         let monsterTypes = [
             monByName('dragon'),
-            monByName('rattlesnake'),
-            monByName('angry triceratops'),
-            monByName('riverwolf'),
-            monByName('weaselcat'),
             extras['crow'],
             extras['albatross'],
             extras['boa constrictor'],
@@ -358,6 +363,7 @@ extras['wildgod'] = new MonsterType ({
         this.defense[dice(6) - 1] = 3;
     }
 })
+allMonsterTypes.push(extras['wildgod'])
 
 extras['glass man'] = new MonsterType ({
     name: 'glass man',
@@ -401,11 +407,20 @@ extras['half-goat soldier'] = new MonsterType ({
     defense: [4,11,8,2,7,2,],
     hitpoints: 20,
     level: 3,
-    info: 'A soldier armored in heavy iron, half-man and half-goat. The insignia carved into his breastplate looks like a eye with two perpendicular roads passing through it.',
+    info: `A soldier armored in heavy iron, half-man and half-goat. The insignia carved into his breastplate looks like a eye with two perpendicular roads passing through it.`,
     drop: [
         new Item (extras['goat\'s armor']),
     ],
     onInstantiate: function () {
+        let newName = pick(['Goat', 'Binn', 'Bedivere', 'Palamedes', 'Kay', 'Gawain', 'Gaheris', 'Mordred', 'Arthur', 'Morgana', 'Michael', 'Raphael', 'Gabriel', 'Toros', 'Socrates', 'Hamilton', 'Artillery', 'Rattlesnake', 'Mushroom', 'Yukon', 'Cornelius', 'Santiago', 'Kraken'])
+        nameMumbler.read(newName)
+        nameMumbler.names.push(newName)
+        game.goatClans = game.goatClans || []
+        if (game.goatClans.length < 4) {
+            game.goatClans.push(`${nameMumbler.mumble()}${pick(['', '', '', '', '', 'goat', 'goat', '-goat', 'horn', 'hoof', 'bone', 'clef', 'geist', 'nail', 'son', 'son'])}`)
+        }
+        this.data.clan = pick(game.goatClans)
+        this.info = `A soldier armored in heavy iron, half-man and half-goat. The insignia carved into his breastplate looks like a eye with two perpendicular roads passing through it, with the insignia of the ${this.data.clan} Clan at its middle.`
         let choice = dice(6)
         this.attack[choice - 1] += 8
         let weaponNames = [
@@ -423,6 +438,7 @@ extras['half-goat soldier'] = new MonsterType ({
         )
     }
 })
+allMonsterTypes.push(extras['half-goat soldier'])
 
 extras['kraken'] = new MonsterType ({
     name: 'kraken',
@@ -488,6 +504,7 @@ extras['shapeshifter'] = new MonsterType ({
         drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, then a ${targetType.name}`)
     }
 })
+allMonsterTypes.push(extras['shapeshifter'])
 
 extras['nagual'] = new MonsterType ({
     // pierce, slash, crush, burn, poison, curse
@@ -513,6 +530,7 @@ extras['nagual'] = new MonsterType ({
         }
     }
 })
+allMonsterTypes.push(extras['nagual'])
 
 extras['chained specter'] = new MonsterType ({
     name: 'chained specter',
@@ -1064,6 +1082,7 @@ extras['owl of shadows'] = new MonsterType ({
         new Item (itemByName('moon egg')),
     ],
 })
+allMonsterTypes.push(extras['owl of shadows'])
 
 extras['witch doctor'] = new MonsterType ({
     name: 'witch doctor',
@@ -1090,6 +1109,7 @@ extras['witch doctor'] = new MonsterType ({
         )
     }
 })
+allMonsterTypes.push(extras['witch doctor'])
 
 extras['yeti'] = new MonsterType ({
     name: 'yeti',
@@ -1108,7 +1128,7 @@ extras['ice walker'] = Object.assign({}, monByName('weaghrai'))
 extras['ice walker'].defense = monByName('weaghrai').defense.map(num => { return num })
 extras['ice walker'].attack = monByName('weaghrai').attack.map(num => { return num })
 extras['ice walker'].name = 'ice walker'
-extras['ice walker'].info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground.`
+extras['ice walker'].info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from snowblindness.`
 extras['ice walker'].defense[5] = 10
 extras['ice walker'].defense[1] = 9
 extras['ice walker'].defense[4] = 0
@@ -1123,7 +1143,7 @@ extras['ice walker'].onInstantiate = function () {
             nameMumbler.names.push(place)
         }
     })
-    this.info = `A traveler of frozen plains who has traversed from the ${pick(['frozen plateau of', 'icy peaks of', 'snow-scoured ridges of'])} ${capitalize(nameMumbler.mumble())} to the ${pick(['land', 'continent', 'plains', 'tundras'])} of ${capitalize(nameMumbler.mumble())} where ${pick(['a cursed black aurora dominates the cold skies', 'the colors of the northern lights dance in the skies through day and night', 'black night rules eternal and the sun is unknown', 'during storms the air grows cold enough to freeze a man\'s blood in his veins'])}. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground.`
+    this.info = `A traveler of frozen plains who has traversed from the ${pick(['frozen plateau of', 'icy peaks of', 'snow-scoured ridges of'])} ${capitalize(nameMumbler.mumble())} to the ${pick(['land', 'continent', 'plains', 'tundras'])} of ${capitalize(nameMumbler.mumble())} where ${pick(['a cursed black aurora dominates the cold skies', 'the colors of the northern lights dance in the skies through day and night', 'black night rules eternal and the sun is unknown', 'during storms the air grows cold enough to freeze a man\'s blood in his veins'])}. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from snowblindness.`
     this.data.baseDefense = this.defense.map(stat => { return stat })
     this.data.baseAttack = this.attack.map(stat => { return stat })
     this.data.arsenal = [
@@ -1147,6 +1167,7 @@ extras['ice walker'].onInstantiate = function () {
         this.info = `A traveler of frozen plains. Something about its proportions, its long arms or its hunched slim body make it look eerily inhuman. It\'s covered from head to toe in heavy furs and wears slitted goggles to protect from the glare of the snowy ground. It's ${this.data.item.slot === 'weapon' ? 'armed with' : 'defending itself with' } with a ${this.data.item.name}.`;
     }.bind(this)
 }
+allMonsterTypes.push(extras['ice walker'])
 
 extras['frozen corpse'] = new MonsterType ({
     name: 'frozen corpse',
