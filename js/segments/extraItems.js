@@ -889,11 +889,33 @@ extras['yeti\'s hide'] = new ItemType (
 
 extras['lunatic tome'] = new ItemType (
     'lunatic tome', 'weapon',
-    [0,0,0,0,0,16],
-    1,
-    'The mask\'s mouth bites into its own upper lip and then it eats itself while still laughing like a drunk.',
-    'A powerful cursed object that\'s struggling to keep back a high-pitched squealing laugh.'
-),
+    [0,0,0,0,0,0],
+    2,
+    'The ink melts from the tome\'s pages before its papers become withered flakes that give you a warty rash.',
+    'Some strange book in a language you can\'t read.',
+    null,
+    function () { // On use
+        let mon = pick(game.player.room.monsters)
+        this.bonus = Array.from(mon.defense)
+        let damage = 30
+        this.bonus = mon.defense.map(num => {
+            let dam = 12 - num
+            damage -= dam
+            dam = (damage < 0) ? 0 : dam
+            return dam
+        })
+    },
+    function () { // On instantiate
+        this.info = `The ${pick(['third',
+            'fifth', 'eleventh', 'red', 'black', 'only known copy of the',
+            'paperback edition of the', 'paperback edition of the'
+        ] )} ${pick([
+            'Book', 'Tome', 'Book', 'Apology', 'Letters', 'Journal', 'Diary',
+            'Correspondences', 'Last Will and Testament', 'Testament', 'Log',
+            'Calendar', 'Notes', 'Celestial Observations', 'Calculations'
+        ])} of ${capitalize(nameMumbler.mumble())}, known to have driven its author to madness. When someone\'s exposed to it it adapts to exploit their weaknesses.`
+    }
+)
 
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',

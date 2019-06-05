@@ -72,23 +72,26 @@ var surfaceTypes = [
     ['grass', ['courtyard']],
     ['mossy rotting floor', ['damp room']],
     ['toolbench', ['garage']],
+    ['sorceror\'s desk', ['sorceror\'s study']],
 ];
 var roomTypeItems = {
     'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife', 'basket of jujube seeds'],
     'larder': ['jar of salt', 'basket of jujube seeds', 'canned ghost'],
     'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle', 'basket of jujube seeds'],
     'courtyard': ['pumpkin', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
-    'music room': ['weird viol', 'wand of oceans', 'bottle of whiskey'],
+    'music room': ['weird viol', 'wand of oceans'],
     'chapel': ['posessed bible', 'clergyman\'s dagger', 'basket of jujube seeds'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
+    'library': ['lunatic tome', 'posessed bible', 'liar\'s torch', 'revolver', 'fountain pen', 'bleeding mushroom'],
     'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade', 'basket of jujube seeds'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
     'storeroom': ['wrench', 'wrench', 'jar of salt', 'jar of salt', 'thompson gun', 'riot shield', 'riot shield', 'riot shield', 'firebomb', 'hand grenade', 'hand grenade', 'woodaxe', 'woodaxe', 'woodaxe', 'woodaxe', 'case of chemical bombs', 'revolver', 'revolver', 'canned ghost', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
     'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber'],
-    'crypt': ['assassin\'s gun', 'plague knight\'s sword'],
+    'crypt': ['paladin\'s shield', 'executioner\'s sword', 'plague knight\'s sword'],
     'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
     'witch doctor\'s hideaway': ['assassin\'s gun', 'assassin\'s gun', 'basket of jujube seeds', 'basket of jujube seeds', 'myrrh bracelet', 'myrrh bracelet', 'moon egg'],
+    'sorceror\'s study': ['lunatic tome'],
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
