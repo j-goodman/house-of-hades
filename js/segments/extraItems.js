@@ -863,6 +863,14 @@ extras['phantom pestle'] = new ItemType (
     'The brittle pounding stone from a mortar and pestle, shimmering with a ghostly luminescent translucency. Used to grind supernatural substances that would be otherwise atomic before all earthly force.'
 )
 
+extras['lunatic tome'] = new ItemType (
+    'lunatic tome', 'weapon',
+    [0,0,0,0,0,16],
+    1,
+    'The mask\'s mouth bites into its own upper lip and then it eats itself while still laughing like a drunk.',
+    'A powerful cursed object that\'s struggling to keep back a high-pitched squealing laugh.'
+),
+
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
 //     [0,0,0,0,0,0],

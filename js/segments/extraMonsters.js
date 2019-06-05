@@ -106,6 +106,52 @@ extras['arcane merchant'].onInstantiate = function () {
     }.bind(this)
 }
 
+extras['Opel Manta'] = new MonsterType ({
+    name: 'Opel Manta',
+    attack: [0,0,8,3,0,0,],
+    defense: [2,2,10,8,12,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'It\'s a 1977 Opel Manta. A affordable four-door hatchback with a good safety rating but low gas mileage.',
+})
+
+extras['toxic snail'] = new MonsterType ({
+    name: 'toxic snail',
+    attack: [0,0,6,0,5,0,],
+    defense: [3,3,7,0,5,0,],
+    hitpoints: 20,
+    level: 2,
+    info: 'It\'s a yellow snail in a shell the size of a small European car, oozing venomous slime as it crawls at you.',
+})
+
+extras['gila moth'] = new MonsterType ({
+    name: 'gila moth',
+    attack: [2,0,0,3,3,0,],
+    defense: [6,0,0,0,12,3,],
+    hitpoints: 20,
+    level: 2,
+    info: 'It\'s a moth with a wingspan as wide as a man\'s, with red-hot glowing venom dripping from its piercing proboscis.',
+})
+
+extras['weaselcat'] = new MonsterType ({
+    name: 'weaselcat',
+    attack: [5,0,0,0,3,0,],
+    defense: [4,0,1,2,5,1,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A long, small Amazonian wildcat known for its piercing bite. This one looks like it might be rabid, so be careful of poison. Try slashing or crushing it if you catch it.',
+    onDeath: 'The weaselcat dies.'
+})
+
+extras['psychic ray'] = new MonsterType ({
+    name: 'psychic ray',
+    attack: [1,0,0,0,3,3,],
+    defense: [8,1,10,0,0,0,],
+    hitpoints: 20,
+    level: 2,
+    info: 'It\'s a stingray hovering in the air.',
+})
+
 extras['waterlogged grasper'] = new MonsterType ({
     name: 'waterlogged grasper',
     attack: [0,2,4,0,2,0,],
