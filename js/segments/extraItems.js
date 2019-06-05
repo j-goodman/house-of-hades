@@ -887,6 +887,13 @@ extras['yeti\'s hide'] = new ItemType (
     'The thick wooly white hide of a yeti.'
 )
 
+extras['lunatic tome'] = new ItemType (
+    'lunatic tome', 'weapon',
+    [0,0,0,0,0,16],
+    1,
+    'The mask\'s mouth bites into its own upper lip and then it eats itself while still laughing like a drunk.',
+    'A powerful cursed object that\'s struggling to keep back a high-pitched squealing laugh.'
+),
 
 // extras['faker\'s arm'] = new ItemType (
 //     'faker\'s arm', 'weapon',
