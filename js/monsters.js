@@ -93,6 +93,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'It\'s a scorpion the size of a dog. Careful of that poison sting.',
+        drop: [new Item(itemByName('huge stinger'))]
     }),
     new MonsterType ({
         name: 'vampire',
@@ -193,6 +194,7 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'It\'s part bee, but it\'s part person too.',
+        drop: [new Item(itemByName('huge stinger'))]
     }),
     new MonsterType ({
         name: 'fire elemental',
@@ -219,6 +221,11 @@ var allMonsterTypes = [
         hitpoints: 20,
         level: 3,
         info: 'She\'s not moving but her eyes remind you of a cat stalking a bird. Supposed to be most vulnerable to fire.',
+        drop: [new Item(itemByName(pick(['life-giving herb'])))],
+        onInstantiate: function () {
+            this.drop = [new Item(itemByName(pick(['lunatic tome', 'witch\'s rod'])))]
+            // this.drop = [new Item(itemByName(pick(['life-giving herb', 'canned ghost', 'lunatic tome', 'basket of jujube seeds', 'witch\'s rod'])))]
+        }
     }),
     new MonsterType ({
         name: 'rattlesnake',

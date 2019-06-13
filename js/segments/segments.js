@@ -1,4 +1,92 @@
+let buildLoopSegment = (ob) => {
+    var segmentRooms = []
+    var otherRoom
+    let segmentDoors = ob.doorTypes
 
+    let center = new Room ([], 0)
+    let prisonCells = [
+        new Room ([], 3),
+        new Room ([], 2),
+        new Room ([], 2),
+    ]
+
+    segmentRooms.push(center)
+    prisonCells.map(room => {
+        segmentRooms.push(room)
+    })
+
+    prisonCells.map((cell, index) => {
+        let hall = []
+        cell.type = pick(ob.nodeRooms)
+        hall.length = Math.ceil(dice(3) + dice(2) + dice(2))
+        hall.fill(null)
+        hall.map((el, subIndex) => {
+            let fromRoom
+            let toRoom
+            if (subIndex === 0) {
+                fromRoom = cell
+                hall[subIndex] = new Room ([fromRoom.doors[1]], 1)
+                toRoom = hall[subIndex]
+            } else if (subIndex > 0 && subIndex < hall.length - 1) {
+                fromRoom = hall[subIndex - 1]
+                hall[subIndex] = new Room ([fromRoom.doors[1]], 1)
+                toRoom = hall[subIndex]
+                fromRoom.doors[1].to = toRoom
+            } else {
+                fromRoom = hall[subIndex - 1]
+                hall[subIndex] = new Room ([fromRoom.doors[1], (prisonCells[index + 1] || prisonCells[0]).doors[0]], 0)
+                toRoom = prisonCells[index + 1] || prisonCells[0]
+                hall[subIndex].doors[1].to = prisonCells[index + 1] || prisonCells[0]
+            }
+            hall[subIndex].doors[0].from = fromRoom
+            hall[subIndex].doors[0].to = hall[subIndex]
+            hall[subIndex].doors[1].from = hall[subIndex]
+            hall[subIndex].doors[1].to = toRoom
+            hall[subIndex].type = pick(ob.roomTypes)
+        })
+        hall.map(room => {
+            segmentRooms.push(room)
+            room.doors.map(door => {
+                door.color = pick(segmentDoors)
+            })
+        })
+    })
+    prisonCells[0].doors[2].to = new Room ([prisonCells[0].doors[2]], 1)
+    prisonCells[0].doors[2].to.type = pick(ob.entryRoomTypes)
+    window.trickDoor = prisonCells[0].doors[2].to
+    prisonCells[0].doors[2].to.monsters = [new Monster (prisonCells[0].doors[2].to, monByName(pick(ob.guardianMonsters)))]
+    prisonCells[0].doors[2].locked = true
+    prisonCells[0].doors[2].color = pick(ob.entryDoors)
+    prisonCells[0].doors[0].color = pick(segmentDoors)
+    prisonCells[0].doors[1].color = pick(segmentDoors)
+
+    segmentRooms.map(room => {
+        if (room.doors.length > 1) {
+            while (room.doors[0].color === room.doors[1].color) {
+                room.doors[1].color = pick(segmentDoors)
+            }
+        }
+        room.monsters = []
+        room.items = []
+        if (ob.nodeRooms.includes(room.type)) {
+            room.monsters.push(new Monster (room, monByName(pick(ob.nodeMonsters))))
+        } else {
+            if (oneIn(2)) {
+                room.monsters.push(new Monster (room, monByName(pick(ob.mainMonsters))))
+            }
+        }
+        if (ob.nodeRooms.includes(room.type)) {
+            room.items.push(new Item (itemByName(pick(ob.nodeItems)), room))
+        }
+        if (room.monsters.length > 0) {
+            room.doors.map(door => {
+                door.locked = true
+            })
+        }
+    })
+    let demonKingCell = pick([prisonCells[1], prisonCells[2]])
+    demonKingCell.monsters.push(new Monster (demonKingCell, monByName(pick(ob.finalMonsterTypes))))
+}
 
 var buildSegments = (count, rooms) => {
   var number = count;
@@ -20,6 +108,7 @@ var buildSegments = (count, rooms) => {
     segments[index](rooms);
   });
   // segments[8](rooms)
+  var secondChoice = pick(primarySegments)()
 };
 
 var segments = [

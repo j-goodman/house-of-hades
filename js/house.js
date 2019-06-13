@@ -43,7 +43,7 @@ var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'go
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt', 'haunted kitchen'],
-    ['laboratory', 'damp room', 'sorceror\'s study', 'garage', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway'],
+    ['laboratory', 'damp room', 'sorceror\'s study', 'garage', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway', 'huge courtyard with knee-high dead grass and a scarecrow in the middle'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
@@ -75,15 +75,15 @@ var surfaceTypes = [
     ['sorceror\'s desk', ['sorceror\'s study']],
 ];
 var roomTypeItems = {
-    'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife', 'basket of jujube seeds'],
-    'larder': ['jar of salt', 'basket of jujube seeds', 'canned ghost'],
-    'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle', 'basket of jujube seeds'],
+    'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife'],
+    'larder': ['jar of salt', 'canned ghost'],
+    'greenhouse': ['purple orchid', 'bleeding mushroom', 'sickle'],
     'courtyard': ['pumpkin', 'bleeding mushroom', 'oak stick', 'broken bottle', 'woodaxe', 'dueling saber'],
     'music room': ['weird viol', 'wand of oceans'],
     'chapel': ['posessed bible', 'clergyman\'s dagger', 'basket of jujube seeds'],
     'laboratory': ['bottle of green acid', 'bottle of orange fumes', 'bottle of violet powder', 'broken bottle'],
-    'library': ['lunatic tome', 'posessed bible', 'liar\'s torch', 'revolver', 'fountain pen', 'bleeding mushroom'],
-    'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade', 'basket of jujube seeds'],
+    'library': ['posessed bible', 'fountain pen'],
+    'study': ['letter opener', 'antique saber', 'cigarette lighter', 'inkwell', 'fountain pen', 'hand grenade'],
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
     'storeroom': ['wrench', 'wrench', 'jar of salt', 'jar of salt', 'thompson gun', 'riot shield', 'riot shield', 'riot shield', 'firebomb', 'hand grenade', 'hand grenade', 'woodaxe', 'woodaxe', 'woodaxe', 'woodaxe', 'case of chemical bombs', 'revolver', 'revolver', 'canned ghost', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
@@ -94,7 +94,8 @@ var roomTypeItems = {
     'sorceror\'s study': ['lunatic tome'],
 }
 var roomTypeMonsters = {
-    'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'necromancer', 'riverwolf'],
+    'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'riverwolf', 'mounted knight'],
+    'huge courtyard with knee-high dead grass and a scarecrow in the middle': ['drake', 'mounted knight', 'crow'],
     'furnace room': ['arsonist ghost', 'fire elemental', 'posessed furnace'],
     'throne room': ['swordwraith'],
     'dungeon': ['rabid wizard', 'weaghrai', 'shoggoth', 'chained specter', 'foolsfire'],

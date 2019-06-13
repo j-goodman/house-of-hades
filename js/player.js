@@ -291,6 +291,7 @@ Player.prototype.fight = function (enemyName, fake=false) {
             if (!fake) {
                 drawString(this.shield.spentMessage);
             }
+            if (this.shield.onDestroy && !fake) { this.shield.onDestroy(this.room); }
             this.shield = null;
             this.updateStats(fake);
         }

@@ -26,8 +26,8 @@ extras['cosmic ball'] = new ItemType (
 
 extras['djinn\'s sword'] = new ItemType (
     'djinn\'s sword', 'weapon',
-    [0,5,0,7,0,0],
-    '13',
+    [0,8,0,10,0,0],
+    '33',
     'The djinn\'s sword becomes fire in your hands, returning to the plane of its creator.',
     'The curved blazing blade of a fire-born djinn, given to one of Saladin\'s lietenants to help defend Jerusalem against the western Crusaders.'
 )
@@ -135,7 +135,7 @@ extras['mithril vest'] = new ItemType (
 extras['angel\'s armor'] = new ItemType (
     'angel\'s armor', 'shield',
     [7,2,4,7,7,5],
-    9,
+    23,
     'Your angel\'s armor turns into sunlight and vanishes.',
     'Armor forged by the almighty himself to protect his most loyal representatives.',
     null,
@@ -168,6 +168,14 @@ extras['Swede\'s head'] = new ItemType (
     13,
     'The Swede\'s head bites you and escapes into the folds between space.',
     'The severed head of a old Viking mystic, taken off his body by king Harald Bluetooth for conspiring to bring the Swedish armies against him, then preserved and given the power of speech by a priestess of the cursed god Ve so that future generations could benefit from its wisdom.'
+)
+
+extras['huge stinger'] = new ItemType (
+    'huge stinger', 'weapon',
+    [5,0,0,1,3,0],
+    6,
+    'Your stinger breaks.',
+    'A huge knifelike poison barb from a oversized bug.'
 )
 
 extras['venomous barb'] = new ItemType (
@@ -309,9 +317,73 @@ extras['treacherous hand'] = new ItemType (
 extras['king\'s sword'] = new ItemType (
     'king\'s sword', 'weapon',
     [6,12,0,0,0,0],
-    30,
+    34,
     'Your sword breaks at the handle.',
     'A two-handed longsword with a gold hilt and a blade of gleaming black steel.'
+)
+
+extras['griffin sword'] = new ItemType (
+    'griffin sword', 'weapon',
+    [12,6,0,0,0,0],
+    34,
+    'Your sword breaks at the handle.',
+    'A two-handed longsword with a shining golden blade the shape of a griffin\'s feather.'
+)
+
+extras['magic sword'] = new ItemType (
+    'magic sword', 'weapon',
+    [3,7,0,0,0,7],
+    13,
+    'Your sword breaks at the handle.',
+    'A one-handed longsword with a blade the color of the moon and a night-black handle, blessed by the power of an long-dead ancient god.'
+)
+
+extras['flaming sword'] = new ItemType (
+    'flaming sword', 'weapon',
+    [3,7,0,7,0,0],
+    11,
+    'Your sword breaks at the handle.',
+    'A one-handed longsword with a red hilt and a blazing black blade.'
+)
+
+extras['black shield'] = new ItemType (
+    'black shield', 'shield',
+    [1,7,3,10,0,0],
+    6,
+    'Your shield breaks.',
+    'A shield coated in thick inky black wax.'
+)
+
+extras['griffin shield'] = new ItemType (
+    'griffin shield', 'shield',
+    [0,12,12,0,0,0],
+    13,
+    'Your shield breaks.',
+    'A black shield with a gold griffin set into its face.'
+)
+
+extras['necromancer\'s sword'] = new ItemType (
+    'necromancer\'s sword', 'weapon',
+    [0,0,0,7,15,7],
+    5,
+    'Your sword breaks.',
+    'A gleaming black sword.'
+)
+
+extras['sorceled shield'] = new ItemType (
+    'sorceled shield', 'shield',
+    [0,5,5,0,7,7],
+    13,
+    'Your shield breaks.',
+    'A many-colored wooden shield with strange sorceries woven into it.'
+)
+
+extras['frost shield'] = new ItemType (
+    'frost shield', 'shield',
+    [0,8,4,12,0,4],
+    11,
+    'Your shield splinters and shatters into frozen shards.',
+    'A white-cold steel shield with leather insulation on the wearer\'s side.'
 )
 
 extras['wizard\'s ring'] = new ItemType (
@@ -442,7 +514,11 @@ extras['pearl of concentrated pestilence'] = new ItemType (
     `A gleaming black pearl the size of a acorn made up of toxic and carcinogenic materials crammed into a toxic sphere. It becomes more potent each time you use it.`,
     null,
     function () { // On use
-        this.bonus[4] = Math.round(this.bonus[4] * 1.4)
+        let newBonus = this.bonus.map(num => {
+            return num
+        })
+        newBonus[4] = Math.round(this.bonus[4] * 1.4)
+        this.bonus = newBonus
         if (this.ammo > 1) {
             drawString(`The pearl swells with a quiet noise like a million tiny screams.`)
         } else {
@@ -483,6 +559,14 @@ extras['blade of grass'] = new ItemType (
     `A spearlike weapon ending in a foot-long slashing blade forged out of shining green steel.`
 )
 
+extras['grass sword'] = new ItemType (
+    'grass sword', 'weapon',
+    [0,7,0,1,0,0],
+    5,
+    'Your grass sword breaks.',
+    `A longsword forged out of shining green steel.`
+)
+
 extras['goat\'s mace'] = new ItemType (
     'goat\'s mace', 'weapon',
     [0,0,7,0,0,2],
@@ -505,6 +589,14 @@ extras['bow and venom-barbed arrows'] = new ItemType (
     17,
     'You\'re out of venom-barbed arrows.',
     `A bow equipped with small arrows too light to do much damage on their own, but tipped with venom drawn from a million ants.`
+)
+
+extras['longbow'] = new ItemType (
+    'longbow', 'weapon',
+    [9,1,1,0,0,0],
+    11,
+    'You\'re out of arrows.',
+    `A longbow with steel-tipped arrows.`
 )
 
 extras['goat-priest\'s rattle'] = new ItemType (
@@ -882,9 +974,35 @@ extras['stick of dynamite'] = new ItemType (
 extras['yeti\'s hide'] = new ItemType (
     'yeti\'s hide', 'shield',
     [6,7,4,0,2,3],
-    17,
+    27,
     'Your yeti\'s hide withers away.',
-    'The thick wooly white hide of a yeti.'
+    'The thick wooly white hide of a yeti. It makes for exceptionally long-lasting armor.'
+)
+
+extras['witch\'s rod'] = new ItemType (
+    'witch\'s rod', 'weapon',
+    [0,0,0,0,0,7],
+    10,
+    'Your witch\'s rod breaks.',
+    'A thin pale wooden wand, taken from a tree and carved into a bone-white slim wand.',
+    null,
+    null,
+    function () { // On instantiate
+        let clues = [
+            ' A broken arrowhead is tied to it with a thong of leather.',
+            '',
+            ' It\'s impossibly heavy for its width and length.',
+            ' It\'s freezing cold to the touch despite the occasional hot yellow sparks that jet from its tip.',
+            ' Holding it makes you feel very strangely nauseous.'
+        ]
+        let extraDamage = pick([0, 2, 3, 4])
+        this.info += clues[extraDamage]
+        let newBonus = this.bonus.map(num => {
+            return num
+        })
+        newBonus[extraDamage] += 7
+        this.bonus = newBonus
+    }
 )
 
 extras['lunatic tome'] = new ItemType (
@@ -897,9 +1015,9 @@ extras['lunatic tome'] = new ItemType (
     function () { // On use
         let mon = pick(game.player.room.monsters)
         this.bonus = Array.from(mon.defense)
-        let damage = 30
+        let damage = 40
         this.bonus = mon.defense.map(num => {
-            let dam = 12 - num
+            let dam = Math.floor((12 - num) * 1.5)
             damage -= dam
             dam = (damage < 0) ? 0 : dam
             return dam
@@ -915,6 +1033,38 @@ extras['lunatic tome'] = new ItemType (
             'Calendar', 'Notes', 'Celestial Observations', 'Calculations'
         ])} of ${capitalize(nameMumbler.mumble())}, known to have driven its author to madness. When someone\'s exposed to it it adapts to exploit their weaknesses.`
     }
+)
+
+extras['warhorn'] = new ItemType (
+    'warhorn', 'weapon',
+    [0,0,8,0,0,10],
+    11,
+    'The griffin\'s horn cracks.',
+    'A bellowing warhorn carved from a huge black griffin\'s horn.'
+)
+
+extras['crystal ball'] = new ItemType (
+    'crystal ball', 'shield',
+    [0,0,0,0,2,12],
+    3,
+    'The crystal ball cracks and leaks hot putrid smoke until it shrivels, hollow.',
+    'A mist-filled polished crystal sphere.'
+)
+
+extras['king\'s shield'] = new ItemType (
+    'king\'s shield', 'shield',
+    [4,8,6,2,0,3],
+    34,
+    'Your shield finally breaks.',
+    'A black-and-silver shield, dented and dull from long years of use.',
+)
+
+extras['griffin\'s dollar'] = new ItemType (
+    'griffin\'s dollar', 'weapon',
+    [0,4,0,1,0,1],
+    5,
+    'Your griffin\'s dollar slips from your hand and tumbles away.',
+    `A gold coin the size of your palm stamped with the image of the Griffin King, who ${pick(['ruled', 'terrorized'])} the lands on which this house is built until he msyteriously vanished into his impregnable fortress, guarded by his most elite soldiers, never to emerge again. Its edge is sharp.`
 )
 
 // extras['faker\'s arm'] = new ItemType (

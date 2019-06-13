@@ -13,58 +13,45 @@ extras['dragon'] = new MonsterType ({
     deathEvent: () => {
         var door;
         if (game.player.room.type === 'treasure room') {
-        door = new Door ('trap', game.player.room, null);
-        game.player.room.doors.push(door);
-        door.to = new Room ([], 13);
-        door.to.type = 'amphitheater with thirteen vaulted walls'
-        door.to.items.push(
-            new Item (itemByName(pick(['pike', 'obsidian axe', 'sacred tomohawk', 'paladin\'s shield', 'obsidian axe'])), door.to),
-            new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'dueling saber', 'dueling saber'])), door.to),
-            new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
-            new Item (itemByName('wizard\'s ring'), door.to),
-            new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
-            new Item (itemByName(pick(['cavalry shield', 'assassin\'s gun', 'purple orchid'])), door.to),
-            new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
-            new Item (itemByName(pick(['archwizard\'s letter', 'demon king\'s note'])), door.to),
-        )
-        allMonsterTypes = allMonsterTypes.filter(mon => {
-            if (oneIn(5)) {
-                return true
-            } else {
-                extras[mon.name] = mon
-                return false
-            }
-        })
-        allMonsterTypes.push(
-            extras['half-goat soldier'],
-            extras['half-goat soldier'],
-            extras['half-goat soldier'],
-            extras['half-goat soldier']
-        )
-        allMonsterTypes.push(extras['swordwraith'])
-        allMonsterTypes.push(extras['murderer\'s courage'])
-        allMonsterTypes.push(extras['shapeshifter'])
-        allMonsterTypes.push(extras['nagual'])
-        allMonsterTypes.push(extras['big floating eyeball'])
-        door.to.doors.map((innerDoor, index) => {
-          innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
-              'colossal basalt',
-              'rune-inscribed',
-              'carved ebony',
-              'giant sandstone',
-              'huge steel',
-              'tiny circular',
-              'opaque glass',
-              'tall narrow ivory',
-              'thirteen-eyed',
-              'obsidian',
-              'ornate stained glass',
-              'polished marble',
-              'solid gold',
-          ][index]
-        })
-        door.to.mana += 100;
-        door.from.mana += 50;
+            door = new Door ('trap', game.player.room, null);
+            game.player.room.doors.push(door);
+            door.to = new Room ([], 13);
+            door.to.type = 'amphitheater with thirteen vaulted walls'
+            door.to.items.push(
+                new Item (itemByName(pick(['pike', 'obsidian axe', 'sacred tomohawk', 'paladin\'s shield', 'obsidian axe'])), door.to),
+                new Item (itemByName(pick(['king\'s sword', 'king\'s sword', 'clergyman\'s dagger', 'dueling saber', 'dueling saber'])), door.to),
+                new Item (itemByName(pick(['wand of oceans', 'golem\'s blood'])), door.to),
+                new Item (itemByName('wizard\'s ring'), door.to),
+                new Item (itemByName(pick(['bag of devil\'s gold', 'canned ghost'])), door.to),
+                new Item (itemByName(pick(['cavalry shield', 'assassin\'s gun', 'purple orchid'])), door.to),
+                new Item (itemByName(pick(['lion\'s hide', 'goat\'s armor'])), door.to),
+                new Item (itemByName(pick(['archwizard\'s letter', 'demon king\'s note'])), door.to),
+            )
+            allMonsterTypes.push(extras['half-goat soldier'])
+            allMonsterTypes.push(extras['swordwraith'])
+            allMonsterTypes.push(extras['murderer\'s courage'])
+            allMonsterTypes.push(extras['shapeshifter'])
+            allMonsterTypes.push(extras['nagual'])
+            allMonsterTypes.push(extras['big floating eyeball'])
+            door.to.doors.map((innerDoor, index) => {
+                innerDoor.color = innerDoor.color === 'trap' ? 'trap' : [
+                    // 'colossal basalt',
+                    'rune-inscribed stone',
+                    // 'carved ebony',
+                    // 'giant sandstone',
+                    // 'huge steel',
+                    // 'tiny circular',
+                    // 'opaque glass',
+                    'tall narrow ivory',
+                    'thirteen-eyed',
+                    // 'obsidian',
+                    'ornate stained glass',
+                    // 'polished marble',
+                    'solid gold',
+                ][index]
+            })
+            door.to.mana += 100;
+            door.from.mana += 50;
             drawString('');
             drawString('    | YOU WIN |    ');
             drawString('');
@@ -263,14 +250,10 @@ extras['paranoid summoner'] = new MonsterType ({
         })
         escapeRoom.monsters.push(this)
         this.room = escapeRoom
-        console.log('Fight event.')
-        console.log('this.room:', this.room)
         drawString('The paranoid summoner escapes.')
     },
     deathEvent: function () {
         drawString('The fabric of space seems to stretch into a claw that rips open the torso of the paranoid summoner releasing a murder of crows and killing her. The crows fly out and shake themselves clean, and the rift pulses but remains open.')
-        console.log('Death event.')
-        console.log('this.room:', this.room)
         let rift = new Door ('demoniac rift', this.room)
         let dungeon = new Room ([rift], 0)
         rift.to = dungeon
@@ -345,16 +328,19 @@ extras['wildgod'] = new MonsterType ({
     fightEvent: function () {
         let monsterTypes = [
             monByName('dragon'),
+            monByName('griffin'),
             monByName('rattlesnake'),
             monByName('angry triceratops'),
             monByName('riverwolf'),
             monByName('weaselcat'),
+            monByName('rabid bear'),
             extras['crow'],
             extras['albatross'],
             extras['boa constrictor'],
             extras['pit viper'],
             extras['hawk'],
             extras['owl of shadows'],
+            extras['moose'],
             new MonsterType ({
                 name: 'wild boar',
                 attack: [2,0,5,0,0,0,],
@@ -380,14 +366,6 @@ extras['wildgod'] = new MonsterType ({
                 info: 'A grey wildcat.',
             }),
             new MonsterType ({
-                name: 'moose',
-                attack: [1,0,7,0,0,0,],
-                defense: [0,9,10,0,2,0,],
-                hitpoints: 20,
-                level: 2,
-                info: 'A massive antlered mammal grinding a hoof against the ground in preparation to charge.',
-            }),
-            new MonsterType ({
                 name: 'hippopotamus',
                 attack: [0,0,15,0,0,0,],
                 defense: [0,9,10,1,4,0,],
@@ -405,6 +383,16 @@ extras['wildgod'] = new MonsterType ({
     }
 })
 
+extras['moose'] = new MonsterType ({
+    name: 'moose',
+    attack: [1,0,7,0,0,0,],
+    defense: [0,9,10,0,2,0,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A massive antlered mammal grinding a hoof against the ground in preparation to charge.',
+})
+
+
 extras['glass man'] = new MonsterType ({
     name: 'glass man',
     attack: [8,2,0,0,0,0,],
@@ -412,6 +400,26 @@ extras['glass man'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A thing in the shape of a man, made of white glass, approaching you.',
+})
+
+extras['drake'] = new MonsterType ({
+    name: 'drake',
+    attack: [0,6,6,8,0,1],
+    defense: [12,10,4,9,3,12],
+    hitpoints: 20,
+    level: 3,
+    info: 'It\'s a long feathered serpentine animal the size of a rhino.',
+    onDeath: 'The drake dies and blood steams out from its body.',
+})
+
+extras['wyrm'] = new MonsterType ({
+    name: 'wyrm',
+    attack: [5,5,5,0,2,0],
+    defense: [10,0,10,10,10,0],
+    hitpoints: 20,
+    level: 3,
+    info: 'A blind writhing subterranean wyrm with a lamprey\'s mouth lined with razor-pointed black teeth.',
+    onDeath: 'The wyrms splits open and its guts spill out of it.',
 })
 
 extras['laughing woman'] = new MonsterType ({
@@ -439,6 +447,39 @@ extras['screaming mechanical searcher'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A machine flying on three whirling blades screaming and shining a blinding searchlight at you. It\'s trying to pelt you with long hot obsidian thorns shot at high speeds.',
+})
+
+extras['half-goat swordsman'] = new MonsterType ({
+    name: 'half-goat swordsman',
+    attack: [4,10,2,0,0,0,],
+    defense: [4,11,8,2,7,2,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A half-goat soldier bearing a great green longsword.',
+    drop: [
+        new Item (itemByName('grass sword'))
+    ]
+})
+
+extras['rabid bear'] = new MonsterType ({
+    name: 'rabid bear',
+    attack: [0,4,7,0,7,0,],
+    defense: [8,4,1,0,12,0,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A furious Grizzly Bear frothing and spitting bloody foam from its mouth as it bears down on you.',
+}),
+
+extras['half-goat bowman'] = new MonsterType ({
+    name: 'half-goat bowman',
+    attack: [20,0,0,0,0,0,],
+    defense: [4,11,8,2,7,2,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A half-goat soldier bearing a great green longbow.',
+    drop: [
+        new Item (itemByName('longbow'))
+    ]
 })
 
 extras['half-goat soldier'] = new MonsterType ({
@@ -1120,6 +1161,19 @@ extras['owl of shadows'] = new MonsterType ({
     ],
 })
 
+extras['witch queen'] = new MonsterType ({
+    name: 'witch queen',
+    attack: [0,0,0,0,8,8,],
+    defense: [5,10,8,1,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'The queen of the witches, she\'s crackling with elemental power.',
+    drop: [new Item(itemByName(pick(['life-giving herb'])))],
+    onInstantiate: function () {
+        this.drop = [new Item(itemByName(pick(['magic sword', 'goat-priest\'s rattle', 'phantom\'s blood', 'black stone idol', 'lich\'s eye', 'bottle of demon\'s blood'])))]
+    }
+}),
+
 extras['witch doctor'] = new MonsterType ({
     name: 'witch doctor',
     attack: [0,0,1,1,2,4,],
@@ -1306,4 +1360,188 @@ extras['tarantula'] = new MonsterType ({
     hitpoints: 20,
     level: 1,
     info: 'A hairy spider the size of your hand.',
+})
+
+extras['griffin'] = new MonsterType ({
+    name: 'griffin',
+    attack: [1,15,3,3,0,0,],
+    defense: [1,8,7,4,12,3,],
+    hitpoints: 20,
+    level: 3,
+    info: `A raging goggle-eyed barrel-chested beast with a long beak like a ibis. It's lashing wildly with its overly long lizard-like claws as it flaps its enormous feathery wings at you.`,
+    onDeath: `The griffin collapses, its dying heart beating the beast\'s molten gold blood out onto the ground until it stops.`,
+    drop: [
+        new Item (extras['griffin\'s dollar']),
+    ],
+})
+
+extras['ancient king'] = new MonsterType ({
+    name: 'ancient king',
+    attack: [0,0,0,0,3,0,],
+    defense: [1,8,7,4,12,3,],
+    hitpoints: 0,
+    level: 3,
+    info: `A impossibly old king crowned in gold feathers, with a long white beard and papery skin.`,
+    onDeath: `The king collapses with the slightest touch and is dust now.`,
+    drop: [
+        new Item (itemByName('griffin sword')),
+    ],
+})
+
+extras['holy knight'] = new MonsterType ({
+    name: 'holy knight',
+    attack: [3,7,1,0,0,9,],
+    defense: [8,11,6,0,0,12,],
+    hitpoints: 20,
+    level: 3,
+    info: `A paladin of an ancient kingdom, sworn to defend the cult of a long-dead god.`,
+    onDeath: `The knight is killed. He mutters a prayer then dies.`,
+    drop: [new Item(itemByName(pick([
+        'paladin\'s shield', 'magic sword'
+    ])))],
+    onInstantiate: function () {
+        this.info += ` His armor is emblazoned with ${pick(['a blood-red calf', 'a goat-shaman\'s rattle', 'silver hands', 'black hands', 'a white-eyed raven', 'stars', 'a image of the sun', 'stars', 'stars', 'stars'])}`
+    }
+})
+
+extras['black knight'] = new MonsterType ({
+    name: 'black knight',
+    attack: [2,11,5,0,0,0,],
+    defense: [8,11,6,12,0,0,],
+    hitpoints: 20,
+    level: 3,
+    info: `A knight whose armor and shield have had been painted over with a thick inky black wax.`,
+    onDeath: `The black knight is killed.`,
+    drop: [new Item(itemByName(pick([
+        'executioner\'s sword', 'black shield'
+    ])))],
+    onInstantiate: function () {
+        this.info += ' ' + pick(['He\'s got to be at least seven feet tall', 'He\'s broad and study looking as a house.', 'He\'s lithe and quick, jumping between the balls of his feet, prepared for a fight.', 'The coating is a special mixture that protects him against fire.', 'The coating is a special mixture that protects him against fire.'])
+    }
+})
+
+extras['drunken knight'] = new MonsterType ({
+    name: 'drunken knight',
+    attack: [1,8,1,0,0,0,],
+    defense: [2,11,8,0,0,0,],
+    hitpoints: 20,
+    level: 3,
+    info: `A tottering knight in hastily donned armor.`,
+    onDeath: `The drunken knight is killed.`,
+    drop: [new Item(itemByName('black shield'))],
+    onInstantiate: function () {
+        this.info += ` He smells like ${pick(['wine', 'sour beer', 'pear cider', 'spiced wine', 'plum liquor', 'apple wine'])}`
+        this.drop = [new Item(itemByName(pick([
+            'griffin\'s dollar', 'black shield', 'executioner\'s sword', 'magic sword', 'wraith\'s sword', 'djinn\'s sword', 'black shield', 'crusader\'s shield', 'paladin\'s shield', 'cavalry shield', 'plague knight\'s sword'
+        ])))]
+        let drop = this.drop[0]
+        if (drop.slot === 'weapon') {
+            this.attack = drop.bonus
+        } else if (drop.slot === 'shield') {
+            this.defense = drop.bonus
+        }
+        this.info += `, and he\'s armed himself with a ${drop.name}.`
+    }
+})
+
+extras['guardian knight'] = new MonsterType ({
+    name: 'guardian knight',
+    attack: [9,10,4,0,0,0,],
+    defense: [5,11,8,0,0,12,],
+    hitpoints: 20,
+    level: 3,
+    info: `A tall knight.`,
+    onDeath: `The knight is killed.`,
+    drop: [new Item(itemByName('griffin shield'))],
+    onInstantiate: function () {
+        this.drop = [new Item(itemByName(pick([
+            'griffin shield', 'magic sword', 'flaming sword', 'frost shield', 'lion\'s hide', 'archwizard\'s letter', 'yeti\'s hide', 'griffin shield', 'magic sword', 'flaming sword', 'frost shield', 'necromancer\'s sword',
+        ])))]
+        let drop = this.drop[0]
+        if (drop.slot === 'weapon') {
+            this.attack = drop.bonus
+        } else if (drop.slot === 'shield') {
+            this.defense = drop.bonus
+        }
+        this.info = `A tall knight sworn to keep the person of the Griffin King from death or else die himself. He bears a ${drop.name}.`
+    }
+})
+
+extras['wizard knight'] = new MonsterType ({
+    name: 'wizard knight',
+    attack: [11,4,1,0,0,0,],
+    defense: [5,11,8,0,0,12,],
+    hitpoints: 20,
+    level: 3,
+    info: `A mad knight.`,
+    onDeath: `The knight is killed.`,
+    drop: [new Item(itemByName('goat-priest\'s rattle'))],
+    onInstantiate: function () {
+        this.drop = [new Item(itemByName(pick([
+            'goat-priest\'s rattle', 'necromancer\'s sword', 'plague knight\'s sword', 'sorceled shield'
+        ])))]
+        let drop = this.drop[0]
+        if (drop.slot === 'weapon') {
+            this.attack = drop.bonus
+        } else if (drop.slot === 'shield') {
+            this.defense = drop.bonus
+        }
+        this.info = `A mad cackling knight. He carries a ${drop.name}.`
+    }
+})
+
+extras['mounted knight'] = new MonsterType ({
+    name: 'mounted knight',
+    attack: [0,9,0,0,0,0,],
+    defense: [0,6,7,0,0,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A knight astride a huge black warhorse.',
+    onDeath: 'The horse tumbles to the ground and the knight leaps from his saddle.',
+    deathEvent: function () {
+        game.player.room.monsters.push(new Monster (
+            game.player.room,
+            this.knightType,
+        ))
+    },
+    onInstantiate: function () {
+        this.knightType = itemByName(pick([
+            'black knight', 'holy knight', 'guardian knight', 'drunken knight', 'wizard knight'
+        ]))
+        this.info = `A ${this.knightType.name} astride a huge ${pick(['palomino', 'black', 'pale', 'black', 'iron-gray', 'brown', 'bronze-colored'])} warhorse.`
+        this.attack = this.knightType.attack.map(num => { return num })
+        this.defense = this.knightType.defense.map(num => { return num })
+        this.defense[0] = 0
+        this.defense[1] = 11
+        this.defense[2] = 10
+    }
+})
+
+
+extras['goat-knight'] = new MonsterType ({
+    name: 'goat-knight',
+    attack: [0,9,0,0,0,0,],
+    defense: [0,6,7,0,0,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A half-goat knight astride a huge steed.',
+    onDeath: 'The steed tumbles to the ground and the rider leaps from his saddle.',
+    deathEvent: function () {
+        game.player.room.monsters.push(new Monster (
+            game.player.room,
+            this.knightType,
+        ))
+    },
+    onInstantiate: function () {
+        this.steedType = monByName(pick([
+            'angry triceratops', 'wyrm', 'mechanical bear', 'hellhound', 'moose', 'sandeater'
+        ]))
+        this.knightType = itemByName(pick([
+            'half-goat swordsman', 'half-goat bowman'
+        ]))
+        this.info = `A ${this.knightType.name} riding a ${this.steedType.name}.`
+        this.onDeath = `The ${this.steedType.name} falls dead and the ${this.knightType.name} leaps to his feet to fight.`
+        this.attack = this.knightType.attack.map(num => { return num })
+        this.defense = this.steedType.defense.map(num => { return num })
+    }
 })

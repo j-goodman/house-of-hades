@@ -261,13 +261,25 @@ var allItemTypes = [
         5,
         `The canned ghost bursts free during the fight. He flies ${pick(['west', 'south', 'east', 'north'])} to murder all his still-living descendants.`,
         'A hermetically sealed ghost who will protect you from curse attacks in exchange for vague promises to free him at some point.',
-        null,
+        function () { // On destroy
+            let room = null
+            let door = pick(allDoors.filter( door => { return ((door.to || door.from)) } ))
+            if (door.from) {
+                room = door.from
+            } else {
+                room = door.to
+            }
+            let monster = new Monster (room, monByName('cruel phantom'))
+            monster.room.monsters.push(monster)
+            monster.info = `The cruel ghost of ${this.ghostName}. It\'s immune to all physical attacks, and determined to return its agony forward to the still living.`
+        },
         null,
         function () { // On instantiate
             let name = pick(firstNames)
             nameMumbler.read(name)
             nameMumbler.names.push(name)
-            this.info = `A hermetically sealed ghost named ${capitalize(nameMumbler.mumble())} who will protect you from curse attacks in exchange for vague promises to free him at some point.`
+            this.ghostName = capitalize(nameMumbler.mumble())
+            this.info = `A hermetically sealed ghost named ${this.ghostName} who will protect you from curse attacks in exchange for vague promises to free him at some point.`
         }
     ),
     new ItemType (
