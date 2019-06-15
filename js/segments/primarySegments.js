@@ -44,10 +44,10 @@ let primarySegments = [
             doorTypes: ['red', 'orange', 'yellow', 'green', 'blue', 'violet'],
             roomTypes: ['long immense black void with a beam of refracted light cast between two doors'],
             nodeRooms: ['chasm of blooming white light'],
-            nodeMonsters: ['four-faced god'],
-            mainMonsters: ['paranoid summoner', 'bottle demon', 'laughing woman', 'ice walker', 'door mumbler'],
-            nodeItems: ['blade of grass',],
-            finalMonsterTypes: ['witch queen'],
+            nodeMonsters: ['four-faced god', 'four-faced god', 'paranoid summoner', 'ice walker', 'evil fish-god'],
+            mainMonsters: ['dark jailer', 'dark jailer', 'dark jailer', 'cosmic parasite'],
+            nodeItems: ['magnifying glass', 'seed of light'],
+            finalMonsterTypes: ['white lion', 'black lion'],
           })
       },
   ]

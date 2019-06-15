@@ -24,12 +24,36 @@ extras['cosmic ball'] = new ItemType (
     'A impossibly dense sphere made of a mattle black substance that absorbs all light. Despite its great mass, it\'s as easy to hold and throw as a much lighter ball would be. It\'s held at the end of a long white chain.'
 )
 
+extras['beam of darkness'] = new ItemType (
+    'beam of darkness', 'weapon',
+    [3,0,5,0,0,8],
+    '12',
+    'The beam of darkness snaps.',
+    'A infinitely long bent bow of black darkness.'
+)
+
+extras['beam of light'] = new ItemType (
+    'beam of light', 'weapon',
+    [3,0,5,8,0,0],
+    '12',
+    'The beam of light snaps.',
+    'A infinitely long bent bow of every color of light, white-hot through its middle.'
+)
+
+extras['seed of light'] = new ItemType (
+    'seed of light', 'shield',
+    [0,4,9,4,3,5],
+    '12',
+    'The beam of light snaps.',
+    'A seed that radiates the full spectrum of light. Swallow it to create a field of radiant energy around you.'
+)
+
 extras['djinn\'s sword'] = new ItemType (
     'djinn\'s sword', 'weapon',
     [0,8,0,10,0,0],
     '33',
     'The djinn\'s sword becomes fire in your hands, returning to the plane of its creator.',
-    'The curved blazing blade of a fire-born djinn, given to one of Saladin\'s lietenants to help defend Jerusalem against the western Crusaders.'
+    'The curved blazing blade of a fire-born djinn, given to one of Saladin\'s lietenants to help defend Jerusalem against the Crusaders.'
 )
 
 extras['spidersilk sling'] = new ItemType (
@@ -834,6 +858,14 @@ extras['crown'] = new ItemType (
     `A plain black crown.`
 )
 
+extras['counterfeit crown'] = new ItemType (
+    'counterfeit crown', 'shield',
+    [5,0,0,7,0,0],
+    7,
+    'The crown breaks.',
+    `A replica of the crown of the demon king. It bends the path of danger away its wearer's head.`
+)
+
 extras['archwizard\'s letter'] = new ItemType (
     'archwizard\'s letter', 'shield',
     [0,0,1,1,0,3],
@@ -1065,6 +1097,14 @@ extras['griffin\'s dollar'] = new ItemType (
     5,
     'Your griffin\'s dollar slips from your hand and tumbles away.',
     `A gold coin the size of your palm stamped with the image of the Griffin King, who ${pick(['ruled', 'terrorized'])} the lands on which this house is built until he msyteriously vanished into his impregnable fortress, guarded by his most elite soldiers, never to emerge again. Its edge is sharp.`
+)
+
+extras['magnifying glass'] = new ItemType (
+    'magnifying glass', 'weapon',
+    [2,0,0,8,0,2],
+    5,
+    'Your magnifying glass cracks.',
+    `An impossibly powerful magnifying lens that can create a beam of white-hot light.`
 )
 
 // extras['faker\'s arm'] = new ItemType (

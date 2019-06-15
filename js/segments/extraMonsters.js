@@ -309,6 +309,26 @@ extras['pit viper'] = new MonsterType ({
     info: 'A venomous black viper.',
 })
 
+extras['cosmic parasite'] = new MonsterType ({
+    name: 'cosmic parasite',
+    attack: [4,0,0,0,4,0,],
+    defense: [3,0,12,12,12,0,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A inky-black toothy wriggling thing, immune to the crushing black depths of eternity. This one has crawled its way out of non-being to feed on the will to exist of that which is real.',
+})
+
+extras['door mumbler'] = new MonsterType ({
+    // pierce, slash, crush, burn, poison, curse
+    name: 'door mumbler',
+    attack: [0,2,8,1,0,0],
+    defense: [9,4,10,1,3,8],
+    hitpoints: 20,
+    level: 3,
+    info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
+    onDeath: 'The door mumbler is killed.',
+})
+
 extras['hawk'] = new MonsterType ({
     name: 'hawk',
     attack: [1,4,0,0,0,0,],
@@ -1147,6 +1167,33 @@ extras['prismatic jailer'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A golem made of bouncing refracted rainbow light. It stands tall and still, holding a sword of light in its hands.',
+    drop: [
+        new Item (itemByName(pick(['beam of light', 'seed of light']))),
+    ],
+})
+
+extras['dark jailer'] = new MonsterType ({
+    name: 'dark jailer',
+    attack: [0,0,15,0,3,3,],
+    defense: [12,12,12,0,12,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A pitch-dark silhouette of man.',
+    onInstantiate: function () {
+        this.info = `A pitch-dark silhouette of a ${pick(['tall man', 'fat man', 'tall woman', 'short woman', 'tall wolfish creature', 'dragonlike creature of human stature', 'enormous bird', 'many-handed demon', 'half-goat sentinel'])}.`
+    },
+})
+
+extras['evil fish-god'] = new MonsterType ({
+    name: 'evil fish-god',
+    attack: [0,0,7,0,11,3,],
+    defense: [12,12,12,0,12,0,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A greasy dank-black fish god dragged back into existance from its blissfull sleep among the goo of the unbeing.',
+    onInstantiate: function () {
+        this.drop = [new Item(itemByName(pick(['beam of darkness', 'beam of darkness', 'counterfeit crown'])))]
+    },
 })
 
 extras['four-faced god'] = new MonsterType ({
@@ -1165,29 +1212,28 @@ extras['four-faced god'] = new MonsterType ({
             {
                 attack: [0,6,6,12,0,1],
                 defense: [9,12,9,12,3,10],
-                info: 'enraged crackling black-and-yellow snarl, its brow curled in comtempt as its teeth gnash and spark, preparing to immolate you in a beam of magmic fire.',
+                info: 'enraged crackling black-and-yellow snarl, its brow curled in comtempt as its teeth gnash and spark, preparing to immolate you in a beam of magmic fire',
             },
             {
                 attack: [0,0,3,0,0,0],
                 defense: [12,12,11,12,12,12],
-                info: 'closed-mouthed and closed-eyed face of resigned peace.',
+                info: 'closed-mouthed and closed-eyed face of resigned peace',
             },
             {
                 attack: [3,3,3,0,0,20],
                 defense: [12,12,11,12,12,12],
-                info: 'starry-eyed face of a thousand fates and eternal understanding.',
+                info: 'starry-eyed face of a thousand fates and eternal understanding',
             },
             {
                 attack: [7,0,0,0,0,0],
                 defense: [5,5,5,5,5,5],
-                info: 'despairing open-mouthed grimace of fear and grief.',
+                info: 'despairing open-mouthed grimace of fear and grief',
             },
         ]
         this.face = pick(this.faces)
-        this.info += ` The side facing you is a ${this.face.info}.`
+        this.info = `A four-faced head made of winding fractals. The side facing you is a ${this.face.info}.`
         this.attack = this.face.attack
         this.defense = this.face.defense
-        updateRoom()
     }
 })
 
@@ -1595,5 +1641,40 @@ extras['goat-knight'] = new MonsterType ({
         this.onDeath = `The ${this.steedType.name} falls dead and the ${this.knightType.name} leaps to his feet to fight.`
         this.attack = this.knightType.attack.map(num => { return num })
         this.defense = this.steedType.defense.map(num => { return num })
+    }
+})
+
+extras['white lion'] = new MonsterType ({
+    name: 'white lion',
+    attack: [0,7,0,7,0,4,],
+    defense: [7,7,7,7,7,7,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A lion made of light dancing in the void, you can\'t tell if it\'s the size of a cub or a planet.',
+    onDeath: 'The lion is devoured by darkness.',
+    fightEvent: function () {
+        this.defense = this.attack.map((num, i) => {
+            num -= 2
+            let playerNum = game.player.stats.attack[i]
+            if (playerNum > num) {
+                num = playerNum
+            }
+            return num
+        })
+    }
+})
+
+extras['black lion'] = new MonsterType ({
+    name: 'black lion',
+    attack: [1,1,1,1,1,1,],
+    defense: [8,8,8,4,8,8,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A lion made of shadow brooding in the void, you can\'t tell if it\'s the size of a cub or a planet.',
+    onDeath: 'The lion is blinded and broken by many-colored light.',
+    fightEvent: function () {
+        this.attack = [0, 0, 0, 0, 0, 0]
+        this.attack[Math.floor(Math.random() * 6)] += 10
+        this.attack[Math.floor(Math.random() * 6)] += 6
     }
 })

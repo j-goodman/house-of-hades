@@ -633,16 +633,7 @@ var segments = [
       segmentRooms[0].monsters = [
       new Monster (
           segmentRooms[0],
-          new MonsterType ({
-              // pierce, slash, crush, burn, poison, curse
-              name: 'door mumbler',
-              attack: [0,2,8,1,0,0],
-              defense: [9,4,10,1,3,8],
-              hitpoints: 20,
-              level: 3,
-              info: 'A seller and manufacturer of very strange trick doors, dressed in comfortable looking olive coveralls.',
-              onDeath: 'The door mumbler is killed.',
-          }),
+          monByName('door mumbler')
         )
       ];
 
