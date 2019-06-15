@@ -45,7 +45,7 @@ let primarySegments = [
             roomTypes: ['long immense black void with a beam of refracted light cast between two doors'],
             nodeRooms: ['chasm of blooming white light'],
             nodeMonsters: ['four-faced god'],
-            mainMonsters: ['paranoid summoner', 'bottle demon', 'laughing woman', 'ice walker'],
+            mainMonsters: ['paranoid summoner', 'bottle demon', 'laughing woman', 'ice walker', 'door mumbler'],
             nodeItems: ['blade of grass',],
             finalMonsterTypes: ['witch queen'],
           })
