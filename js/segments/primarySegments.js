@@ -1,6 +1,6 @@
 let primarySegments = [
 
-    /*      ANCIENT ACCURSED CASTLE      */
+    /*      ANCIENT CASTLE      */
     (rooms) => {
         console.log('stones')
         buildLoopSegment({
@@ -31,6 +31,23 @@ let primarySegments = [
             mainMonsters: ['wyrm', 'ghoul', 'sandeater', 'wyrm', 'ghoul', 'sandeater', 'rabid bear'],
             nodeItems: ['blade of grass', 'goat-priest\'s rattle', 'goat\'s mace', 'green\'s spear', 'battleaxe', 'cavalry shield', 'witch\'s rod'],
             finalMonsterTypes: ['witch queen', 'goat-knight', 'half-goat soldier'],
+          })
+      },
+
+    /*      PRISMATIC JAIL      */
+    (rooms) => {
+        console.log('rainbow')
+        buildLoopSegment({
+            entryRoomTypes: ['a all-white room with beams of scattered many-colored light refracting into it through a door-sized prism'],
+            entryDoors: [`prismatic`],
+            guardianMonsters: ['prismatic jailer'],
+            doorTypes: ['red', 'orange', 'yellow', 'green', 'blue', 'violet'],
+            roomTypes: ['long immense black void with a beam of refracted light cast between two doors'],
+            nodeRooms: ['chasm of blooming white light'],
+            nodeMonsters: ['four-faced god'],
+            mainMonsters: ['paranoid summoner', 'bottle demon', 'laughing woman', 'ice walker'],
+            nodeItems: ['blade of grass',],
+            finalMonsterTypes: ['witch queen'],
           })
       },
   ]

@@ -15,7 +15,8 @@ extras['dragon'] = new MonsterType ({
         if (game.player.room.type === 'treasure room') {
             door = new Door ('trap', game.player.room, null);
             game.player.room.doors.push(door);
-            door.to = new Room ([], 13);
+            door.to = new Room ([], 5);
+            // door.to = new Room ([], 13);
             door.to.type = 'amphitheater with thirteen vaulted walls'
             door.to.items.push(
                 new Item (itemByName(pick(['pike', 'obsidian axe', 'sacred tomohawk', 'paladin\'s shield', 'obsidian axe'])), door.to),
@@ -1137,6 +1138,57 @@ extras['salt golem'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A golem made of blocks of crystallized salt, standing at three times your height and ducking down to not hit its head on the ceiling. At the heart of the man of cubes is a flickering black heart of crackling energy that gives it its seismic strength.',
+})
+
+extras['prismatic jailer'] = new MonsterType ({
+    name: 'prismatic jailer',
+    attack: [0,5,0,0,0,0,],
+    defense: [12,12,12,10,12,9,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A golem made of bouncing refracted rainbow light. It stands tall and still, holding a sword of light in its hands.',
+})
+
+extras['four-faced god'] = new MonsterType ({
+    name: 'four-faced god',
+    attack: [0,5,0,0,0,0,],
+    defense: [12,12,12,10,12,9,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A four-faced head made of winding fractals.',
+    onInstantiate: function () {
+        this.fightEvent()
+    },
+    fightEvent: function () {
+        // this.drop = []
+        this.faces = [
+            {
+                attack: [0,6,6,12,0,1],
+                defense: [9,12,9,12,3,10],
+                info: 'enraged crackling black-and-yellow snarl, its brow curled in comtempt as its teeth gnash and spark, preparing to immolate you in a beam of magmic fire.',
+            },
+            {
+                attack: [0,0,3,0,0,0],
+                defense: [12,12,11,12,12,12],
+                info: 'closed-mouthed and closed-eyed face of resigned peace.',
+            },
+            {
+                attack: [3,3,3,0,0,20],
+                defense: [12,12,11,12,12,12],
+                info: 'starry-eyed face of a thousand fates and eternal understanding.',
+            },
+            {
+                attack: [7,0,0,0,0,0],
+                defense: [5,5,5,5,5,5],
+                info: 'despairing open-mouthed grimace of fear and grief.',
+            },
+        ]
+        this.face = pick(this.faces)
+        this.info += ` The side facing you is a ${this.face.info}.`
+        this.attack = this.face.attack
+        this.defense = this.face.defense
+        updateRoom()
+    }
 })
 
 extras['sulfur golem'] = new MonsterType ({
