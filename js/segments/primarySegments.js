@@ -50,4 +50,21 @@ let primarySegments = [
             finalMonsterTypes: ['white lion', 'black lion'],
           })
       },
+
+    /*      DEEP FOREST      */
+    (rooms) => {
+        console.log('roots')
+        buildLoopSegment({
+            entryRoomTypes: ['a wood-and-stone room with heavy wool and silk carpets on its floor and roots cracking in through all sides of it. Through the holes in the walls you can see a thick black forest'],
+            entryDoors: [`heavy black-oak`],
+            guardianMonsters: ['wendigo', 'werewolf'],
+            doorTypes: ['almondwood', 'laurelwood', 'cypresswood', 'dogwood', 'hazelwood', 'strongwood', 'stagwood', 'birchwood', 'pinewood'],
+            roomTypes: ['thick black forest', 'dense root-choked forest', 'dark forest'],
+            nodeRooms: ['mushroom-filled forest clearing overgrown above and on all sides with thick thorny branches'],
+            nodeMonsters: ['centaur', 'wendigo', 'witch ranger'],
+            mainMonsters: ['werewolf', 'rabid bear', 'arcane merchant', 'wildgod', 'shapeshifter', 'witch'],
+            nodeItems: ['bleeding mushroom', 'bushel of cursed acorns', 'holly dart'],
+            finalMonsterTypes: ['centaur', 'minobear'],
+          })
+      },
   ]

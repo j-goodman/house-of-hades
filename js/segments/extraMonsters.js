@@ -489,7 +489,16 @@ extras['rabid bear'] = new MonsterType ({
     hitpoints: 20,
     level: 2,
     info: 'A furious Grizzly Bear frothing and spitting bloody foam from its mouth as it bears down on you.',
-}),
+})
+
+extras['minobear'] = new MonsterType ({
+    name: 'minobear',
+    attack: [5,0,13,0,0,0,],
+    defense: [2,9,7,8,3,0,],
+    hitpoints: 20,
+    level: 2,
+    info: 'A wild hairy-chested giant naked man with the head of a furious grizzly bear.',
+})
 
 extras['half-goat bowman'] = new MonsterType ({
     name: 'half-goat bowman',
@@ -498,6 +507,18 @@ extras['half-goat bowman'] = new MonsterType ({
     hitpoints: 20,
     level: 3,
     info: 'A half-goat soldier bearing a great green longbow.',
+    drop: [
+        new Item (itemByName('longbow'))
+    ]
+})
+
+extras['centaur'] = new MonsterType ({
+    name: 'centaur',
+    attack: [11,0,7,0,0,0,],
+    defense: [4,11,8,2,7,2,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A half-man half-horse warrior with a long yew bow and a quiver filled with flint arrows.',
     drop: [
         new Item (itemByName('longbow'))
     ]
@@ -1270,6 +1291,16 @@ extras['witch queen'] = new MonsterType ({
     onInstantiate: function () {
         this.drop = [new Item(itemByName(pick(['magic sword', 'goat-priest\'s rattle', 'phantom\'s blood', 'black stone idol', 'lich\'s eye', 'bottle of demon\'s blood'])))]
     }
+}),
+
+extras['witch ranger'] = new MonsterType ({
+    name: 'witch ranger',
+    attack: [0,0,0,0,8,8,],
+    defense: [5,10,8,1,12,12,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A witch-blooded night huntress, cloaked in dark leafy garb and wielding a bow.',
+    drop: [new Item(itemByName(pick(['witch\'s bow'])))],
 }),
 
 extras['witch doctor'] = new MonsterType ({

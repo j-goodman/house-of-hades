@@ -404,7 +404,7 @@ extras['sorceled shield'] = new ItemType (
 
 extras['frost shield'] = new ItemType (
     'frost shield', 'shield',
-    [0,8,4,12,0,4],
+    [0,7,4,7,0,4],
     11,
     'Your shield splinters and shatters into frozen shards.',
     'A white-cold steel shield with leather insulation on the wearer\'s side.'
@@ -618,6 +618,14 @@ extras['bow and venom-barbed arrows'] = new ItemType (
 extras['longbow'] = new ItemType (
     'longbow', 'weapon',
     [9,1,1,0,0,0],
+    11,
+    'You\'re out of arrows.',
+    `A longbow with flint-tipped arrows.`
+)
+
+extras['witch\'s bow'] = new ItemType (
+    'witch\'s bow', 'weapon',
+    [6,1,1,0,4,4],
     11,
     'You\'re out of arrows.',
     `A longbow with steel-tipped arrows.`
@@ -969,6 +977,22 @@ extras['basket of jujube seeds'] = new ItemType (
     5,
     'You\'re out of jujube seeds',
     'It\'s a very small basket, containing a few seeds used by those with ancient medicinal knowledge to protect from venom and flame.'
+)
+
+extras['bushel of cursed acorns'] = new ItemType (
+    'bushel of cursed acorns', 'shield',
+    [0,0,0,7,3,9],
+    5,
+    'You\'re out of acorns',
+    'It\'s a branch of acorns, a strange glowing purple energy faintly coursing through it like a vein.'
+)
+
+extras['holly dart'] = new ItemType (
+    'holly dart', 'shield',
+    [5,0,0,0,0,13],
+    1,
+    'Your dart is gone.',
+    'It\'s hollybranch fashioned to a point.'
 )
 
 extras['necklace of murderers\' teeth'] = new ItemType (
