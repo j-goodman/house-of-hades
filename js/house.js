@@ -87,7 +87,7 @@ var roomTypeItems = {
     'bathroom': ['straightrazor', 'crowbar', 'wrench'],
     'storeroom': ['wrench', 'wrench', 'jar of salt', 'jar of salt', 'thompson gun', 'riot shield', 'riot shield', 'riot shield', 'firebomb', 'hand grenade', 'hand grenade', 'woodaxe', 'woodaxe', 'woodaxe', 'woodaxe', 'case of chemical bombs', 'revolver', 'revolver', 'canned ghost', 'canned ghost', 'bottle of liquid swords', 'bag of devil\'s gold', 'golem\'s blood', 'basket of jujube seeds', 'assassin\'s gun', 'dueling saber'],
     'dungeon': ['makeshift stabbing implement', 'makeshift stabbing implement', 'old iron chain', 'old iron chain', 'fire poker', 'bleeding mushroom', 'bleeding mushroom', 'burned bone', 'crowbar', 'paladin\'s shield'],
-    'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber'],
+    'armory': ['executioner\'s sword', 'assassin\'s gun', 'battleaxe', 'pike', 'cavalry shield', 'poison crossbow', 'dueling saber', 'warhorn'],
     'crypt': ['paladin\'s shield', 'executioner\'s sword', 'plague knight\'s sword'],
     'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
     'witch doctor\'s hideaway': ['assassin\'s gun', 'assassin\'s gun', 'basket of jujube seeds', 'basket of jujube seeds', 'myrrh bracelet', 'myrrh bracelet', 'moon egg'],

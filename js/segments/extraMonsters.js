@@ -1690,7 +1690,7 @@ extras['white lion'] = new MonsterType ({
             if (playerNum > num) {
                 num = playerNum
             }
-            return num
+            return num < 12 ? num : 12
         })
     }
 })

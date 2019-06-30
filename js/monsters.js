@@ -223,8 +223,7 @@ var allMonsterTypes = [
         info: 'She\'s not moving but her eyes remind you of a cat stalking a bird. Supposed to be most vulnerable to fire.',
         drop: [new Item(itemByName(pick(['life-giving herb'])))],
         onInstantiate: function () {
-            this.drop = [new Item(itemByName(pick(['lunatic tome', 'witch\'s rod'])))]
-            // this.drop = [new Item(itemByName(pick(['life-giving herb', 'canned ghost', 'lunatic tome', 'basket of jujube seeds', 'witch\'s rod'])))]
+            this.drop = [new Item(itemByName(pick(['lunatic tome', 'witch\'s rod', 'witch\'s rod'])))]
         }
     }),
     new MonsterType ({

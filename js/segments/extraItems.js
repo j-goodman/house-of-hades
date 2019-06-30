@@ -44,7 +44,7 @@ extras['seed of light'] = new ItemType (
     'seed of light', 'shield',
     [0,4,9,4,3,5],
     '12',
-    'The beam of light snaps.',
+    'The seed of light bursts in a thousand-color flash.',
     'A seed that radiates the full spectrum of light. Swallow it to create a field of radiant energy around you.'
 )
 
@@ -988,7 +988,7 @@ extras['bushel of cursed acorns'] = new ItemType (
 )
 
 extras['holly dart'] = new ItemType (
-    'holly dart', 'shield',
+    'holly dart', 'weapon',
     [5,0,0,0,0,13],
     1,
     'Your dart is gone.',
