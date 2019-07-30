@@ -212,7 +212,7 @@ extras['venomous barb'] = new ItemType (
 
 extras['harpoon'] = new ItemType (
     'harpoon', 'weapon',
-    [8,0,1,0,0,0],
+    [7,0,0,0,0,0],
     3 + dice(2),
     'Your harpoon breaks',
     'A old iron whaling harpoon.'
@@ -679,6 +679,14 @@ extras['doughroller'] = new ItemType (
     'A wooden doughroller.'
 )
 
+extras['hot hot dish'] = new ItemType (
+    'hot hot dish', 'weapon',
+    [0,1,2,6,1,0],
+    1,
+    'The hot dish goes everywhere.',
+    `A piping hot ${pick(['curry', 'pasta', 'rice', 'curry', 'jerk chicken'])} dish spiced with fiery peppers.`
+)
+
 extras['wrench'] = new ItemType (
     'wrench', 'weapon',
     [0,1,4,0,0,0],
@@ -988,7 +996,7 @@ extras['bushel of cursed acorns'] = new ItemType (
 )
 
 extras['holly dart'] = new ItemType (
-    'holly dart', 'shield',
+    'holly dart', 'weapon',
     [5,0,0,0,0,13],
     1,
     'Your dart is gone.',

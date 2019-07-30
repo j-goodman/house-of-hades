@@ -10,7 +10,7 @@ let primarySegments = [
             doorTypes: ['heavy oak', 'iron-braced', 'sturdy elmwood', 'barred iron'],
             roomTypes: ['long narrow stone-brick hallway through whose arrow-slit windows you can see rolling foggy moors'],
             nodeRooms: ['huge courtyard surrounded by thick stone walls', 'wide courtyard with a stream trickling into it and out through a drain in its huge stone walls', 'courtyard filled with sapling trees, surrounded by thick stone walls', 'cold damp courtyard surrounded by cold high stone walls'],
-            nodeMonsters: ['mounted knight', 'dragon'],
+            nodeMonsters: ['mounted knight', 'mounted knight', 'griffin knight'],
             mainMonsters: ['black knight', 'guardian knight', 'drunken knight', 'holy knight', 'wyrm'],
             nodeItems: ['crystal ball', 'warhorn', 'king\'s shield'],
             finalMonsterTypes: ['ancient king'],
