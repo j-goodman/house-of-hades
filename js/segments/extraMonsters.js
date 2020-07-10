@@ -1751,3 +1751,23 @@ extras['black lion'] = new MonsterType ({
         this.attack[Math.floor(Math.random() * 6)] += 6
     }
 })
+
+extras['procrustean tailor'] = new MonsterType ({
+    name: 'procrustean tailor',
+    attack: [1,1,1,1,1,1,],
+    defense: [8,8,8,4,8,8,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A disgraced tailor who in his madness would not alter the clothes he made to fit his clients, instead insisting on altering his clients to fit their new  outfits. His sharply cut and perfectly fitting suit is splattered with blood.',
+    onDeath: 'The tailor collapses, weeping and holding his face in his bloodsoaked hands, then dies.',
+    drop: [
+        new Item (extras['hacksaw']),
+    ],
+    onInstantiate: function () {
+        this.drop = [
+            new Item(itemByName(pick(['buzzsaw', 'hacksaw', 'sewing needle', 'scissors', 'bone cutter', 'scalpel', 'mithril vest', 'lion\'s hide', 'clergyman\'s dagger', 'straightrazor', 'revolver', ]))),
+            new Item(itemByName(pick(['buzzsaw', 'hacksaw', 'sewing needle', 'scissors', 'bone cutter', 'ill-fitting suit', 'lunatic tome']))),
+            new Item(itemByName(pick(['buzzsaw', 'hacksaw', 'bone cutter'])))
+        ]
+    },
+})

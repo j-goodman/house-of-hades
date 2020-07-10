@@ -43,7 +43,7 @@ var doorColors = ['green', 'red', 'blue', 'black', 'white', 'grey', 'brown', 'go
 var laterRoomTypes = [
     ['greenhouse', 'ballroom', 'wine cellar', 'bathroom', 'dimly lit storage space', 'room with hay on the floor', 'larder'],
     ['dungeon', 'laundry room', 'furnace room', 'armory', 'unfurnished concrete cube', 'artist\'s studio', 'music room', 'crypt', 'haunted kitchen'],
-    ['laboratory', 'damp room', 'sorceror\'s study', 'garage', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway', 'huge courtyard with knee-high dead grass and a scarecrow in the middle'],
+    ['laboratory', 'damp room', 'tailor\'s studio', 'sorceror\'s study', 'garage', 'observatory', 'chapel', 'throne room', 'vast atrium with a fountain in the center', 'glass vault', 'serpent shrine', 'aviary', 'witch doctor\'s hideaway', 'huge courtyard with knee-high dead grass and a scarecrow in the middle'],
 ];
 var laterDoorColors = [
     ['beechwood', 'birchwood', 'ebony', 'aluminium', 'acacia', 'filthy', 'pale blue', 'mirrored', 'tar-smeared', 'charred', 'dark brown', 'pink', 'orange', 'pearl-colored', 'applewood', 'wet', 'purple', 'plywood', 'emerald', 'olive', 'lemon-yellow', 'zinc', 'iron', 'titanium', 'alderwood', 'yew', 'pewter'],
@@ -73,6 +73,7 @@ var surfaceTypes = [
     ['mossy rotting floor', ['damp room']],
     ['toolbench', ['garage']],
     ['sorceror\'s desk', ['sorceror\'s study']],
+    ['sewing bench', ['tailor\'s studio']]
 ];
 var roomTypeItems = {
     'kitchen': ['jar of salt', 'jar of salt', 'life-giving herb', 'kitchen knife', 'kitchen knife'],
@@ -92,6 +93,7 @@ var roomTypeItems = {
     'serpent shrine': ['assassin\'s gun', 'blowgun', 'torch'],
     'witch doctor\'s hideaway': ['assassin\'s gun', 'assassin\'s gun', 'basket of jujube seeds', 'basket of jujube seeds', 'myrrh bracelet', 'myrrh bracelet', 'moon egg'],
     'sorceror\'s study': ['lunatic tome'],
+    'tailor\'s studio': ['scissors', 'sewing needle', 'scalpel', 'bone cutter', 'buzzsaw', 'hacksaw', 'ill-fitting suit']
 }
 var roomTypeMonsters = {
     'vast atrium with a fountain in the center': ['merman', 'rabid wizard', 'riverwolf', 'mounted knight'],
@@ -107,6 +109,7 @@ var roomTypeMonsters = {
     'damp room': ['toxic snail', 'gila moth', 'weaselcat'],
     'garage': ['Opel Manta'],
     'sorceror\'s study': ['psychic ray'],
+    'tailor\'s studio': ['procrustean tailor'],
 }
 
 var nextRoomId = 0;

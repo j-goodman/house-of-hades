@@ -8,6 +8,62 @@ extras['lich\'s eye'] = new ItemType (
     'A green eye with the power to kill those it looks upon.'
 )
 
+extras['ill-fitting suit'] = new ItemType (
+    'ill-fitting suit', 'shield',
+    [2,4,2,1,1,2,],
+    60,
+    'Your suit tears to pieces.',
+    'A expertly made but ill-fitting dark grey wool suit.',
+)
+
+extras['scissors'] = new ItemType (
+    'scissors', 'weapon',
+    [1,2,0,0,0,0],
+    '4',
+    'The scissors break.',
+    'A pair of brass scissors for cutting swatches of fabric.',
+)
+
+extras['hacksaw'] = new ItemType (
+    'hacksaw', 'weapon',
+    [0,9,2,0,0,0],
+    '12',
+    'The hacksaw breaks.',
+    'A red-stained but freshly sharpened hacksaw.',
+)
+
+extras['buzzsaw'] = new ItemType (
+    'buzzsaw', 'weapon',
+    [0,12,1,0,0,0],
+    '10',
+    'The buzzsaw breaks.',
+    'A battery-powered spinning buzzsaw.',
+)
+
+extras['bone cutter'] = new ItemType (
+    'bone cutter', 'weapon',
+    [2,11,3,0,0,0],
+    '10',
+    'The bone cutter breaks.',
+    'A stainless steel pair of clippers, a surgical instrument used to cut through bone.',
+)
+
+extras['scalpel'] = new ItemType (
+    'scalpel', 'weapon',
+    [2,5,0,0,0,0],
+    '2',
+    'The scalpel breaks.',
+    'A steel surgical scalpel.',
+)
+
+extras['sewing needle'] = new ItemType (
+    'sewing needle', 'weapon',
+    [1,0,0,0,0,0],
+    '1',
+    'The needle breaks.',
+    'A sewing needle.',
+)
+
 extras['Byzantine murder ring'] = new ItemType (
     'Byzantine murder ring', 'weapon',
     [0,13,0,0,0,0],
