@@ -671,7 +671,6 @@ var segments = [
           destinationDoor.to.monsters.push(this);
           this.room = destinationDoor.to;
         }
-        pick(this.room.doors).locked = true;
       }.bind(segmentRooms[0].monsters[0])
     },
 

@@ -16,6 +16,7 @@ extras['dragon'] = new MonsterType ({
             door = new Door ('trap', game.player.room, null);
             game.player.room.doors.push(door);
             door.to = new Room ([], 5);
+            door.to.monsters = []
             // door.to = new Room ([], 13);
             door.to.type = 'amphitheater with thirteen vaulted walls'
             door.to.items.push(
@@ -30,7 +31,6 @@ extras['dragon'] = new MonsterType ({
             )
             allMonsterTypes.push(extras['half-goat soldier'])
             allMonsterTypes.push(extras['swordwraith'])
-            allMonsterTypes.push(extras['murderer\'s courage'])
             allMonsterTypes.push(extras['shapeshifter'])
             allMonsterTypes.push(extras['nagual'])
             allMonsterTypes.push(extras['big floating eyeball'])
@@ -50,6 +50,7 @@ extras['dragon'] = new MonsterType ({
                     // 'polished marble',
                     'solid gold',
                 ][index]
+                innerDoor.locked = false
             })
             door.to.mana += 100;
             door.from.mana += 50;
@@ -886,7 +887,9 @@ extras['swordwraith'] = new MonsterType ({
     ],
     onInstantiate: function () {
         this.data.progress = 0
-        this.room.doors[0].locked = true
+        if (this.room && this.room.doors && this.room.doors[0]) {
+            this.room.doors[0].locked = true
+        }
     },
     fightEvent: function () {
         let slash = !!Math.round(Math.random())
@@ -1365,15 +1368,9 @@ extras['ice walker'].onInstantiate = function () {
     this.data.baseDefense = this.defense.map(stat => { return stat })
     this.data.baseAttack = this.attack.map(stat => { return stat })
     this.data.arsenal = [
-        itemByName('ice axe'),
-        itemByName('ice axe'),
-        itemByName('ice axe'),
-        itemByName('ice axe'),
-        itemByName('stick of dynamite'),
-        itemByName('stick of dynamite'),
-        itemByName('stick of dynamite'),
-        itemByName('black stone idol'),
-        itemByName('black stone idol'),
+        itemByName('ice axe'), itemByName('ice axe'), itemByName('ice axe'), itemByName('ice axe'),
+        itemByName('stick of dynamite'), itemByName('stick of dynamite'), itemByName('stick of dynamite'),
+        itemByName('black stone idol'), itemByName('black stone idol'),
         itemByName('primordial glob'),
         itemByName('revolver'),
         itemByName('moon egg'),
@@ -1418,10 +1415,9 @@ extras['chef\'s ghost'].onInstantiate = function () {
         itemByName('kitchen knife'),
         itemByName('paring knife'),
         itemByName('cleaver'),
-        itemByName('cleaver'),
-        itemByName('cast iron pan'),
         itemByName('cast iron pan'),
         itemByName('doughroller'),
+        itemByName('hot hot dish'),
     ];
     this.data.notify = function () {
         drawString(`The chef ${pick(['cackles', 'screams'])} and withdraws a ${this.data.item.name}.`);
@@ -1596,6 +1592,24 @@ extras['guardian knight'] = new MonsterType ({
     }
 })
 
+extras['dismounted griffin knight'] = new MonsterType ({
+    name: 'dismounted griffin knight',
+    attack: [9,10,4,0,0,0,],
+    defense: [5,12,12,0,0,12,],
+    hitpoints: 20,
+    level: 3,
+    info: `A tall knight.`,
+    onDeath: `The knight is killed.`,
+    drop: [new Item(itemByName('griffin shield'))],
+    onInstantiate: function () {
+        this.drop = [new Item(itemByName(pick([
+            'griffin shield',
+        ])))]
+        let drop = this.drop[0]
+        this.info = `A tall knight sworn to keep the person of the Griffin King from death or else die himself.`
+    }
+})
+
 extras['wizard knight'] = new MonsterType ({
     name: 'wizard knight',
     attack: [11,4,1,0,0,0,],
@@ -1623,7 +1637,7 @@ extras['mounted knight'] = new MonsterType ({
     name: 'mounted knight',
     attack: [0,9,0,0,0,0,],
     defense: [0,6,7,0,0,0,],
-    hitpoints: 20,
+    hitpoints: 10,
     level: 3,
     info: 'A knight astride a huge black warhorse.',
     onDeath: 'The horse tumbles to the ground and the knight leaps from his saddle.',
@@ -1651,7 +1665,7 @@ extras['goat-knight'] = new MonsterType ({
     name: 'goat-knight',
     attack: [0,9,0,0,0,0,],
     defense: [0,6,7,0,0,0,],
-    hitpoints: 20,
+    hitpoints: 10,
     level: 3,
     info: 'A half-goat knight astride a huge steed.',
     onDeath: 'The steed tumbles to the ground and the rider leaps from his saddle.',
@@ -1672,6 +1686,34 @@ extras['goat-knight'] = new MonsterType ({
         this.onDeath = `The ${this.steedType.name} falls dead and the ${this.knightType.name} leaps to his feet to fight.`
         this.attack = this.knightType.attack.map(num => { return num })
         this.defense = this.steedType.defense.map(num => { return num })
+    }
+})
+
+extras['griffin knight'] = new MonsterType ({
+    name: 'griffin knight',
+    attack: [0,9,0,0,0,0,],
+    defense: [0,6,7,0,0,0,],
+    hitpoints: 10,
+    level: 3,
+    info: 'A knight astride a huge griffin.',
+    onDeath: 'The griffin tumbles to the ground and the rider leaps from his saddle.',
+    deathEvent: function () {
+        game.player.room.monsters.push(new Monster (
+            game.player.room,
+            this.knightType,
+        ))
+        game.player.room.monsters.push(new Monster (
+            game.player.room,
+            this.steedType,
+        ))
+    },
+    onInstantiate: function () {
+        this.steedType = monByName(pick([
+            'griffin'
+        ]))
+        this.knightType = itemByName(pick([
+            'dismounted griffin knight'
+        ]))
     }
 })
 

@@ -39,7 +39,7 @@ var allItemTypes = [
 
     new ItemType (
         'revolver', 'weapon',
-        [6,0,0,1,0,0],
+        [8,0,0,1,0,0],
         6,
         'Your revolver\'s chamber spins and clicks -- you\'re out of bullets.',
         'It\'s a old-fashioned six-shooter. Deals powerful pierce damage.'
@@ -123,7 +123,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'atalatl', 'weapon',
-        [4,0,0,0,0,0],
+        [8,0,1,0,0,0],
         7,
         'You\'re out of atalatl spears.',
         'A spear thrower with seven spears. Deals moderate pierce damage.'
@@ -158,7 +158,7 @@ var allItemTypes = [
     ),
     new ItemType (
         'thompson gun', 'weapon',
-        [8,0,1,2,0,0],
+        [9,0,1,2,0,0],
         3,
         'Your thompson gun is out of ammo.',
         'A mass-market submachine gun, favorite of rumrunners and colonial enforcers. It spends a lot of ammo at once, so you\'ll only get three bursts out of it.'
