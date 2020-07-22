@@ -108,7 +108,8 @@ var roomTypeMonsters = {
     'haunted kitchen': ['chef\'s ghost', 'sous-chef\'s skeleton'],
     'damp room': ['toxic snail', 'gila moth', 'weaselcat'],
     'garage': ['Opel Manta'],
-    'sorceror\'s study': ['psychic ray'],
+    'laboratory': ['spider with hands'],
+    'sorceror\'s study': ['psychic ray', 'mage\'s head',],
     'tailor\'s studio': ['procrustean tailor'],
 }
 

@@ -1487,6 +1487,15 @@ extras['tarantula'] = new MonsterType ({
     info: 'A hairy spider the size of your hand.',
 })
 
+extras['spider with hands'] = new MonsterType ({
+    name: 'spider with hands',
+    attack: [0,0,13,0,0,0,],
+    defense: [8,0,3,2,9,1,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A giant spider with eight huge hairy white hands at the ends of its legs.',
+})
+
 extras['griffin'] = new MonsterType ({
     name: 'griffin',
     attack: [1,15,3,3,0,0,],
