@@ -402,6 +402,128 @@ extras['king\'s sword'] = new ItemType (
     'A two-handed longsword with a gold hilt and a blade of gleaming black steel.'
 )
 
+extras['hooked sword'] = new ItemType (
+    'hooked sword', 'weapon',
+    [2,10,3,0,0,0],
+    22,
+    'Your sword breaks at the handle.',
+    'An old but reliable two-handed steel blade with a hook at the end.'
+)
+
+extras['time traveler\'s luggage'] = new ItemType (
+    'time traveler\'s luggage', 'shield',
+    [2,10,3,0,0,0],
+    5,
+    'The time traveler\'s suitcase bursts, spewing out its contents.',
+    'A thick leather suitcase with the date written on the side. It looks like it\'s full enough to burst.',
+    function () { // On destroy
+        let possibleContents = [
+            'Greek\'s dagger',
+            'crusader\'s shield',
+            'counterfeit crown',
+            'infantry helmet',
+            'infantry helmet',
+            'macuahuitl',
+            'light gun',
+            'primordial hand-axe',
+            'jian',
+            'dao',
+            'Kelly gang armor',
+            'oak stick',
+            'chainmail shirt',
+            'thompson gun',
+            'canned ghost',
+            'bronze sword',
+        ]
+        let contents = [pick(['revolver', 'crowbar', 'revolver', 'life-giving herb'])]
+        possibleContents.forEach(cont => {
+            if (dice(7) === 7) {
+                contents.push(cont)
+            }
+        })
+        contents.forEach(cont => {
+            game.player.room.items.push(new Item (itemByName(cont)))
+        })
+        updateRoom()
+    },
+    null,
+    function () { // On instantiate
+        this.info = `A thick leather suitcase with the date ${pick(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])} ${dice(30)}, ${dice(3000)} ${pick(['A.D.', 'A.D.', 'A.D.', 'A.D.', 'A.D.', 'B.C.'])} written on the side. It looks like it's full enough to burst.`
+    }
+)
+
+extras['infantry helmet'] = new ItemType (
+    'infantry helmet', 'shield',
+    [1,3,8,0,0,0],
+    15,
+    'Your helmet breaks.',
+    'The standard issue broad-rimmed helmet of a WWI-era British infantryman.'
+)
+
+extras['macuahuitl'] = new ItemType (
+    'macuahuitl', 'weapon',
+    [0,12,4,0,0,1],
+    9,
+    'Your macuahuitl chips and breaks.',
+    'A sturdy wooden sword with atom-sharp obsidian blades embedded up and down its side, crafted in Mexico in the time of Itzcoatl.'
+)
+
+extras['light gun'] = new ItemType (
+    'light gun', 'weapon',
+    [8,0,0,8,0,0],
+    11,
+    'A thick acrid black smoke pours out of your light gun and it stops working.',
+    'A gleaming white handheld weapon of war, it emits a piercing-hot rainbow beam when you pull the trigger and starts to spit and spark temperamentally when it goes unused.'
+)
+
+extras['primordial hand-axe'] = new ItemType (
+    'primordial hand-axe', 'weapon',
+    [3,0,0,1,2,7],
+    5,
+    `The hand-axe becomes common ${pick(['chalk', 'sulfur', 'basalt'])} in your hands and crumbles.`,
+    'A hand-axe, roughly hewn out of the primordial formless stone that once dotted the young earth.'
+)
+
+extras['dao'] = new ItemType (
+    'dao', 'weapon',
+    [0,0,13,0,0,0],
+    19,
+    `Your dao breaks.`,
+    `A single-edged ancient Chinese steel, forged in the imperial city during the ${pick(['Qin', 'Han', 'Jin', 'Sui', 'Tang', 'Yuan', 'Qing'])} Dynasty.`
+)
+
+extras['jian'] = new ItemType (
+    'jian', 'weapon',
+    [5,0,9,0,0,0],
+    19,
+    `Your jian breaks.`,
+    `A double-edged ancient Chinese steel blade, forged in the imperial city during the ${pick(['Qin', 'Han', 'Jin', 'Sui', 'Tang', 'Yuan', 'Qing'])} Dynasty.`
+)
+
+extras['Kelly gang armor'] = new ItemType (
+    'Kelly gang armor', 'shield',
+    [12,12,12,0,0,0],
+    11,
+    `Your armor breaks.`,
+    `Quarter-inch thick iron plow-blades beaten into a suit of armor by the notorious Australian bush gang led by Ned Kelly.`
+)
+
+extras['bronze sword'] = new ItemType (
+    'bronze sword', 'shield',
+    [3,5,0,0,0,9],
+    19,
+    `The bronze sword breaks.`,
+    `A double-edged bronze sword blessed in Babylon by the priestesses of Ishtar before the city fell, and imbued with the goddess\'s power.`
+)
+
+extras['rocket launcher'] = new ItemType (
+    'rocket launcher', 'weapon',
+    [1,1,7,5,0,0],
+    3,
+    'You\'re out of rockets.',
+    'It\'s a rocket-propelled grenade launcher designed to rest on your shoulder.'
+),
+
 extras['griffin sword'] = new ItemType (
     'griffin sword', 'weapon',
     [12,6,0,0,0,0],
@@ -528,6 +650,14 @@ extras['wraith\'s sword'] = new ItemType (
     12,
     'The swordwraith returns in a whirl of black wind, seizing its sword from your hand. Having been defeated once already, it flees, vanishing into the walls of the house.',
     `A long curved blade of white light. Given by the ancient king Mahabali to his most loyal and skillful warriors in a vain attempt to protect himself from the justice of the fifth avatar of Vishnu, cursing them to plague the earth as wraiths for eternity.`
+)
+
+extras['pitchfork'] = new ItemType (
+    'pitchfork', 'weapon',
+    [7,0,2,0,0,0],
+    9,
+    'The pitchfork breaks.',
+    `A farmer\'s three-pronged hayfork.`
 )
 
 extras['bottle of liquid swords'] = new ItemType (

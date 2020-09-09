@@ -176,7 +176,7 @@ var allMonsterTypes = [
         defense: [9,8,8,1,4,2,],
         hitpoints: 20,
         level: 3,
-        info: 'A seething mass of forming and unforming flesh. All other life on earth was created as an accidental byproduct of this writhing parody\'s birth. If you can get close enough you can try burning it.',
+        info: 'A seething mass of forming and unforming flesh. All other life on earth was created as a accidental byproduct of this writhing parody\'s birth. If you can get close enough you can try burning it.',
         drop: [new Item(extras['primordial glob'])]
     }),
     new MonsterType ({
@@ -284,7 +284,7 @@ var allMonsterTypes = [
         defense: [7,0,8,3,5,9,],
         hitpoints: 20,
         level: 3,
-        info: 'Its weird scream is supposed to be an omen of disease. It can\'t wield weapons so it\'s most vulnerable to slashing attacks.',
+        info: 'Its weird scream is supposed to be a omen of disease. It can\'t wield weapons so it\'s most vulnerable to slashing attacks.',
         onDeath: 'The shrieking dog dies.'
     }),
     new MonsterType ({
@@ -369,7 +369,7 @@ var allMonsterTypes = [
         defense: [12,12,12,0,0,0,],
         hitpoints: 20,
         level: 3,
-        info: 'A once-powerful thunder god whose name hasn\'t been spoken in worship for centuries, now only an embittered cloud of static electricity. Can\'t be harmed with normal physical weapons.',
+        info: 'A once-powerful thunder god whose name hasn\'t been spoken in worship for centuries, now only a embittered cloud of static electricity. Can\'t be harmed with normal physical weapons.',
     }),
     new MonsterType ({
         name: 'skullhead',
@@ -420,12 +420,56 @@ var allMonsterTypes = [
     }),
     new MonsterType ({
         name: 'mage\'s head',
-        attack: [3,0,0,0,0,9,],
+        attack: [0,0,0,2,2,6,],
         defense: [12,12,4,4,12,4,],
         hitpoints: 20,
         level: 2,
         info: 'A bulbous disembodied head, the size of a large boulder and shimmering with a ghostly fog. It was once the head of a powerful sorceror who botched a spell to become immortal and now lives on as a swelling spectral head that will endure until it pops.',
         onDeath: 'The mage\'s head winces as it swells and swells, then bursts.',
+    }),
+    new MonsterType ({
+        name: 'gorgobhast',
+        attack: [0,0,0,3,5,0,],
+        defense: [0,10,10,3,11,2,],
+        hitpoints: 20,
+        level: 2,
+        info: 'A bull sized balloon of blotchy mud-green skin inflated full of noxious corrosive fumes that it generates in its seven stomachs. It has eight shining ink-black eyes that blink as if it\'s confused or dizzy. The gorgobhast\'s thick hide and muscular innards protect it from slashing and crushing, strike its weak points with a strong pierce attack instead.',
+        onDeath: 'The gorgobhast bursts.',
+    }),
+    extras['undead mercenary'] = new MonsterType ({
+        name: 'undead mercenary',
+        attack: [0,0,0,0,0,0,],
+        defense: [4,11,8,2,0,2,],
+        hitpoints: 20,
+        level: 3,
+        info: 'The dead body of a killer for hire dressed in thick body armor and armed.',
+        drop: [],
+        onInstantiate: function () {
+            let weaponNames = [
+                'thompson gun',
+                'thompson gun',
+                'thompson gun',
+                'hooked sword',
+                'hooked sword',
+                'machete',
+                'flaming sword',
+                'liar\'s torch',
+                'revolver',
+                'cursed pistol',
+                'shotgun',
+                'atalatl',
+                'rocket launcher',
+            ]
+            let weapon = itemByName(weaponNames[dice(6)])
+            for (let i = 0; i < 6; i++) {
+                this.attack[i] += weapon.bonus[i]
+            }
+            this.info = `The dead body of a killer for hire dressed in thick body armor and armed with a ${weapon.name}.`
+            let drop = weapon
+            this.drop.push(
+                new Item (drop)
+            )
+        }
     }),
     new MonsterType ({
         name: 'omnivorous fungus',
@@ -617,6 +661,25 @@ var allMonsterTypes = [
           this.die()
           drawString('The nails form up into two smaller men.')
       }
+    }),
+    new MonsterType ({
+        // pierce, slash, crush, burn, poison, curse
+        name: 'shapeshifter',
+        attack: [0,0,0,0,0,0,],
+        defense: [12,12,12,0,0,12,],
+        hitpoints: 20,
+        level: 3,
+        info: 'A sorceror who\'s spent years studying the art of shapeshifting, as signified by the necklace he wears made from the teeth of a thousand unique beasts. The proportions of his body are somewhat irregular, as if he\'s started to lose track of his original shape.',
+        onDeath: 'The shapeshifter returns to its human form and falls to its knees before writhing tentacles tear their way out from the inside of its skull and are consumed in white fire. It\'s dead.',
+        fightEvent: function () {
+            let targetType = pick(allMonsterTypes)
+            this.name = targetType.name
+            this.attack = targetType.attack
+            this.defense = targetType.defense
+            this.defense = targetType.defense
+            this.info = targetType.info
+            drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, then a ${targetType.name}`)
+        }
     })
 
     // pierce, slash, crush, burn, poison, curse

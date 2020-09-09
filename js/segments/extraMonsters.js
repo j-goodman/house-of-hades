@@ -88,6 +88,7 @@ extras['arcane merchant'].onInstantiate = function () {
         itemByName('dueling saber'),
         itemByName('gold-plated handgun'),
         itemByName('plague knight\'s sword'),
+        itemByName('macuahuitl'),
     ];
     this.data.notify = function () {
         drawString(`The merchant withdraws a ${this.data.item.name} from the folds of his velvety black coat.`);
@@ -608,26 +609,6 @@ extras['sandeater'] = new MonsterType ({
     info: 'A red creature the size of a hippo, with dry cracked red skin and a gaping mouth that lazily munches sand. It eyes you greedily and moves to devour you.',
 })
 
-extras['shapeshifter'] = new MonsterType ({
-    // pierce, slash, crush, burn, poison, curse
-    name: 'shapeshifter',
-    attack: [0,0,0,0,0,0,],
-    defense: [12,12,12,0,0,12,],
-    hitpoints: 20,
-    level: 3,
-    info: 'A sorceror who\'s spent years studying the art of shapeshifting, as signified by the necklace he wears made from the teeth of a thousand unique beasts. The proportions of his body are somewhat irregular, as if he\'s started to lose track of his original shape.',
-    onDeath: 'The shapeshifter returns to its human form and falls to its knees before writhing tentacles tear their way out from the inside of its skull and are consumed in white fire. It\'s dead.',
-    fightEvent: function () {
-        let targetType = pick(allMonsterTypes)
-        this.name = targetType.name
-        this.attack = targetType.attack
-        this.defense = targetType.defense
-        this.defense = targetType.defense
-        this.info = targetType.info
-        drawString(`With a noise like ${pick(['a colossal bullfrog\'s croak', 'a colossal bullfrog\'s croak', 'the screaming brakes of a fast-moving train', 'a howling rat-dog', 'a avalanche', 'a treetrunk snapping in two', 'a drowning elephant', 'a mauled hyena'])} the shapeshifter becomes a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, a ${pickUnique(allMonsterTypes.map(mon => { return mon.name }).concat(Object.keys(extras).filter(ext => { return !!extras[ext].attack })), [targetType.name])}, then a ${targetType.name}`)
-    }
-})
-
 extras['nagual'] = new MonsterType ({
     // pierce, slash, crush, burn, poison, curse
     name: 'nagual',
@@ -895,7 +876,7 @@ extras['swordwraith'] = new MonsterType ({
         let slash = !!Math.round(Math.random())
         this.attack[0] = slash ? 0 : 16
         this.attack[1] = slash ? 16 : 0
-        drawString(`The swordwraith winds around you like a whirlwind, waiting for an opening to ${slash ? 'slash' : 'stab'} at you.`)
+        drawString(`The swordwraith winds around you like a whirlwind, waiting for a opening to ${slash ? 'slash' : 'stab'} at you.`)
     },
 })
 
@@ -1220,6 +1201,18 @@ extras['evil fish-god'] = new MonsterType ({
     },
 })
 
+extras['hemogoblin'] = new MonsterType ({
+    name: 'hemogoblin',
+    attack: [8,3,3,0,3,0,],
+    defense: [3,5,8,4,10,3,],
+    hitpoints: 20,
+    level: 3,
+    info: 'A blood-drinking goblin -- the cracked orange skin around its mouth is stained red.',
+    onInstantiate: function () {
+        this.drop = [new Item(itemByName(pick(['bottle of demon\'s blood', 'pitchfork'])))]
+    },
+})
+
 extras['four-faced god'] = new MonsterType ({
     name: 'four-faced god',
     attack: [0,5,0,0,0,0,],
@@ -1496,6 +1489,15 @@ extras['spider with hands'] = new MonsterType ({
     info: 'A giant spider with eight huge hairy white hands at the ends of its legs.',
 })
 
+extras['flesh golem'] = new MonsterType ({
+    name: 'flesh golem',
+    attack: [0,5,7,0,0,0,],
+    defense: [12,7,9,4,12,5,],
+    hitpoints: 20,
+    level: 1,
+    info: 'A creature constructed from sewn-together pieces of corpses and transplanted with a brain of unknown origin.',
+})
+
 extras['griffin'] = new MonsterType ({
     name: 'griffin',
     attack: [1,15,3,3,0,0,],
@@ -1528,7 +1530,7 @@ extras['holy knight'] = new MonsterType ({
     defense: [8,11,6,0,0,12,],
     hitpoints: 20,
     level: 3,
-    info: `A paladin of an ancient kingdom, sworn to defend the cult of a long-dead god.`,
+    info: `A paladin of a ancient kingdom, sworn to defend the cult of a long-dead god.`,
     onDeath: `The knight is killed. He mutters a prayer then dies.`,
     drop: [new Item(itemByName(pick([
         'paladin\'s shield', 'magic sword'

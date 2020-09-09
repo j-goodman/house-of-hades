@@ -322,7 +322,7 @@ var allItemTypes = [
         [3,3,0,0,3,0],
         14,
         'Your bleeding mushroom runs out of blood and wilts.',
-        'A mushroom from which you can absorb a seemingly unlimited amount of blood, making bloodloss less of an issue.'
+        'A mushroom from which you can absorb a seemingly unlimited amount of blood, making bloodloss less of a issue.'
     ),
     new ItemType (
         'jar of salt', 'shield',

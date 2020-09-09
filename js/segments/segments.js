@@ -132,7 +132,7 @@ var segments = [
       var usedItems = [];
       var segmentItems = [
         itemByName('bleeding mushroom'), itemByName('evil eye'), itemByName('posessed bible'), itemByName('life-giving herb'), itemByName('crowbar'),
-        extras['razor-sharp bone'],
+        extras['razor-sharp bone'], itemByName('time traveler\'s luggage')
       ];
 
       segmentRooms.push(new Room ([], 3));
@@ -815,6 +815,7 @@ var segments = [
             itemByName('life-giving herb'),
             itemByName('thompson gun'),
             itemByName('cigarette lighter'),
+            itemByName('time traveler\'s luggage'),
             cursedRevolver,
             wildCompass,
             bonehardener,
